@@ -1,30 +1,90 @@
-""""""
-directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+type Query {
+  """
+  Get a specific character by ID
+  """
+  character("" id: ID!): Character
 
-""""""
-enum CacheControlScope {
-  """"""
-  PRIVATE
+  """
+  Get the list of all characters
+  """
+  characters("" page: Int, "" filter: FilterCharacter): Characters
 
-  """"""
-  PUBLIC
+  """
+  Get a list of characters selected by ids
+  """
+  charactersByIds("" ids: [ID!]!): [Character]
+
+  """
+  Get a specific locations by ID
+  """
+  location("" id: ID!): Location
+
+  """
+  Get the list of all locations
+  """
+  locations("" page: Int, "" filter: FilterLocation): Locations
+
+  """
+  Get a list of locations selected by ids
+  """
+  locationsByIds("" ids: [ID!]!): [Location]
+
+  """
+  Get a specific episode by ID
+  """
+  episode("" id: ID!): Episode
+
+  """
+  Get the list of all episodes
+  """
+  episodes("" page: Int, "" filter: FilterEpisode): Episodes
+
+  """
+  Get a list of episodes selected by ids
+  """
+  episodesByIds("" ids: [ID!]!): [Episode]
 }
 
-""""""
 type Character {
-  """Time at which the character was created in the database."""
-  created: String
+  """
+  The id of the character.
+  """
+  id: ID
 
-  """Episodes in which this character appeared."""
-  episode: [Episode]!
+  """
+  The name of the character.
+  """
+  name: String
+
+  """
+  The status of the character ('Alive', 'Dead' or 'unknown').
+  """
+  status: String
+
+  """
+  The species of the character.
+  """
+  species: String
+
+  """
+  The type or subspecies of the character.
+  """
+  type: String
 
   """
   The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
   """
   gender: String
 
-  """The id of the character."""
-  id: ID
+  """
+  The character's origin location
+  """
+  origin: Location
+
+  """
+  The character's last known location
+  """
+  location: Location
 
   """
   Link to the character's image.
@@ -32,177 +92,158 @@ type Character {
   """
   image: String
 
-  """The character's last known location"""
-  location: Location
+  """
+  Episodes in which this character appeared.
+  """
+  episode: [Episode]!
 
-  """The name of the character."""
-  name: String
-
-  """The character's origin location"""
-  origin: Location
-
-  """The species of the character."""
-  species: String
-
-  """The status of the character ('Alive', 'Dead' or 'unknown')."""
-  status: String
-
-  """The type or subspecies of the character."""
-  type: String
-}
-
-""""""
-type Characters {
-  """"""
-  info: Info
-
-  """"""
-  results: [Character]
-}
-
-""""""
-type Episode {
-  """The air date of the episode."""
-  air_date: String
-
-  """List of characters who have been seen in the episode."""
-  characters: [Character]!
-
-  """Time at which the episode was created in the database."""
+  """
+  Time at which the character was created in the database.
+  """
   created: String
+}
 
-  """The code of the episode."""
-  episode: String
-
-  """The id of the episode."""
+type Location {
+  """
+  The id of the location.
+  """
   id: ID
 
-  """The name of the episode."""
-  name: String
-}
-
-""""""
-type Episodes {
-  """"""
-  info: Info
-
-  """"""
-  results: [Episode]
-}
-
-""""""
-input FilterCharacter {
-  """"""
+  """
+  The name of the location.
+  """
   name: String
 
-  """"""
-  status: String
-
-  """"""
-  species: String
-
-  """"""
+  """
+  The type of the location.
+  """
   type: String
 
-  """"""
+  """
+  The dimension in which the location is located.
+  """
+  dimension: String
+
+  """
+  List of characters who have been last seen in the location.
+  """
+  residents: [Character]!
+
+  """
+  Time at which the location was created in the database.
+  """
+  created: String
+}
+
+type Episode {
+  """
+  The id of the episode.
+  """
+  id: ID
+
+  """
+  The name of the episode.
+  """
+  name: String
+
+  """
+  The air date of the episode.
+  """
+  air_date: String
+
+  """
+  The code of the episode.
+  """
+  episode: String
+
+  """
+  List of characters who have been seen in the episode.
+  """
+  characters: [Character]!
+
+  """
+  Time at which the episode was created in the database.
+  """
+  created: String
+}
+
+input FilterCharacter {
+  name: String
+
+  status: String
+
+  species: String
+
+  type: String
+
   gender: String
 }
 
-""""""
-input FilterEpisode {
-  """"""
-  name: String
+type Characters {
+  info: Info
 
-  """"""
-  episode: String
+  results: [Character]
 }
 
-""""""
-input FilterLocation {
-  """"""
-  name: String
-
-  """"""
-  type: String
-
-  """"""
-  dimension: String
-}
-
-""""""
 type Info {
-  """The length of the response."""
+  """
+  The length of the response.
+  """
   count: Int
 
-  """Number of the next page (if it exists)"""
-  next: Int
-
-  """The amount of pages."""
+  """
+  The amount of pages.
+  """
   pages: Int
 
-  """Number of the previous page (if it exists)"""
+  """
+  Number of the next page (if it exists)
+  """
+  next: Int
+
+  """
+  Number of the previous page (if it exists)
+  """
   prev: Int
 }
 
-""""""
-type Location {
-  """Time at which the location was created in the database."""
-  created: String
-
-  """The dimension in which the location is located."""
-  dimension: String
-
-  """The id of the location."""
-  id: ID
-
-  """The name of the location."""
+input FilterLocation {
   name: String
 
-  """List of characters who have been last seen in the location."""
-  residents: [Character]!
-
-  """The type of the location."""
   type: String
+
+  dimension: String
 }
 
-""""""
 type Locations {
-  """"""
   info: Info
 
-  """"""
   results: [Location]
 }
 
-""""""
-type Query {
-  """Get a specific character by ID"""
-  character(id: ID!): Character
+input FilterEpisode {
+  name: String
 
-  """Get the list of all characters"""
-  characters(filter: FilterCharacter, page: Int): Characters
-
-  """Get a list of characters selected by ids"""
-  charactersByIds(ids: [ID!]!): [Character]
-
-  """Get a specific episode by ID"""
-  episode(id: ID!): Episode
-
-  """Get the list of all episodes"""
-  episodes(filter: FilterEpisode, page: Int): Episodes
-
-  """Get a list of episodes selected by ids"""
-  episodesByIds(ids: [ID!]!): [Episode]
-
-  """Get a specific locations by ID"""
-  location(id: ID!): Location
-
-  """Get the list of all locations"""
-  locations(filter: FilterLocation, page: Int): Locations
-
-  """Get a list of locations selected by ids"""
-  locationsByIds(ids: [ID!]!): [Location]
+  episode: String
 }
 
-"""The `Upload` scalar type represents a file upload."""
+type Episodes {
+  info: Info
+
+  results: [Episode]
+}
+
+enum CacheControlScope {
+  PUBLIC
+
+  PRIVATE
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
 scalar Upload
+
+schema {
+  query: Query
+}

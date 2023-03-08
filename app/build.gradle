@@ -16,6 +16,11 @@ plugins {
 
     // Ktlint plugin
     id "org.jlleitschuh.gradle.ktlint"  version "11.3.1"
+
+    // Apollo Files and hilt
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'com.apollographql.apollo3'
 }
 
 android {
@@ -90,4 +95,22 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    implementation 'com.google.dagger:hilt-android:2.44'
+    kapt 'com.google.dagger:hilt-android-compiler:2.44'
+    implementation 'com.apollographql.apollo3:apollo-runtime:3.2.1'
+    def lifecycle_version = "2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation 'io.coil-kt:coil-compose:2.2.2'
+}
+
+apollo {
+    // instruct the compiler to generate Kotlin models
+    generateKotlinModels.set(true)
+    packageNamesFromFilePaths()
+}
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

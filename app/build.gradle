@@ -16,6 +16,11 @@ plugins {
 
     // Ktlint plugin
     id "org.jlleitschuh.gradle.ktlint"  version "11.3.1"
+
+    // Apollo Files and hilt
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'com.apollographql.apollo3'
 }
 
 android {
@@ -67,7 +72,7 @@ allprojects {
     ktlint{
         android = true
         ignoreFailures = false
-        disabledRules = ["final-newline", "no-wildcard-imports"]
+        disabledRules = ["final-newline", "no-wildcard-imports","import-ordering"]
         reporters{
             reporter "plain"
             reporter "checkstyle"
@@ -90,4 +95,29 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    implementation 'com.google.dagger:hilt-android:2.44'
+    kapt 'com.google.dagger:hilt-android-compiler:2.44'
+    implementation 'com.apollographql.apollo3:apollo-runtime:3.2.1'
+    def lifecycle_version = "2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation 'io.coil-kt:coil-compose:2.2.2'
+
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha09"
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
+}
+apollo {
+    service("service") {
+        packageName.set("com.example")
+    }
+}
+apollo {
+    // instruct the compiler to generate Kotlin models
+    generateKotlinModels.set(true)
+    packageNamesFromFilePaths()
+}
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

@@ -1,0 +1,11 @@
+query CharactersQuery{
+    characters {
+        results {
+            id
+            name
+            image
+            species
+            status
+        }
+    }
+}

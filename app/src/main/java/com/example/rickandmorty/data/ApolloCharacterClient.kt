@@ -1,7 +1,7 @@
 package com.example.rickandmorty.data
 
-import CharactersQuery
 import com.apollographql.apollo3.ApolloClient
+import com.example.CharactersQuery
 import com.example.rickandmorty.domain.Character
 import com.example.rickandmorty.domain.CharacterClient
 

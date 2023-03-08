@@ -1,6 +1,21 @@
+// Build Scripts
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:11.3.1"
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
+    // Ktlint plugin
+    id "org.jlleitschuh.gradle.ktlint"  version "11.3.1"
 }
 
 android {
@@ -42,6 +57,21 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+allprojects {
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
+
+    ktlint{
+        android = true
+        ignoreFailures = false
+        disabledRules = ["final-newline", "no-wildcard-imports"]
+        reporters{
+            reporter "plain"
+            reporter "checkstyle"
+            reporter "sarif"
         }
     }
 }

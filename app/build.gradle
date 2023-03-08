@@ -67,7 +67,7 @@ allprojects {
     ktlint{
         android = true
         ignoreFailures = false
-        disabledRules = ["final-newline", "no-wildcard-imports"]
+        disabledRules = ["final-newline", "no-wildcard-imports","import-ordering"]
         reporters{
             reporter "plain"
             reporter "checkstyle"

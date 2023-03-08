@@ -1,6 +1,6 @@
 package com.example.rickandmorty.data
 
-import CharactersQuery
+import com.example.CharactersQuery
 import com.example.rickandmorty.domain.Character
 
 fun CharactersQuery.Result.toCharacter(): Character {

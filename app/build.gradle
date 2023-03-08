@@ -103,8 +103,15 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation 'io.coil-kt:coil-compose:2.2.2'
-}
 
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha09"
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
+}
+apollo {
+    service("service") {
+        packageName.set("com.example")
+    }
+}
 apollo {
     // instruct the compiler to generate Kotlin models
     generateKotlinModels.set(true)

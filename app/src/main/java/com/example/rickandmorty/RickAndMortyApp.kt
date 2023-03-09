@@ -8,4 +8,6 @@ Marking this as a Parent Class for child classes to use dependency
 
  */
 @HiltAndroidApp
-class RickAndMortyApp : Application()
+class RickAndMortyApp :Application()
+
+

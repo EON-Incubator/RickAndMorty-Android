@@ -13,14 +13,13 @@ import com.example.rickandmorty.api.ApolloModule
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            // to use provider directly
+ class MainActivity : ComponentActivity() {
+     override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+         lifecycleScope.launch {
+                // to use provider directly
             val characterClient = ApolloModule.provideGetCharactersClient(ApolloModule.provideApolloClient())
-            Log.v("Test", characterClient.getCharacters().toString())
-
+              Log.v("Test", characterClient.getCharacters().toString())
             // to query using Use Case(Clean Architecture)
             // sorted result by name
             val characterClientUseCase = ApolloModule.provideGetCharacterUseCase(

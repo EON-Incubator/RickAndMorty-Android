@@ -18,9 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
             // to use provider directly
-            val characterClient = ApolloModule.provideGetCharactersClient(
-                ApolloModule.provideApolloClient()
-            )
+            val characterClient = ApolloModule.provideGetCharactersClient(ApolloModule.provideApolloClient())
             Log.v("Test", characterClient.getCharacters().toString())
 
             // to query using Use Case(Clean Architecture)
@@ -44,3 +42,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+

@@ -40,7 +40,7 @@ provideGetCharactersClient() method for abstraction
 
     @Provides
     @Singleton
-    fun provideGetCharacterUseCase(characterClient: CharacterClient): GetCharacterUseCase{
+    fun provideGetCharacterUseCase(characterClient: CharacterClient): GetCharacterUseCase {
         return GetCharacterUseCase(characterClient)
     }
 }

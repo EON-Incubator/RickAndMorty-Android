@@ -28,6 +28,4 @@ class ApolloEpisodeClient(private val apolloClient: ApolloClient) : EpisodeClien
             ?.episode
             ?.toDetailedEpisode()
     }
-
-
 }

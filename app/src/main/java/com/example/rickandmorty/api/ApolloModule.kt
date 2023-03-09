@@ -6,6 +6,8 @@ import com.example.rickandmorty.data.ApolloEpisodeClient
 import com.example.rickandmorty.domain.EpisodeClient
 import com.example.rickandmorty.domain.character.CharacterClient
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
+import com.example.rickandmorty.domain.episodeusecase.GetEpisodeUseCase
+import com.example.rickandmorty.domain.episodeusecase.GetEpisodesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,5 +53,17 @@ object ApolloModule {
     @Singleton
     fun provideGetEpisodeClient(apolloClient: ApolloClient): EpisodeClient {
         return ApolloEpisodeClient(apolloClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetEpisodesUseCase(episodeClient: EpisodeClient): GetEpisodesUseCase {
+        return GetEpisodesUseCase(episodeClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetEpisodeUseCase(episodeClient: EpisodeClient): GetEpisodeUseCase {
+        return GetEpisodeUseCase(episodeClient)
     }
 }

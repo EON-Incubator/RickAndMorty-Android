@@ -17,8 +17,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
+            //to use provider directly
             val characterClient = ApolloModule.provideGetCharactersClient(ApolloModule.provideApolloClient())
-            Log.v("Test",characterClient.getCharacters().toString());
+            Log.v("Test",characterClient.getCharacters().toString())
+
+            //to query using Use Case(Clean Architecture)
+            //sorted result by name
+            val characterClientUseCase = ApolloModule.provideGetCharacterUseCase(characterClient = characterClient)
+            Log.v("Test",characterClientUseCase.execute().toString())
         }
         setContent {
             RickAndMortyTheme {

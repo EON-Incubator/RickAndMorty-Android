@@ -2,8 +2,8 @@ package com.example.rickandmorty.data
 
 import com.apollographql.apollo3.ApolloClient
 import com.example.CharactersQuery
-import com.example.rickandmorty.domain.Character
-import com.example.rickandmorty.domain.CharacterClient
+import com.example.rickandmorty.domain.character.Character
+import com.example.rickandmorty.domain.character.CharacterClient
 
 class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterClient {
     override suspend fun getCharacters(): List<Character> {

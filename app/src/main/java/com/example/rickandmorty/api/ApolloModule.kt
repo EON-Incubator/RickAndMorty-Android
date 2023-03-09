@@ -10,6 +10,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/*
+with @Module annotation it tells the dagger hilt check this module while performing
+dependency injection
+
+SingletonComponent::class allows us to make the object of this just one time on Application level
+
+
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object ApolloModule {
@@ -21,6 +29,10 @@ object ApolloModule {
             .build()
     }
 
+    /*
+    passed apollo client directly in the implementation of
+    provideGetCharactersClient() method for abstraction
+     */
     @Provides
     @Singleton
     fun provideGetCharactersClient(apolloClient: ApolloClient): CharacterClient {
@@ -29,7 +41,7 @@ object ApolloModule {
 
     @Provides
     @Singleton
-    fun provideGetCharacterUseCase(characterClient: CharacterClient): GetCharacterUseCase{
+    fun provideGetCharacterUseCase(characterClient: CharacterClient): GetCharacterUseCase {
         return GetCharacterUseCase(characterClient)
     }
 }

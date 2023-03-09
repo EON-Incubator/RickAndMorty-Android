@@ -10,6 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import com.example.rickandmorty.api.ApolloModule
+import com.example.rickandmorty.ui.screens.materialThemeTest.MaterialThemeTesting
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import kotlinx.coroutines.launch
 
@@ -36,6 +37,8 @@ class MainActivity : ComponentActivity() {
 
                 }
             }
+            //To Testing the colour, font,(Material Theme)
+            //MaterialThemeTesting()
         }
     }
 }

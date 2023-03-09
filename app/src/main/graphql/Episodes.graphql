@@ -4,6 +4,9 @@ query GetEpisodes($page: Int){
             name
             episode
             air_date
+            characters {
+                image
+            }
         }
     }
 }

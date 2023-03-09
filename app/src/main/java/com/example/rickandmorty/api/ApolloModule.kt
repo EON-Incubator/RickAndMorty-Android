@@ -2,6 +2,8 @@ package com.example.rickandmorty.api
 
 import com.apollographql.apollo3.ApolloClient
 import com.example.rickandmorty.data.ApolloCharacterClient
+import com.example.rickandmorty.data.ApolloEpisodeClient
+import com.example.rickandmorty.domain.EpisodeClient
 import com.example.rickandmorty.domain.character.CharacterClient
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import dagger.Module
@@ -31,5 +33,11 @@ object ApolloModule {
     @Singleton
     fun provideGetCharacterUseCase(characterClient: CharacterClient): GetCharacterUseCase{
         return GetCharacterUseCase(characterClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetEpisodeClient(apolloClient: ApolloClient): EpisodeClient {
+        return ApolloEpisodeClient(apolloClient)
     }
 }

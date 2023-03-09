@@ -18,6 +18,7 @@ fun GetEpisodesQuery.Result.toEpisodes(): Episodes{
     return Episodes(
         name = name,
         episode = episode,
-        air_date = air_date
+        air_date = air_date,
+        characters = characters.mapNotNull { it?.image }
     )
 }

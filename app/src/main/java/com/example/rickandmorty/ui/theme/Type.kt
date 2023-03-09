@@ -2,9 +2,14 @@ package com.example.rickandmorty.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.rickandmorty.R
+
+val get_schwifty = FontFamily(Font(R.font.get_schwifty))
+val creepster_regular = FontFamily(Font(R.font.creepster_regular))
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -12,6 +17,24 @@ val Typography = Typography(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
+    ),
+
+    h1 = TextStyle(
+        fontFamily = get_schwifty,
+        fontWeight = FontWeight.Normal,
+        fontSize = 29.sp
+    ),
+
+    h2 = TextStyle(
+        fontFamily = creepster_regular,
+        fontWeight = FontWeight.Normal,
+        fontSize = 23.sp
+    ),
+
+    body2 = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp
     )
     /* Other default text styles to override
     button = TextStyle(

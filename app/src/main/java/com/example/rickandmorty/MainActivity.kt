@@ -10,6 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import com.example.rickandmorty.api.ApolloModule
+import com.example.rickandmorty.ui.screens.materialThemeTest.MaterialThemeTesting
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import kotlinx.coroutines.launch
 
@@ -17,8 +18,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
+            //to use provider directly
             val characterClient = ApolloModule.provideGetCharactersClient(ApolloModule.provideApolloClient())
-            Log.v("Test", characterClient.getCharacters().toString())
+            Log.v("Test",characterClient.getCharacters().toString())
+
+            //to query using Use Case(Clean Architecture)
+            //sorted result by name
+            val characterClientUseCase = ApolloModule.provideGetCharacterUseCase(characterClient = characterClient)
+            Log.v("Test",characterClientUseCase.execute().toString())
         }
         setContent {
             RickAndMortyTheme {
@@ -27,8 +34,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+
                 }
             }
+            //To Testing the colour, font,(Material Theme)
+            //MaterialThemeTesting()
         }
     }
 }

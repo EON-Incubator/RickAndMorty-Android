@@ -2,7 +2,8 @@ package com.example.rickandmorty.api
 
 import com.apollographql.apollo3.ApolloClient
 import com.example.rickandmorty.data.ApolloCharacterClient
-import com.example.rickandmorty.domain.CharacterClient
+import com.example.rickandmorty.domain.character.CharacterClient
+import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,5 +36,11 @@ provideGetCharactersClient() method for abstraction
     @Singleton
     fun provideGetCharactersClient(apolloClient: ApolloClient): CharacterClient {
         return ApolloCharacterClient(apolloClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCharacterUseCase(characterClient: CharacterClient): GetCharacterUseCase{
+        return GetCharacterUseCase(characterClient)
     }
 }

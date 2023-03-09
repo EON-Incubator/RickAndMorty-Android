@@ -4,9 +4,9 @@ import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.EpisodeClient
 
 class GetEpisodeUseCase(
-    private val episodeClient: EpisodeClient
+    private val episodeClient: EpisodeClient,
 ) {
-    suspend fun execute(id:String): DetailedEpisode? {
+    suspend fun execute(id: String): DetailedEpisode? {
         return episodeClient.getEpisode(id)
     }
 }

@@ -16,10 +16,12 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         lifecycleScope.launch {
+        lifecycleScope.launch {
             // to use provider directly
-               val characterClient = ApolloModule.provideGetCharactersClient(ApolloModule.provideApolloClient())
-            Log.v("Test"  , characterClient.getCharacters().toString())
+            val characterClient = ApolloModule.provideGetCharactersClient(
+                ApolloModule.provideApolloClient()
+            )
+            Log.v("Test", characterClient.getCharacters().toString())
 
             // to query using Use Case(Clean Architecture)
             // sorted result by name
@@ -42,7 +44,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
-
-

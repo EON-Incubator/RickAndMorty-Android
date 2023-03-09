@@ -10,5 +10,5 @@ fun CharactersQuery.Result.toCharacter(): Character {
         image = image,
         status = status,
         species = species
-        )
+    )
 }

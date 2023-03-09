@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
             val characterClient = ApolloModule.provideGetCharactersClient(ApolloModule.provideApolloClient())
-            Log.v("Test",characterClient.getCharacters().toString());
+            Log.v("Test", characterClient.getCharacters().toString())
         }
         setContent {
             RickAndMortyTheme {
@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
                 }
             }
         }

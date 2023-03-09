@@ -28,10 +28,11 @@ object ApolloModule {
             .serverUrl("https://rickandmortyapi.com/graphql")
             .build()
     }
-/*
-passed apollo client directly in the implementation of
-provideGetCharactersClient() method for abstraction
- */
+
+    /*
+    passed apollo client directly in the implementation of
+    provideGetCharactersClient() method for abstraction
+     */
     @Provides
     @Singleton
     fun provideGetCharactersClient(apolloClient: ApolloClient): CharacterClient {

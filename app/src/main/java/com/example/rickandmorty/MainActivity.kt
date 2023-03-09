@@ -19,14 +19,15 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             // to use provider directly
             val characterClient = ApolloModule.provideGetCharactersClient(
-                                    ApolloModule.provideApolloClient())
+                ApolloModule.provideApolloClient()
+            )
             Log.v("Test", characterClient.getCharacters().toString())
 
             // to query using Use Case(Clean Architecture)
             // sorted result by name
             val characterClientUseCase = ApolloModule.provideGetCharacterUseCase(
                 characterClient = characterClient
-                )
+            )
             Log.v("Test", characterClientUseCase.execute().toString())
         }
         setContent {

@@ -1,21 +1,21 @@
 // Build Scripts
-buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:11.3.1"
-    }
-}
+//buildscript {
+//    repositories {
+//        maven {
+//            url "https://plugins.gradle.org/m2/"
+//        }
+//    }
+//    dependencies {
+//        classpath "org.jlleitschuh.gradle:ktlint-gradle:11.0.0"
+//    }
+//}
 
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 
     // Ktlint plugin
-    id "org.jlleitschuh.gradle.ktlint"  version "11.3.1"
+    id "org.jlleitschuh.gradle.ktlint"  version "11.0.0"
 
     // Apollo Files and hilt
     id 'kotlin-kapt'
@@ -81,6 +81,16 @@ allprojects {
     }
 }
 
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint") // Version should be inherited from parent
+
+    repositories {
+        // Required to download KtLint
+        mavenCentral()
+    }
+
+
+}
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -106,6 +116,7 @@ dependencies {
 
     implementation "androidx.navigation:navigation-compose:2.4.0-alpha09"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
+  //  classpath "org.jlleitschuh.gradle:ktlint-gradle:11.3.1"
 }
 apollo {
     service("service") {

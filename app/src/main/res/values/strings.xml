@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RickAndMorty</string>
+
+    <!--  Navigation Data  -->
+    <string name="characters_screen_title">Characters</string>
+    <string name="episodes_screen_title">Episodes</string>
+    <string name="locations_screen_title">Locations</string>
+    <string name="search_screen_title">Search</string>
 </resources>

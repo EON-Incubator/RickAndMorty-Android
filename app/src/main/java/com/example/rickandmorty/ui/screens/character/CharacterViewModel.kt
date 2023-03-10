@@ -37,7 +37,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             }
             _characters.update {
                 it.copy(
-                    characters = getCharacterUseCase.execute(),
+                    characters = getCharacterUseCase.sortById(),
                     isLoading = false
 
                 )

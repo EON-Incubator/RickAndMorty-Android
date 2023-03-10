@@ -28,9 +28,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val charviewModel = hiltViewModel<CharacterViewModel>()
                     val state by charviewModel.characters.collectAsState()
-
                     CharactersScreen(state = state)
-
                 }
             }
         }

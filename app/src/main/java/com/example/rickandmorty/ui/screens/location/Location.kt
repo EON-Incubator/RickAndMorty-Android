@@ -12,37 +12,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.rickandmorty.R
-import com.example.rickandmorty.ui.screens.common_utils.ScreenNameBar
+import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
-fun LocationScreenPreviewLightMode()
-{
+fun LocationScreenPreviewLightMode() {
     LocationScreen()
 }
-
-
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
-fun LocationScreenPreviewDarkMode()
-{
+fun LocationScreenPreviewDarkMode() {
     LocationScreen()
 }
 
-
 @Composable
-fun LocationScreen()
-{
-
+fun LocationScreen() {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            ScreenNameBar(name = stringResource(R.string.location), onFilterClick = {})
+            ScreenNameBar(name = stringResource(R.string.location),
+                            onFilterClick = {})
+
+            GetEachLocationRow()
+
         }
     }
+}
+
+@Composable
+fun GetEachLocationRow(){
+    Row() {
+        //GetPhotosPallette()
 
 
+    }
 }

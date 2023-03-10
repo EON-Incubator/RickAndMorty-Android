@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    //LocationScreen()
+                     LocationScreen()
                 }
             }
             // To Testing the colour, font,(Material Theme)

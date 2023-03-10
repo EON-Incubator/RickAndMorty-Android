@@ -14,9 +14,8 @@ import com.example.rickandmorty.R
 fun ScreenNameBar(
     modifier: Modifier = Modifier,
     name: String,
-    onFilterClick: () -> Unit
+    onFilterClick: () -> Unit,
 ) {
-
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -28,12 +27,10 @@ fun ScreenNameBar(
             style = MaterialTheme.typography.h2,
             color = MaterialTheme.colors.onBackground
         )
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
-
             IconButton(
                 onClick = onFilterClick
             ) {

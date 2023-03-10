@@ -22,7 +22,6 @@ fun RickAndMortyTopAppBar(
         TopAppBar(
             modifier = modifier.fillMaxSize(),
             title = { TopBar(title = title) },
-
             navigationIcon = {
                 IconButton(onClick = navigateUp) {
                     Icon(

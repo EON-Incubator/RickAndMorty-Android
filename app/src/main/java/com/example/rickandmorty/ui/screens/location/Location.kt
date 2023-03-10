@@ -5,14 +5,12 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 
 object LocationDestination : NavigationDestination {
@@ -32,6 +30,7 @@ fun LocationScreenPreviewDarkMode() {
     LocationScreen()
 }
 
+@Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun LocationScreen() {
     Surface(
@@ -44,14 +43,15 @@ fun LocationScreen() {
                 onFilterClick = {}
             )
 
-            GetEachLocationRow()
+            GetRowWithFourImages(
+                mutableListOf(
+                    "https://rickandmortyapi.com/api/character/avatar/10.jpeg",
+                    "https://rickandmortyapi.com/api/character/avatar/10.jpeg"
+                ),
+                "Anatomy Park With B",
+                "Mount",
+                "Evil Dimention"
+            )
         }
-    }
-}
-
-@Composable
-fun GetEachLocationRow() {
-    Row() {
-        // GetPhotosPallette()
     }
 }

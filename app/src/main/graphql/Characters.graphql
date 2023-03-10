@@ -1,4 +1,5 @@
 query CharactersQuery{
+
     characters {
         results {
             id

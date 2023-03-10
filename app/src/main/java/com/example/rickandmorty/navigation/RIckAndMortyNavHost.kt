@@ -21,7 +21,7 @@ fun RickAndMortyNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
-    NavHost(navController = navController, startDestination = "characters") {
+    NavHost(navController = navController, startDestination = CharacterDestination.route) {
         composable(CharacterDestination.route) {
             Characters()
         }

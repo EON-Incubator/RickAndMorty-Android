@@ -10,4 +10,5 @@
     <string name="episode_detail_screen_title">Episode Details</string>
     <string name="location_detail_screen_title">Location Details</string>
     <string name="back_button">Back Button</string>
+    <string name="location">Location</string>
 </resources>

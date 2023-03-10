@@ -13,10 +13,7 @@ import com.example.rickandmorty.ui.screens.episode.EpisodeDestination
 import com.example.rickandmorty.ui.screens.episode.EpisodeDetails
 import com.example.rickandmorty.ui.screens.episode.EpisodeDetailsDestination
 import com.example.rickandmorty.ui.screens.episode.Episodes
-import com.example.rickandmorty.ui.screens.location.LocationDestination
-import com.example.rickandmorty.ui.screens.location.LocationDetails
-import com.example.rickandmorty.ui.screens.location.LocationDetailsDestination
-import com.example.rickandmorty.ui.screens.location.Locations
+import com.example.rickandmorty.ui.screens.location.*
 import com.example.rickandmorty.ui.screens.search.Search
 
 @Composable
@@ -38,7 +35,7 @@ fun RickAndMortyNavHost(
             EpisodeDetails()
         }
         composable(LocationDestination.route) {
-            Locations()
+            LocationScreen()
         }
         composable(LocationDetailsDestination.route) {
             LocationDetails()

@@ -9,8 +9,7 @@ class GetCharacterUseCase(
             .sortedBy { it.name }
     }
 
-    suspend fun sortById(): List<com.example.rickandmorty.domain.character.Character>{
+    suspend fun sortById(): List<com.example.rickandmorty.domain.character.Character> {
         return characterClient.getCharacters().sortedBy { it.ID }
-
     }
 }

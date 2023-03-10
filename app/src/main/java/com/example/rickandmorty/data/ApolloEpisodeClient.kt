@@ -9,7 +9,7 @@ import com.example.rickandmorty.domain.Episodes
 
 class ApolloEpisodeClient(private val apolloClient: ApolloClient) : EpisodeClient {
 
-    override suspend fun getEpisodes(page: Int): List<Episodes> {
+    override suspend fun getEpisodes(): List<Episodes> {
         return apolloClient
             .query(GetEpisodesQuery())
             .execute()

@@ -1,5 +1,5 @@
-query GetEpisodes($page: Int){
-    episodes(page: $page) {
+query GetEpisodes{
+    episodes {
         results {
             name
             episode

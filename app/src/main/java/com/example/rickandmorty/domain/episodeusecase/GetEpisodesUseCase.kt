@@ -4,9 +4,9 @@ import com.example.rickandmorty.domain.EpisodeClient
 import com.example.rickandmorty.domain.Episodes
 
 class GetEpisodesUseCase(private val episodeClient: EpisodeClient) {
-    suspend fun execute(page: Int): List<Episodes> {
+    suspend fun execute(): List<Episodes> {
         return episodeClient
-            .getEpisodes(page)
+            .getEpisodes()
             .sortedBy { it.name }
     }
 }

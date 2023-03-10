@@ -1,14 +1,16 @@
 package com.example.rickandmorty.ui.screens
 
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import android.icu.text.ListFormatter.Width
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
 @Composable
@@ -18,10 +20,11 @@ fun RickAndMortyTopAppBar(
     modifier: Modifier = Modifier,
     navigateUp: () -> Unit = {},
 ) {
+
     if (canNavigateBack) {
-        TopAppBar(
-            title = { Text(title) },
-            modifier = modifier,
+        TopAppBar( modifier = modifier.fillMaxSize(),
+            title = { TopBar(title = title) },
+
             navigationIcon = {
                 IconButton(onClick = navigateUp) {
                     Icon(
@@ -32,6 +35,23 @@ fun RickAndMortyTopAppBar(
             }
         )
     } else {
-        TopAppBar(title = { Text(title) }, modifier = modifier)
+        TopAppBar(title = { TopBar(title = title)}, modifier = modifier)
+    }
+}
+@Composable
+fun TopBar(title: String){
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colors.primary)
+        ,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.h1,
+            color = MaterialTheme.colors.onPrimary
+        )
     }
 }

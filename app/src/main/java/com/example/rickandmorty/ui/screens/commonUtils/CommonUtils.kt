@@ -27,7 +27,6 @@ fun ScreenNameBar(
             style = MaterialTheme.typography.h2,
             color = MaterialTheme.colors.onBackground
         )
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End

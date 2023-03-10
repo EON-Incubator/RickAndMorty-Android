@@ -6,6 +6,7 @@ import com.example.rickandmorty.navigation.NavigationDestination
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -38,7 +39,19 @@ fun LocationScreen() {
         color = MaterialTheme.colors.background
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            ScreenNameBar(name = stringResource(R.string.location), onFilterClick = {})
+            ScreenNameBar(
+                name = stringResource(R.string.location),
+                onFilterClick = {}
+            )
+
+            GetEachLocationRow()
         }
+    }
+}
+
+@Composable
+fun GetEachLocationRow() {
+    Row() {
+        // GetPhotosPallette()
     }
 }

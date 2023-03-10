@@ -5,9 +5,8 @@ import androidx.compose.runtime.Composable
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 
-
 @Composable
-fun Search(){
+fun Search() {
     Text(text = "Search")
 }
 object SearchDestination : NavigationDestination {

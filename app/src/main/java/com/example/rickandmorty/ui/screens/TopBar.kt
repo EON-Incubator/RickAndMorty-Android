@@ -10,14 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.rickandmorty.R
-import com.example.rickandmorty.navigation.NavigationDestination
 
 @Composable
 fun RickAndMortyTopAppBar(
     title: String,
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
-    navigateUp: () -> Unit = {}
+    navigateUp: () -> Unit = {},
 ) {
     if (canNavigateBack) {
         TopAppBar(

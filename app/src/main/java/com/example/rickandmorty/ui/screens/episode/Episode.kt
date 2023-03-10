@@ -6,7 +6,7 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 
 @Composable
-fun Episodes(){
+fun Episodes() {
     Text(text = "Episodes")
 }
 object EpisodeDestination : NavigationDestination {

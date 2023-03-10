@@ -19,33 +19,32 @@ import com.example.rickandmorty.ui.screens.location.LocationDetailsDestination
 import com.example.rickandmorty.ui.screens.location.Locations
 import com.example.rickandmorty.ui.screens.search.Search
 
-
 @Composable
 fun RickAndMortyNavHost(
     navController: NavHostController,
-    modifier: Modifier = Modifier
-){
-NavHost(navController = navController, startDestination = "characters"){
-    composable(CharacterDestination.route) {
-        Characters()
+    modifier: Modifier = Modifier,
+) {
+    NavHost(navController = navController, startDestination = "characters") {
+        composable(CharacterDestination.route) {
+            Characters()
+        }
+        composable(CharacterDetailsDestination.route) {
+            CharacterDetails()
+        }
+        composable(EpisodeDestination.route) {
+            Episodes()
+        }
+        composable(EpisodeDetailsDestination.route) {
+            EpisodeDetails()
+        }
+        composable(LocationDestination.route) {
+            Locations()
+        }
+        composable(LocationDetailsDestination.route) {
+            LocationDetails()
+        }
+        composable("search") {
+            Search()
+        }
     }
-    composable(CharacterDetailsDestination.route) {
-        CharacterDetails()
-    }
-    composable(EpisodeDestination.route) {
-        Episodes()
-    }
-    composable(EpisodeDetailsDestination.route) {
-        EpisodeDetails()
-    }
-    composable(LocationDestination.route) {
-        Locations()
-    }
-    composable(LocationDetailsDestination.route) {
-        LocationDetails()
-    }
-    composable("search") {
-        Search()
-    }
-}
 }

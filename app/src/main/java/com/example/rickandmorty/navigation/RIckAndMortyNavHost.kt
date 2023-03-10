@@ -1,14 +1,14 @@
 package com.example.rickandmorty.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.rickandmorty.ui.screens.character.CharacterDestination
-import com.example.rickandmorty.ui.screens.character.CharacterDetails
-import com.example.rickandmorty.ui.screens.character.CharacterDetailsDestination
-import com.example.rickandmorty.ui.screens.character.Characters
+import com.example.rickandmorty.ui.screens.character.*
 import com.example.rickandmorty.ui.screens.episode.EpisodeDestination
 import com.example.rickandmorty.ui.screens.episode.EpisodeDetails
 import com.example.rickandmorty.ui.screens.episode.EpisodeDetailsDestination
@@ -23,7 +23,9 @@ fun RickAndMortyNavHost(
 ) {
     NavHost(navController = navController, startDestination = CharacterDestination.route) {
         composable(CharacterDestination.route) {
-            Characters()
+            val viewModel = hiltViewModel<CharacterViewModel>()
+            val characterState by viewModel.characters.collectAsState()
+            Characters(characterState)
         }
         composable(CharacterDetailsDestination.route) {
             CharacterDetails()

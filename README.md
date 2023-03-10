@@ -18,3 +18,5 @@ Mobile app that consume the public RickyAndMorty GraphQL
 * You must setup KTLint locally and add it as a pre-commit hook to ensure your code is being linted
   * Read more about git hooks here https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
   * KTLint must also be setup as a Github Check to run on all pull requests and this check must pass for a PR to be merged
+
+

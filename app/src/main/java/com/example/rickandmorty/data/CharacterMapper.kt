@@ -1,7 +1,7 @@
 package com.example.rickandmorty.data
 
 import com.example.CharactersQuery
-import com.example.rickandmorty.domain.Character
+import com.example.rickandmorty.domain.character.Character
 
 fun CharactersQuery.Result.toCharacter(): Character {
     return Character(
@@ -10,5 +10,5 @@ fun CharactersQuery.Result.toCharacter(): Character {
         image = image,
         status = status,
         species = species
-        )
+    )
 }

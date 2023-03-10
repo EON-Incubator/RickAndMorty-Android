@@ -31,8 +31,8 @@ fun BottomNavigationBar(
             BottomNavigationItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
-                selectedContentColor = Color.White,
-                unselectedContentColor = Color.Gray,
+                selectedContentColor = MaterialTheme.colors.onPrimary,
+                unselectedContentColor = Color.DarkGray,
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
                         Icon(

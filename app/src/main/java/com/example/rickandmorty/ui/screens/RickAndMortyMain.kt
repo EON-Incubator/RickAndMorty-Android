@@ -31,19 +31,28 @@ fun RickAndMortyMainApp(
         BottomNavigationBar(
             items = listOf(
                 BottomNavItem(
-                    name = "Characters", route = "characters", icon = Icons.Default.Person
+                    name = "Characters",
+                    route = "characters",
+                    icon = Icons.Default.Person
                 ),
                 BottomNavItem(
-                    name = "Episodes", route = "episodes", icon = Icons.Default.PlayArrow
+                    name = "Episodes",
+                    route = "episodes",
+                    icon = Icons.Default.PlayArrow
                 ),
                 BottomNavItem(
-                    name = "Locations", route = "locations", icon = Icons.Default.LocationOn
+                    name = "Locations",
+                    route = "locations",
+                    icon = Icons.Default.LocationOn
                 ),
                 BottomNavItem(
-                    name = "Search", route = "search", icon = Icons.Default.Search
+                    name = "Search",
+                    route = "search",
+                    icon = Icons.Default.Search
                 )
             ),
-            navController = navController, onItemClick = {
+            navController = navController,
+            onItemClick = {
                 navController.navigate(it.route) {
                     popUpTo(
                         navController.currentBackStackEntry?.destination?.route

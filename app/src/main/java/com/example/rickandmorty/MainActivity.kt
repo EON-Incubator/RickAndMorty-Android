@@ -7,13 +7,11 @@ import androidx.compose.runtime.getValue
 import com.example.rickandmorty.ui.screens.RickAndMortyMainApp
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import dagger.hilt.android.AndroidEntryPoint
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             RickAndMortyTheme {
                 RickAndMortyMainApp()
             }

@@ -16,13 +16,11 @@ import com.example.rickandmorty.navigation.NavigationDestination
 @Composable
 fun Characters(state: CharacterViewModel.characterState) {
     Box(modifier = Modifier.fillMaxSize()) {
-
         if (state.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
             )
         } else {
-
             LazyColumn() {
                 items(state.characters) { item ->
                     characterItem(item)

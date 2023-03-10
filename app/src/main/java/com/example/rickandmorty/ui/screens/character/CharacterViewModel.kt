@@ -20,7 +20,7 @@ injection in it
 we are performing field injection with inject
 late init var is used to initialize it later
  */
-// @AndroidEntryPoint
+
 @HiltViewModel
 class CharacterViewModel @Inject constructor(private val getCharacterUseCase: GetCharacterUseCase) :
     ViewModel() {

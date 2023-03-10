@@ -6,10 +6,10 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 
 @Composable
-fun Characters() {
-    Text(text = "Characters")
+fun CharacterDetails() {
+    Text(text = "Characters Detail")
 }
-object CharacterDestination : NavigationDestination {
-    override val route = "characters"
-    override val screenTitleRes = R.string.characters_screen_title
+object CharacterDetailsDestination : NavigationDestination {
+    override val route = "character_detail"
+    override val screenTitleRes = R.string.character_detail_screen_title
 }

@@ -33,20 +33,19 @@ fun LocationScreen() {
         color = MaterialTheme.colors.background
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            ScreenNameBar(name = stringResource(R.string.location),
-                            onFilterClick = {})
+            ScreenNameBar(
+                name = stringResource(R.string.location),
+                onFilterClick = {}
+            )
 
             GetEachLocationRow()
-
         }
     }
 }
 
 @Composable
-fun GetEachLocationRow(){
+fun GetEachLocationRow() {
     Row() {
-        //GetPhotosPallette()
-
-
+        // GetPhotosPallette()
     }
 }

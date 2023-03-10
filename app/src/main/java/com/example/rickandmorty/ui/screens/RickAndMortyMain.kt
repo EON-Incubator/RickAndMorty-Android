@@ -50,7 +50,11 @@ fun RickAndMortyMainApp(
                 navController = navController,
                 onItemClick = {
                     navController.navigate(it.route) {
-                        popUpTo(navController.currentBackStackEntry?.destination?.route ?: CharacterDetailsDestination.route) {
+                        popUpTo(
+                            navController.currentBackStackEntry
+                                ?.destination?.route
+                                ?: CharacterDetailsDestination.route
+                        ) {
                             inclusive = true
                         }
                     }

@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens
 
-import android.icu.text.ListFormatter.Width
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -10,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
 @Composable
@@ -22,7 +20,8 @@ fun RickAndMortyTopAppBar(
 ) {
 
     if (canNavigateBack) {
-        TopAppBar( modifier = modifier.fillMaxSize(),
+        TopAppBar(
+            modifier = modifier.fillMaxSize(),
             title = { TopBar(title = title) },
 
             navigationIcon = {
@@ -35,16 +34,15 @@ fun RickAndMortyTopAppBar(
             }
         )
     } else {
-        TopAppBar(title = { TopBar(title = title)}, modifier = modifier)
+        TopAppBar(title = { TopBar(title = title) }, modifier = modifier)
     }
 }
 @Composable
-fun TopBar(title: String){
+fun TopBar(title: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.primary)
-        ,
+            .background(MaterialTheme.colors.primary),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

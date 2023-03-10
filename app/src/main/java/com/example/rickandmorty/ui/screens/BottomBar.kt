@@ -3,8 +3,7 @@ package com.example.rickandmorty.ui.screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -27,7 +26,7 @@ fun BottomNavigationBar(
     val backStackEntry = navController.currentBackStackEntryAsState()
     BottomNavigation(
         modifier = modifier,
-        backgroundColor = Color.DarkGray,
+        backgroundColor = MaterialTheme.colors.primary,
         elevation = 5.dp
     ) {
         items.forEach { item ->
@@ -35,17 +34,17 @@ fun BottomNavigationBar(
             BottomNavigationItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
+                selectedContentColor = Color.White,
+                unselectedContentColor = Color.Gray,
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
                         Icon(
                             imageVector = item.icon,
                             contentDescription = item.name
                         )
-                        if(selected){
+                        if (selected) {
                             Text(
-                                text = item.icon,
-                                textAlign = TextAlign.Center,
-                                
+                                text = item.name
                             )
                         }
                     }

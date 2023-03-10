@@ -6,4 +6,8 @@
     <string name="episodes_screen_title">Episodes</string>
     <string name="locations_screen_title">Locations</string>
     <string name="search_screen_title">Search</string>
+    <string name="character_detail_screen_title">Character Details</string>
+    <string name="episode_detail_screen_title">Episode Details</string>
+    <string name="location_detail_screen_title">Location Details</string>
+    <string name="back_button">Back Button</string>
 </resources>

@@ -27,7 +27,6 @@ import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 
 @Composable
 fun Characters(state: CharacterViewModel.characterState) {
-
     Column(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {
             CircularProgressIndicator(
@@ -38,8 +37,10 @@ fun Characters(state: CharacterViewModel.characterState) {
         } else {
             ScreenNameBar(name = "Characters", onFilterClick = {})
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2), verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(8.dp)
+                columns = GridCells.Fixed(2),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.padding(8.dp)
             ) {
                 items(state.characters) { character ->
                     characterItem(state = character)
@@ -56,7 +57,6 @@ object CharacterDestination : NavigationDestination {
 
 @Composable
 private fun characterItem(state: com.example.rickandmorty.domain.character.Character) {
-
     Card(
         modifier = Modifier
             .padding(12.dp)
@@ -64,9 +64,9 @@ private fun characterItem(state: com.example.rickandmorty.domain.character.Chara
         elevation = 12.dp
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {
-
             AsyncImage(
-                model = state.image, contentDescription = null,
+                model = state.image,
+                contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(
@@ -80,7 +80,8 @@ private fun characterItem(state: com.example.rickandmorty.domain.character.Chara
                     .background(MaterialTheme.colors.primaryVariant)
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.onPrimary, style = MaterialTheme.typography.body1
+                color = MaterialTheme.colors.onPrimary,
+                style = MaterialTheme.typography.body1
             )
         }
     }

@@ -25,7 +25,7 @@ fun RickAndMortyNavHost(
         composable(CharacterDestination.route) {
             val viewModel = hiltViewModel<CharacterViewModel>()
             val characterState by viewModel.characters.collectAsState()
-            Characters(characterState)
+            Characters(characterState , onClick= {navController.navigate(CharacterDetailsDestination.route)})
         }
         composable(CharacterDetailsDestination.route) {
             CharacterDetails()

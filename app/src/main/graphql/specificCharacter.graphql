@@ -1,0 +1,16 @@
+query specificCharacter($characterId: ID!) {
+    character(id: $characterId) {
+        id
+        episode {
+            air_date
+            episode
+            id
+            name
+        }
+        image
+        name
+        species
+        status
+        type
+    }
+}

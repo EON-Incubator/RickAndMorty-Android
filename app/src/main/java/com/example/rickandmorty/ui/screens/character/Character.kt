@@ -14,6 +14,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +29,11 @@ import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.example.rickandmorty.domain.character.Character
 
 @Composable
-fun Characters(state: CharacterViewModel.characterState , onClick:() -> Unit ) {
+fun Characters(
+    state: CharacterViewModel.characterState,
+    id: MutableState<String>,
+    onClick: () -> Unit,
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {
             CircularProgressIndicator(
@@ -45,7 +50,7 @@ fun Characters(state: CharacterViewModel.characterState , onClick:() -> Unit ) {
                 modifier = Modifier.padding(8.dp)
             ) {
                 items(state.characters) { character ->
-                    characterItem(state = character , onClick=onClick)
+                    characterItem(state = character, id = id, onClick = onClick)
                 }
             }
         }
@@ -57,12 +62,25 @@ object CharacterDestination : NavigationDestination {
     override val screenTitleRes = R.string.characters_screen_title
 }
 
+private fun action1(onClick: () -> Unit) {
+    onClick()
+}
+
+private fun action2(state: Character, id: MutableState<String>) {
+    id.value = state.ID.toString()
+}
+
 @Composable
-private fun characterItem(state: Character, onClick: () -> Unit) {
+private fun characterItem(state: Character, id: MutableState<String>, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(12.dp)
-            .fillMaxSize().clip(RoundedCornerShape(12.dp)).clickable { onClick() },
+            .fillMaxSize()
+            .clip(RoundedCornerShape(12.dp))
+            .clickable {
+                action1(onClick)
+                action2(state, id)
+            },
         elevation = 12.dp
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {

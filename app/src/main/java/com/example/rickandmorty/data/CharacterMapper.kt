@@ -2,8 +2,10 @@ package com.example.rickandmorty.data
 
 import com.example.AllLocationsQuery
 import com.example.CharactersQuery
+import com.example.LocationDetailQuery
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.location.Location
+import com.example.rickandmorty.domain.location.LocationDetail
 
 fun CharactersQuery.Result.toCharacter(): Character {
     return Character(
@@ -21,6 +23,15 @@ fun AllLocationsQuery.Result.toAllLocations(): Location {
         name = name,
         type = type,
         dimension = dimension,
-        images = residents.mapNotNull { it?.image }
+        images = residents.mapNotNull { it?.image },
+        created = ""
+    )
+}
+
+fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
+    return LocationDetail(
+        dimension = dimension,
+        name = name,
+        type = type
     )
 }

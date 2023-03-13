@@ -39,10 +39,11 @@ fun RickAndMortyNavHost(
         composable(LocationDestination.route) {
             val viewModel = hiltViewModel<LocationViewModel>()
             val locationsState by viewModel.location.collectAsState()
-            LocationScreen(locationsState)
+//            LocationScreen(locationsState)
+            LocationDetailScreen()
         }
         composable(LocationDetailsDestination.route) {
-            LocationDetails()
+            LocationDetailScreen()
         }
         composable("search") {
             Search()

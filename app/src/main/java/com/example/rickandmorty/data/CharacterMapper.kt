@@ -14,7 +14,7 @@ fun CharactersQuery.Result.toCharacter(): Character {
     )
 }
 
-fun SpecificCharacterQuery.Character.toSpecificChar(): com.example.rickandmorty.domain.character.Character {
+fun SpecificCharacterQuery.Character.toSpecificChar(): Character {
     return Character(
         ID = id,
         name = name,

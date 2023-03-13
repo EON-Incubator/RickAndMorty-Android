@@ -13,7 +13,7 @@ class GetCharacterUseCase(
         return characterClient.getCharacters().sortedBy { it.ID }
     }
 
-    suspend fun specific(code: String): com.example.rickandmorty.domain.character.Character ? {
+    suspend fun specificCharacter(code: String): DetailedCharacter ? {
         return characterClient.getSingleCharacter(code)
     }
 }

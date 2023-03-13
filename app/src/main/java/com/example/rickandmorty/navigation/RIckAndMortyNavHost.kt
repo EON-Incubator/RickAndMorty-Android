@@ -25,23 +25,19 @@ fun RickAndMortyNavHost(
         composable(CharacterDestination.route) {
             val viewModel = hiltViewModel<CharacterViewModel>()
             val characterState by viewModel.characters.collectAsState()
-            var idval = remember {
-                mutableStateOf("")
-            }
-            Log.d(
-                "idcheck",
-                "RickAndMortyNavHost: $idval"
-            )
+            var characterInfo = characterState.character
+
             Characters(
                 characterState,
-                idval,
-                onClick = { navController.navigate(CharacterDetailsDestination.route) }
+
+                onClick = { navController.navigate(CharacterDetailsDestination.route) },
+                onCharacterClick = { viewModel.selectCountry(it) }
             )
+            Log.d("check", "RickAndMortyNavHost:  ${characterState.character?.ID}")
+            Log.d("idcheck", "RickAndMortyNavHost:  ${characterInfo?.toString()}")
         }
         composable(CharacterDetailsDestination.route) {
-            val viewModel = hiltViewModel<CharacterViewModel>()
-            val characterState by viewModel.characters.collectAsState()
-            CharacterDetails(viewModel = viewModel())
+            CharacterDetails()
         }
         composable(EpisodeDestination.route) {
             Episodes()

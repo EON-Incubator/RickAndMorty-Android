@@ -2,15 +2,21 @@ query specificCharacter($characterId: ID!) {
     character(id: $characterId) {
         id
         episode {
-            air_date
-            episode
             id
             name
+            characters {
+                image
+            }
+            air_date
         }
         image
         name
         species
         status
-        type
+        gender
+        location {
+            dimension
+            created
+        }
     }
 }

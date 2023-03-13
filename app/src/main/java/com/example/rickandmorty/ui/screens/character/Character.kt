@@ -14,7 +14,6 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,8 +30,9 @@ import com.example.rickandmorty.domain.character.Character
 @Composable
 fun Characters(
     state: CharacterViewModel.characterState,
-    id: MutableState<String>,
+
     onClick: () -> Unit,
+    onCharacterClick: (code: String) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {
@@ -50,7 +50,11 @@ fun Characters(
                 modifier = Modifier.padding(8.dp)
             ) {
                 items(state.characters) { character ->
-                    characterItem(state = character, id = id, onClick = onClick)
+                    characterItem(
+                        charstate = character,
+                        onClick = onClick,
+                        onCharacterClick = onCharacterClick
+                    )
                 }
             }
         }
@@ -63,15 +67,20 @@ object CharacterDestination : NavigationDestination {
 }
 
 private fun action1(onClick: () -> Unit) {
-    onClick()
+    // onClick()
 }
 
-private fun action2(state: Character, id: MutableState<String>) {
-    id.value = state.ID.toString()
+private fun action2(charstate: Character, changeId: (code: String) -> Unit) {
+    changeId(charstate.ID.toString())
 }
 
 @Composable
-private fun characterItem(state: Character, id: MutableState<String>, onClick: () -> Unit) {
+private fun characterItem(
+    charstate: Character,
+
+    onClick: () -> Unit,
+    onCharacterClick: (code: String) -> Unit,
+) {
     Card(
         modifier = Modifier
             .padding(12.dp)
@@ -79,13 +88,13 @@ private fun characterItem(state: Character, id: MutableState<String>, onClick: (
             .clip(RoundedCornerShape(12.dp))
             .clickable {
                 action1(onClick)
-                action2(state, id)
+                action2(charstate = charstate, onCharacterClick)
             },
         elevation = 12.dp
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {
             AsyncImage(
-                model = state.image,
+                model = charstate.image,
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
@@ -95,7 +104,7 @@ private fun characterItem(state: Character, id: MutableState<String>, onClick: (
                 contentScale = ContentScale.Crop
             )
             Text(
-                text = state.name.toString(),
+                text = charstate.name.toString(),
                 modifier = Modifier
                     .background(MaterialTheme.colors.primaryVariant)
                     .fillMaxWidth(),

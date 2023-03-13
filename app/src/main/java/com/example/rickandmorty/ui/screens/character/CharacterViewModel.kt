@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.character.Character
 
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -39,6 +40,8 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             _characters.update {
                 it.copy(
                     characters = getCharacterUseCase.sortById(),
+                    character = getCharacterUseCase
+                        .specificCharacter(characters.value.selectedCharacter.toString()),
                     isLoading = false
 
                 )
@@ -46,8 +49,15 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
         }
     }
 
-    fun selectCountry(code: String) {
+    open fun selectCountry(code: String) {
         viewModelScope.launch {
+            _characters.update {
+                it.copy(
+
+                    character = getCharacterUseCase.specificCharacter(code)
+
+                )
+            }
         }
     }
 
@@ -56,7 +66,8 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
 
     data class characterState(
         val characters: List<com.example.rickandmorty.domain.character.Character> = emptyList(),
-        // val character: com.example.rickandmorty.domain.character.Character= Character("","","","",""),
+        val character: com.example.rickandmorty.domain.character.DetailedCharacter? = null,
         val isLoading: Boolean = false,
+        var selectedCharacter: String? = null,
     )
 }

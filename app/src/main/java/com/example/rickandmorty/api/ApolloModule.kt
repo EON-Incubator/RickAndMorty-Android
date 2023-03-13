@@ -4,6 +4,7 @@ import com.apollographql.apollo3.ApolloClient
 import com.example.rickandmorty.data.ApolloCharacterClient
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
+import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,5 +44,11 @@ object ApolloModule {
     @Singleton
     fun provideGetCharacterUseCase(characterClient: CharacterClient): GetCharacterUseCase {
         return GetCharacterUseCase(characterClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAllLocationUseCase(characterClient: CharacterClient): GetAllLocationUseCase {
+        return GetAllLocationUseCase(characterClient)
     }
 }

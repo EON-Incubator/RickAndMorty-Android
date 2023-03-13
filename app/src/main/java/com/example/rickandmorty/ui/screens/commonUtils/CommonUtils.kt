@@ -56,16 +56,26 @@ fun ScreenNameBar(
 
 @Composable
 fun GetRowWithFourImages(
-    imageUrlLink: MutableList<String>,
+    imageUrlLink: List<String>?,
     titleName: String,
     property1: String,
     property2: String,
 ) {
-    if (imageUrlLink.size < 4) {
-        for (i in imageUrlLink.size..3) {
-            imageUrlLink.add("")
+    var mutableImageLink = imageUrlLink!!.toMutableList()
+
+    if (mutableImageLink.size < 4) {
+        for (i in mutableImageLink.size..3) {
+            mutableImageLink.add("")
         }
     }
+
+//    for( i in 0..3)
+//    {
+//        if(i>imageUrlLink.size)
+//            mutableImageLink.add("")
+//        else
+//            mutableImageLink.add(imageUrlLink[i])
+//    }
 
     Card(shape = RoundedCornerShape(10.dp), elevation = 7.dp, modifier = Modifier.padding(5.dp)) {
         Row(
@@ -74,7 +84,7 @@ fun GetRowWithFourImages(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(modifier = Modifier.weight(1f)) {
-                GetImages(imageUrlLink)
+                GetImages(mutableImageLink)
             }
 
             Row(modifier = Modifier.weight(2f)) {

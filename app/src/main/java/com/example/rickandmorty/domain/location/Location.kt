@@ -5,4 +5,5 @@ data class Location(
     val name: String?,
     val type: String?,
     val dimension: String?,
+    val images: List<String>?,
 )

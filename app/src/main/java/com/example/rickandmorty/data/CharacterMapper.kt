@@ -20,6 +20,7 @@ fun AllLocationsQuery.Result.toAllLocations(): Location {
         id = id,
         name = name,
         type = type,
-        dimension = dimension
+        dimension = dimension,
+        images = residents.mapNotNull { it?.image }
     )
 }

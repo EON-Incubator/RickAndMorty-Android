@@ -5,6 +5,9 @@ query AllLocations {
             name
             type
             dimension
+            residents {
+                image
+            }
         }
     }
 }

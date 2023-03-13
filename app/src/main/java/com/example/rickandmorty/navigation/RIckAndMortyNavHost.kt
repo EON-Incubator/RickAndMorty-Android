@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -38,7 +39,9 @@ fun RickAndMortyNavHost(
             )
         }
         composable(CharacterDetailsDestination.route) {
-            CharacterDetails()
+            val viewModel = hiltViewModel<CharacterViewModel>()
+            val characterState by viewModel.characters.collectAsState()
+            CharacterDetails(viewModel = viewModel())
         }
         composable(EpisodeDestination.route) {
             Episodes()

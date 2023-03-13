@@ -2,6 +2,7 @@ package com.example.rickandmorty.ui.screens.character
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickandmorty.domain.character.Character
 
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -55,6 +56,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
 
     data class characterState(
         val characters: List<com.example.rickandmorty.domain.character.Character> = emptyList(),
+        // val character: com.example.rickandmorty.domain.character.Character= Character("","","","",""),
         val isLoading: Boolean = false,
     )
 }

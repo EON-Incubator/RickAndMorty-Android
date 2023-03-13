@@ -10,7 +10,6 @@ import androidx.compose.material.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 
 object LocationDestination : NavigationDestination {
@@ -43,15 +42,15 @@ fun LocationScreen() {
                 onFilterClick = {}
             )
 
-            GetRowWithFourImages(
-                mutableListOf(
-                    "https://rickandmortyapi.com/api/character/avatar/10.jpeg",
-                    "https://rickandmortyapi.com/api/character/avatar/10.jpeg"
-                ),
-                "Anatomy Park With B",
-                "Mount",
-                "Evil Dimention"
-            )
+//            GetRowWithFourImages(
+//                mutableListOf(
+//                    "https://rickandmortyapi.com/api/character/avatar/10.jpeg",
+//                    "https://rickandmortyapi.com/api/character/avatar/10.jpeg"
+//                ),
+//                "Anatomy Park With B",
+//                "Mount",
+//                "Evil Dimention"
+//            )
         }
     }
 }

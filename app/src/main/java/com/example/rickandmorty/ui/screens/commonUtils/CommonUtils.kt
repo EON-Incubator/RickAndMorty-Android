@@ -55,6 +55,35 @@ fun ScreenNameBar(
 }
 
 @Composable
+fun GetInfoInLine(icons: ImageVector, topic: String, topicAnswer: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 20.dp, bottom = 5.dp, top = 5.dp)
+    ) {
+        Text(
+            modifier = Modifier.weight(1f),
+            text = topic,
+            style = MaterialTheme.typography.body2,
+            color = MaterialTheme.colors.onBackground,
+            fontWeight = FontWeight.Bold
+        )
+
+        Text(
+            modifier = Modifier.weight(1f),
+            text = topicAnswer,
+            style = MaterialTheme.typography.body2,
+            color = MaterialTheme.colors.onBackground,
+            fontWeight = FontWeight.Normal
+        )
+    }
+    Divider(
+        Modifier.height(1.dp),
+        color = MaterialTheme.colors.onBackground
+    )
+}
+
+@Composable
 fun GetRowWithFourImages(
     imageUrlLink: List<String>?,
     titleName: String,

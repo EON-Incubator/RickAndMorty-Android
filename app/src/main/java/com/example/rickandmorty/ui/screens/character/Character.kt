@@ -1,6 +1,7 @@
 package com.example.rickandmorty.ui.screens.character
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -24,9 +25,15 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
+import com.example.rickandmorty.domain.character.Character
 
 @Composable
-fun Characters(state: CharacterViewModel.characterState) {
+fun Characters(
+    state: CharacterViewModel.characterState,
+
+    onClick: () -> Unit,
+    onCharacterClick: (code: String) -> Unit,
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {
             CircularProgressIndicator(
@@ -43,7 +50,11 @@ fun Characters(state: CharacterViewModel.characterState) {
                 modifier = Modifier.padding(8.dp)
             ) {
                 items(state.characters) { character ->
-                    characterItem(state = character)
+                    characterItem(
+                        charstate = character,
+                        onClick = onClick,
+                        onCharacterClick = onCharacterClick
+                    )
                 }
             }
         }
@@ -55,17 +66,35 @@ object CharacterDestination : NavigationDestination {
     override val screenTitleRes = R.string.characters_screen_title
 }
 
+private fun action1(onClick: () -> Unit) {
+    // onClick()
+}
+
+private fun action2(charstate: Character, changeId: (code: String) -> Unit) {
+    changeId(charstate.ID.toString())
+}
+
 @Composable
-private fun characterItem(state: com.example.rickandmorty.domain.character.Character) {
+private fun characterItem(
+    charstate: Character,
+
+    onClick: () -> Unit,
+    onCharacterClick: (code: String) -> Unit,
+) {
     Card(
         modifier = Modifier
             .padding(12.dp)
-            .fillMaxSize().clip(RoundedCornerShape(12.dp)),
+            .fillMaxSize()
+            .clip(RoundedCornerShape(12.dp))
+            .clickable {
+                action1(onClick)
+                action2(charstate = charstate, onCharacterClick)
+            },
         elevation = 12.dp
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {
             AsyncImage(
-                model = state.image,
+                model = charstate.image,
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
@@ -75,7 +104,7 @@ private fun characterItem(state: com.example.rickandmorty.domain.character.Chara
                 contentScale = ContentScale.Crop
             )
             Text(
-                text = state.name.toString(),
+                text = charstate.name.toString(),
                 modifier = Modifier
                     .background(MaterialTheme.colors.primaryVariant)
                     .fillMaxWidth(),

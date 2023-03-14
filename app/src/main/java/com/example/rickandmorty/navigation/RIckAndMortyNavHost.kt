@@ -39,7 +39,7 @@ fun RickAndMortyNavHost(
         composable(EpisodeDestination.route) {
             val viewModel = hiltViewModel<EpisodeViewModel>()
             val state by viewModel.state.collectAsState()
-//            EpisodesScreen(state = state)
+            EpisodesScreen(state = state, onSelectEpisode = {})
         }
         composable(EpisodeDetailsDestination.route) {
             EpisodeDetails()

@@ -25,20 +25,6 @@ import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 fun Episodes() {
     val viewModel = hiltViewModel<EpisodeViewModel>()
     val state by viewModel.state.collectAsState()
-
-//    Surface(
-//        modifier = Modifier.fillMaxSize(),
-//        color = MaterialTheme.colors.background
-//    ) {
-// //        Column(modifier = Modifier.fillMaxSize()) {
-// //            ScreenNameBar(name = stringResource(R.string.episodes_screen_title), onFilterClick = {})
-// //            EpisodesScreen(
-// //                state = state,
-// //                onSelectEpisode = viewModel::selectEpisode,
-// //                onDismissEpisodeDialog = viewModel::dismissEpisodeDialog
-// //            )
-//        }
-//    }
 }
 
 object EpisodeDestination : NavigationDestination {
@@ -49,7 +35,7 @@ object EpisodeDestination : NavigationDestination {
 @Composable
 fun EpisodesScreen(
     state: EpisodeViewModel.EpisodesState,
-//    onSelectEpisode: (id: String) -> Unit,
+    onSelectEpisode: (id: String) -> Unit,
 //    onDismissEpisodeDialog: () -> Unit,
 ) {
     Surface(
@@ -70,7 +56,9 @@ fun EpisodesScreen(
                             imageUrlLink = episode.images,
                             titleName = episode.name.toString(),
                             property1 = episode.episode.toString(),
-                            property2 = episode.air_date.toString()
+                            property2 = episode.air_date.toString(),
+                            onClickable = {},
+                            id = onSelectEpisode.toString()
                         )
                     }
                 }

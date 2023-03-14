@@ -14,4 +14,8 @@ interface CharacterClient {
     suspend fun getCharacters(name: String = ""): List<Character>
 
     suspend fun getSingleCharacter(code: String): DetailedCharacter?
+
+    suspend fun getEpisodes(): List<Episodes>
+
+    suspend fun getEpisode(id: String): DetailedEpisode?
 }

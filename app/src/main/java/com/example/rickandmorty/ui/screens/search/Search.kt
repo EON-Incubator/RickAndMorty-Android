@@ -1,6 +1,7 @@
 package com.example.rickandmorty.ui.screens.search
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -28,6 +29,8 @@ fun Search(
     locationState: SearchViewModel.LocationState,
     onValueChange: (name: String) -> Unit,
     query: TextFieldValue,
+    onLocationClick: (id: String) -> Unit,
+    onCharacterClick: (id: String) -> Unit,
 ) {
     Column() {
         TextField(
@@ -56,7 +59,8 @@ fun Search(
                                     .fillMaxSize()
                                     .clip(
                                         RoundedCornerShape(8.dp)
-                                    ),
+                                    )
+                                    .clickable { onCharacterClick(item.ID.toString()) },
                                 contentScale = ContentScale.Crop
                             )
                             Text(
@@ -82,7 +86,9 @@ fun Search(
                         imageUrlLink = item.images,
                         titleName = item.name.toString(),
                         property1 = item.type.toString(),
-                        property2 = item.dimension.toString()
+                        property2 = item.dimension.toString(),
+                        id = item.id.toString(),
+                        onClickable = { onLocationClick(item.id.toString()) }
                     )
                 }
             }

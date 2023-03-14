@@ -9,10 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.rickandmorty.ui.screens.character.*
-import com.example.rickandmorty.ui.screens.episode.EpisodeDestination
-import com.example.rickandmorty.ui.screens.episode.EpisodeDetails
-import com.example.rickandmorty.ui.screens.episode.EpisodeDetailsDestination
-import com.example.rickandmorty.ui.screens.episode.Episodes
+import com.example.rickandmorty.ui.screens.episode.*
 import com.example.rickandmorty.ui.screens.location.*
 import com.example.rickandmorty.ui.screens.search.Search
 import com.example.rickandmorty.ui.screens.search.SearchViewModel
@@ -41,19 +38,38 @@ fun RickAndMortyNavHost(
             CharacterDetails()
         }
         composable(EpisodeDestination.route) {
-            Episodes()
+            val viewModel = hiltViewModel<EpisodeViewModel>()
+            val state by viewModel.state.collectAsState()
+//            EpisodesScreen(state = state)
         }
         composable(EpisodeDetailsDestination.route) {
             EpisodeDetails()
         }
         composable(LocationDestination.route) {
+            // For Location Screen
             val viewModel = hiltViewModel<LocationViewModel>()
             val locationsState by viewModel.location.collectAsState()
-            LocationScreen(locationsState)
-//            LocationDetailScreen()
+
+            LocationScreen(
+                locationsState,
+                onClick = {
+                    navController.navigate(LocationDetailsDestination.route + "?id=$it")
+                }
+
+            )
+
+            // For Location Detail Screen
+//            val viewModel = hiltViewModel<LocationDetailViewModel>()
+//            val locationsDetailState by viewModel.locationDetail.collectAsState()
+//            LocationDetailScreen(locationsDetailState)
         }
-        composable(LocationDetailsDestination.route) {
-            LocationDetailScreen()
+        composable(LocationDetailsDestination.route + "?id={id}") {
+            val id = it.arguments?.getString("id")
+            val viewModel = hiltViewModel<LocationDetailViewModel>()
+            val locationsDetailState by viewModel.locationDetail.collectAsState()
+            LocationDetailScreen(
+                locationsDetailState
+            )
         }
         composable("search") {
             val viewModel = hiltViewModel<SearchViewModel>()
@@ -64,7 +80,9 @@ fun RickAndMortyNavHost(
                 characterState = characterState,
                 locationState = locationState,
                 onValueChange = { viewModel.onSearch(it) },
-                query = viewModel.query
+                query = viewModel.query,
+                onLocationClick = { navController.navigate(LocationDetailsDestination.route + "?id=${it}") },
+                onCharacterClick = { navController.navigate(CharacterDetailsDestination.route + "/${it}") }
             )
         }
     }

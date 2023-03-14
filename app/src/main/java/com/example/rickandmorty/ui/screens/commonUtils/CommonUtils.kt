@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
@@ -56,12 +59,20 @@ fun ScreenNameBar(
 }
 
 @Composable
-fun GetInfoInLine(icons: ImageVector, topic: String, topicAnswer: String) {
+fun GetInfoInLine(
+    icons: ImageVector,
+    topic: String,
+    topicAnswer: String,
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, bottom = 5.dp, top = 5.dp)
+            .padding(start = 20.dp, bottom = 5.dp, top = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
     ) {
+        Image(imageVector = icons, contentDescription = null)
         Text(
             modifier = Modifier.weight(1f),
             text = topic,
@@ -112,7 +123,8 @@ fun GetRowWithFourImages(
     Card(
         shape = RoundedCornerShape(10.dp),
         elevation = 7.dp,
-        modifier = Modifier.padding(5.dp)
+        modifier = Modifier
+            .padding(5.dp)
             .clickable {
                 onClickable(id)
             }
@@ -221,6 +233,58 @@ fun GetData(
                 text = property2,
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground
+            )
+        }
+    }
+}
+
+/*
+Composable for Chracter Bar
+
+ */
+// @Preview(showSystemUi = true)
+@Composable
+fun CharacterBar() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Row() {
+            AsyncImage(
+                model = "https://rickandmortyapi.com/api/character/avatar/4.jpeg",
+                contentDescription = null,
+                modifier = Modifier.clip(
+                    RoundedCornerShape(100.dp)
+                )
+            )
+
+            Column() {
+                Text(
+                    text = "HEllO",
+                    modifier = Modifier.fillMaxWidth(),
+                    style = MaterialTheme.typography.body1
+                )
+                Row() {
+                    Card(
+                        backgroundColor = Color.Blue,
+                        shape = RectangleShape
+                    ) {
+                        Text(text = "Male")
+                    }
+                    Card(
+                        backgroundColor = Color.Yellow,
+                        shape = RectangleShape
+                    ) {
+                        Text(text = "Human")
+                    }
+                }
+            }
+            Image(
+                imageVector = ImageVector
+                    .vectorResource(id = R.drawable.navigate_next_fill0_wght400_grad0_opsz48),
+                contentDescription = "click to go on next screen",
+                alignment = Alignment.CenterEnd
             )
         }
     }

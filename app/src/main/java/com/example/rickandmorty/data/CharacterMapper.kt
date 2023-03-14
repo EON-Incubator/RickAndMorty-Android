@@ -34,7 +34,18 @@ fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
     return LocationDetail(
         dimension = dimension,
         name = name,
-        type = type
+        type = type,
+        residents = residents.mapNotNull {
+            DetailedCharacter(
+                ID = "",
+                it?.gender,
+                it?.image,
+                it?.name,
+                it?.status,
+                it?.species,
+                episode = emptyList()
+            )
+        }
     )
 }
 fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {

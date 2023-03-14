@@ -21,7 +21,10 @@ object LocationDestination : NavigationDestination {
 }
 
 @Composable
-fun LocationScreen(locationsUiState: LocationViewModel.LocationUiState) {
+fun LocationScreen(
+    locationsUiState: LocationViewModel.LocationUiState,
+    onClick: (String) -> Unit,
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
@@ -41,7 +44,11 @@ fun LocationScreen(locationsUiState: LocationViewModel.LocationUiState) {
                             imageUrlLink = location.images,
                             titleName = location.name.toString(),
                             property1 = location.type.toString(),
-                            property2 = location.dimension.toString()
+                            property2 = location.dimension.toString(),
+                            onClickable = {
+                                onClick(it)
+                            },
+                            id = location.id.toString()
                         )
                     }
                 }
@@ -55,12 +62,15 @@ fun LocationScreen(locationsUiState: LocationViewModel.LocationUiState) {
 fun LocationScreenPreviewLightMode() {
     GetRowWithFourImages(
         mutableListOf(
-            "https://rickandmortyapi.com/api/character/avatar/10.jpeg",
+            "https://" +
+                "rickandmortyapi.com/api/character/avatar/10.jpeg",
             "https://rickandmortyapi.com/api/character/avatar/10.jpeg"
         ),
         "Anatomy Park With B",
         "Mount",
-        "Evil Dimention"
+        "Evil Dimention",
+        {},
+        "1"
     )
 }
 
@@ -74,6 +84,8 @@ fun LocationScreenPreviewDarkMode() {
         ),
         "Anatomy Park With B",
         "Mount",
-        "Evil Dimention"
+        "Evil Dimention",
+        {},
+        "1"
     )
 }

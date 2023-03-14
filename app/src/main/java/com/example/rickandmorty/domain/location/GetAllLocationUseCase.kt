@@ -6,14 +6,14 @@ class GetAllLocationUseCase(
     private val characterClient: CharacterClient,
 ) {
 
-    suspend fun execute(): List<Location> {
+    suspend fun execute(name: String = ""): List<Location> {
         return characterClient
-            .getAllLocations()
+            .getAllLocations(name)
     }
 
-    suspend fun sortByName(): List<Location> {
+    suspend fun sortByName(name: String = ""): List<Location> {
         return characterClient
-            .getAllLocations()
+            .getAllLocations(name)
             .sortedBy { it.name }
     }
 }

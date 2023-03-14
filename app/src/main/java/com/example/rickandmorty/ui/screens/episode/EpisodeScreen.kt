@@ -115,6 +115,13 @@ fun EpisodesScreen(
 }
 
 @Composable
+fun EpisodeDetail(
+    episode: Episodes,
+    modifier: Modifier = Modifier,
+) {
+}
+
+@Composable
 fun EpisodeDialog(
     episode: DetailedEpisode,
     onDismiss: () -> Unit,

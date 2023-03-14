@@ -1,11 +1,10 @@
 package com.example.rickandmorty.data
 
-import com.example.AllLocationsQuery
-import com.example.CharactersQuery
-import com.example.LocationDetailQuery
+import com.example.*
+import com.example.rickandmorty.domain.DetailedEpisode
+import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationDetail
-import com.example.SpecificCharacterQuery
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episode
@@ -35,7 +34,20 @@ fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
     return LocationDetail(
         dimension = dimension,
         name = name,
-        type = type
+        type = type,
+        residents = residents.mapNotNull {
+            DetailedCharacter(
+                ID = "",
+                it?.gender,
+                it?.image,
+                it?.name,
+                it?.status,
+                it?.species,
+                episode = emptyList(),
+                dimension = "",
+                created = ""
+            )
+        }
     )
 }
 fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
@@ -53,7 +65,26 @@ fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
                 it?.characters?.mapNotNull { it?.image } ?: emptyList(),
                 it?.air_date
             )
-        }
+        },
+        dimension = location?.dimension,
+        created = location?.created,
+    )
+}
 
+fun GetEpisodeQuery.Episode.toDetailedEpisode(): DetailedEpisode {
+    return DetailedEpisode(
+        name = name,
+        episode = episode,
+        air_date = air_date,
+        characters = characters.mapNotNull { it?.name }
+    )
+}
+
+fun GetEpisodesQuery.Result.toEpisodes(): Episodes {
+    return Episodes(
+        name = name,
+        episode = episode,
+        air_date = air_date,
+        images = characters.mapNotNull { it?.image }
     )
 }

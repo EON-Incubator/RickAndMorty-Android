@@ -121,12 +121,12 @@ fun DetailedScreen(modifier: Modifier = Modifier, charInfo: DetailedCharacter?) 
                 icons = ImageVector
                     .vectorResource(R.drawable.trip_origin_fill0_wght400_grad0_opsz48),
                 topic = "Origin",
-                topicAnswer = "Earth C-137"
+                topicAnswer = charInfo?.dimension.toString()
             )
             GetInfoInLine(
                 icons = ImageVector.vectorResource(R.drawable.explore_fill0_wght400_grad0_opsz48),
                 topic = "Last Seen",
-                topicAnswer = "Citadel of Rocks"
+                topicAnswer = charInfo?.created.toString()
             )
             Text(text = "EPISODES", style = MaterialTheme.typography.body2)
         }

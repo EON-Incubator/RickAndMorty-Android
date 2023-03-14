@@ -2,8 +2,10 @@ package com.example.rickandmorty.api
 
 import com.apollographql.apollo3.ApolloClient
 import com.example.rickandmorty.data.ApolloCharacterClient
-import com.example.rickandmorty.domain.CharacterClient
+// import com.example.rickandmorty.data.ApolloEpisodeClient
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
+import com.example.rickandmorty.domain.CharacterClient
+import com.example.rickandmorty.domain.episodeusecase.GetAllEpisodeUseCase
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
 import dagger.Module
@@ -45,11 +47,35 @@ object ApolloModule {
         return GetCharacterUseCase(characterClient)
     }
 
+//    @Provides
+//    @Singleton
+//    fun provideGetEpisodeClient(apolloClient: ApolloClient): CharacterClient {
+//        return ApolloCharacterClient(apolloClient)
+//    }
+
+    @Provides
+    @Singleton
+    fun provideGetAllEpisodeUseCase(characterClient: CharacterClient): GetAllEpisodeUseCase {
+        return GetAllEpisodeUseCase(characterClient)
+    }
+
     @Provides
     @Singleton
     fun provideGetAllLocationUseCase(characterClient: CharacterClient): GetAllLocationUseCase {
         return GetAllLocationUseCase(characterClient)
     }
+
+//    @Provides
+//    @Singleton
+//    fun provideGetEpisodesUseCase(characterClient: CharacterClient): GetEpisodesUseCase {
+//        return GetEpisodesUseCase(characterClient)
+//    }
+
+//    @Provides
+//    @Singleton
+//    fun provideGetEpisodeUseCase(characterClient: CharacterClient): GetEpisodeUseCase {
+//        return GetEpisodeUseCase(characterClient)
+//    }
 
     @Provides
     @Singleton

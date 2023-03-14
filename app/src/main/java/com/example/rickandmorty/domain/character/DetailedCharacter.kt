@@ -11,5 +11,6 @@ data class DetailedCharacter(
     val status: String?,
     val gender: String?,
     val episode: List<Episode>,
-    // val locations: List<Any>
+    val dimension: String?,
+    val created: String?,
 )

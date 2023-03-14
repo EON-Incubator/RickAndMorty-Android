@@ -12,6 +12,7 @@ import com.example.rickandmorty.ui.screens.character.*
 import com.example.rickandmorty.ui.screens.episode.*
 import com.example.rickandmorty.ui.screens.location.*
 import com.example.rickandmorty.ui.screens.search.Search
+import com.example.rickandmorty.ui.screens.search.SearchViewModel
 
 @Composable
 fun RickAndMortyNavHost(
@@ -74,7 +75,18 @@ fun RickAndMortyNavHost(
             )
         }
         composable("search") {
-            Search()
+            val viewModel = hiltViewModel<SearchViewModel>()
+            val characterState by viewModel.characters.collectAsState()
+            val locationState by viewModel.locations.collectAsState()
+
+            Search(
+                characterState = characterState,
+                locationState = locationState,
+                onValueChange = { viewModel.onSearch(it) },
+                query = viewModel.query,
+                onLocationClick = { navController.navigate(LocationDetailsDestination.route + "?id=$it") },
+                onCharacterClick = { navController.navigate(CharacterDetailsDestination.route + "/$it") }
+            )
         }
     }
 }

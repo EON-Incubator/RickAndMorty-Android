@@ -23,19 +23,25 @@ fun RickAndMortyNavHost(
         composable(CharacterDestination.route) {
             val viewModel = hiltViewModel<CharacterViewModel>()
             val characterState by viewModel.characters.collectAsState()
-            var characterInfo = characterState.character
-
+            var characterInfo = characterState.character?.ID.toString()
+            Log.d("rcheck", "RickAndMortyNavHost:  ${characterState.character?.ID}")
             Characters(
                 characterState,
 
-                onClick = { navController.navigate(CharacterDetailsDestination.route) },
+                onClick = {
+                    Log.v("id", it.toString())
+                    navController.navigate(CharacterDetailsDestination.route + "?id=$it")
+                },
                 onCharacterClick = { viewModel.selectCountry(it) }
             )
-            Log.d("check", "RickAndMortyNavHost:  ${characterState.character?.ID}")
-            Log.d("idcheck", "RickAndMortyNavHost:  ${characterInfo?.toString()}")
         }
-        composable(CharacterDetailsDestination.route) {
-            CharacterDetails()
+        composable(CharacterDetailsDestination.route + "?id={id}") {
+            val viewModel = hiltViewModel<DetailedCharacterViewModel>()
+
+            val characterState by viewModel.character.collectAsState()
+            // viewModel.selectCountry(it.arguments?.getString("charInfo").toString())
+            // Log.d("sec_check", "RickAndMortyNavHost:  ${it.arguments?.getString("charInfo")}")
+            CharacterDetails(state = characterState)
         }
         composable(EpisodeDestination.route) {
             val viewModel = hiltViewModel<EpisodeViewModel>()
@@ -81,8 +87,14 @@ fun RickAndMortyNavHost(
                 locationState = locationState,
                 onValueChange = { viewModel.onSearch(it) },
                 query = viewModel.query,
-                onLocationClick = { navController.navigate(LocationDetailsDestination.route + "?id=$it") },
-                onCharacterClick = { navController.navigate(CharacterDetailsDestination.route + "/$it") }
+                onLocationClick = {
+                    navController
+                        .navigate(LocationDetailsDestination.route + "?id=$it")
+                },
+                onCharacterClick = {
+                    navController
+                        .navigate(CharacterDetailsDestination.route + "?id=$it")
+                }
             )
         }
     }

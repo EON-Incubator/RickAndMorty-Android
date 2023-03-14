@@ -43,7 +43,9 @@ fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
                 it?.name,
                 it?.status,
                 it?.species,
-                episode = emptyList()
+                episode = emptyList(),
+                dimension = "",
+                created = ""
             )
         }
     )
@@ -63,8 +65,9 @@ fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
                 it?.characters?.mapNotNull { it?.image } ?: emptyList(),
                 it?.air_date
             )
-        }
-
+        },
+        dimension = location?.dimension,
+        created = location?.created
     )
 }
 

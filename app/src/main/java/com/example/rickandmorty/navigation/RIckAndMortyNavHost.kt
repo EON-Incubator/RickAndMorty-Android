@@ -9,10 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.rickandmorty.ui.screens.character.*
-import com.example.rickandmorty.ui.screens.episode.EpisodeDestination
-import com.example.rickandmorty.ui.screens.episode.EpisodeDetails
-import com.example.rickandmorty.ui.screens.episode.EpisodeDetailsDestination
-import com.example.rickandmorty.ui.screens.episode.Episodes
+import com.example.rickandmorty.ui.screens.episode.*
 import com.example.rickandmorty.ui.screens.location.*
 import com.example.rickandmorty.ui.screens.search.Search
 
@@ -40,7 +37,9 @@ fun RickAndMortyNavHost(
             CharacterDetails()
         }
         composable(EpisodeDestination.route) {
-            Episodes()
+            val viewModel = hiltViewModel<EpisodeViewModel>()
+            val state by viewModel.state.collectAsState()
+//            EpisodesScreen(state = state)
         }
         composable(EpisodeDetailsDestination.route) {
             EpisodeDetails()

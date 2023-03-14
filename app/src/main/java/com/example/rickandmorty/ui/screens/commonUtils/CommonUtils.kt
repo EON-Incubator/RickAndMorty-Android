@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -55,11 +56,42 @@ fun ScreenNameBar(
 }
 
 @Composable
+fun GetInfoInLine(icons: ImageVector, topic: String, topicAnswer: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 20.dp, bottom = 5.dp, top = 5.dp)
+    ) {
+        Text(
+            modifier = Modifier.weight(1f),
+            text = topic,
+            style = MaterialTheme.typography.body2,
+            color = MaterialTheme.colors.onBackground,
+            fontWeight = FontWeight.Bold
+        )
+
+        Text(
+            modifier = Modifier.weight(1f),
+            text = topicAnswer,
+            style = MaterialTheme.typography.body2,
+            color = MaterialTheme.colors.onBackground,
+            fontWeight = FontWeight.Normal
+        )
+    }
+    Divider(
+        Modifier.height(1.dp),
+        color = MaterialTheme.colors.onBackground
+    )
+}
+
+@Composable
 fun GetRowWithFourImages(
     imageUrlLink: List<String>?,
     titleName: String,
     property1: String,
     property2: String,
+    onClickable: (String) -> Unit,
+    id: String,
 ) {
     var mutableImageLink = imageUrlLink!!.toMutableList()
 
@@ -77,7 +109,15 @@ fun GetRowWithFourImages(
 //            mutableImageLink.add(imageUrlLink[i])
 //    }
 
-    Card(shape = RoundedCornerShape(10.dp), elevation = 7.dp, modifier = Modifier.padding(5.dp)) {
+    Card(
+        shape = RoundedCornerShape(10.dp),
+        elevation = 7.dp,
+        modifier = Modifier.padding(5.dp)
+            .clickable {
+                onClickable(id)
+            }
+
+    ) {
         Row(
             modifier = Modifier.padding(3.dp),
             horizontalArrangement = Arrangement.Center,

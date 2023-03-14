@@ -1,19 +1,13 @@
 package com.example.rickandmorty.ui.screens.episode
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,11 +28,11 @@ fun Episodes() {
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             ScreenNameBar(name = stringResource(R.string.episodes_screen_title), onFilterClick = {})
-            EpisodesScreen(
-                state = state,
-                onSelectEpisode = viewModel::selectEpisode,
-                onDismissEpisodeDialog = viewModel::dismissEpisodeDialog
-            )
+//            EpisodesScreen(
+//                state = state,
+//                onSelectEpisode = viewModel::selectEpisode,
+//                onDismissEpisodeDialog = viewModel::dismissEpisodeDialog
+//            )
         }
     }
 }
@@ -48,47 +42,47 @@ object EpisodeDestination : NavigationDestination {
     override val screenTitleRes = R.string.episodes_screen_title
 }
 
-@Composable
-fun EpisodesScreen(
-    state: EpisodeViewModel.EpisodesState,
-    onSelectEpisode: (id: String) -> Unit,
-    onDismissEpisodeDialog: () -> Unit,
-) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        if (state.isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
-            )
-        } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(state.episodes) { episode ->
-                    EpisodeItem(
-                        episode = episode,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { onSelectEpisode(episode.episode!!) }
-                            .padding(16.dp)
-                    )
-                }
-            }
-        }
-
-        if (state.selectedEpisode != null) {
-            EpisodeDialog(
-                episode = state.selectedEpisode,
-                onDismiss = onDismissEpisodeDialog,
-                modifier = Modifier
-                    .clip(RoundedCornerShape(5.dp))
-                    .background(color = Color.White)
-                    .padding(16.dp)
-            )
-        }
-    }
-}
+// @Composable
+// fun EpisodesScreen(
+//    state: EpisodeViewModel.EpisodesState,
+// //    onSelectEpisode: (id: String) -> Unit,
+// //    onDismissEpisodeDialog: () -> Unit,
+// ) {
+//    Box(
+//        modifier = Modifier.fillMaxSize()
+//    ) {
+//        if (state.isLoading) {
+//            CircularProgressIndicator(
+//                modifier = Modifier.align(Alignment.Center)
+//            )
+//        } else {
+//            LazyColumn(
+//                modifier = Modifier.fillMaxSize()
+//            ) {
+//                items(state.episodes) { episode ->
+//                    EpisodeItem(
+//                        episode = episode,
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .clickable { onSelectEpisode(episode.episode!!) }
+//                            .padding(16.dp)
+//                    )
+//                }
+//            }
+//        }
+//
+//        if (state.selectedEpisode != null) {
+//            EpisodeDialog(
+//                episode = state.selectedEpisode,
+//                onDismiss = onDismissEpisodeDialog,
+//                modifier = Modifier
+//                    .clip(RoundedCornerShape(5.dp))
+//                    .background(color = Color.White)
+//                    .padding(16.dp)
+//            )
+//        }
+//    }
+// }
 
 @Composable
 fun EpisodeDialog(
@@ -107,7 +101,7 @@ private fun EpisodeItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = episode.characters.toString(),
+            text = episode.images.toString(),
             fontSize = 30.sp
         )
         Spacer(modifier = Modifier.width(16.dp))

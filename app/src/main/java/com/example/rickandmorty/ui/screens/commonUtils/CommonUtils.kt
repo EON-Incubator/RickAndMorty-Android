@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -89,6 +90,8 @@ fun GetRowWithFourImages(
     titleName: String,
     property1: String,
     property2: String,
+    onClickable: (String) -> Unit,
+    id: String,
 ) {
     var mutableImageLink = imageUrlLink!!.toMutableList()
 
@@ -106,7 +109,15 @@ fun GetRowWithFourImages(
 //            mutableImageLink.add(imageUrlLink[i])
 //    }
 
-    Card(shape = RoundedCornerShape(10.dp), elevation = 7.dp, modifier = Modifier.padding(5.dp)) {
+    Card(
+        shape = RoundedCornerShape(10.dp),
+        elevation = 7.dp,
+        modifier = Modifier.padding(5.dp)
+            .clickable {
+                onClickable(id)
+            }
+
+    ) {
         Row(
             modifier = Modifier.padding(3.dp),
             horizontalArrangement = Arrangement.Center,

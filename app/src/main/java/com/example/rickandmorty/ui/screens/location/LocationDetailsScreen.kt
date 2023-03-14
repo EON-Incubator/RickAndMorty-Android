@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
@@ -19,7 +20,9 @@ object LocationDetailsDestination : NavigationDestination {
 }
 
 @Composable
-fun LocationDetailScreen() {
+fun LocationDetailScreen(
+    locationsDetailUiState: LocationDetailViewModel.LocationDetailUiState,
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
             text = "INFO",
@@ -34,8 +37,21 @@ fun LocationDetailScreen() {
             color = MaterialTheme.colors.onBackground
         )
 
-        GetInfoInLine(,"Type", "Microverse")
-        GetInfoInLine("Dimention", "Dimention C-137")
+        locationsDetailUiState.locationDetail.type?.let {
+            GetInfoInLine(
+                ImageVector.vectorResource(id = R.drawable.sort),
+                "Type",
+                it
+            )
+        }
+
+        locationsDetailUiState.locationDetail.dimension?.let {
+            GetInfoInLine(
+                ImageVector.vectorResource(id = R.drawable.sort),
+                "Dimension",
+                it
+            )
+        }
 
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -48,4 +64,3 @@ fun LocationDetailScreen() {
         )
     }
 }
-

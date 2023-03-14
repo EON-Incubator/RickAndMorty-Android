@@ -44,7 +44,7 @@ fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
                 it?.name,
                 it?.status,
                 it?.species,
-                episode = emptyList(),
+                episode = emptyList()
             )
         }
     )

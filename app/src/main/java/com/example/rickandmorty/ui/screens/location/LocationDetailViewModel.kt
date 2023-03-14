@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.location
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
@@ -13,17 +14,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LocationDetailViewModel @Inject constructor(
-    private val getLocationDetailUseCase: GetLocationDetailUseCase
+    private val getLocationDetailUseCase: GetLocationDetailUseCase,
+    private val savedStateHandle: SavedStateHandle,
+
 ) : ViewModel() {
 
     private val _locationDetail = MutableStateFlow(LocationDetailUiState())
     val locationDetail = _locationDetail.asStateFlow()
+
+    val id = savedStateHandle.get<String>("id")
 
     init {
         viewModelScope.launch {
             _locationDetail.update {
                 it.copy(isLoading = true)
             }
+            getLocationDetail(id.toString())
         }
     }
 
@@ -31,13 +37,18 @@ class LocationDetailViewModel @Inject constructor(
         _locationDetail.update {
             it.copy(
                 locationDetail = getLocationDetailUseCase.execute(id),
-                isLoading = true,
+                isLoading = true
             )
         }
     }
 
     data class LocationDetailUiState(
-        val locationDetail: LocationDetail,
+        val locationDetail: LocationDetail = LocationDetail(
+            "No Dimension",
+            "No name",
+            emptyList(),
+            "No Type"
+        ),
         val isLoading: Boolean = false,
     )
 }

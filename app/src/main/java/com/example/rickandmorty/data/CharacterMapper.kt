@@ -1,11 +1,10 @@
 package com.example.rickandmorty.data
 
-import com.example.AllLocationsQuery
-import com.example.CharactersQuery
-import com.example.LocationDetailQuery
+import com.example.*
+import com.example.rickandmorty.domain.DetailedEpisode
+import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationDetail
-import com.example.SpecificCharacterQuery
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episode
@@ -55,5 +54,23 @@ fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
             )
         }
 
+    )
+}
+
+fun GetEpisodeQuery.Episode.toDetailedEpisode(): DetailedEpisode {
+    return DetailedEpisode(
+        name = name,
+        episode = episode,
+        air_date = air_date,
+        characters = characters.mapNotNull { it?.name }
+    )
+}
+
+fun GetEpisodesQuery.Result.toEpisodes(): Episodes {
+    return Episodes(
+        name = name,
+        episode = episode,
+        air_date = air_date,
+        images = characters.mapNotNull { it?.image }
     )
 }

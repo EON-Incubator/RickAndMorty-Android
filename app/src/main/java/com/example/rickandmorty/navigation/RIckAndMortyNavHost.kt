@@ -81,8 +81,8 @@ fun RickAndMortyNavHost(
                 locationState = locationState,
                 onValueChange = { viewModel.onSearch(it) },
                 query = viewModel.query,
-                onLocationClick = { navController.navigate(LocationDetailsDestination.route + "?id=${it}") },
-                onCharacterClick = { navController.navigate(CharacterDetailsDestination.route + "/${it}") }
+                onLocationClick = { navController.navigate(LocationDetailsDestination.route + "?id=$it") },
+                onCharacterClick = { navController.navigate(CharacterDetailsDestination.route + "/$it") }
             )
         }
     }

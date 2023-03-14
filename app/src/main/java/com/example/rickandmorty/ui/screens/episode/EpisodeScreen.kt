@@ -32,7 +32,7 @@ object EpisodeDestination : NavigationDestination {
 @Composable
 fun EpisodesScreen(
     state: EpisodeViewModel.EpisodesState,
-    onSelectEpisode: (id: String) -> Unit,
+    onSelectEpisode: () -> Unit,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -53,7 +53,7 @@ fun EpisodesScreen(
                             titleName = episode.name.toString(),
                             property1 = episode.episode.toString(),
                             property2 = episode.air_date.toString(),
-                            onClickable = {},
+                            onClickable = { onSelectEpisode() },
                             id = episode.id.toString()
                         )
                     }

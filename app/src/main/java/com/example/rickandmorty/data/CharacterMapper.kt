@@ -67,7 +67,7 @@ fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
             )
         },
         dimension = location?.dimension,
-        created = location?.created,
+        created = location?.created
     )
 }
 

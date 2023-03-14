@@ -28,11 +28,14 @@ fun RickAndMortyNavHost(
             Characters(
                 characterState,
 
-                onClick = { navController.navigate("character_detail/ $it") },
+                onClick = {
+                    Log.v("id", it.toString())
+                    navController.navigate(CharacterDetailsDestination.route + "?id=$it")
+                },
                 onCharacterClick = { viewModel.selectCountry(it) }
             )
         }
-        composable("character_detail/{charInfo}") {
+        composable(CharacterDetailsDestination.route + "?id={id}") {
             val viewModel = hiltViewModel<DetailedCharacterViewModel>()
 
             val characterState by viewModel.character.collectAsState()
@@ -84,8 +87,14 @@ fun RickAndMortyNavHost(
                 locationState = locationState,
                 onValueChange = { viewModel.onSearch(it) },
                 query = viewModel.query,
-                onLocationClick = { navController.navigate(LocationDetailsDestination.route + "?id=$it") },
-                onCharacterClick = { navController.navigate(CharacterDetailsDestination.route + "/$it") }
+                onLocationClick = {
+                    navController
+                        .navigate(LocationDetailsDestination.route + "?id=$it")
+                },
+                onCharacterClick = {
+                    navController
+                        .navigate(CharacterDetailsDestination.route + "?id=$it")
+                }
             )
         }
     }

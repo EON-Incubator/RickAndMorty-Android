@@ -17,7 +17,7 @@ class DetailedCharacterViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    val id = savedStateHandle.get<String>("charInfo")
+    val id = savedStateHandle.get<String>("id")
     private val _character = MutableStateFlow(detailedcharacterState())
     val character = _character.asStateFlow()
 

@@ -1,0 +1,13 @@
+query AllLocations {
+    locations {
+        results {
+            id
+            name
+            type
+            dimension
+            residents {
+                image
+            }
+        }
+    }
+}

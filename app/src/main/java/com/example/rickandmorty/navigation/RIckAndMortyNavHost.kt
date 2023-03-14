@@ -1,14 +1,14 @@
 package com.example.rickandmorty.navigation
 
-import androidx.compose.runtime.Composable
+import android.util.Log
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.rickandmorty.ui.screens.character.CharacterDestination
-import com.example.rickandmorty.ui.screens.character.CharacterDetails
-import com.example.rickandmorty.ui.screens.character.CharacterDetailsDestination
-import com.example.rickandmorty.ui.screens.character.Characters
+import com.example.rickandmorty.ui.screens.character.*
 import com.example.rickandmorty.ui.screens.episode.EpisodeDestination
 import com.example.rickandmorty.ui.screens.episode.EpisodeDetails
 import com.example.rickandmorty.ui.screens.episode.EpisodeDetailsDestination
@@ -23,7 +23,18 @@ fun RickAndMortyNavHost(
 ) {
     NavHost(navController = navController, startDestination = CharacterDestination.route) {
         composable(CharacterDestination.route) {
-            Characters()
+            val viewModel = hiltViewModel<CharacterViewModel>()
+            val characterState by viewModel.characters.collectAsState()
+            var characterInfo = characterState.character
+
+            Characters(
+                characterState,
+
+                onClick = { navController.navigate(CharacterDetailsDestination.route) },
+                onCharacterClick = { viewModel.selectCountry(it) }
+            )
+            Log.d("check", "RickAndMortyNavHost:  ${characterState.character?.ID}")
+            Log.d("idcheck", "RickAndMortyNavHost:  ${characterInfo?.toString()}")
         }
         composable(CharacterDetailsDestination.route) {
             CharacterDetails()
@@ -35,10 +46,13 @@ fun RickAndMortyNavHost(
             EpisodeDetails()
         }
         composable(LocationDestination.route) {
-            LocationScreen()
+            val viewModel = hiltViewModel<LocationViewModel>()
+            val locationsState by viewModel.location.collectAsState()
+//            LocationScreen(locationsState)
+            LocationDetailScreen()
         }
         composable(LocationDetailsDestination.route) {
-            LocationDetails()
+            LocationDetailScreen()
         }
         composable("search") {
             Search()

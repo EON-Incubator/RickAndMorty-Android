@@ -56,15 +56,14 @@ fun RickAndMortyNavHost(
             LocationDetailScreen()
         }
         composable("search") {
-
             val viewModel = hiltViewModel<SearchViewModel>()
             val characterState by viewModel.characters.collectAsState()
             val locationState by viewModel.locations.collectAsState()
 
             Search(
-                characterState =characterState,
+                characterState = characterState,
                 locationState = locationState,
-                onValueChange  = { viewModel.onSearch(it) },
+                onValueChange = { viewModel.onSearch(it) },
                 query = viewModel.query
             )
         }

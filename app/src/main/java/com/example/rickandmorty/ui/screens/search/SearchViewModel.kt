@@ -2,7 +2,6 @@ package com.example.rickandmorty.ui.screens.search
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
@@ -21,7 +20,7 @@ import com.example.rickandmorty.domain.location.Location
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getCharacterUseCase: GetCharacterUseCase,
-    private val getAllLocationUseCase: GetAllLocationUseCase
+    private val getAllLocationUseCase: GetAllLocationUseCase,
 ) :
     ViewModel() {
 
@@ -46,10 +45,8 @@ class SearchViewModel @Inject constructor(
                     )
                 }
             }
-
         }
     }
-
 
     data class CharacterState(
         val characters: List<Character> = emptyList(),
@@ -58,6 +55,6 @@ class SearchViewModel @Inject constructor(
 
     data class LocationState(
         val locations: List<Location> = emptyList(),
-        val isLoading: Boolean = false
+        val isLoading: Boolean = false,
     )
 }

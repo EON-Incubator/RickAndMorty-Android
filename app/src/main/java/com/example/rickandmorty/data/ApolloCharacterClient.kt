@@ -8,7 +8,6 @@ import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.character.DetailedCharacter
 
-
 class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterClient {
     override suspend fun getCharacters(name: String): List<Character> {
         return apolloClient
@@ -45,5 +44,4 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterC
         return apolloClient.query(SpecificCharacterQuery(code))
             .execute().data?.character?.toSpecificChar()
     }
-
 }

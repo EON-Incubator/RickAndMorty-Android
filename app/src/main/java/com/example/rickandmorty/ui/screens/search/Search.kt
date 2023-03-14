@@ -1,14 +1,10 @@
 package com.example.rickandmorty.ui.screens.search
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -31,18 +27,15 @@ fun Search(
     characterState: SearchViewModel.CharacterState,
     locationState: SearchViewModel.LocationState,
     onValueChange: (name: String) -> Unit,
-    query: TextFieldValue
+    query: TextFieldValue,
 ) {
-
     Column() {
         TextField(
             value = query.text,
-            onValueChange = onValueChange,
+            onValueChange = onValueChange
         )
 
-
         LazyColumn {
-
             item {
                 Text(text = "Characters")
             }
@@ -84,8 +77,6 @@ fun Search(
             }
 
             if (locationState.locations.isNotEmpty()) {
-
-
                 items(locationState.locations) { item ->
                     GetRowWithFourImages(
                         imageUrlLink = item.images,
@@ -94,16 +85,9 @@ fun Search(
                         property2 = item.dimension.toString()
                     )
                 }
-
-
             }
-
-
         }
-
     }
-
-
 }
 
 object SearchDestination : NavigationDestination {

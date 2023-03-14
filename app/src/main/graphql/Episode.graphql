@@ -6,6 +6,10 @@ query GetEpisode($episodeId: ID!) {
         air_date
         characters {
             name
+            image
+            gender
+            species
+            status
         }
     }
 }

@@ -8,11 +8,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.DetailedEpisode
@@ -36,7 +33,6 @@ object EpisodeDestination : NavigationDestination {
 fun EpisodesScreen(
     state: EpisodeViewModel.EpisodesState,
     onSelectEpisode: (id: String) -> Unit,
-//    onDismissEpisodeDialog: () -> Unit,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -58,11 +54,17 @@ fun EpisodesScreen(
                             property1 = episode.episode.toString(),
                             property2 = episode.air_date.toString(),
                             onClickable = {},
-                            id = onSelectEpisode.toString()
+                            id = episode.id.toString()
                         )
                     }
                 }
             }
+
+//            if (state.selectedEpisode != null) {
+//                EpisodeDetailScreen(episode =
+//                    state.selectedEpisode,
+//                )
+//            }
         }
     }
 
@@ -116,35 +118,35 @@ fun EpisodeDialog(
     modifier: Modifier = Modifier,
 ) {}
 
-@Composable
-private fun EpisodeItem(
-    episode: Episodes,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = episode.images.toString(),
-            fontSize = 30.sp
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Column(
-            modifier = Modifier.weight(1f)
-        ) {
-            Text(
-                text = episode.name!!,
-                fontSize = 24.sp
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = episode.episode!!
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = episode.air_date!!
-            )
-        }
-    }
-}
+// @Composable
+// private fun EpisodeItem(
+//    episode: Episodes,
+//    modifier: Modifier = Modifier,
+// ) {
+//    Row(
+//        modifier = modifier,
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//        Text(
+//            text = episode.images.toString(),
+//            fontSize = 30.sp
+//        )
+//        Spacer(modifier = Modifier.width(16.dp))
+//        Column(
+//            modifier = Modifier.weight(1f)
+//        ) {
+//            Text(
+//                text = episode.name!!,
+//                fontSize = 24.sp
+//            )
+//            Spacer(modifier = Modifier.width(16.dp))
+//            Text(
+//                text = episode.episode!!
+//            )
+//            Spacer(modifier = Modifier.width(16.dp))
+//            Text(
+//                text = episode.air_date!!
+//            )
+//        }
+//    }
+// }

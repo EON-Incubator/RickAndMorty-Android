@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.Episodes
-import com.example.rickandmorty.domain.episodeusecase.GetEpisodeUseCase
-import com.example.rickandmorty.domain.episodeusecase.GetEpisodesUseCase
+import com.example.rickandmorty.domain.episodeusecase.GetAllEpisodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,40 +14,43 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EpisodeViewModel @Inject constructor(
-    private val getEpisodesUseCase: GetEpisodesUseCase,
-    private val getEpisodeUseCase: GetEpisodeUseCase,
+    private val getAllEpisodeUseCase: GetAllEpisodeUseCase,
 ) : ViewModel() {
-    private val _state = MutableStateFlow(EpisodesState())
-    val state = _state.asStateFlow()
+    private val _episode = MutableStateFlow(EpisodesState())
+    val state = _episode.asStateFlow()
 
     init {
         viewModelScope.launch {
-            _state.update {
+            _episode.update {
                 it.copy(
                     isLoading = true
                 )
             }
-            _state.update {
-                it.copy(
-                    episodes = getEpisodesUseCase.execute(),
-                    isLoading = false
-                )
-            }
+            getAllEpisode()
         }
     }
 
-    fun selectEpisode(id: String) {
-        viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    selectedEpisode = getEpisodeUseCase.execute(id)
-                )
-            }
+    private suspend fun getAllEpisode() {
+        _episode.update {
+            it.copy(
+                episodes = getAllEpisodeUseCase.execute(),
+                isLoading = false
+            )
         }
     }
+
+//    fun selectEpisode(id: String) {
+//        viewModelScope.launch {
+//            _state.update {
+//                it.copy(
+//                    selectedEpisode = getEpisodeUseCase.execute(id)
+//                )
+//            }
+//        }
+//    }
 
     fun dismissEpisodeDialog() {
-        _state.update {
+        _episode.update {
             it.copy(
                 selectedEpisode = null
             )

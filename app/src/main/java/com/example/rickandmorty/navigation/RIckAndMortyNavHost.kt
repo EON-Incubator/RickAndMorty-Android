@@ -25,19 +25,22 @@ fun RickAndMortyNavHost(
         composable(CharacterDestination.route) {
             val viewModel = hiltViewModel<CharacterViewModel>()
             val characterState by viewModel.characters.collectAsState()
-            var characterInfo = characterState.character
-
+            var characterInfo = characterState.character?.ID.toString()
+            Log.d("rcheck", "RickAndMortyNavHost:  ${characterState.character?.ID}")
             Characters(
                 characterState,
 
-                onClick = { navController.navigate(CharacterDetailsDestination.route) },
+                onClick = { navController.navigate("character_detail/ $it") },
                 onCharacterClick = { viewModel.selectCountry(it) }
             )
-            Log.d("check", "RickAndMortyNavHost:  ${characterState.character?.ID}")
-            Log.d("idcheck", "RickAndMortyNavHost:  ${characterInfo?.toString()}")
         }
-        composable(CharacterDetailsDestination.route) {
-            CharacterDetails()
+        composable("character_detail/{charInfo}") {
+            val viewModel = hiltViewModel<DetailedCharacterViewModel>()
+
+            val characterState by viewModel.character.collectAsState()
+            // viewModel.selectCountry(it.arguments?.getString("charInfo").toString())
+            // Log.d("sec_check", "RickAndMortyNavHost:  ${it.arguments?.getString("charInfo")}")
+            CharacterDetails(state = characterState)
         }
         composable(EpisodeDestination.route) {
             Episodes()
@@ -48,8 +51,8 @@ fun RickAndMortyNavHost(
         composable(LocationDestination.route) {
             val viewModel = hiltViewModel<LocationViewModel>()
             val locationsState by viewModel.location.collectAsState()
-//            LocationScreen(locationsState)
-            LocationDetailScreen()
+            LocationScreen(locationsState)
+//            LocationDetailScreen()
         }
         composable(LocationDetailsDestination.route) {
             LocationDetailScreen()

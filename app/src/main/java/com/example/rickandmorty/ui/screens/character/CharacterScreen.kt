@@ -29,7 +29,7 @@ import com.example.rickandmorty.domain.character.Character
 fun Characters(
     state: CharacterViewModel.characterState,
 
-    onClick: () -> Unit,
+    onClick: (id: String) -> Unit,
     onCharacterClick: (code: String) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
@@ -64,8 +64,8 @@ object CharacterDestination : NavigationDestination {
     override val screenTitleRes = R.string.characters_screen_title
 }
 
-private fun action1(onClick: () -> Unit) {
-    // onClick()
+private fun action1(charstate: Character, onClick: (id: String) -> Unit) {
+    onClick(charstate.ID.toString())
 }
 
 private fun action2(charstate: Character, changeId: (code: String) -> Unit) {
@@ -76,7 +76,7 @@ private fun action2(charstate: Character, changeId: (code: String) -> Unit) {
 private fun characterItem(
     charstate: Character,
 
-    onClick: () -> Unit,
+    onClick: (id: String) -> Unit,
     onCharacterClick: (code: String) -> Unit,
 ) {
     Card(
@@ -85,7 +85,8 @@ private fun characterItem(
             .fillMaxSize()
             .clip(RoundedCornerShape(12.dp))
             .clickable {
-                action1(onClick)
+                onClick(charstate.ID.toString())
+//                action1(charstate = charstate, onClick)
                 action2(charstate = charstate, onCharacterClick)
             },
         elevation = 12.dp

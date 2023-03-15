@@ -28,9 +28,7 @@ object ApolloModule {
     @Provides
     @Singleton
     fun provideApolloClient(): ApolloClient {
-        return ApolloClient.Builder()
-            .serverUrl("https://rickandmortyapi.com/graphql")
-            .build()
+        return ApolloClient.Builder().serverUrl("https://rickandmortyapi.com/graphql").build()
     }
 
     /*
@@ -81,7 +79,8 @@ object ApolloModule {
 
     @Provides
     @Singleton
-    fun provideGetLocationDetailUseCase(characterClient: CharacterClient): GetLocationDetailUseCase {
+    fun provideGetLocationDetailUseCase(characterClient: CharacterClient):
+        GetLocationDetailUseCase {
         return GetLocationDetailUseCase(characterClient)
     }
 }

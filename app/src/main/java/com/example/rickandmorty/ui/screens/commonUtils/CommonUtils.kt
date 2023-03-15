@@ -3,6 +3,7 @@ package com.example.rickandmorty.ui.screens.commonUtils
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -63,12 +64,20 @@ fun ScreenNameBar(
 }
 
 @Composable
-fun GetInfoInLine(icons: ImageVector, topic: String, topicAnswer: String) {
+fun GetInfoInLine(
+    icons: ImageVector,
+    topic: String,
+    topicAnswer: String,
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, bottom = 5.dp, top = 5.dp)
+            .padding(start = 20.dp, bottom = 5.dp, top = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
     ) {
+        Image(imageVector = icons, contentDescription = null)
         Text(
             modifier = Modifier.weight(1f),
             text = topic,

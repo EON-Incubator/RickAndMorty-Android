@@ -37,13 +37,15 @@ fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
         type = type,
         residents = residents.mapNotNull {
             DetailedCharacter(
-                ID = "",
+                it?.id,
                 it?.name,
                 it?.image,
                 it?.species,
                 it?.status,
                 it?.gender,
-                episode = emptyList()
+                episode = emptyList(),
+                dimension = "",
+                created = ""
             )
         }
     )
@@ -63,8 +65,9 @@ fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
                 it?.characters?.mapNotNull { it?.image } ?: emptyList(),
                 it?.air_date
             )
-        }
-
+        },
+        dimension = location?.dimension,
+        created = location?.created
     )
 }
 

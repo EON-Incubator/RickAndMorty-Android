@@ -93,7 +93,7 @@ fun LocationDetailScreen(
                             status = resident.status.toString(),
                             id = resident.ID.toString(),
                             onClickable = {
-                                onCharacterClick
+                                onCharacterClick(it)
                             }
                         )
                     }

@@ -20,7 +20,6 @@ import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
-import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 
 @Composable
 fun EpisodeDetails(
@@ -36,12 +35,10 @@ fun EpisodeDetails(
             navigateUp = navigateUp
         )
     }) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            ScreenNameBar(
-                name = state.selectedEpisode?.name.toString(),
-                onFilterClick = {}
-            )
-
+        Column(
+            modifier = Modifier.fillMaxSize()
+                .padding(it)
+        ) {
             if (state.isLoading) {
                 ImageVector.vectorResource(id = R.drawable.loading_img)
             } else if (state.selectedEpisode != null) {
@@ -65,14 +62,14 @@ fun EpisodeDetails(
                     )
 
                     GetInfoInLine(
-                        icons = ImageVector.vectorResource(id = R.drawable.sort),
+                        icons = ImageVector.vectorResource(id = R.drawable.episode),
                         topic = stringResource(id = R.string.episode),
                         topicAnswer = state.selectedEpisode?.episode.toString()
                     )
 
                     Row() {
                         GetInfoInLine(
-                            icons = ImageVector.vectorResource(id = R.drawable.dimension),
+                            icons = ImageVector.vectorResource(id = R.drawable.date),
                             topic = stringResource(id = R.string.air_date),
                             topicAnswer = state.selectedEpisode?.air_date.toString()
                         )

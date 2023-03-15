@@ -44,10 +44,10 @@ class LocationDetailViewModel @Inject constructor(
 
     data class LocationDetailUiState(
         val locationDetail: LocationDetail = LocationDetail(
-            "No Dimension",
-            "No name",
+            "",
+            "",
             emptyList(),
-            "No Type"
+            ""
         ),
         val isLoading: Boolean = false,
     )

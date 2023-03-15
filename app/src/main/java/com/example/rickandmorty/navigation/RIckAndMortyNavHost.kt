@@ -140,4 +140,6 @@ fun RickAndMortyNavHost(
             )
         }
     }
+
+    navController.graph.setStartDestination(CharacterDestination.route)
 }

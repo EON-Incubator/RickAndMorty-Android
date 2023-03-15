@@ -22,7 +22,6 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun Search(
@@ -44,12 +43,12 @@ fun Search(
 
         LazyColumn {
             item {
-                Column(modifier = Modifier.clickable { showCharacters =!showCharacters }) {
+                Column(modifier = Modifier.clickable { showCharacters = !showCharacters }) {
                     Text(text = "Characters")
                 }
             }
             if (characterState.characters.isNotEmpty() && showCharacters) {
-                items(characterState.characters, key = {it.ID.toString()}) { item ->
+                items(characterState.characters, key = { it.ID.toString() }) { item ->
                     Card(
                         modifier = Modifier
                             .padding(12.dp)

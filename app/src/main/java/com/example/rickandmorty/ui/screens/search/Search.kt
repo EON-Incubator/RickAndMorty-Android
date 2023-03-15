@@ -10,7 +10,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,6 +22,7 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun Search(
@@ -32,6 +33,9 @@ fun Search(
     onLocationClick: (id: String) -> Unit,
     onCharacterClick: (id: String) -> Unit,
 ) {
+    var showCharacters by remember {
+        mutableStateOf(false)
+    }
     Column() {
         TextField(
             value = query.text,
@@ -40,10 +44,12 @@ fun Search(
 
         LazyColumn {
             item {
-                Text(text = "Characters")
+                Column(modifier = Modifier.clickable { showCharacters =!showCharacters }) {
+                    Text(text = "Characters")
+                }
             }
-            if (characterState.characters.isNotEmpty()) {
-                items(characterState.characters) { item ->
+            if (characterState.characters.isNotEmpty() && showCharacters) {
+                items(characterState.characters, key = {it.ID.toString()}) { item ->
                     Card(
                         modifier = Modifier
                             .padding(12.dp)

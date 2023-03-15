@@ -4,6 +4,7 @@ query SpecificCharacter($characterId: ID!) {
         episode {
             id
             name
+            episode
             characters {
                 image
             }

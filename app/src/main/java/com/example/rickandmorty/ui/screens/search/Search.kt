@@ -51,13 +51,17 @@ fun Search(
             ) {
                 if (showCharacters) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.outline_check_box_24),
+                        imageVector = ImageVector.vectorResource(
+                            id = R.drawable.outline_check_box_24
+                        ),
                         contentDescription = "Selected",
                         Modifier.padding(horizontal = 5.dp)
                     )
                 } else {
                     Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.outline_check_box_outline_blank_24),
+                        imageVector = ImageVector.vectorResource(
+                            id = R.drawable.outline_check_box_outline_blank_24
+                        ),
                         contentDescription = "Selected",
                         Modifier.padding(horizontal = 5.dp)
                     )
@@ -75,13 +79,19 @@ fun Search(
             ) {
                 if (showLocations) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.outline_check_box_24),
+                        imageVector = ImageVector.vectorResource(
+                            id =
+                            R.drawable.outline_check_box_24
+                        ),
                         contentDescription = "Selected",
                         Modifier.padding(horizontal = 5.dp)
                     )
                 } else {
                     Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.outline_check_box_outline_blank_24),
+                        imageVector = ImageVector.vectorResource(
+                            id =
+                            R.drawable.outline_check_box_outline_blank_24
+                        ),
                         contentDescription = "Selected",
                         Modifier.padding(horizontal = 5.dp)
                     )

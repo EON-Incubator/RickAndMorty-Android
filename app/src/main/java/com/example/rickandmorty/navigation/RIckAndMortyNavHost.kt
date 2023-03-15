@@ -55,11 +55,16 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<EpisodeViewModel>()
             val state by viewModel.state.collectAsState()
-//            EpisodesScreen(state = state)
+            EpisodesScreen(
+                state = state,
+                onSelectEpisode = { navController.navigate(EpisodeDetailsDestination.route + "?id=$it") }
+            )
         }
-        composable(EpisodeDetailsDestination.route) {
+        composable(EpisodeDetailsDestination.route + "?id={id}") {
             onDetailScreen(true)
-            EpisodeDetails()
+            val viewModel = hiltViewModel<EpisodeDetailViewModel>()
+            val state by viewModel.state.collectAsState()
+            EpisodeDetails(state = state)
         }
         composable(LocationDestination.route) {
             onDetailScreen(false)
@@ -81,25 +86,23 @@ fun RickAndMortyNavHost(
 //            LocationDetailScreen(locationsDetailState)
         }
         composable(LocationDetailsDestination.route + "?id={id}") {
-            onDetailScreen(true)
-//            val id = it.arguments?.getString("id")
+            val id = it.arguments?.getString("id")
             val viewModel = hiltViewModel<LocationDetailViewModel>()
             val locationsDetailState by viewModel.locationDetail.collectAsState()
-
             LocationDetailScreen(
-                locationsDetailState,
-                navigateUp = { navController.popBackStack() },
-                onCharacterClick = {
-                    Log.v("IDID", it)
-                    navController.navigate(CharacterDetailsDestination.route + "?id=$it")
-                }
+                locationsDetailState
             )
         }
         composable("search") {
-            onDetailScreen(false)
             val viewModel = hiltViewModel<SearchViewModel>()
             val characterState by viewModel.characters.collectAsState()
             val locationState by viewModel.locations.collectAsState()
+            var showCharacters by remember {
+                mutableStateOf(false)
+            }
+            var showLocations by remember {
+                mutableStateOf(false)
+            }
 
             Search(
                 characterState = characterState,
@@ -113,7 +116,11 @@ fun RickAndMortyNavHost(
                 onCharacterClick = {
                     navController
                         .navigate(CharacterDetailsDestination.route + "?id=$it")
-                }
+                },
+                onShowCharacters = { showCharacters = !showCharacters },
+                onShowLocations = { showLocations = !showLocations },
+                showCharacters = showCharacters,
+                showLocations = showLocations
             )
         }
     }

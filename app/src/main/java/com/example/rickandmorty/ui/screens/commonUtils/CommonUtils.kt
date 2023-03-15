@@ -3,7 +3,6 @@ package com.example.rickandmorty.ui.screens.commonUtils
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -77,10 +76,13 @@ fun GetInfoInLine(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        Image(
+        Icon(
+            modifier = Modifier.padding(end = 7.dp)
+                .size(23.dp),
             imageVector = icons,
-            contentDescription = null
+            contentDescription = "Icon"
         )
+
         Text(
             modifier = Modifier.weight(1f),
             text = topic,

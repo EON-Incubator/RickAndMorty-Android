@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
@@ -24,12 +25,17 @@ import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 @Composable
 fun EpisodeDetails(
     state: EpisodeDetailViewModel.DetailEpisodesState,
+    navigateUp: () -> Unit,
+    onCharacterClick: (String) -> Unit,
 //    charState: CharacterViewModel.characterState
 ) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
-    ) {
+    Scaffold(topBar = {
+        RickAndMortyTopAppBar(
+            title = state.selectedEpisode?.name.toString(),
+            canNavigateBack = true,
+            navigateUp = navigateUp
+        )
+    }) {
         Column(modifier = Modifier.fillMaxSize()) {
             ScreenNameBar(
                 name = state.selectedEpisode?.name.toString(),
@@ -59,7 +65,7 @@ fun EpisodeDetails(
                     )
 
                     GetInfoInLine(
-                        icons = ImageVector.vectorResource(id = R.drawable.dimension),
+                        icons = ImageVector.vectorResource(id = R.drawable.sort),
                         topic = stringResource(id = R.string.episode),
                         topicAnswer = state.selectedEpisode?.episode.toString()
                     )
@@ -96,7 +102,9 @@ fun EpisodeDetails(
                                     property2 = episode.species.toString(),
                                     status = episode.status.toString(),
                                     id = episode.ID.toString(),
-                                    onClickable = {}
+                                    onClickable = {
+                                        onCharacterClick(it)
+                                    }
                                 )
                             }
                         }

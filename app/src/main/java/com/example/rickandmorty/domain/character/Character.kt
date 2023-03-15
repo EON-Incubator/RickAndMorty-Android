@@ -6,4 +6,5 @@ data class Character(
     val image: String?,
     val species: String?,
     val status: String?,
+    val gender: String?,
 )

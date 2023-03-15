@@ -53,9 +53,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
         viewModelScope.launch {
             _characters.update {
                 it.copy(
-
                     character = getCharacterUseCase.specificCharacter(code)
-
                 )
             }
         }

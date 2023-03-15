@@ -1,125 +1,123 @@
 package com.example.rickandmorty.ui.screens.episode
 
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
-import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
+import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
+import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 
 @Composable
-fun EpisodeDetails(state: EpisodeDetailViewModel.DetailEpisodesState) {
-    Column() {
-        if (state.isLoading) {
-        } else if (state.selectedEpisode != null) {
-            Column() {
+fun EpisodeDetails(
+    state: EpisodeDetailViewModel.DetailEpisodesState,
+    navigateUp: () -> Unit,
+    onCharacterClick: (String) -> Unit,
+//    charState: CharacterViewModel.characterState
+) {
+    Scaffold(topBar = {
+        RickAndMortyTopAppBar(
+            title = state.selectedEpisode?.name.toString(),
+            canNavigateBack = true,
+            navigateUp = navigateUp
+        )
+    }) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            ScreenNameBar(
+                name = state.selectedEpisode?.name.toString(),
+                onFilterClick = {}
+            )
+
+            if (state.isLoading) {
+                ImageVector.vectorResource(id = R.drawable.loading_img)
+            } else if (state.selectedEpisode != null) {
+                Column() {
 //                Text(text = state.selectedEpisode?.id.toString())
 
-                Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
 
-                Text(
-                    text = "INFO",
-                    fontSize = 12.sp
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Divider(
-                    Modifier.height(5.dp)
-                )
-                Column() {
-                    Row(
+                    Text(
+                        text = stringResource(R.string.info),
+                        fontSize = 12.sp,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(15.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .padding(start = 40.dp)
-                                .weight(1f)
-                        ) {
-//                            Image(painter = painterResource(id = R.drawable.episode), contentDescription = "episode")
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "Episode",
-                                fontSize = 12.sp
-//                            modifier = Modifier
-//                                .padding(start = 4.dp, top = 12.dp, bottom = 4.dp)
-                            )
-                        }
-
-                        Row(
-                            modifier = Modifier
-                                .padding(start = 40.dp)
-                                .weight(1f)
-                        ) {
-                            Text(
-                                text = state.selectedEpisode?.episode.toString(),
-                                fontSize = 12.sp
-//                            modifier = Modifier
-//                                .padding(top = 12.dp, bottom = 4.dp, end = 4.dp)
-                            )
-                        }
-                    }
-
-                    Divider(
-                        Modifier.height(5.dp)
+                            .padding(start = 10.dp)
                     )
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(15.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .padding(start = 40.dp)
-                                .weight(1f)
-                        ) {
-//                            Image(painter = painterResource(id = R.drawable.air_date), contentDescription = "air date")
-
-                            Spacer(modifier = Modifier.width(5.dp))
-
-                            Text(
-                                text = "Air Date",
-                                fontSize = 12.sp
-//                            modifier = Modifier
-//                                .padding(start = 4.dp, top = 12.dp, bottom = 4.dp)
-                            )
-                        }
-
-                        Row(
-                            modifier = Modifier
-                                .padding(start = 50.dp)
-                                .weight(1f)
-                        ) {
-                            Text(
-                                text = state.selectedEpisode?.air_date.toString(),
-                                fontSize = 12.sp
-                            )
-                        }
-                    }
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     Divider(
-                        Modifier.height(5.dp)
+                        Modifier.height(1.dp),
+                        color = MaterialTheme.colors.onBackground
                     )
+
+                    GetInfoInLine(
+                        icons = ImageVector.vectorResource(id = R.drawable.sort),
+                        topic = stringResource(id = R.string.episode),
+                        topicAnswer = state.selectedEpisode?.episode.toString()
+                    )
+
+                    Row() {
+                        GetInfoInLine(
+                            icons = ImageVector.vectorResource(id = R.drawable.dimension),
+                            topic = stringResource(id = R.string.air_date),
+                            topicAnswer = state.selectedEpisode?.air_date.toString()
+                        )
+                    }
+                    Divider(
+                        Modifier.height(1.dp),
+                        color = MaterialTheme.colors.onBackground
+                    )
+
+                    Spacer(modifier = Modifier.height(40.dp))
+
+                    Text(
+                        text = stringResource(R.string.characters),
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .padding(start = 10.dp)
+                    )
+
+                    if (state.selectedEpisode.characters.isNotEmpty()) {
+                        Log.v("character", state.characters.toString())
+                        LazyColumn() {
+                            items(state.selectedEpisode.characters) { episode ->
+                                GetRowWithOneImage(
+                                    imageUrlLink = episode.image.toString(),
+                                    titleName = episode.name.toString(),
+                                    property1 = episode.gender.toString(),
+                                    property2 = episode.species.toString(),
+                                    status = episode.status.toString(),
+                                    id = episode.ID.toString(),
+                                    onClickable = {
+                                        onCharacterClick(it)
+                                    }
+                                )
+                            }
+                        }
+                    } else {
+                        ImageVector.vectorResource(id = R.drawable.ic_broken_image)
+                    }
                 }
-                Spacer(modifier = Modifier.height(20.dp))
-                Text(
-                    text = "CHARACTERS",
-                    fontSize = 12.sp
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_broken_image),
+                    contentDescription = "Broken"
                 )
             }
-        } else {
         }
     }
 }
@@ -127,79 +125,4 @@ fun EpisodeDetails(state: EpisodeDetailViewModel.DetailEpisodesState) {
 object EpisodeDetailsDestination : NavigationDestination {
     override val route = "episode_detail"
     override val screenTitleRes = R.string.episode_detail_screen_title
-}
-
-@Composable
-fun EpisodeDetailScreen(
-    state: EpisodeDetailViewModel.DetailEpisodesState,
-    episode: DetailedEpisode,
-) {
-    if (state.selectedEpisode != null) {
-        Text(
-            text = "INFO",
-            fontSize = 12.sp
-        )
-        Column(modifier = Modifier) {
-            Row(horizontalArrangement = Arrangement.Center) {
-                Text(
-                    text = "EPISODE HERE",
-                    fontSize = 12.sp
-                )
-            }
-            Row(horizontalArrangement = Arrangement.Center) {
-                Text(
-                    text = "AIR DATE HERE",
-                    fontSize = 12.sp
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.width(40.dp))
-
-        Text(
-            text = "CHARACTERS",
-            fontSize = 12.sp
-        )
-    }
-
-    Text(
-        text = "INFO",
-        fontSize = 12.sp
-    )
-    Column(modifier = Modifier) {
-        Row(horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = "EPISODE HERE",
-                fontSize = 12.sp
-            )
-        }
-        Row(horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = "AIR DATE HERE",
-                fontSize = 12.sp
-            )
-        }
-    }
-
-    Spacer(modifier = Modifier.width(40.dp))
-
-    Text(
-        text = "CHARACTERS",
-        fontSize = 12.sp
-    )
-
-//    LazyColumn() {
-//        items() { episode ->
-//
-//        }
-//
-//        Card(
-//            modifier = Modifier.fillMaxWidth()
-//        ) {
-//
-//
-//
-//        }
-//
-//    }
 }

@@ -6,23 +6,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.rickandmorty.R
-import com.example.rickandmorty.domain.DetailedEpisode
-import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
-
-@Composable
-fun Episodes() {
-    val viewModel = hiltViewModel<EpisodeViewModel>()
-    val state by viewModel.state.collectAsState()
-}
 
 object EpisodeDestination : NavigationDestination {
     override val route = "episodes"
@@ -62,17 +52,3 @@ fun EpisodesScreen(
         }
     }
 }
-
-@Composable
-fun EpisodeDetail(
-    episode: Episodes,
-    modifier: Modifier = Modifier,
-) {
-}
-
-@Composable
-fun EpisodeDialog(
-    episode: DetailedEpisode,
-    onDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
-) {}

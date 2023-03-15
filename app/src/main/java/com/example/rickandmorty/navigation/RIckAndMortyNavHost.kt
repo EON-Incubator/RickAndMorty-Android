@@ -84,6 +84,7 @@ fun RickAndMortyNavHost(
 //            LocationDetailScreen(locationsDetailState)
         }
         composable(LocationDetailsDestination.route + "?id={id}") {
+            onDetailScreen(true)
             val id = it.arguments?.getString("id")
             val viewModel = hiltViewModel<LocationDetailViewModel>()
             val locationsDetailState by viewModel.locationDetail.collectAsState()

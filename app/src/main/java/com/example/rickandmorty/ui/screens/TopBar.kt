@@ -20,7 +20,7 @@ fun RickAndMortyTopAppBar(
 ) {
     if (canNavigateBack) {
         TopAppBar(
-            modifier = modifier.fillMaxSize(),
+            modifier = modifier,
             title = { TopBar(title = title) },
             navigationIcon = {
                 IconButton(onClick = navigateUp) {
@@ -46,6 +46,7 @@ fun TopBar(title: String) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
+            maxLines = 2,
             text = title,
             style = MaterialTheme.typography.h1,
             color = MaterialTheme.colors.onPrimary

@@ -3,6 +3,7 @@ query LocationDetail($locationId: ID!) {
         dimension
         name
         residents {
+            id
             gender
             image
             name

@@ -1,20 +1,25 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
@@ -112,14 +117,6 @@ fun GetRowWithFourImages(
         }
     }
 
-//    for( i in 0..3)
-//    {
-//        if(i>imageUrlLink.size)
-//            mutableImageLink.add("")
-//        else
-//            mutableImageLink.add(imageUrlLink[i])
-//    }
-
     Card(
         shape = RoundedCornerShape(10.dp),
         elevation = 7.dp,
@@ -137,6 +134,81 @@ fun GetRowWithFourImages(
         ) {
             Row(modifier = Modifier.weight(1f)) {
                 GetImages(mutableImageLink)
+            }
+
+            Row(modifier = Modifier.weight(2f)) {
+                GetData(
+                    titleName,
+                    property1,
+                    property2
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun GetRowWithOneImage(
+    imageUrlLink: String,
+    titleName: String,
+    property1: String,
+    property2: String,
+    status: String,
+    id: String,
+    onClickable: (String) -> Unit,
+
+) {
+    Card(
+        shape = RoundedCornerShape(10.dp),
+        elevation = 7.dp,
+        modifier = Modifier
+            .padding(5.dp)
+//            .height(100.dp)
+            .clickable {
+                onClickable(id)
+            }
+
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .width(80.dp)
+                    .rotate(-90f)
+                    .background(
+                        when (status) {
+                            "Dead" -> Color.Red
+                            "Alive" -> Color.Green
+                            else -> Color.Gray
+                        }
+
+                    ),
+                text = status
+            )
+
+            Row(modifier = Modifier.weight(1f)) {
+                AsyncImage(
+                    modifier = Modifier
+                        .padding(start = 15.dp, end = 7.dp, bottom = 7.dp, top = 7.dp)
+//                        .weight(1f)
+                        .clip(CircleShape)
+                        .size(70.dp)
+                        .border(
+                            BorderStroke(1.dp, color = MaterialTheme.colors.onBackground),
+                            shape = CircleShape
+                        ),
+
+                    alignment = Alignment.Center,
+//                    contentScale = ContentScale.Inside,
+                    model = imageUrlLink,
+                    error = painterResource(R.drawable.person_image),
+                    placeholder = painterResource(R.drawable.loading_img),
+//                painter = painterResource(id = R.drawable.rick),
+                    contentDescription = "Icon of Location Characters"
+                )
             }
 
             Row(modifier = Modifier.weight(2f)) {
@@ -233,58 +305,6 @@ fun GetData(
                 text = property2,
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground
-            )
-        }
-    }
-}
-
-/*
-Composable for Chracter Bar
-
- */
-// @Preview(showSystemUi = true)
-@Composable
-fun CharacterBar() {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Row() {
-            AsyncImage(
-                model = "https://rickandmortyapi.com/api/character/avatar/4.jpeg",
-                contentDescription = null,
-                modifier = Modifier.clip(
-                    RoundedCornerShape(100.dp)
-                )
-            )
-
-            Column() {
-                Text(
-                    text = "HEllO",
-                    modifier = Modifier.fillMaxWidth(),
-                    style = MaterialTheme.typography.body1
-                )
-                Row() {
-                    Card(
-                        backgroundColor = Color.Blue,
-                        shape = RectangleShape
-                    ) {
-                        Text(text = "Male")
-                    }
-                    Card(
-                        backgroundColor = Color.Yellow,
-                        shape = RectangleShape
-                    ) {
-                        Text(text = "Human")
-                    }
-                }
-            }
-            Image(
-                imageVector = ImageVector
-                    .vectorResource(id = R.drawable.navigate_next_fill0_wght400_grad0_opsz48),
-                contentDescription = "click to go on next screen",
-                alignment = Alignment.CenterEnd
             )
         }
     }

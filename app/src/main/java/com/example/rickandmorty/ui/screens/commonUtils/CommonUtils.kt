@@ -77,7 +77,10 @@ fun GetInfoInLine(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        Image(imageVector = icons, contentDescription = null)
+        Image(
+            imageVector = icons,
+            contentDescription = null
+        )
         Text(
             modifier = Modifier.weight(1f),
             text = topic,

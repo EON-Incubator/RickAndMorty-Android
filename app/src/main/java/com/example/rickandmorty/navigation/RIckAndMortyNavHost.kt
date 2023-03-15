@@ -60,10 +60,8 @@ fun RickAndMortyNavHost(
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {
             onDetailScreen(true)
-            val charViewModel = hiltViewModel<CharacterViewModel>()
             val viewModel = hiltViewModel<EpisodeDetailViewModel>()
             val state by viewModel.state.collectAsState()
-
             EpisodeDetails(state = state)
         }
         composable(LocationDestination.route) {
@@ -86,17 +84,28 @@ fun RickAndMortyNavHost(
 //            LocationDetailScreen(locationsDetailState)
         }
         composable(LocationDetailsDestination.route + "?id={id}") {
+            onDetailScreen(true)
             val id = it.arguments?.getString("id")
             val viewModel = hiltViewModel<LocationDetailViewModel>()
             val locationsDetailState by viewModel.locationDetail.collectAsState()
-//            LocationDetailScreen(
-//                locationsDetailState
-//            )
+            LocationDetailScreen(
+                locationsDetailState,
+                navigateUp = { navController.popBackStack() },
+                onCharacterClick = {
+                    navController.navigate(CharacterDetailsDestination.route + "?id=$it")
+                }
+            )
         }
         composable("search") {
             val viewModel = hiltViewModel<SearchViewModel>()
             val characterState by viewModel.characters.collectAsState()
             val locationState by viewModel.locations.collectAsState()
+            var showCharacters by remember {
+                mutableStateOf(false)
+            }
+            var showLocations by remember {
+                mutableStateOf(false)
+            }
 
             Search(
                 characterState = characterState,
@@ -110,7 +119,11 @@ fun RickAndMortyNavHost(
                 onCharacterClick = {
                     navController
                         .navigate(CharacterDetailsDestination.route + "?id=$it")
-                }
+                },
+                onShowCharacters = { showCharacters = !showCharacters },
+                onShowLocations = { showLocations = !showLocations },
+                showCharacters = showCharacters,
+                showLocations = showLocations
             )
         }
     }

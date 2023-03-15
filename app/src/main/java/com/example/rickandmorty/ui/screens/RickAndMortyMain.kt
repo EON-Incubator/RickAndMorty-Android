@@ -12,7 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.rickandmorty.navigation.RickAndMortyNavHost
-import com.example.rickandmorty.ui.screens.character.CharacterDetailsDestination
+import com.example.rickandmorty.ui.screens.character.CharacterDestination
 import com.example.rickandmorty.ui.screens.character.CharacterViewModel
 
 @Composable
@@ -58,11 +58,8 @@ fun RickAndMortyMainApp(
             navController = navController,
             onItemClick = {
                 navController.navigate(it.route) {
-                    popUpTo(
-                        navController.currentBackStackEntry?.destination?.route
-                            ?: CharacterDetailsDestination.route
-                    ) {
-                        inclusive = true
+                    popUpTo(CharacterDestination.route) {
+                        inclusive = false
                     }
                 }
             }

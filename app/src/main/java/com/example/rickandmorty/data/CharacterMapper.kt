@@ -50,6 +50,7 @@ fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
         }
     )
 }
+
 fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
     return DetailedCharacter(
         ID = id,
@@ -59,11 +60,12 @@ fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
         species = species,
         gender = gender,
         episode = episode.mapNotNull {
-            Episode(
+            Episodes(
                 it?.id,
                 it?.name,
-                it?.characters?.mapNotNull { it?.image } ?: emptyList(),
-                it?.air_date
+
+                it?.air_date,
+                it?.characters?.mapNotNull { it?.image } ?: emptyList()
             )
         },
         dimension = location?.dimension,

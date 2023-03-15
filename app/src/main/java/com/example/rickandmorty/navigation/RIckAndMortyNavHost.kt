@@ -42,12 +42,14 @@ fun RickAndMortyNavHost(
             )
         }
         composable(CharacterDetailsDestination.route + "?id={id}") {
+            onDetailScreen(true)
             val viewModel = hiltViewModel<DetailedCharacterViewModel>()
 
             val characterState by viewModel.character.collectAsState()
-            // viewModel.selectCountry(it.arguments?.getString("charInfo").toString())
-            // Log.d("sec_check", "RickAndMortyNavHost:  ${it.arguments?.getString("charInfo")}")
-            CharacterDetails(state = characterState)
+            CharacterDetails(
+                state = characterState,
+                navigateUp = { navController.popBackStack() }
+            )
         }
         composable(EpisodeDestination.route) {
             onDetailScreen(false)

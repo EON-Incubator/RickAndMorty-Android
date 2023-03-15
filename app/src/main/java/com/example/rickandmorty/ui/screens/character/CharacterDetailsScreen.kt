@@ -2,12 +2,11 @@ package com.example.rickandmorty.ui.screens.character
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,27 +21,43 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
 
 @Composable
 fun CharacterDetails(
     modifier: Modifier = Modifier,
     state: DetailedCharacterViewModel.detailedcharacterState,
+    navigateUp: () -> Unit,
 ) {
-    if (state.isLoading) {
-        CircularProgressIndicator(
-            modifier = Modifier
-                .fillMaxSize()
-            // .align(Alignment.Center)
+    Scaffold(topBar = {
+        RickAndMortyTopAppBar(
+            title = state.character?.name.toString(),
+            canNavigateBack = true,
+            navigateUp = navigateUp
         )
-    }
-    // Text(text = charInfo?.ID.toString())
-    else {
-        DetailedScreen(modifier = modifier.fillMaxSize(), charInfo = state.character)
-    }
+    }) {
+        if (state.isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+                // .align(Alignment.Center)
+            )
+        }
+        // Text(text = charInfo?.ID.toString())
+        else {
+            DetailedScreen(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(it),
+                charInfo = state.character
+            )
+        }
 
 //    GetInfoInLine(ImageVector.vectorResource( R.drawable.person_image), topic = "Gender", topicAnswer ="Male" )
-    //  AsyncImage(model = state.character?.image.toString(), contentDescription = null)
+        //  AsyncImage(model = state.character?.image.toString(), contentDescription = null)
 // Text(text = "hello")
+    }
 }
 
 object CharacterDetailsDestination : NavigationDestination {
@@ -53,11 +68,14 @@ object CharacterDetailsDestination : NavigationDestination {
 @Composable
 fun DetailedScreen(modifier: Modifier = Modifier, charInfo: DetailedCharacter?) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
+
             text = charInfo?.name.toString(),
             style = MaterialTheme.typography.h1,
             textAlign = TextAlign.Start,

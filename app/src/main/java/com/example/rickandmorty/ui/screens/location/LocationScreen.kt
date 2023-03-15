@@ -45,9 +45,8 @@ fun LocationScreen(
                             titleName = location.name.toString(),
                             property1 = location.type.toString(),
                             property2 = location.dimension.toString(),
-                            onClickable = {
-                                onClick(it)
-                            },
+                            onClickable =
+                            onClick,
                             id = location.id.toString()
                         )
                     }

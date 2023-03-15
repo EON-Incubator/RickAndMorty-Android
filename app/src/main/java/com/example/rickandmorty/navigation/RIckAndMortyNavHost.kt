@@ -18,9 +18,15 @@ import com.example.rickandmorty.ui.screens.search.SearchViewModel
 fun RickAndMortyNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
+    onDetailScreen: (Boolean) -> Unit,
 ) {
-    NavHost(navController = navController, startDestination = CharacterDestination.route) {
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = CharacterDestination.route
+    ) {
         composable(CharacterDestination.route) {
+            onDetailScreen(false)
             val viewModel = hiltViewModel<CharacterViewModel>()
             val characterState by viewModel.characters.collectAsState()
             var characterInfo = characterState.character?.ID.toString()
@@ -44,6 +50,7 @@ fun RickAndMortyNavHost(
             CharacterDetails(state = characterState)
         }
         composable(EpisodeDestination.route) {
+            onDetailScreen(false)
             val viewModel = hiltViewModel<EpisodeViewModel>()
             val state by viewModel.state.collectAsState()
             EpisodesScreen(
@@ -52,11 +59,13 @@ fun RickAndMortyNavHost(
             )
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {
+            onDetailScreen(true)
             val viewModel = hiltViewModel<EpisodeDetailViewModel>()
             val state by viewModel.state.collectAsState()
             EpisodeDetails(state = state)
         }
         composable(LocationDestination.route) {
+            onDetailScreen(false)
             // For Location Screen
             val viewModel = hiltViewModel<LocationViewModel>()
             val locationsState by viewModel.location.collectAsState()

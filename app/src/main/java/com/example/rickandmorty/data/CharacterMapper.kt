@@ -37,12 +37,12 @@ fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
         type = type,
         residents = residents.mapNotNull {
             DetailedCharacter(
-                ID = "",
-                it?.gender,
-                it?.image,
+                it?.id,
                 it?.name,
-                it?.status,
+                it?.image,
                 it?.species,
+                it?.status,
+                it?.gender,
                 episode = emptyList(),
                 dimension = "",
                 created = ""

@@ -1,27 +1,22 @@
 package com.example.rickandmorty.ui.screens.search
 
+import android.graphics.drawable.Icon
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
+import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 
 @Composable
 fun Search(
@@ -31,56 +26,106 @@ fun Search(
     query: TextFieldValue,
     onLocationClick: (id: String) -> Unit,
     onCharacterClick: (id: String) -> Unit,
+    onShowCharacters: () -> Unit,
+    showCharacters: Boolean,
+    onShowLocations: () -> Unit,
+    showLocations: Boolean,
 ) {
-    Column() {
-        TextField(
-            value = query.text,
-            onValueChange = onValueChange
-        )
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.padding(5.dp)) {
+            OutlinedTextField(
+                value = query.text,
+                onValueChange = onValueChange,
+                Modifier.fillMaxWidth()
+            )
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(5.dp), modifier = Modifier.padding(5.dp)) {
+            Button(
+                onClick = onShowCharacters,
+                Modifier.weight(1.0f),
+                colors = if (showCharacters) {
+                    ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                } else {
+                    ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+                }
+            ) {
+                if (showCharacters) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.outline_check_box_24),
+                        contentDescription = "Selected",
+                        Modifier.padding(horizontal = 5.dp)
+                    )
+                } else {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.outline_check_box_outline_blank_24),
+                        contentDescription = "Selected",
+                        Modifier.padding(horizontal = 5.dp)
+                    )
+                }
+                Text(text = "Characters (${characterState.characters?.size})")
+            }
+            Button(
+                onClick = onShowLocations,
+                Modifier.weight(1.0f),
+                colors = if (showLocations) {
+                    ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                } else {
+                    ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+                }
+            ) {
+                if (showLocations) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.outline_check_box_24),
+                        contentDescription = "Selected",
+                        Modifier.padding(horizontal = 5.dp)
+                    )
+                } else {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.outline_check_box_outline_blank_24),
+                        contentDescription = "Selected",
+                        Modifier.padding(horizontal = 5.dp)
+                    )
+                }
+                Text(text = "Locations (${locationState.locations?.size})")
+            }
+        }
 
         LazyColumn {
-            item {
-                Text(text = "Characters")
-            }
-            if (characterState.characters.isNotEmpty()) {
-                items(characterState.characters) { item ->
-                    Card(
-                        modifier = Modifier
-                            .padding(12.dp)
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(12.dp)),
-                        elevation = 12.dp
-                    ) {
-                        Box(contentAlignment = Alignment.BottomCenter) {
-                            AsyncImage(
-                                model = item.image,
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clip(
-                                        RoundedCornerShape(8.dp)
-                                    )
-                                    .clickable { onCharacterClick(item.ID.toString()) },
-                                contentScale = ContentScale.Crop
-                            )
-                            Text(
-                                text = item.name.toString(),
-                                modifier = Modifier
-                                    .background(MaterialTheme.colors.primaryVariant)
-                                    .fillMaxWidth(),
-                                textAlign = TextAlign.Center,
-                                color = MaterialTheme.colors.onPrimary,
-                                style = MaterialTheme.typography.body1
-                            )
-                        }
-                    }
+            if (characterState.characters.isNotEmpty() && showCharacters) {
+                item {
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = "Characters",
+                        Modifier
+                            .background(Color.LightGray)
+                            .fillMaxWidth()
+                            .padding(2.dp)
+                    )
+                }
+                items(characterState.characters, key = { it.ID.toString() }) { item ->
+                    GetRowWithOneImage(
+                        imageUrlLink = item.image.toString(),
+                        titleName = item.name.toString(),
+                        property1 = item.status.toString(),
+                        property2 = item.gender.toString(),
+                        status = item.status.toString(),
+                        id = item.ID.toString(),
+                        onClickable = onCharacterClick
+                    )
                 }
             }
-            item {
-                Text(text = "Locations")
-            }
 
-            if (locationState.locations.isNotEmpty()) {
+            if (locationState.locations.isNotEmpty() && showLocations) {
+                item {
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = "Locations",
+                        Modifier
+                            .background(Color.LightGray)
+                            .fillMaxWidth()
+                            .padding(2.dp)
+                    )
+                }
                 items(locationState.locations) { item ->
                     GetRowWithFourImages(
                         imageUrlLink = item.images,

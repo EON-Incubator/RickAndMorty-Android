@@ -83,7 +83,6 @@ fun GetInfoInLine(
             contentDescription = "Icon"
         )
 
-//        Image(imageVector = icons, contentDescription = null)
         Text(
             modifier = Modifier.weight(1f),
             text = topic,

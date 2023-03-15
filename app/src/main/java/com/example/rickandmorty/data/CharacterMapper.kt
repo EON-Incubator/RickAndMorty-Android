@@ -15,7 +15,8 @@ fun CharactersQuery.Result.toCharacter(): Character {
         name = name,
         image = image,
         status = status,
-        species = species
+        species = species,
+        gender = gender
     )
 }
 
@@ -73,6 +74,7 @@ fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
 
 fun GetEpisodeQuery.Episode.toDetailedEpisode(): DetailedEpisode {
     return DetailedEpisode(
+        id = id,
         name = name,
         episode = episode,
         air_date = air_date,
@@ -82,6 +84,7 @@ fun GetEpisodeQuery.Episode.toDetailedEpisode(): DetailedEpisode {
 
 fun GetEpisodesQuery.Result.toEpisodes(): Episodes {
     return Episodes(
+        id = id,
         name = name,
         episode = episode,
         air_date = air_date,

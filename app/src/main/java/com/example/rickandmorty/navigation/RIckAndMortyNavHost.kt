@@ -57,7 +57,9 @@ fun RickAndMortyNavHost(
             val state by viewModel.state.collectAsState()
             EpisodesScreen(
                 state = state,
-                onSelectEpisode = { navController.navigate(EpisodeDetailsDestination.route + "?id=$it") }
+                onSelectEpisode = {
+                    navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
+                }
             )
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {

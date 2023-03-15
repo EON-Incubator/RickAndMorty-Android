@@ -6,6 +6,7 @@ query CharactersQuery($name:String!){
             image
             species
             status
+            gender
         }
     }
 }

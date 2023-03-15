@@ -98,6 +98,12 @@ fun RickAndMortyNavHost(
             val viewModel = hiltViewModel<SearchViewModel>()
             val characterState by viewModel.characters.collectAsState()
             val locationState by viewModel.locations.collectAsState()
+            var showCharacters by remember {
+                mutableStateOf(false)
+            }
+            var showLocations by remember {
+                mutableStateOf(false)
+            }
 
             Search(
                 characterState = characterState,
@@ -111,7 +117,11 @@ fun RickAndMortyNavHost(
                 onCharacterClick = {
                     navController
                         .navigate(CharacterDetailsDestination.route + "?id=$it")
-                }
+                },
+                onShowCharacters = { showCharacters = !showCharacters },
+                onShowLocations = { showLocations = !showLocations },
+                showCharacters = showCharacters,
+                showLocations = showLocations
             )
         }
     }

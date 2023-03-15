@@ -88,7 +88,11 @@ fun RickAndMortyNavHost(
             val viewModel = hiltViewModel<LocationDetailViewModel>()
             val locationsDetailState by viewModel.locationDetail.collectAsState()
             LocationDetailScreen(
-                locationsDetailState
+                locationsDetailState,
+                navigateUp = { navController.popBackStack() },
+                onCharacterClick = {
+                    navController.navigate(CharacterDetailsDestination.route + "?id=$it")
+                }
             )
         }
         composable("search") {

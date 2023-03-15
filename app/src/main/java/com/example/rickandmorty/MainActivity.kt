@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.getValue
-import com.example.rickandmorty.ui.screens.commonUtils.CharacterBar
+import com.example.rickandmorty.ui.screens.RickAndMortyMainApp
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
@@ -13,8 +13,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             RickAndMortyTheme {
-                // RickAndMortyMainApp()
-                CharacterBar()
+                RickAndMortyMainApp()
+                //   CharacterBar()
             }
         }
     }

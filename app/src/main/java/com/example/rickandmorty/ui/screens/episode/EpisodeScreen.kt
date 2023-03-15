@@ -32,7 +32,7 @@ object EpisodeDestination : NavigationDestination {
 @Composable
 fun EpisodesScreen(
     state: EpisodeViewModel.EpisodesState,
-    onSelectEpisode: () -> Unit,
+    onSelectEpisode: (id: String?) -> Unit,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -53,55 +53,14 @@ fun EpisodesScreen(
                             titleName = episode.name.toString(),
                             property1 = episode.episode.toString(),
                             property2 = episode.air_date.toString(),
-                            onClickable = { onSelectEpisode() },
+                            onClickable = { onSelectEpisode(episode.id.toString()) },
                             id = episode.id.toString()
                         )
                     }
                 }
             }
-
-//            if (state.selectedEpisode != null) {
-//                EpisodeDetailScreen(episode =
-//                    state.selectedEpisode,
-//                )
-//            }
         }
     }
-
-//    Column(
-//        modifier = Modifier.fillMaxSize()
-//    ) {
-//        if (state.isLoading) {
-//            CircularProgressIndicator(
-//                modifier = Modifier.align(Alignment.Center)
-//            )
-//        } else {
-//            LazyColumn(
-//                modifier = Modifier.fillMaxSize()
-//            ) {
-//                items(state.episodes) { episode ->
-//                    EpisodeItem(
-//                        episode = episode,
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .clickable { onSelectEpisode(episode.episode!!) }
-//                            .padding(16.dp)
-//                    )
-//                }
-//            }
-//        }
-//
-//        if (state.selectedEpisode != null) {
-//            EpisodeDialog(
-//                episode = state.selectedEpisode,
-//                onDismiss = onDismissEpisodeDialog,
-//                modifier = Modifier
-//                    .clip(RoundedCornerShape(5.dp))
-//                    .background(color = Color.White)
-//                    .padding(16.dp)
-//            )
-//        }
-//    }
 }
 
 @Composable
@@ -117,36 +76,3 @@ fun EpisodeDialog(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {}
-
-// @Composable
-// private fun EpisodeItem(
-//    episode: Episodes,
-//    modifier: Modifier = Modifier,
-// ) {
-//    Row(
-//        modifier = modifier,
-//        verticalAlignment = Alignment.CenterVertically
-//    ) {
-//        Text(
-//            text = episode.images.toString(),
-//            fontSize = 30.sp
-//        )
-//        Spacer(modifier = Modifier.width(16.dp))
-//        Column(
-//            modifier = Modifier.weight(1f)
-//        ) {
-//            Text(
-//                text = episode.name!!,
-//                fontSize = 24.sp
-//            )
-//            Spacer(modifier = Modifier.width(16.dp))
-//            Text(
-//                text = episode.episode!!
-//            )
-//            Spacer(modifier = Modifier.width(16.dp))
-//            Text(
-//                text = episode.air_date!!
-//            )
-//        }
-//    }
-// }

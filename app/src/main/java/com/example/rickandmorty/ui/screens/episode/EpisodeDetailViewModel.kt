@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.episode
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.DetailedEpisode
@@ -12,7 +13,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EpisodeDetailViewModel @Inject constructor(val getEpisodeUseCase: GetEpisodeUseCase) : ViewModel() {
+class EpisodeDetailViewModel @Inject constructor(
+    val getEpisodeUseCase: GetEpisodeUseCase,
+    private val savedStateHandle: SavedStateHandle,
+) : ViewModel() {
+    val id = savedStateHandle.get<String>("id")
     private val _episode = MutableStateFlow(DetailEpisodesState())
     val state = _episode.asStateFlow()
 
@@ -30,7 +35,7 @@ class EpisodeDetailViewModel @Inject constructor(val getEpisodeUseCase: GetEpiso
     private suspend fun getAllEpisode() {
         _episode.update {
             it.copy(
-//                selectedEpisode = getEpisodeUseCase.execute(),
+                selectedEpisode = getEpisodeUseCase.execute(id.toString()),
                 isLoading = false
             )
         }

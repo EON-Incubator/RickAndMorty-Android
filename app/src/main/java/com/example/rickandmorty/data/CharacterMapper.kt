@@ -64,7 +64,7 @@ fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
             Episodes(
                 it?.id,
                 it?.name,
-
+                it?.episode,
                 it?.air_date,
                 it?.characters?.mapNotNull { it?.image } ?: emptyList()
             )

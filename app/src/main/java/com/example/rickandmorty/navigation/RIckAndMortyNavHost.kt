@@ -48,7 +48,10 @@ fun RickAndMortyNavHost(
             val characterState by viewModel.character.collectAsState()
             CharacterDetails(
                 state = characterState,
-                navigateUp = { navController.popBackStack() }
+                navigateUp = { navController.popBackStack() },
+                onEpisodeClick = {
+                    navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
+                }
             )
         }
         composable(EpisodeDestination.route) {
@@ -88,11 +91,16 @@ fun RickAndMortyNavHost(
 //            LocationDetailScreen(locationsDetailState)
         }
         composable(LocationDetailsDestination.route + "?id={id}") {
+            onDetailScreen(true)
             val id = it.arguments?.getString("id")
             val viewModel = hiltViewModel<LocationDetailViewModel>()
             val locationsDetailState by viewModel.locationDetail.collectAsState()
             LocationDetailScreen(
-                locationsDetailState
+                locationsDetailState,
+                navigateUp = { navController.popBackStack() },
+                onCharacterClick = {
+                    navController.navigate(CharacterDetailsDestination.route + "?id=$it")
+                }
             )
         }
         composable("search") {
@@ -100,10 +108,10 @@ fun RickAndMortyNavHost(
             val characterState by viewModel.characters.collectAsState()
             val locationState by viewModel.locations.collectAsState()
             var showCharacters by remember {
-                mutableStateOf(false)
+                mutableStateOf(true)
             }
             var showLocations by remember {
-                mutableStateOf(false)
+                mutableStateOf(true)
             }
 
             Search(

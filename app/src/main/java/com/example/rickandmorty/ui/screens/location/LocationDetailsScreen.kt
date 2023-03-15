@@ -57,7 +57,7 @@ fun LocationDetailScreen(
 
             locationsDetailUiState.locationDetail.type?.let {
                 GetInfoInLine(
-                    ImageVector.vectorResource(id = R.drawable.sort),
+                    ImageVector.vectorResource(id = R.drawable.type),
                     "Type",
                     it
                 )
@@ -65,7 +65,7 @@ fun LocationDetailScreen(
 
             locationsDetailUiState.locationDetail.dimension?.let {
                 GetInfoInLine(
-                    ImageVector.vectorResource(id = R.drawable.sort),
+                    ImageVector.vectorResource(id = R.drawable.dimension),
                     "Dimension",
                     it
                 )

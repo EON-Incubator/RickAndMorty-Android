@@ -30,7 +30,7 @@ fun Characters(
     state: CharacterViewModel.characterState,
 
     onClick: (id: String) -> Unit,
-    onCharacterClick: (code: String) -> Unit,
+    // onCharacterClick: (code: String) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {
@@ -50,8 +50,8 @@ fun Characters(
                 items(state.characters) { character ->
                     characterItem(
                         charstate = character,
-                        onClick = onClick,
-                        onCharacterClick = onCharacterClick
+                        onClick = onClick
+
                     )
                 }
             }
@@ -77,7 +77,7 @@ private fun characterItem(
     charstate: Character,
 
     onClick: (id: String) -> Unit,
-    onCharacterClick: (code: String) -> Unit,
+
 ) {
     Card(
         modifier = Modifier
@@ -86,9 +86,7 @@ private fun characterItem(
             .clip(RoundedCornerShape(12.dp))
             .clickable {
                 onClick(charstate.ID.toString())
-//                action1(charstate = charstate, onClick)
-                action2(charstate = charstate, onCharacterClick)
-            },
+                       },
         elevation = 12.dp
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {

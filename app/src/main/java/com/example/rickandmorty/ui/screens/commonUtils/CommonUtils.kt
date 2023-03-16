@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
@@ -212,6 +213,7 @@ fun GetRowWithOneImage(
                         }
 
                     ),
+                softWrap = false,
                 text = status
             )
 
@@ -324,6 +326,10 @@ fun GetData(
     ) {
         Text(
             text = titleName,
+            maxLines = 1,
+//            shadow = Shadow(color = Color.DarkGray, offset = Offset(5.0f, 10.0f), blurRadius = 3f),
+
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(start = 10.dp, bottom = 10.dp),
             style = MaterialTheme.typography.body1,
             fontWeight = FontWeight.Bold,
@@ -332,12 +338,15 @@ fun GetData(
         Row() {
             Text(
                 text = property1,
-                modifier = Modifier.padding(end = 15.dp),
+                modifier = Modifier.padding(end = 15.dp)
+                    .background(Color.LightGray),
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground
             )
 
             Text(
+                modifier = Modifier
+                    .background(Color.LightGray),
                 text = property2,
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground

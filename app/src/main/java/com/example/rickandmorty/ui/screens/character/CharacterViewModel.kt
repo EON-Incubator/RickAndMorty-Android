@@ -2,6 +2,7 @@ package com.example.rickandmorty.ui.screens.character
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
 
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
@@ -27,7 +28,7 @@ late init var is used to initialize it later
 class CharacterViewModel @Inject constructor(private val getCharacterUseCase: GetCharacterUseCase) :
     ViewModel() {
 
-    private val _characters = MutableStateFlow(characterState())
+    private val _characters = MutableStateFlow(CharacterState())
     val characters = _characters.asStateFlow()
 
     init {
@@ -37,13 +38,14 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                     isLoading = true
                 )
             }
+            val characterData = getCharacterUseCase.sortById()
             _characters.update {
                 it.copy(
-                    characters = getCharacterUseCase.sortById(),
+                    characters = characterData.characters ?: emptyList(),
                     character = getCharacterUseCase
                         .specificCharacter(characters.value.selectedCharacter.toString()),
-                    isLoading = false
-
+                    isLoading = false,
+                    pages = characterData.pages
                 )
             }
         }
@@ -53,10 +55,30 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
         viewModelScope.launch {
             _characters.update {
                 it.copy(
-
                     character = getCharacterUseCase.specificCharacter(code)
-
                 )
+            }
+        }
+    }
+
+    fun updateList() {
+        viewModelScope.launch {
+            if (characters.value.pages?.next != null) {
+                _characters.update {
+                    it.copy(
+                        isLoading = true
+                    )
+                }
+
+                val characterData =
+                    getCharacterUseCase.sortById(page = characters.value.pages?.next ?: 1)
+                _characters.update {
+                    it.copy(
+                        characters = it.characters + (characterData.characters ?: emptyList()),
+                        pages = characterData.pages,
+                        isLoading = false
+                    )
+                }
             }
         }
     }
@@ -64,10 +86,11 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     fun dismissCharacterDialog() {
     }
 
-    data class characterState(
-        val characters: List<com.example.rickandmorty.domain.character.Character> = emptyList(),
+    data class CharacterState(
+        val characters: List<Character> = emptyList(),
         val character: com.example.rickandmorty.domain.character.DetailedCharacter? = null,
         val isLoading: Boolean = false,
         var selectedCharacter: String? = null,
+        var pages: Paginate? = null,
     )
 }

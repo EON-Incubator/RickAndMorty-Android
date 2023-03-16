@@ -1,0 +1,8 @@
+fragment pageInfo on Characters {
+    info{
+        next
+        pages
+        prev
+        count
+    }
+}

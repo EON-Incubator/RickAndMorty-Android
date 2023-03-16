@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,12 +37,25 @@ class SearchViewModel @Inject constructor(
             viewModelScope.launch {
                 _characters.update {
                     it.copy(
-                        characters = getCharacterUseCase.sortById(name)
+                        isLoading = true
                     )
                 }
                 _locations.update {
                     it.copy(
-                        locations = getAllLocationUseCase.sortByName(name)
+                        isLoading = true
+                    )
+                }
+                val characterData = getCharacterUseCase.sortById(name)
+                _characters.update {
+                    it.copy(
+                        characters = characterData.characters ?: emptyList(),
+                        isLoading = false
+                    )
+                }
+                _locations.update {
+                    it.copy(
+                        locations = getAllLocationUseCase.sortByName(name),
+                        isLoading = false
                     )
                 }
             }
@@ -51,10 +65,12 @@ class SearchViewModel @Inject constructor(
     data class CharacterState(
         val characters: List<Character> = emptyList(),
         val isLoading: Boolean = false,
+        val pages: Paginate? = null,
     )
 
     data class LocationState(
         val locations: List<Location> = emptyList(),
         val isLoading: Boolean = false,
+        val pages: Paginate? = null,
     )
 }

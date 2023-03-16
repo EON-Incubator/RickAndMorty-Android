@@ -3,20 +3,32 @@ package com.example.rickandmorty.data
 import com.example.*
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.domain.character.Character
+import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episode
 
-fun CharactersQuery.Result.toCharacter(): Character {
-    return Character(
-        ID = id,
-        name = name,
-        image = image,
-        status = status,
-        species = species,
-        gender = gender
+fun CharactersQuery.Characters.toCharacter(): CharacterData {
+    return CharacterData(
+        pages = Paginate(
+            next = pageInfo.info?.next,
+            prev = pageInfo.info?.next,
+            pages = pageInfo.info?.pages,
+            count = pageInfo.info?.count
+        ),
+        characters = results?.mapNotNull {
+            Character(
+                ID = it?.id,
+                name = it?.name,
+                image = it?.image,
+                status = it?.status,
+                species = it?.species,
+                gender = it?.gender
+            )
+        }
     )
 }
 

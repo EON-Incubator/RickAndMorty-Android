@@ -4,22 +4,20 @@ import com.apollographql.apollo3.ApolloClient
 import com.example.*
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationDetail
-import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.character.CharacterData
 
 class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterClient {
-    override suspend fun getCharacters(name: String): List<Character> {
+    override suspend fun getCharacters(name: String, page: Int): CharacterData? {
         return apolloClient
-            .query(CharactersQuery(name))
+            .query(CharactersQuery(name, page))
             .execute()
             .data
             ?.characters
-            ?.results
-            ?.mapNotNull { it?.toCharacter() }
-            ?: emptyList<Character>()
+            ?.toCharacter()
     }
 
     override suspend fun getAllLocations(name: String): List<Location> {

@@ -1,5 +1,6 @@
 package com.example.rickandmorty.navigation
 
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,11 +28,19 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<CharacterViewModel>()
             val characterState by viewModel.characters.collectAsState()
+            var characterInfo = characterState.character?.ID.toString()
+            val listState = rememberLazyGridState()
+
+            if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index == listState.layoutInfo.totalItemsCount - 1) {
+                viewModel.updateList()
+            }
             Characters(
                 characterState,
                 onClick = {
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
-                }
+                },
+                onCharacterClick = { viewModel.selectCountry(it) },
+                listState = listState
             )
         }
         composable(CharacterDetailsDestination.route + "?id={id}") {

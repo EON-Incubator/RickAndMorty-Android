@@ -46,7 +46,7 @@ fun TopBar(title: String) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            maxLines = 2,
+            maxLines = 3,
             text = title,
             style = MaterialTheme.typography.h1,
             color = MaterialTheme.colors.onPrimary

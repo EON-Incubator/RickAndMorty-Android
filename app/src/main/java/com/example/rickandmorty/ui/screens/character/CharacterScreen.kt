@@ -86,7 +86,7 @@ private fun characterItem(
             .clip(RoundedCornerShape(12.dp))
             .clickable {
                 onClick(charstate.ID.toString())
-                       },
+            },
         elevation = 12.dp
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {

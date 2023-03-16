@@ -15,10 +15,4 @@ class GetLocationDetailUseCase(
         return characterClient
             .getLocationDetail(id)!!
     }
-
-//    suspend fun sortByName(id: String): List<Location> {
-//        return characterClient
-//            .getLocationDetail(id)
-//            .sortedBy { it.name }
-//    }
 }

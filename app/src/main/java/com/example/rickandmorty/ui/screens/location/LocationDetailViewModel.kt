@@ -25,7 +25,6 @@ class LocationDetailViewModel @Inject constructor(
     // Mutable Flow State variables
     private val _locationDetail = MutableStateFlow(LocationDetailUiState())
     val locationDetail = _locationDetail.asStateFlow()
-
     val id = savedStateHandle.get<String>("id")
 
     // Initializer

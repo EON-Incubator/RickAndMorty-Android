@@ -29,16 +29,14 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<CharacterViewModel>()
             val characterState by viewModel.characters.collectAsState()
-            var characterInfo = characterState.character?.ID.toString()
-            Log.d("rcheck", "RickAndMortyNavHost:  ${characterState.character?.ID}")
             Characters(
                 characterState,
 
                 onClick = {
                     Log.v("id", it.toString())
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
-                },
-                onCharacterClick = { viewModel.selectCountry(it) }
+                }
+
             )
         }
         composable(CharacterDetailsDestination.route + "?id={id}") {

@@ -54,15 +54,6 @@ class EpisodeDetailViewModel @Inject constructor(
         }
     }
 
-//    private suspend fun getEpisodeChar() {
-//        _episode.update {
-//            it.copy(
-//                characters = getCharacterUseCase.sortById(),
-//                isLoading = false
-//            )
-//        }
-//    }
-
     data class DetailEpisodesState(
         val characters: List<com.example.rickandmorty.domain.character.Character> = emptyList(),
         val isLoading: Boolean = false,

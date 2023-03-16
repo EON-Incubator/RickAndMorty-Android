@@ -145,7 +145,7 @@ fun DetailedScreen(
                                 .height(50.dp)
                                 .padding(start = 12.dp, top = 12.dp),
                             textAlign = TextAlign.Start
-                        ) // Spacer(modifier = Modifier.height(20.dp))
+                        )
                         Divider(thickness = 2.dp)
                         GetInfoInLine(
                             icons = ImageVector

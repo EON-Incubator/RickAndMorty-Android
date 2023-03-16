@@ -190,7 +190,6 @@ fun GetRowWithOneImage(
         elevation = 7.dp,
         modifier = Modifier
             .padding(5.dp)
-//            .height(100.dp)
             .clickable {
                 onClickable(id)
             }
@@ -221,7 +220,6 @@ fun GetRowWithOneImage(
                 AsyncImage(
                     modifier = Modifier
                         .padding(start = 15.dp, end = 7.dp, bottom = 7.dp, top = 7.dp)
-//                        .weight(1f)
                         .clip(CircleShape)
                         .size(70.dp)
                         .border(
@@ -230,11 +228,9 @@ fun GetRowWithOneImage(
                         ),
 
                     alignment = Alignment.Center,
-//                    contentScale = ContentScale.Inside,
                     model = imageUrlLink,
                     error = painterResource(R.drawable.person_image),
                     placeholder = painterResource(R.drawable.loading_img),
-//                painter = painterResource(id = R.drawable.rick),
                     contentDescription = "Icon of Location Characters"
                 )
             }
@@ -267,7 +263,6 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                 model = imageUrlLink[0],
                 error = painterResource(R.drawable.person_image),
                 placeholder = painterResource(R.drawable.loading_img),
-//                painter = painterResource(id = R.drawable.rick),
                 contentDescription = "Icon of Location Characters"
             )
 
@@ -327,8 +322,6 @@ fun GetData(
         Text(
             text = titleName,
             maxLines = 1,
-//            shadow = Shadow(color = Color.DarkGray, offset = Offset(5.0f, 10.0f), blurRadius = 3f),
-
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(start = 10.dp, bottom = 10.dp),
             style = MaterialTheme.typography.body1,

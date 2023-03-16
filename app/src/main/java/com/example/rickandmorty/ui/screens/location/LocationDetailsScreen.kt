@@ -80,7 +80,6 @@ fun LocationDetailScreen(
             }
 
             Spacer(modifier = Modifier.height(30.dp))
-
             Text(
                 text = "RESIDENTS",
                 modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),

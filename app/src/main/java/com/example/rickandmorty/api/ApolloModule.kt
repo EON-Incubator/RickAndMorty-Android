@@ -15,12 +15,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-/*
+/**
 with @Module annotation it tells the dagger hilt check this module while performing
 dependency injection
 
 SingletonComponent::class allows us to make the object of this just one time on Application level
-
 
  */
 @Module
@@ -32,10 +31,10 @@ object ApolloModule {
         return ApolloClient.Builder().serverUrl("https://rickandmortyapi.com/graphql").build()
     }
 
-    /*
-    passed apollo client directly in the implementation of
-    provideGetCharactersClient() method for abstraction
-     */
+/**
+passed apollo client directly in the implementation of
+provideGetCharactersClient() method for abstraction
+*/
     @Provides
     @Singleton
     fun provideGetCharactersClient(apolloClient: ApolloClient): CharacterClient {
@@ -47,12 +46,6 @@ object ApolloModule {
     fun provideGetCharacterUseCase(characterClient: CharacterClient): GetCharacterUseCase {
         return GetCharacterUseCase(characterClient)
     }
-
-//    @Provides
-//    @Singleton
-//    fun provideGetEpisodeClient(apolloClient: ApolloClient): CharacterClient {
-//        return ApolloCharacterClient(apolloClient)
-//    }
 
     @Provides
     @Singleton
@@ -66,29 +59,15 @@ object ApolloModule {
         return GetAllLocationUseCase(characterClient)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideGetEpisodesUseCase(characterClient: CharacterClient): GetEpisodesUseCase {
-//        return GetEpisodesUseCase(characterClient)
-//    }
-
-//    @Provides
-//    @Singleton
-//    fun provideGetEpisodeUseCase(characterClient: CharacterClient): GetEpisodeUseCase {
-//        return GetEpisodeUseCase(characterClient)
-//    }
-
     @Provides
     @Singleton
-    fun provideGetLocationDetailUseCase(characterClient: CharacterClient):
-        GetLocationDetailUseCase {
+    fun provideGetLocationDetailUseCase(characterClient: CharacterClient): GetLocationDetailUseCase {
         return GetLocationDetailUseCase(characterClient)
     }
 
     @Provides
     @Singleton
-    fun provideGetEpisodeUseCase(characterClient: CharacterClient):
-        GetEpisodeUseCase {
+    fun provideGetEpisodeUseCase(characterClient: CharacterClient): GetEpisodeUseCase {
         return GetEpisodeUseCase(characterClient)
     }
 }

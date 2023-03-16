@@ -26,7 +26,6 @@ fun EpisodeDetails(
     state: EpisodeDetailViewModel.DetailEpisodesState,
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
-//    charState: CharacterViewModel.characterState
 ) {
     Scaffold(topBar = {
         RickAndMortyTopAppBar(
@@ -43,8 +42,6 @@ fun EpisodeDetails(
                 ImageVector.vectorResource(id = R.drawable.loading_img)
             } else if (state.selectedEpisode != null) {
                 Column() {
-//                Text(text = state.selectedEpisode?.id.toString())
-
                     Spacer(modifier = Modifier.height(15.dp))
 
                     Text(

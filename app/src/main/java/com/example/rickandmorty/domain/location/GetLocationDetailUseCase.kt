@@ -2,6 +2,11 @@ package com.example.rickandmorty.domain.location
 
 import com.example.rickandmorty.domain.CharacterClient
 
+/**
+ * Class that gets the Data from CharacterClients
+ * and perform functions such as
+ * sorting and filtering
+ **/
 class GetLocationDetailUseCase(
     private val characterClient: CharacterClient,
 ) {
@@ -10,10 +15,4 @@ class GetLocationDetailUseCase(
         return characterClient
             .getLocationDetail(id)!!
     }
-
-//    suspend fun sortByName(id: String): List<Location> {
-//        return characterClient
-//            .getLocationDetail(id)
-//            .sortedBy { it.name }
-//    }
 }

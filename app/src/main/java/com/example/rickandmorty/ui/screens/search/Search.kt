@@ -116,7 +116,7 @@ fun Search(
                     GetRowWithOneImage(
                         imageUrlLink = item.image.toString(),
                         titleName = item.name.toString(),
-                        property1 = item.status.toString(),
+                        property1 = item.species.toString(),
                         property2 = item.gender.toString(),
                         status = item.status.toString(),
                         id = item.ID.toString(),

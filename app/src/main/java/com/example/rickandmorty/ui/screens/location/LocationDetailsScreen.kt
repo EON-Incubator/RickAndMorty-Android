@@ -19,17 +19,25 @@ import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 
+/**
+ * Defining the route for the LocationScreen
+ */
 object LocationDetailsDestination : NavigationDestination {
     override val route = "location_details"
     override val screenTitleRes = R.string.location_detail_screen_title
 }
 
+/**
+ * Composable function that draws Location Detail Screen which
+ * is generated after clicking 1 location on Location Screen
+ */
 @Composable
 fun LocationDetailScreen(
     locationsDetailUiState: LocationDetailViewModel.LocationDetailUiState,
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
 ) {
+    // Scaffold to have a seperate Top Bar for this screen
     Scaffold(topBar = {
         RickAndMortyTopAppBar(
             title = locationsDetailUiState.locationDetail.name.toString(),
@@ -72,7 +80,6 @@ fun LocationDetailScreen(
             }
 
             Spacer(modifier = Modifier.height(30.dp))
-
             Text(
                 text = "RESIDENTS",
                 modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),
@@ -85,6 +92,7 @@ fun LocationDetailScreen(
                 locationsDetailUiState.locationDetail.residents?.let { it1 ->
                     items(it1.toList()) { resident ->
 
+                        // Method in CommonUtils that draws a Row with 1 Images
                         GetRowWithOneImage(
                             imageUrlLink = resident.image.toString(),
                             titleName = resident.name.toString(),
@@ -99,13 +107,6 @@ fun LocationDetailScreen(
                     }
                 }
             }
-//            GetRowWithOneImage(
-//                imageUrlLink = "https://rickandmortyapi.com/api/character/avatar/38.jpeg",
-//                titleName = "Space Cruiser",
-//                property1 = "Male",
-//                property2 = "Human",
-//                status = "Alive"
-//            )
         }
     }
 }

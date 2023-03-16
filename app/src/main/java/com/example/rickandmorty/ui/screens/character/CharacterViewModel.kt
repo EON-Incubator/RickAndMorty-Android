@@ -42,8 +42,6 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             _characters.update {
                 it.copy(
                     characters = characterData.characters ?: emptyList(),
-                    character = getCharacterUseCase
-                        .specificCharacter(characters.value.selectedCharacter.toString()),
                     isLoading = false,
                     pages = characterData.pages
                 )

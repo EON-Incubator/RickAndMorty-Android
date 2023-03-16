@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -38,14 +37,11 @@ fun RickAndMortyNavHost(
             }
             Characters(
                 characterState,
-
                 onClick = {
-                    Log.v("id", it.toString())
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
                 },
                 onCharacterClick = { viewModel.selectCountry(it) },
                 listState = listState
-
             )
         }
         composable(CharacterDetailsDestination.route + "?id={id}") {
@@ -76,11 +72,16 @@ fun RickAndMortyNavHost(
             onDetailScreen(true)
             val viewModel = hiltViewModel<EpisodeDetailViewModel>()
             val state by viewModel.state.collectAsState()
-            EpisodeDetails(state = state)
+            EpisodeDetails(
+                state = state,
+                navigateUp = { navController.popBackStack() },
+                onCharacterClick = {
+                    navController.navigate(CharacterDetailsDestination.route + "?id=$it")
+                }
+            )
         }
         composable(LocationDestination.route) {
             onDetailScreen(false)
-            // For Location Screen
             val viewModel = hiltViewModel<LocationViewModel>()
             val locationsState by viewModel.location.collectAsState()
 
@@ -89,13 +90,7 @@ fun RickAndMortyNavHost(
                 onClick = {
                     navController.navigate(LocationDetailsDestination.route + "?id=$it")
                 }
-
             )
-
-            // For Location Detail Screen
-//            val viewModel = hiltViewModel<LocationDetailViewModel>()
-//            val locationsDetailState by viewModel.locationDetail.collectAsState()
-//            LocationDetailScreen(locationsDetailState)
         }
         composable(LocationDetailsDestination.route + "?id={id}") {
             onDetailScreen(true)
@@ -141,4 +136,5 @@ fun RickAndMortyNavHost(
             )
         }
     }
+    navController.graph.setStartDestination(CharacterDestination.route)
 }

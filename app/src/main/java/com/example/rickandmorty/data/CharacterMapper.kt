@@ -92,7 +92,16 @@ fun GetEpisodeQuery.Episode.toDetailedEpisode(): DetailedEpisode {
         name = name,
         episode = episode,
         air_date = air_date,
-        characters = characters.mapNotNull { it?.name }
+        characters = characters.mapNotNull {
+            Character(
+                it?.id,
+                it?.name,
+                it?.image,
+                it?.species,
+                it?.status,
+                it?.gender
+            )
+        }
     )
 }
 

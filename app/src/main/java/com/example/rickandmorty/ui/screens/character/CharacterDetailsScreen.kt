@@ -31,14 +31,14 @@ fun CharacterDetails(
     navigateUp: () -> Unit,
     onEpisodeClick: (String) -> Unit,
 ) {
-    Scaffold(topBar = {
-        RickAndMortyTopAppBar(
-            title = state.character?.name.toString(),
-            canNavigateBack = true,
-            navigateUp = navigateUp
-        )
-    }) {
-        if (state.isLoading) {
+    if (state.isLoading) {
+        Scaffold(topBar = {
+            RickAndMortyTopAppBar(
+                title = "loading",
+                canNavigateBack = true,
+                navigateUp = navigateUp
+            )
+        }) {
             CircularProgressIndicator(
                 modifier = Modifier
                     .fillMaxSize()
@@ -46,8 +46,14 @@ fun CharacterDetails(
                 // .align(Alignment.Center)
             )
         }
-        // Text(text = charInfo?.ID.toString())
-        else {
+    } else {
+        Scaffold(topBar = {
+            RickAndMortyTopAppBar(
+                title = state.character?.name.toString(),
+                canNavigateBack = true,
+                navigateUp = navigateUp
+            )
+        }) {
             DetailedScreen(
                 modifier = modifier
                     .fillMaxSize()
@@ -56,13 +62,8 @@ fun CharacterDetails(
                 onEpisodeClick = onEpisodeClick
             )
         }
-
-//    GetInfoInLine(ImageVector.vectorResource( R.drawable.person_image), topic = "Gender", topicAnswer ="Male" )
-        //  AsyncImage(model = state.character?.image.toString(), contentDescription = null)
-// Text(text = "hello")
     }
 }
-
 object CharacterDetailsDestination : NavigationDestination {
     override val route = "character_detail"
     override val screenTitleRes = R.string.character_detail_screen_title
@@ -144,7 +145,7 @@ fun DetailedScreen(
                                 .height(50.dp)
                                 .padding(start = 12.dp, top = 12.dp),
                             textAlign = TextAlign.Start
-                        ) // Spacer(modifier = Modifier.height(20.dp))
+                        )
                         Divider(thickness = 2.dp)
                         GetInfoInLine(
                             icons = ImageVector
@@ -217,9 +218,3 @@ fun GetInfoInLine(
         color = MaterialTheme.colors.onBackground
     )
 }
-// @Preview(showSystemUi = true)
-//
-// @Composable
-// fun showup() {
-//    DetailedScreen()
-// }

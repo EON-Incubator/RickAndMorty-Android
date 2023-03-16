@@ -39,16 +39,6 @@ class EpisodeViewModel @Inject constructor(
         }
     }
 
-//    fun selectEpisode(id: String) {
-//        viewModelScope.launch {
-//            _state.update {
-//                it.copy(
-//                    selectedEpisode = getEpisodeUseCase.execute(id)
-//                )
-//            }
-//        }
-//    }
-
     fun dismissEpisodeDialog() {
         _episode.update {
             it.copy(

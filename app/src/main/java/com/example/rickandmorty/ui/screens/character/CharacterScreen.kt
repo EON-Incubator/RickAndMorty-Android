@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,57 +28,47 @@ import com.example.rickandmorty.domain.character.Character
 
 @Composable
 fun Characters(
-    state: CharacterViewModel.characterState,
-
+    state: CharacterViewModel.CharacterState,
     onClick: (id: String) -> Unit,
     onCharacterClick: (code: String) -> Unit,
+    listState: LazyGridState,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .align(Alignment.CenterHorizontally)
-            )
+            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.CenterHorizontally) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            }
         } else {
             ScreenNameBar(name = "Characters", onFilterClick = {})
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                state = listState
             ) {
                 items(state.characters) { character ->
                     characterItem(
                         charstate = character,
-                        onClick = onClick,
-                        onCharacterClick = onCharacterClick
+                        onClick = onClick
+
                     )
                 }
             }
         }
     }
 }
-
 object CharacterDestination : NavigationDestination {
     override val route = "characters"
     override val screenTitleRes = R.string.characters_screen_title
 }
 
-private fun action1(charstate: Character, onClick: (id: String) -> Unit) {
-    onClick(charstate.ID.toString())
-}
-
-private fun action2(charstate: Character, changeId: (code: String) -> Unit) {
-    changeId(charstate.ID.toString())
-}
-
 @Composable
 private fun characterItem(
     charstate: Character,
-
     onClick: (id: String) -> Unit,
-    onCharacterClick: (code: String) -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -86,8 +77,6 @@ private fun characterItem(
             .clip(RoundedCornerShape(12.dp))
             .clickable {
                 onClick(charstate.ID.toString())
-//                action1(charstate = charstate, onClick)
-                action2(charstate = charstate, onCharacterClick)
             },
         elevation = 12.dp
     ) {

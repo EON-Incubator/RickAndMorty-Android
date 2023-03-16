@@ -16,7 +16,7 @@ val Typography = Typography(
     h1 = TextStyle(
         fontFamily = creepster_regular,
         fontWeight = FontWeight.Normal,
-        fontSize = 27.sp
+        fontSize = 25.sp
     ),
 
     h2 = TextStyle(

@@ -12,6 +12,7 @@ ktlint_standard_wrapping = disabled
 ktlint_standard_keyword-spacing = disabled
 ktlint_standard_import-ordering = disabled
 ktlint_standard_trailing-comma-on-declaration-site = disabled
+ktlint_standard_filename = disabled
 
 [app/src/**]
 insert_final_newline = false

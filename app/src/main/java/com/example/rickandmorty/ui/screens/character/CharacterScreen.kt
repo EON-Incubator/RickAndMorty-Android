@@ -56,6 +56,10 @@ fun Characters(
         }
     }
 }
+object CharacterDestination : NavigationDestination {
+    override val route = "characters"
+    override val screenTitleRes = R.string.characters_screen_title
+}
 
 @Composable
 private fun characterItem(
@@ -94,8 +98,4 @@ private fun characterItem(
             )
         }
     }
-}
-object CharacterDestination : NavigationDestination {
-    override val route = "characters"
-    override val screenTitleRes = R.string.characters_screen_title
 }

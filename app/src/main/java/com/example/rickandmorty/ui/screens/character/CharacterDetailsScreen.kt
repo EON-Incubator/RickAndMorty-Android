@@ -64,6 +64,10 @@ fun CharacterDetails(
         }
     }
 }
+object CharacterDetailsDestination : NavigationDestination {
+    override val route = "character_detail"
+    override val screenTitleRes = R.string.character_detail_screen_title
+}
 
 @Composable
 fun DetailedScreen(
@@ -213,9 +217,4 @@ fun GetInfoInLine(
         Modifier.height(1.dp),
         color = MaterialTheme.colors.onBackground
     )
-}
-
-object CharacterDetailsDestination : NavigationDestination {
-    override val route = "character_detail"
-    override val screenTitleRes = R.string.character_detail_screen_title
 }

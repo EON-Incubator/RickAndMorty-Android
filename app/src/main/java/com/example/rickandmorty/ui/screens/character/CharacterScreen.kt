@@ -28,9 +28,7 @@ import com.example.rickandmorty.domain.character.Character
 @Composable
 fun Characters(
     state: CharacterViewModel.characterState,
-
     onClick: (id: String) -> Unit,
-    // onCharacterClick: (code: String) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {
@@ -59,25 +57,10 @@ fun Characters(
     }
 }
 
-object CharacterDestination : NavigationDestination {
-    override val route = "characters"
-    override val screenTitleRes = R.string.characters_screen_title
-}
-
-private fun action1(charstate: Character, onClick: (id: String) -> Unit) {
-    onClick(charstate.ID.toString())
-}
-
-private fun action2(charstate: Character, changeId: (code: String) -> Unit) {
-    changeId(charstate.ID.toString())
-}
-
 @Composable
 private fun characterItem(
     charstate: Character,
-
     onClick: (id: String) -> Unit,
-
 ) {
     Card(
         modifier = Modifier
@@ -111,4 +94,8 @@ private fun characterItem(
             )
         }
     }
+}
+object CharacterDestination : NavigationDestination {
+    override val route = "characters"
+    override val screenTitleRes = R.string.characters_screen_title
 }

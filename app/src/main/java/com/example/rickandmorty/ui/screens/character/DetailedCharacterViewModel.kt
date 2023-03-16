@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.rickandmorty.domain.character.DetailedCharacter
 
 @HiltViewModel
 class DetailedCharacterViewModel @Inject constructor(
@@ -38,8 +39,8 @@ class DetailedCharacterViewModel @Inject constructor(
     }
 
     data class detailedcharacterState(
-        val character: com.example.rickandmorty.domain.character.DetailedCharacter? = null,
+        val character: DetailedCharacter? = null,
         val isLoading: Boolean = false,
-        // var selectedCharacter: String? = null,
+
     )
 }

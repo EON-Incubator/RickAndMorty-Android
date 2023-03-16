@@ -40,8 +40,6 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             _characters.update {
                 it.copy(
                     characters = getCharacterUseCase.sortById(),
-//                    character = getCharacterUseCase
-//                        .specificCharacter(characters.value.selectedCharacter.toString()),
                     isLoading = false
 
                 )
@@ -49,8 +47,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
         }
     }
     data class characterState(
-        val characters: List<com.example.rickandmorty.domain.character.Character> = emptyList(),
-        // val character: com.example.rickandmorty.domain.character.DetailedCharacter? = null,
+        val characters: List<Character> = emptyList(),
         val isLoading: Boolean = false,
         var selectedCharacter: String? = null,
     )

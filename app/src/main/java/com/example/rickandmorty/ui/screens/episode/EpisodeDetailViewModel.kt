@@ -1,9 +1,11 @@
 package com.example.rickandmorty.ui.screens.episode
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.DetailedEpisode
+import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.domain.episodeusecase.GetEpisodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +18,7 @@ import javax.inject.Inject
 class EpisodeDetailViewModel @Inject constructor(
     val getEpisodeUseCase: GetEpisodeUseCase,
     private val savedStateHandle: SavedStateHandle,
+    val getCharacterUseCase: GetCharacterUseCase,
 ) : ViewModel() {
     val id = savedStateHandle.get<String>("id")
     private val _episode = MutableStateFlow(DetailEpisodesState())
@@ -28,11 +31,21 @@ class EpisodeDetailViewModel @Inject constructor(
                     isLoading = true
                 )
             }
-            getAllEpisode()
+            getEpisode()
         }
     }
 
-    private suspend fun getAllEpisode() {
+    private suspend fun getEpisode() {
+        _episode.update {
+            it.copy(
+                selectedEpisode = getEpisodeUseCase.execute(id.toString()),
+                isLoading = false
+            )
+        }
+        Log.v("character", state.value.toString())
+    }
+
+    private suspend fun getCharacters() {
         _episode.update {
             it.copy(
                 selectedEpisode = getEpisodeUseCase.execute(id.toString()),
@@ -41,26 +54,19 @@ class EpisodeDetailViewModel @Inject constructor(
         }
     }
 
-//    fun selectEpisode(id: String) {
-//        viewModelScope.launch {
-//            _state.update {
-//                it.copy(
-//                    selectedEpisode = getEpisodeUseCase.execute(id)
-//                )
-//            }
+//    private suspend fun getEpisodeChar() {
+//        _episode.update {
+//            it.copy(
+//                characters = getCharacterUseCase.sortById(),
+//                isLoading = false
+//            )
 //        }
 //    }
 
-    fun dismissEpisodeDialog() {
-        _episode.update {
-            it.copy(
-                selectedEpisode = null
-            )
-        }
-    }
-
     data class DetailEpisodesState(
+        val characters: List<com.example.rickandmorty.domain.character.Character> = emptyList(),
         val isLoading: Boolean = false,
         val selectedEpisode: DetailedEpisode? = null,
+
     )
 }

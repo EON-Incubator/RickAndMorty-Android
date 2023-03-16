@@ -48,22 +48,6 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             }
         }
     }
-
-//    open fun selectCountry(code: String) {
-//        viewModelScope.launch {
-//            _characters.update {
-//                it.copy(
-//
-//                    character = getCharacterUseCase.specificCharacter(code)
-//
-//                )
-//            }
-//        }
-//    }
-
-    fun dismissCharacterDialog() {
-    }
-
     data class characterState(
         val characters: List<com.example.rickandmorty.domain.character.Character> = emptyList(),
         // val character: com.example.rickandmorty.domain.character.DetailedCharacter? = null,

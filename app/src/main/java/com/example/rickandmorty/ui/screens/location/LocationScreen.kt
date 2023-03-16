@@ -15,11 +15,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 
+/**
+* Defining the route for the LocationScreen
+*/
 object LocationDestination : NavigationDestination {
     override val route = "locations"
     override val screenTitleRes = R.string.locations_screen_title
 }
 
+/**
+* Function that displays all the components on the LocationScreen Tab
+*/
 @Composable
 fun LocationScreen(
     locationsUiState: LocationViewModel.LocationUiState,
@@ -40,6 +46,7 @@ fun LocationScreen(
                 LazyColumn() {
                     items(locationsUiState.locations) { location ->
 
+                        // Method in CommonUtils that draws the Card with 4 Images
                         GetRowWithFourImages(
                             imageUrlLink = location.images,
                             titleName = location.name.toString(),
@@ -56,6 +63,9 @@ fun LocationScreen(
     }
 }
 
+/**
+* View Location Screen In Light Mode
+*/
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
 fun LocationScreenPreviewLightMode() {
@@ -73,6 +83,9 @@ fun LocationScreenPreviewLightMode() {
     )
 }
 
+/**
+* View Location Screen In Dark Mode
+*/
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
 fun LocationScreenPreviewDarkMode() {

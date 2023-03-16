@@ -1,6 +1,5 @@
 package com.example.rickandmorty.navigation
 
-import android.util.Log
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier

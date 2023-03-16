@@ -10,14 +10,20 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Class that operates the Location Screen UI
+ * DI: Hilt
+ */
 @HiltViewModel
 class LocationViewModel @Inject constructor(
     private val getAllLocationUseCase: GetAllLocationUseCase,
 ) : ViewModel() {
 
+    // Mutable Flow State variables
     private val _locations = MutableStateFlow(LocationUiState())
     val location = _locations.asStateFlow()
 
+    // Initialization of components after launching
     init {
         viewModelScope.launch {
             _locations.update {
@@ -28,7 +34,10 @@ class LocationViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getAllLocations() {
+    /**
+     * Coroutine function that gets All Location from GraphQL
+     */
+    suspend fun getAllLocations() {
         _locations.update {
             it.copy(
                 locations = getAllLocationUseCase.execute(),

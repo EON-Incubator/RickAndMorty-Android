@@ -23,6 +23,11 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 
+/**
+ * Composable function that shows the screen bar with the
+ * screen title
+ * Eg: Location, Episode, Character
+ */
 @Composable
 fun ScreenNameBar(
     modifier: Modifier = Modifier,
@@ -62,6 +67,12 @@ fun ScreenNameBar(
     )
 }
 
+/**
+ * Composable function that draws row with an icon
+ * which is an image vector and row with
+ * 2 properties on screens
+ * Eg: Rows in Character Detail Screen Screen
+**/
 @Composable
 fun GetInfoInLine(
     icons: ImageVector,
@@ -105,6 +116,11 @@ fun GetInfoInLine(
     )
 }
 
+/**
+ * Composable function that draws a card with 4 images
+ * and some data
+ * Eg: Location Screen and Episode Screen
+ **/
 @Composable
 fun GetRowWithFourImages(
     imageUrlLink: List<String>?,
@@ -152,6 +168,11 @@ fun GetRowWithFourImages(
     }
 }
 
+/**
+ * Composable function that draws row with an image
+ * and some data
+ * Eg: Character Row that shows in Search Screen
+ **/
 @Composable
 fun GetRowWithOneImage(
     imageUrlLink: String,
@@ -227,6 +248,11 @@ fun GetRowWithOneImage(
     }
 }
 
+/**
+ * Helper Method to draw images from
+ * list of Strings that has links
+ * to the images
+ **/
 @Composable
 fun GetImages(imageUrlLink: MutableList<String>) {
     Column() {
@@ -281,6 +307,11 @@ fun GetImages(imageUrlLink: MutableList<String>) {
     }
 }
 
+/**
+ * Helper composable function that draws the data on
+ * the screen
+ * Eg: Location Screen data embedded in the card with 4 images
+ **/
 @Composable
 fun GetData(
     titleName: String,

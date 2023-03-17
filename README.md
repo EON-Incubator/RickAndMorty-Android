@@ -53,7 +53,6 @@ Mobile app that consume the public RickyAndMorty GraphQL
   - Docs - https://rickandmortyapi.com/documentation
 
 **Ground Rules**
-
 * You must use Kotlin
 * You must use MVVM as the app architecture
   * You are free to use other patterns that build on top of MVVM (e.g. MVVM+Coordinators)

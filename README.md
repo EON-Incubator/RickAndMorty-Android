@@ -43,7 +43,6 @@ In addition to these two main branches, each new feature will have their own bra
 6. Android Studio will import the project and build the Gradle files automatically. If there are any missing dependencies, Android Studio will prompt you to download them.
 7. Once the project is imported, You can then setup Android Emulator to run the app using the steps in this [link](https://developer.android.com/codelabs/basic-android-kotlin-compose-emulator?continue=https%3A%2F%2Fdeveloper.android.com%2Fcourses%2Fpathways%2Fandroid-basics-compose-unit-1-pathway-2%23codelab-https%3A%2F%2Fdeveloper.android.com%2Fcodelabs%2Fbasic-android-kotlin-compose-emulator#2)
 8. Finally, you can run it by clicking the "Run" button in the Android Studio toolbar. You can choose a device or emulator to run the app on. 
-You can then setup Android Emulator to run the app using the steps in this [link](https://developer.android.com/codelabs/basic-android-kotlin-compose-emulator?continue=https%3A%2F%2Fdeveloper.android.com%2Fcourses%2Fpathways%2Fandroid-basics-compose-unit-1-pathway-2%23codelab-https%3A%2F%2Fdeveloper.android.com%2Fcodelabs%2Fbasic-android-kotlin-compose-emulator#2)
 
 ## Development Instructions for Incubator
 Final project of EON Mobile Incubator W23

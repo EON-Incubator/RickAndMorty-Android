@@ -1,4 +1,4 @@
-package com.example.rickandmorty.data
+package com.example.rickandmorty.domain.data
 
 import com.example.*
 import com.example.rickandmorty.domain.DetailedEpisode

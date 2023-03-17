@@ -17,6 +17,9 @@ import javax.inject.Inject
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.Location
+import com.example.type.FilterCharacter
+import com.apollographql.apollo3.api.Optional
+import com.example.type.FilterLocation
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -32,7 +35,7 @@ class SearchViewModel @Inject constructor(
     var query by mutableStateOf(TextFieldValue(""))
 
     fun onSearch(name: String) {
-        query = TextFieldValue(name)
+        query = TextFieldValue(name.toString())
         if (query.text.length > 2) {
             viewModelScope.launch {
                 _characters.update {
@@ -45,7 +48,7 @@ class SearchViewModel @Inject constructor(
                         isLoading = true
                     )
                 }
-                val characterData = getCharacterUseCase.sortById(name)
+                val characterData = getCharacterUseCase.sortById(FilterCharacter(name = Optional.presentIfNotNull(name)))
                 _characters.update {
                     it.copy(
                         characters = characterData.characters ?: emptyList(),
@@ -54,7 +57,7 @@ class SearchViewModel @Inject constructor(
                 }
                 _locations.update {
                     it.copy(
-                        locations = getAllLocationUseCase.sortByName(name),
+                        locations = getAllLocationUseCase.sortByName(FilterLocation(name = Optional.presentIfNotNull(name), type = Optional.presentIfNotNull(name))),
                         isLoading = false
                     )
                 }

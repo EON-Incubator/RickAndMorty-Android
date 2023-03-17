@@ -1,6 +1,6 @@
 package com.example.rickandmorty.domain.episodeusecase.data.repository
 
-import com.example.rickandmorty.data.ApolloCharacterClient
+import com.example.rickandmorty.domain.data.ApolloCharacterClient
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.Episodes

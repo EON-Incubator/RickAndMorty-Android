@@ -1,5 +1,8 @@
-query GetEpisodes{
-    episodes {
+query GetEpisodes($filter: FilterEpisode, $page: Int){
+    episodes(filter: $filter, page: $page) {
+        info {
+            ...pageInfo
+        }
         results {
             id
             name
@@ -13,5 +16,6 @@ query GetEpisodes{
                 gender
             }
         }
+
     }
 }

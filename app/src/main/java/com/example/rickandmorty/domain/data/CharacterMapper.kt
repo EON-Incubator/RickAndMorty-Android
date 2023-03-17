@@ -14,10 +14,10 @@ import com.example.rickandmorty.domain.episodes.Episode
 fun CharactersQuery.Characters.toCharacter(): CharacterData {
     return CharacterData(
         pages = Paginate(
-            next = pageInfo.info?.next,
-            prev = pageInfo.info?.next,
-            pages = pageInfo.info?.pages,
-            count = pageInfo.info?.count
+            next = info?.pageInfo?.next,
+            prev = info?.pageInfo?.prev,
+            pages = info?.pageInfo?.pages,
+            count = info?.pageInfo?.count
         ),
         characters = results?.mapNotNull {
             Character(

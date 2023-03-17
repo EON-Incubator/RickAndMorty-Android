@@ -1,6 +1,8 @@
 query CharactersQuery($filter:FilterCharacter!, $page:Int!) {
     characters(filter:$filter,page: $page) {
-        ...pageInfo
+            info {
+                ...pageInfo
+            }
         results {
             id
             name

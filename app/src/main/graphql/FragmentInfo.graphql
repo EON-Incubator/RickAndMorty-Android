@@ -1,8 +1,6 @@
-fragment pageInfo on Characters {
-    info{
+fragment pageInfo on Info {
         next
         pages
         prev
         count
-    }
 }

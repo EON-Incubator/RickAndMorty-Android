@@ -1,5 +1,5 @@
-query AllLocations($name:String!) {
-    locations(filter:{name:$name}) {
+query AllLocations($filter:FilterLocation!) {
+    locations(filter:$filter) {
         results {
             id
             name

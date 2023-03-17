@@ -1,4 +1,4 @@
-package com.example.rickandmorty.data
+package com.example.rickandmorty.domain.data
 
 import com.apollographql.apollo3.ApolloClient
 import com.example.*
@@ -9,20 +9,22 @@ import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.character.CharacterData
+import com.example.type.FilterCharacter
+import com.example.type.FilterLocation
 
 class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterClient {
-    override suspend fun getCharacters(name: String, page: Int): CharacterData? {
+    override suspend fun getCharacters(filterCharacter: FilterCharacter, page: Int): CharacterData? {
         return apolloClient
-            .query(CharactersQuery(name, page))
+            .query(CharactersQuery(filterCharacter, page))
             .execute()
             .data
             ?.characters
             ?.toCharacter()
     }
 
-    override suspend fun getAllLocations(name: String): List<Location> {
+    override suspend fun getAllLocations(filterLocation: FilterLocation): List<Location> {
         return apolloClient
-            .query(AllLocationsQuery(name))
+            .query(AllLocationsQuery(filterLocation))
             .execute()
             .data
             ?.locations

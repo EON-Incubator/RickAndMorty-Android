@@ -9,7 +9,7 @@ import org.junit.Test
 
 class GetAllEpisodeUseCaseTest {
 
-    private lateinit var  getAllEpisodeUseCase: GetAllEpisodeUseCase
+    private lateinit var getAllEpisodeUseCase: GetAllEpisodeUseCase
     private lateinit var fakeRepo: FakeRepo
 
     @Before
@@ -48,5 +48,4 @@ class GetAllEpisodeUseCaseTest {
 //            )
 //            assertEquals(FakeDataSource.episodesList, repository.getMarsPhotos())
 //        }
-
 }

@@ -1,6 +1,5 @@
 package com.example.rickandmorty.domain.episodeusecase.data.repository
 
-import com.example.rickandmorty.domain.data.ApolloCharacterClient
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.Episodes
@@ -9,7 +8,7 @@ import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationDetail
 
-class FakeRepo: CharacterClient {
+class FakeRepo : CharacterClient {
 
     private val episodes = mutableListOf<Episodes>()
     private val detailedEpisode = mutableListOf<DetailedEpisode>()
@@ -29,7 +28,6 @@ class FakeRepo: CharacterClient {
     override suspend fun getSingleCharacter(code: String): DetailedCharacter? {
         TODO("Not yet implemented")
     }
-
 
     override suspend fun getEpisodes(): List<Episodes> {
         return FakeDataSource.episodesList

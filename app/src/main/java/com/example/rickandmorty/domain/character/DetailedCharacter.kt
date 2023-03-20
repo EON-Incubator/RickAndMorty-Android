@@ -1,6 +1,7 @@
 package com.example.rickandmorty.domain.character
 
 import com.example.rickandmorty.domain.Episodes
+
 data class DetailedCharacter(
     val ID: String?,
     val name: String?,
@@ -9,6 +10,8 @@ data class DetailedCharacter(
     val status: String?,
     val gender: String?,
     val episode: List<Episodes>,
-    val dimension: String?,
-    val created: String?,
+    val lastseen: String?,
+    val lastseenId: String?,
+    val originId: String?,
+    val origin: String?,
 )

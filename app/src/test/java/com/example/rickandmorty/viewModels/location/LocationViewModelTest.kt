@@ -1,6 +1,6 @@
-package com.example.rickandmorty
+package com.example.rickandmorty.viewModels.location
 
-import com.example.marsphotos.rules.TestDispatcherRule
+import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.ui.screens.location.LocationViewModel

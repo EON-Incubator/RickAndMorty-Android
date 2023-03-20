@@ -45,7 +45,6 @@ fun EpisodeDetails(
                     ImageVector.vectorResource(id = R.drawable.loading_img)
                 } else if (state.selectedEpisode != null) {
                     Column() {
-
                         Spacer(modifier = Modifier.height(15.dp))
 
                         Text(

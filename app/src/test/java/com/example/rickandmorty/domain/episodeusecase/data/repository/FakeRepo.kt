@@ -58,11 +58,31 @@ class FakeRepo : CharacterClient {
     }
 
     override suspend fun getEpisodes(filterEpisode: FilterEpisode, page: Int): EpisodesData? {
-//        return FakeDataSource.episodesList
-        TODO("Not yet implemented")
+        return EpisodesData(
+            pages = null,
+            episodesData = listOf(
+                Episodes(
+                    id = "id",
+                    name = "name",
+                    episode = "episode",
+                    air_date = "air_date",
+                    images = emptyList()
+                )
+            )
+        )
     }
 
     override suspend fun getEpisode(id: String): DetailedEpisode? {
-        TODO("Not yet implemented")
+        if (id.equals("1")) {
+            return DetailedEpisode(
+                "id",
+                "name1",
+                "episode1",
+                "airDate1",
+                emptyList()
+            )
+        } else {
+            return null
+        }
     }
 }

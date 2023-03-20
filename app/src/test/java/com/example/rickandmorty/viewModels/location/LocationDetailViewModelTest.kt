@@ -25,7 +25,10 @@ class LocationDetailViewModelTest {
     @Before
     fun setup() {
         fakeRepo = FakeRepo()
-        viewModel = LocationDetailViewModel(GetLocationDetailUseCase(fakeRepo), savedStateHandle = SavedStateHandle())
+        viewModel = LocationDetailViewModel(
+            GetLocationDetailUseCase(fakeRepo),
+            savedStateHandle = SavedStateHandle()
+        )
     }
 
     @Test

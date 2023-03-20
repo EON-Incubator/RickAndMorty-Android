@@ -53,6 +53,14 @@ fun RickAndMortyNavHost(
                 navigateUp = { navController.popBackStack() },
                 onEpisodeClick = {
                     navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
+                },
+                onOriginClick = {
+                    navController
+                        .navigate(LocationDetailsDestination.route + "?id=$it")
+                },
+                onLastSeenClick = {
+                    navController
+                        .navigate(LocationDetailsDestination.route + "?id=$it")
                 }
             )
         }

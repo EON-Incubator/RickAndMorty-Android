@@ -9,7 +9,6 @@ import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
-import com.example.rickandmorty.domain.episodes.Episode
 
 fun CharactersQuery.Characters.toCharacter(): CharacterData {
     return CharacterData(
@@ -57,8 +56,10 @@ fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
                 it?.status,
                 it?.gender,
                 episode = emptyList(),
-                dimension = "",
-                created = ""
+                lastseen = "",
+                origin = "",
+                lastseenId = "",
+                originId = ""
             )
         }
     )
@@ -81,8 +82,11 @@ fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
                 it?.characters?.mapNotNull { it?.image } ?: emptyList()
             )
         },
-        dimension = location?.dimension,
-        created = location?.created
+
+        lastseen = location?.name.toString(),
+        origin = origin?.name.toString(),
+        lastseenId = location?.id.toString(),
+        originId = origin?.id.toString()
     )
 }
 

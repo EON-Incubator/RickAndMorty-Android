@@ -26,9 +26,12 @@ class LocationDetailViewModelTest {
         fakeRepo = FakeRepo()
         viewModel = LocationDetailViewModel(
             GetLocationDetailUseCase(fakeRepo),
+
+            //  savedStateHandle = SavedStateHandle()
             savedStateHandle = SavedStateHandle(
                 mapOf("id" to "1")
             )
+
         )
     }
 

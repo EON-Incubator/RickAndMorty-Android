@@ -9,11 +9,16 @@ import com.example.type.FilterLocation
 
 interface CharacterClient {
 
-    suspend fun getAllLocations(filterLocation: FilterLocation = FilterLocation()): List<Location>
+    suspend fun getAllLocations(
+        filterLocation: FilterLocation = FilterLocation(),
+    ): List<Location>
 
     suspend fun getLocationDetail(id: String): LocationDetail?
 
-    suspend fun getCharacters(filterCharacter: FilterCharacter = FilterCharacter(), page: Int = 1): CharacterData?
+    suspend fun getCharacters(
+        filterCharacter: FilterCharacter = FilterCharacter(),
+        page: Int = 1,
+    ): CharacterData?
 
     suspend fun getSingleCharacter(code: String): DetailedCharacter?
 

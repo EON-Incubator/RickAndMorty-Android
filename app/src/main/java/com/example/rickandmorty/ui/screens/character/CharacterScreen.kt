@@ -35,7 +35,11 @@ fun Characters(
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {
-            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -60,6 +64,7 @@ fun Characters(
         }
     }
 }
+
 object CharacterDestination : NavigationDestination {
     override val route = "characters"
     override val screenTitleRes = R.string.characters_screen_title

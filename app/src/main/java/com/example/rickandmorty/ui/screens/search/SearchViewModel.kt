@@ -48,7 +48,8 @@ class SearchViewModel @Inject constructor(
                         isLoading = true
                     )
                 }
-                val characterData = getCharacterUseCase.sortById(FilterCharacter(name = Optional.presentIfNotNull(name)))
+                val characterData = getCharacterUseCase
+                    .sortById(FilterCharacter(name = Optional.presentIfNotNull(name)))
                 _characters.update {
                     it.copy(
                         characters = characterData.characters ?: emptyList(),
@@ -57,7 +58,14 @@ class SearchViewModel @Inject constructor(
                 }
                 _locations.update {
                     it.copy(
-                        locations = getAllLocationUseCase.sortByName(FilterLocation(name = Optional.presentIfNotNull(name), type = Optional.presentIfNotNull(name))),
+                        locations = getAllLocationUseCase.sortByName(
+                            FilterLocation(
+                                name = Optional.presentIfNotNull(
+                                    name
+                                ),
+                                type = Optional.presentIfNotNull(name)
+                            )
+                        ),
                         isLoading = false
                     )
                 }

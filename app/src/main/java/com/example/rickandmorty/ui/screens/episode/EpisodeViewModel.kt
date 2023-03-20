@@ -22,7 +22,8 @@ class EpisodeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val episodeDataById = getAllEpisodeUseCase.sortEpisodeById()
+            val episodeDataById = getAllEpisodeUseCase.
+            sortEpisodeById()
             allEpisode(isLoading = true)
             allEpisode(
                 episodes = episodeDataById.episodesData ?: emptyList(),

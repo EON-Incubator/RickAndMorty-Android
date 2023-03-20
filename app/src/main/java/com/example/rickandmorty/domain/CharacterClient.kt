@@ -1,5 +1,6 @@
 package com.example.rickandmorty.domain
 
+import com.example.GetEpisodesQuery
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.Location
@@ -18,7 +19,7 @@ interface CharacterClient {
 
     suspend fun getSingleCharacter(code: String): DetailedCharacter?
 
-    suspend fun getEpisodes(filterEpisodes: FilterEpisode = FilterEpisode(), page: Int = 1): EpisodesData?
+    suspend fun getEpisodes(filterEpisodes: FilterEpisode = FilterEpisode(), page: Int = 0): EpisodesData?
 
     suspend fun getEpisode(id: String): DetailedEpisode?
 }

@@ -67,15 +67,15 @@ fun RickAndMortyNavHost(
                 listState.layoutInfo.visibleItemsInfo.lastOrNull()
                     ?.index == listState.layoutInfo.totalItemsCount -1
             ){
-                EpisodesScreen(
-                    state = state,
-                    onSelectEpisode = {
-                        navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
-                    },
-
-
-                )
+                viewModel.updateEpisodeList()
             }
+            EpisodesScreen(
+                state = state,
+                onSelectEpisode = {
+                    navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
+                },
+                listState = listState
+            )
 
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {

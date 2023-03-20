@@ -21,7 +21,7 @@ class GetAllEpisodeUseCase(
         val episodesData = characterClient.getEpisodes(filterEpisode, page)
         return EpisodesData(
             episodesData = episodesData?.episodesData
-                ?.sortedBy { it.id },
+                ?.sortedBy { it.episode },
             pages = episodesData?.pages
         )
     }

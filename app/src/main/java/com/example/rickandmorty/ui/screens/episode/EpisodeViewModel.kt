@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.episodeusecase.GetAllEpisodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,28 +22,46 @@ class EpisodeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _episode.update {
-                it.copy(
-                    isLoading = true
-                )
-            }
-            getAllEpisode()
-        }
-    }
-
-    private suspend fun getAllEpisode() {
-        _episode.update {
-            it.copy(
-                episodes = getAllEpisodeUseCase.execute(),
-                isLoading = false
+            val episodeDataById = getAllEpisodeUseCase.
+            sortEpisodeById()
+            allEpisode(isLoading = true)
+            allEpisode(
+                episodes = episodeDataById.episodesData ?: emptyList(),
+                isLoading = false,
+                pages = episodeDataById.pages
             )
+//            val episodeDataByName = getAllEpisodeUseCase.execute()
+//            allEpisode(episodes = episodeDataByName, isLoading = false)
         }
     }
 
-    fun dismissEpisodeDialog() {
+    fun updateEpisodeList() {
+        viewModelScope.launch {
+            if (state.value.pages?.next != null) {
+                val episodeDataById = getAllEpisodeUseCase.sortEpisodeById(page = state.value.pages?.next ?: 1)
+                allEpisode(isLoading = true)
+                _episode.update {
+                    it.copy(
+                        episodes = it.episodes + (episodeDataById.episodesData ?: emptyList()),
+                        pages = episodeDataById.pages,
+                        isLoading = false
+                    )
+                }
+            }
+        }
+    }
+
+    fun allEpisode(
+        episodes: List<Episodes> = emptyList(),
+        isLoading: Boolean = false,
+        pages: Paginate? = null,
+        selectedEpisode: DetailedEpisode? = null) {
         _episode.update {
             it.copy(
-                selectedEpisode = null
+                episodes = episodes,
+                isLoading = isLoading,
+                pages = pages,
+                selectedEpisode = selectedEpisode
             )
         }
     }
@@ -51,5 +70,6 @@ class EpisodeViewModel @Inject constructor(
         val episodes: List<Episodes> = emptyList(),
         val isLoading: Boolean = false,
         val selectedEpisode: DetailedEpisode? = null,
+        var pages: Paginate? = null,
     )
 }

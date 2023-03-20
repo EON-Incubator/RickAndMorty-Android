@@ -7,6 +7,7 @@ class GetEpisodesUseCase(private val characterClient: CharacterClient) {
     suspend fun execute(): List<Episodes> {
         return characterClient
             .getEpisodes()
-            .sortedBy { it.name }
+            ?.episodesData
+            ?.sortedBy { it.name }?: emptyList()
     }
 }

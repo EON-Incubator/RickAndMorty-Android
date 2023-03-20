@@ -18,7 +18,6 @@ import javax.inject.Inject
 class EpisodeDetailViewModel @Inject constructor(
     val getEpisodeUseCase: GetEpisodeUseCase,
     private val savedStateHandle: SavedStateHandle,
-    val getCharacterUseCase: GetCharacterUseCase,
 ) : ViewModel() {
     val id = savedStateHandle.get<String>("id")
     private val _episode = MutableStateFlow(DetailEpisodesState())
@@ -42,7 +41,6 @@ class EpisodeDetailViewModel @Inject constructor(
                 isLoading = false
             )
         }
-        Log.v("character", state.value.toString())
     }
 
     private suspend fun getCharacters() {

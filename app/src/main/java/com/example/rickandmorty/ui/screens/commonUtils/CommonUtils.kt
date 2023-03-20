@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,6 +9,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -73,23 +76,30 @@ fun ScreenNameBar(
  * which is an image vector and row with
  * 2 properties on screens
  * Eg: Rows in Character Detail Screen Screen
-**/
+ **/
 @Composable
 fun GetInfoInLine(
     icons: ImageVector,
     topic: String,
     topicAnswer: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.clickable {
+        if (showIt != "null") { action() }
+    },
+    showIt: String? = null,
+    action: () -> Unit = {},
+
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(start = 20.dp, bottom = 5.dp, top = 5.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
+        Log.v(topic + 2, showIt.toString())
         Icon(
-            modifier = Modifier.padding(end = 7.dp)
+            modifier = Modifier
+                .padding(end = 7.dp)
                 .size(23.dp),
             imageVector = icons,
             contentDescription = "Icon"
@@ -110,6 +120,13 @@ fun GetInfoInLine(
             color = MaterialTheme.colors.onBackground,
             fontWeight = FontWeight.Normal
         )
+
+        if (showIt != "null") {
+            Icon(
+                imageVector = Icons.Outlined.KeyboardArrowRight,
+                contentDescription = "to go on next location screen"
+            )
+        }
     }
     Divider(
         Modifier.height(1.dp),
@@ -331,7 +348,8 @@ fun GetData(
         Row() {
             Text(
                 text = property1,
-                modifier = Modifier.padding(end = 15.dp)
+                modifier = Modifier
+                    .padding(end = 15.dp)
                     .background(Color.LightGray),
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground

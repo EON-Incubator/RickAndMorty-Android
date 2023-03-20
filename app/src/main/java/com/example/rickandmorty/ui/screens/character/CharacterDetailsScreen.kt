@@ -1,6 +1,6 @@
 package com.example.rickandmorty.ui.screens.character
 
-import androidx.compose.foundation.Image
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -22,6 +21,7 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 
 @Composable
@@ -30,7 +30,10 @@ fun CharacterDetails(
     state: DetailedCharacterViewModel.detailedcharacterState,
     navigateUp: () -> Unit,
     onEpisodeClick: (String) -> Unit,
+    onOriginClick: (String) -> Unit,
+    onLastSeenClick: (String) -> Unit,
 ) {
+    Log.v("id", "$state")
     if (state.isLoading) {
         Scaffold(topBar = {
             RickAndMortyTopAppBar(
@@ -59,11 +62,14 @@ fun CharacterDetails(
                     .fillMaxSize()
                     .padding(it),
                 charInfo = state.character,
-                onEpisodeClick = onEpisodeClick
+                onEpisodeClick = onEpisodeClick,
+                onOriginClick = onOriginClick,
+                onLastSeenClick = onLastSeenClick
             )
         }
     }
 }
+
 object CharacterDetailsDestination : NavigationDestination {
     override val route = "character_detail"
     override val screenTitleRes = R.string.character_detail_screen_title
@@ -74,6 +80,8 @@ fun DetailedScreen(
     modifier: Modifier = Modifier,
     onEpisodeClick: (String) -> Unit,
     charInfo: DetailedCharacter?,
+    onOriginClick: (String) -> Unit,
+    onLastSeenClick: (String) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -147,19 +155,33 @@ fun DetailedScreen(
                             textAlign = TextAlign.Start
                         )
                         Divider(thickness = 2.dp)
+
+                        Log.v("origin1", charInfo?.originId.toString())
                         GetInfoInLine(
                             icons = ImageVector
                                 .vectorResource(R.drawable.trip_origin_fill0_wght400_grad0_opsz48),
                             topic = "Origin",
-                            topicAnswer = charInfo?.dimension.toString()
+                            topicAnswer = charInfo?.origin.toString(),
+                            action = {
+                                onOriginClick(charInfo?.originId.toString())
+                            },
+                            showIt = charInfo?.originId
+
                         )
                         GetInfoInLine(
                             icons = ImageVector
                                 .vectorResource(R.drawable.explore_fill0_wght400_grad0_opsz48),
                             topic = "Last Seen",
-                            topicAnswer = charInfo?.created.toString()
+                            topicAnswer = charInfo?.lastseen.toString(),
+                            action = {
+                                onLastSeenClick(charInfo?.lastseenId.toString())
+                            },
+                            showIt = charInfo?.lastseenId
                         )
-                        Text(text = "EPISODES", style = MaterialTheme.typography.body2)
+                        Text(
+                            text = "EPISODES",
+                            style = MaterialTheme.typography.body2
+                        )
                     }
                 }
             }
@@ -180,41 +202,4 @@ fun DetailedScreen(
             }
         }
     }
-}
-
-@Composable
-fun GetInfoInLine(
-    icons: ImageVector,
-    topic: String,
-    topicAnswer: String,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 20.dp, bottom = 5.dp, top = 5.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Image(imageVector = icons, contentDescription = null)
-        Text(
-            modifier = Modifier.weight(2f),
-            text = topic,
-            style = MaterialTheme.typography.body2,
-            color = MaterialTheme.colors.onBackground,
-            fontWeight = FontWeight.Bold
-        )
-
-        Text(
-            modifier = Modifier.weight(1f),
-            text = topicAnswer,
-            style = MaterialTheme.typography.body2,
-            color = MaterialTheme.colors.onBackground,
-            fontWeight = FontWeight.Normal
-        )
-    }
-    Divider(
-        Modifier.height(1.dp),
-        color = MaterialTheme.colors.onBackground
-    )
 }

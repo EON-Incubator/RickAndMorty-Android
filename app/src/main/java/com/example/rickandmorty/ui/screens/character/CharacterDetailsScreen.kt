@@ -176,7 +176,7 @@ fun DetailedScreen(
                             action = {
                                 onLastSeenClick(charInfo?.lastseenId.toString())
                             },
-                            showIt = ""
+                            showIt = charInfo?.lastseenId
                         )
                         Text(
                             text = "EPISODES",
@@ -203,40 +203,3 @@ fun DetailedScreen(
         }
     }
 }
-//
-// @Composable
-// fun GetInfoInLine(
-//    icons: ImageVector,
-//    topic: String,
-//    topicAnswer: String,
-//    modifier: Modifier = Modifier,
-// ) {
-//    Row(
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .padding(start = 20.dp, bottom = 5.dp, top = 5.dp),
-//        verticalAlignment = Alignment.CenterVertically,
-//        horizontalArrangement = Arrangement.Center
-//    ) {
-//        Image(imageVector = Icons.Outlined.KeyboardArrowRight, contentDescription = null)
-//        Text(
-//            modifier = Modifier.weight(2f),
-//            text = topic,
-//            style = MaterialTheme.typography.body2,
-//            color = MaterialTheme.colors.onBackground,
-//            fontWeight = FontWeight.Bold
-//        )
-//
-//        Text(
-//            modifier = Modifier.weight(1f),
-//            text = topicAnswer,
-//            style = MaterialTheme.typography.body2,
-//            color = MaterialTheme.colors.onBackground,
-//            fontWeight = FontWeight.Normal
-//        )
-//    }
-//    Divider(
-//        Modifier.height(1.dp),
-//        color = MaterialTheme.colors.onBackground
-//    )
-// }

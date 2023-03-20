@@ -1,4 +1,5 @@
 package com.example.rickandmorty.ui.screens.location
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
@@ -25,24 +26,25 @@ class LocationViewModel @Inject constructor(
 
     // Initialization of components after launching
     init {
-        viewModelScope.launch {
-            _locations.update {
-                it.copy(isLoading = true)
-            }
 
-            getAllLocations()
+        _locations.update {
+            it.copy(isLoading = true)
         }
+
+        getAllLocations()
     }
 
     /**
      * Coroutine function that gets All Location from GraphQL
      */
-    suspend fun getAllLocations() {
-        _locations.update {
-            it.copy(
-                locations = getAllLocationUseCase.execute(),
-                isLoading = false
-            )
+    fun getAllLocations() {
+        viewModelScope.launch {
+            _locations.update {
+                it.copy(
+                    locations = getAllLocationUseCase.execute(),
+                    isLoading = false
+                )
+            }
         }
     }
 

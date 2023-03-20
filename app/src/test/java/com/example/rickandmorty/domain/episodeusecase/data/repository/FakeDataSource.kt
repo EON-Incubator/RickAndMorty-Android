@@ -1,6 +1,5 @@
 package com.example.rickandmorty.domain.episodeusecase.data.repository
 
-import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.Episodes
 
 object FakeDataSource {
@@ -49,7 +48,6 @@ object FakeDataSource {
         )
     )
 
-
 //    val episodeDetail = listOf(
 //        DetailedEpisode(
 //            id = idOne,
@@ -66,5 +64,4 @@ object FakeDataSource {
 //            characters = characterList
 //        )
 //    )
-
 }

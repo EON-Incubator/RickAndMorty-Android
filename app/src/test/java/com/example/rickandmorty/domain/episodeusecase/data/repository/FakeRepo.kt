@@ -32,7 +32,16 @@ class FakeRepo : CharacterClient {
     }
 
     override suspend fun getLocationDetail(id: String): LocationDetail? {
-        TODO("Not yet implemented")
+        if (id.equals("1")) {
+            return LocationDetail(
+                "dimension1",
+                "name1",
+                emptyList(),
+                "type1"
+            )
+        } else {
+            return null
+        }
     }
 
     override suspend fun getCharacters(

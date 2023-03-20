@@ -11,8 +11,8 @@ class GetLocationDetailUseCase(
     private val characterClient: CharacterClient,
 ) {
 
-    suspend fun execute(id: String): LocationDetail {
+    suspend fun execute(id: String): LocationDetail? {
         return characterClient
-            .getLocationDetail(id)!!
+            .getLocationDetail(id)
     }
 }

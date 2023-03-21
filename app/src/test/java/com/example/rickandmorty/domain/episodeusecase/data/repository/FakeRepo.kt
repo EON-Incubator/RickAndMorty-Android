@@ -8,6 +8,7 @@ import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationDetail
+import com.example.rickandmorty.domain.search.SearchResult
 import com.example.type.FilterCharacter
 import com.example.type.FilterEpisode
 import com.example.type.FilterLocation
@@ -84,5 +85,9 @@ class FakeRepo : CharacterClient {
         } else {
             return null
         }
+    }
+
+    override suspend fun getSearchResult(queryString: String, page: Int): SearchResult? {
+        TODO("Not yet implemented")
     }
 }

@@ -35,14 +35,25 @@ fun CharactersQuery.Characters.toCharacter(): CharacterData {
     )
 }
 
-fun AllLocationsQuery.Result.toAllLocations(): Location {
-    return Location(
-        id = id,
-        name = name,
-        type = type,
-        dimension = dimension,
-        images = residents.mapNotNull { it?.image },
-        created = ""
+fun AllLocationsQuery.Locations.toAllLocations(): com.example.rickandmorty.domain.location.LocationData {
+    return com.example.rickandmorty.domain.location.LocationData(
+        pages = Paginate(
+            next = info?.pageInfo?.next,
+            prev = info?.pageInfo?.prev,
+            pages = info?.pageInfo?.pages,
+            count = info?.pageInfo?.count
+        ),
+        location = results?.mapNotNull {
+            Location(
+                id = it?.id,
+                name = it?.name,
+                type = it?.type,
+                dimension = it?.dimension,
+                images = it?.residents?.mapNotNull { it?.image },
+                created = ""
+            )
+        }
+
     )
 }
 

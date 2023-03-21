@@ -1,6 +1,5 @@
 package com.example.rickandmorty.domain.episodeusecase
 
-import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import kotlinx.coroutines.runBlocking
 

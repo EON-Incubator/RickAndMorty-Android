@@ -24,8 +24,9 @@ class EpisodeDetailViewModelTest {
     @Before
     fun setup() {
         fakeRepo = FakeRepo()
-        viewModel = EpisodeDetailViewModel(GetEpisodeUseCase(fakeRepo),
-        savedStateHandle = SavedStateHandle(mapOf("id" to "1"))
+        viewModel = EpisodeDetailViewModel(
+            GetEpisodeUseCase(fakeRepo),
+            savedStateHandle = SavedStateHandle(mapOf("id" to "1"))
         )
     }
 
@@ -47,6 +48,5 @@ class EpisodeDetailViewModelTest {
         assertEquals(viewModel.state.value.selectedEpisode?.air_date, "airDate1")
         assertNotEquals(viewModel.state.value.selectedEpisode?.episode, "episode2")
 //        assert(viewModel.state.value.isLoading)
-
     }
 }

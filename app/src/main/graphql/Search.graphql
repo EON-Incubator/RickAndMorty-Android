@@ -1,8 +1,43 @@
-query SearchCharacter($name: String!){
-    characters(filter: { name: $name }) {
+query SearchQuery($queryString:String!, $page:Int!) {
+    characters(filter:{name: $queryString},page: $page) {
+        info {
+            ...pageInfo
+        }
         results {
             id
             name
+            image
+            species
+            status
+            gender
+        }
+    }
+    locationsByName:locations(filter:{name: $queryString},page: $page) {
+        info {
+            ...pageInfo
+        }
+        results {
+            id
+            name
+            type
+            dimension
+            residents {
+                image
+            }
+        }
+    }
+    locationsByType:locations(filter:{type: $queryString},page: $page) {
+        info {
+            ...pageInfo
+        }
+        results {
+            id
+            name
+            type
+            dimension
+            residents {
+                image
+            }
         }
     }
 }

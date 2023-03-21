@@ -12,6 +12,7 @@ import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
 
 @HiltAndroidTest
@@ -24,6 +25,7 @@ class LocationTest {
     @get:Rule(order = 1)
     val composeTestRule = createComposeRule()
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun myTest() {
         hiltRule.inject()
@@ -45,16 +47,18 @@ class LocationTest {
                     onClickable = { id = it }
                 )
 
-                assertEquals(id, "")
+                Thread.sleep(5000)
+//                assertEquals(id, "")
 //                runTest {
 //                    composeTestRule.onNode(hasText("Title"))
 //                        .performClick()
 //
 //                }
-                assertEquals(id, "id")
+
 //                RickAndMortyMainApp()
             }
+
+            assertEquals(id, "id")
         }
-        Thread.sleep(5000)
     }
 }

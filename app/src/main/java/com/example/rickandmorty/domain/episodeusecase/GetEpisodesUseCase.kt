@@ -8,6 +8,6 @@ class GetEpisodesUseCase(private val characterClient: CharacterClient) {
         return characterClient
             .getEpisodes()
             ?.episodesData
-            ?.sortedBy { it.name }?: emptyList()
+            ?.sortedBy { it.name } ?: emptyList()
     }
 }

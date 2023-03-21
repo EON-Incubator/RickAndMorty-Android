@@ -25,7 +25,7 @@ object EpisodeDestination : NavigationDestination {
 fun EpisodesScreen(
     state: EpisodeViewModel.EpisodesState,
     onSelectEpisode: (id: String?) -> Unit,
-    listState: LazyListState
+    listState: LazyListState,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),

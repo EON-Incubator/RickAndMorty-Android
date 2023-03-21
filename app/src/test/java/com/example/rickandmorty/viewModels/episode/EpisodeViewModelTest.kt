@@ -3,9 +3,7 @@ package com.example.rickandmorty.viewModels.episode
 import com.example.rickandmorty.domain.episodeusecase.GetAllEpisodeUseCase
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
-import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.ui.screens.episode.EpisodeViewModel
-import com.example.rickandmorty.ui.screens.location.LocationViewModel
 import junit.framework.TestCase.assertEquals
 // import kotlinx.coroutines.ExperimentalCoroutinesApi
 // import kotlinx.coroutines.test.runTest

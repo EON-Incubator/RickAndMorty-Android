@@ -15,7 +15,10 @@ class GetAllEpisodeUseCase(
             ?.sortedBy { it.name } ?: emptyList()
     }
 
-    suspend fun sortEpisodeById(filterEpisode: FilterEpisode = FilterEpisode(), page: Int = 1): EpisodesData {
+    suspend fun sortEpisodeById(
+        filterEpisode: FilterEpisode = FilterEpisode(),
+        page: Int = 1,
+    ): EpisodesData {
         val episodesData = characterClient.getEpisodes(filterEpisode, page)
         return EpisodesData(
             episodesData = episodesData?.episodesData

@@ -147,6 +147,9 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4"
     debugImplementation "androidx.compose.ui:ui-test-manifest"
+
+    // To be able to use pull-refresh without bug
+//  implementation "androidx.compose.material:material:1.4.0-beta01"
 }
 apollo {
     service("service") {

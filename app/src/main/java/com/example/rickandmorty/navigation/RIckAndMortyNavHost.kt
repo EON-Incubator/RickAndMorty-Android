@@ -19,6 +19,15 @@ fun RickAndMortyNavHost(
     modifier: Modifier = Modifier,
     onDetailScreen: (Boolean) -> Unit,
 ) {
+    val viewModel = hiltViewModel<SearchViewModel>()
+    val searchResultState by viewModel.searchResult.collectAsState()
+    var showCharacters by remember {
+        mutableStateOf(true)
+    }
+    var showLocations by remember {
+        mutableStateOf(true)
+    }
+
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -105,19 +114,8 @@ fun RickAndMortyNavHost(
             )
         }
         composable("search") {
-            val viewModel = hiltViewModel<SearchViewModel>()
-            val characterState by viewModel.characters.collectAsState()
-            val locationState by viewModel.locations.collectAsState()
-            var showCharacters by remember {
-                mutableStateOf(true)
-            }
-            var showLocations by remember {
-                mutableStateOf(true)
-            }
-
             Search(
-                characterState = characterState,
-                locationState = locationState,
+                searchResultState = searchResultState,
                 onValueChange = { viewModel.onSearch(it) },
                 query = viewModel.query,
                 onLocationClick = {

@@ -10,6 +10,8 @@ import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episode
+import com.example.rickandmorty.domain.search.LocationData
+import com.example.rickandmorty.domain.search.SearchResult
 
 fun CharactersQuery.Characters.toCharacter(): CharacterData {
     return CharacterData(
@@ -112,5 +114,64 @@ fun GetEpisodesQuery.Result.toEpisodes(): Episodes {
         episode = episode,
         air_date = air_date,
         images = characters.mapNotNull { it?.image }
+    )
+}
+
+fun SearchQuery.Data.toSearchResult(): SearchResult? {
+    return SearchResult(
+        CharacterData(
+            pages = Paginate(
+                next = characters?.info?.pageInfo?.next,
+                prev = characters?.info?.pageInfo?.prev,
+                pages = characters?.info?.pageInfo?.pages,
+                count = characters?.info?.pageInfo?.count
+            ),
+            characters = characters?.results?.mapNotNull {
+                Character(
+                    ID = it?.id,
+                    name = it?.name,
+                    image = it?.image,
+                    status = it?.status,
+                    species = it?.species,
+                    gender = it?.gender
+                )
+            }
+        ),
+        LocationData(
+            pages = Paginate(
+                next = locationsByName?.info?.pageInfo?.next,
+                prev = locationsByName?.info?.pageInfo?.prev,
+                pages = locationsByName?.info?.pageInfo?.pages,
+                count = locationsByName?.info?.pageInfo?.count
+            ),
+            locations = locationsByName?.results?.mapNotNull {
+                Location(
+                    id = it?.id,
+                    name = it?.name,
+                    type = it?.type,
+                    dimension = it?.dimension,
+                    images = it?.residents?.mapNotNull { it?.image },
+                    created = ""
+                )
+            }
+        ),
+        LocationData(
+            pages = Paginate(
+                next = locationsByType?.info?.pageInfo?.next,
+                prev = locationsByType?.info?.pageInfo?.prev,
+                pages = locationsByType?.info?.pageInfo?.pages,
+                count = locationsByType?.info?.pageInfo?.count
+            ),
+            locations = locationsByType?.results?.mapNotNull {
+                Location(
+                    id = it?.id,
+                    name = it?.name,
+                    type = it?.type,
+                    dimension = it?.dimension,
+                    images = it?.residents?.mapNotNull { it?.image },
+                    created = ""
+                )
+            }
+        )
     )
 }

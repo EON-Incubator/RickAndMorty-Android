@@ -9,6 +9,7 @@ import com.example.rickandmorty.domain.episodeusecase.GetAllEpisodeUseCase
 import com.example.rickandmorty.domain.episodeusecase.GetEpisodeUseCase
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
+import com.example.rickandmorty.domain.search.GetSearchResultUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -69,5 +70,11 @@ provideGetCharactersClient() method for abstraction
     @Singleton
     fun provideGetEpisodeUseCase(characterClient: CharacterClient): GetEpisodeUseCase {
         return GetEpisodeUseCase(characterClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetSearchResultUseCase(characterClient: CharacterClient): GetSearchResultUseCase {
+        return GetSearchResultUseCase(characterClient)
     }
 }

@@ -4,6 +4,7 @@ import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationDetail
+import com.example.rickandmorty.domain.search.SearchResult
 import com.example.type.FilterCharacter
 import com.example.type.FilterLocation
 
@@ -13,11 +14,16 @@ interface CharacterClient {
 
     suspend fun getLocationDetail(id: String): LocationDetail?
 
-    suspend fun getCharacters(filterCharacter: FilterCharacter = FilterCharacter(), page: Int = 1): CharacterData?
+    suspend fun getCharacters(
+        filterCharacter: FilterCharacter = FilterCharacter(),
+        page: Int = 1,
+    ): CharacterData?
 
     suspend fun getSingleCharacter(code: String): DetailedCharacter?
 
     suspend fun getEpisodes(): List<Episodes>
 
     suspend fun getEpisode(id: String): DetailedEpisode?
+
+    suspend fun getSearchResult(queryString: String, page: Int = 1): SearchResult?
 }

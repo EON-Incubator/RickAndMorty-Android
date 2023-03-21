@@ -9,6 +9,7 @@ import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.character.CharacterData
+import com.example.rickandmorty.domain.search.SearchResult
 import com.example.type.FilterCharacter
 import com.example.type.FilterLocation
 
@@ -65,5 +66,13 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterC
             .data
             ?.episode
             ?.toDetailedEpisode()
+    }
+
+    override suspend fun getSearchResult(queryString: String, page: Int): SearchResult? {
+        return apolloClient
+            .query(SearchQuery(queryString, page))
+            .execute()
+            .data
+            ?.toSearchResult()
     }
 }

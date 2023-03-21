@@ -3,6 +3,8 @@ package com.example.rickandmorty.domain.episodeusecase.data.repository
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.Paginate
+import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.Location
@@ -44,22 +46,58 @@ class FakeRepo : CharacterClient {
         }
     }
 
-    override suspend fun getCharacters(
-        filterCharacter: FilterCharacter,
-        page: Int,
-    ): CharacterData? {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getSingleCharacter(code: String): DetailedCharacter? {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun getEpisodes(): List<Episodes> {
         return FakeDataSource.episodesList
     }
 
     override suspend fun getEpisode(id: String): DetailedEpisode? {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun getSingleCharacter(code: String): DetailedCharacter? {
+        if (code.equals("1")) {
+            return DetailedCharacter(
+                "ID",
+                "name1",
+                "img1",
+                "species",
+                "status",
+                "gender1",
+                emptyList<Episodes>(),
+                "location1",
+                "loci1ID",
+                "origin1",
+                "origin1ID"
+            )
+        } else {
+            return null
+        }
+    }
+
+    override suspend fun getCharacters(
+        filterCharacter: FilterCharacter,
+        page: Int,
+    ): CharacterData? {
+        return CharacterData(
+            pages = Paginate(
+
+                3,
+                10,
+                1,
+                20
+            ),
+            characters = listOf(
+                Character(
+                    "ID",
+                    "name2",
+                    "img2",
+                    "species2",
+                    "status1",
+                    "gender"
+                )
+
+            )
+
+        )
     }
 }

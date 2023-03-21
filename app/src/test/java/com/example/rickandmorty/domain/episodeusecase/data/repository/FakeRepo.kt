@@ -3,11 +3,13 @@ package com.example.rickandmorty.domain.episodeusecase.data.repository
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.EpisodesData
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.type.FilterCharacter
+import com.example.type.FilterEpisode
 import com.example.type.FilterLocation
 
 class FakeRepo : CharacterClient {
@@ -55,11 +57,32 @@ class FakeRepo : CharacterClient {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getEpisodes(): List<Episodes> {
-        return FakeDataSource.episodesList
+    override suspend fun getEpisodes(filterEpisode: FilterEpisode, page: Int): EpisodesData? {
+        return EpisodesData(
+            pages = null,
+            episodesData = listOf(
+                Episodes(
+                    id = "id",
+                    name = "name",
+                    episode = "episode",
+                    air_date = "air_date",
+                    images = emptyList()
+                )
+            )
+        )
     }
 
     override suspend fun getEpisode(id: String): DetailedEpisode? {
-        TODO("Not yet implemented")
+        if (id.equals("1")) {
+            return DetailedEpisode(
+                "id",
+                "name1",
+                "episode1",
+                "airDate1",
+                emptyList()
+            )
+        } else {
+            return null
+        }
     }
 }

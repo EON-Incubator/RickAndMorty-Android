@@ -1,6 +1,7 @@
 package com.example.rickandmorty.navigation
 
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,6 +20,15 @@ fun RickAndMortyNavHost(
     modifier: Modifier = Modifier,
     onDetailScreen: (Boolean) -> Unit,
 ) {
+    val viewModel = hiltViewModel<SearchViewModel>()
+    val searchResultState by viewModel.searchResult.collectAsState()
+    var showCharacters by remember {
+        mutableStateOf(true)
+    }
+    var showLocations by remember {
+        mutableStateOf(true)
+    }
+
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -53,6 +63,14 @@ fun RickAndMortyNavHost(
                 navigateUp = { navController.popBackStack() },
                 onEpisodeClick = {
                     navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
+                },
+                onOriginClick = {
+                    navController
+                        .navigate(LocationDetailsDestination.route + "?id=$it")
+                },
+                onLastSeenClick = {
+                    navController
+                        .navigate(LocationDetailsDestination.route + "?id=$it")
                 }
             )
         }
@@ -60,11 +78,20 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<EpisodeViewModel>()
             val state by viewModel.state.collectAsState()
+            val listState = rememberLazyListState()
+
+            if (
+                listState.layoutInfo.visibleItemsInfo.lastOrNull()
+                    ?.index == listState.layoutInfo.totalItemsCount - 1
+            ) {
+                viewModel.updateEpisodeList()
+            }
             EpisodesScreen(
                 state = state,
                 onSelectEpisode = {
                     navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
-                }
+                },
+                listState = listState
             )
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {
@@ -105,19 +132,8 @@ fun RickAndMortyNavHost(
             )
         }
         composable("search") {
-            val viewModel = hiltViewModel<SearchViewModel>()
-            val characterState by viewModel.characters.collectAsState()
-            val locationState by viewModel.locations.collectAsState()
-            var showCharacters by remember {
-                mutableStateOf(true)
-            }
-            var showLocations by remember {
-                mutableStateOf(true)
-            }
-
             Search(
-                characterState = characterState,
-                locationState = locationState,
+                searchResultState = searchResultState,
                 onValueChange = { viewModel.onSearch(it) },
                 query = viewModel.query,
                 onLocationClick = {

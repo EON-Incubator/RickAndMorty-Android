@@ -7,13 +7,16 @@ import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.character.DetailedCharacter
-import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.EpisodesData
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.type.FilterCharacter
+import com.example.type.FilterEpisode
 import com.example.type.FilterLocation
 
-class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterClient {
-    override suspend fun getCharacters(filterCharacter: FilterCharacter, page: Int): CharacterData? {
+class ApolloCharacterClient(private val apolloClient: ApolloClient) :
+    CharacterClient {
+    override suspend fun getCharacters(filterCharacter: FilterCharacter, page: Int):
+        CharacterData? {
         return apolloClient
             .query(CharactersQuery(filterCharacter, page))
             .execute()
@@ -47,15 +50,17 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterC
             .execute().data?.character?.toSpecificChar()
     }
 
-    override suspend fun getEpisodes(): List<Episodes> {
+    override suspend fun getEpisodes(filterEpisode: FilterEpisode, page: Int): EpisodesData? {
         return apolloClient
-            .query(GetEpisodesQuery())
+            .query(GetEpisodesQuery(filterEpisode, page))
             .execute()
             .data
             ?.episodes
-            ?.results
-            ?.mapNotNull { it?.toEpisodes() }
-            ?: emptyList()
+            ?.toEpisodes()
+
+//            ?.results
+//            ?.mapNotNull { it?.toEpisodes() }
+//            ?: emptyList()
     }
 
     override suspend fun getEpisode(id: String): DetailedEpisode? {

@@ -3,6 +3,7 @@ package com.example.rickandmorty.domain.data
 import com.example.*
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.EpisodesData
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationDetail
@@ -109,12 +110,23 @@ fun GetEpisodeQuery.Episode.toDetailedEpisode(): DetailedEpisode {
     )
 }
 
-fun GetEpisodesQuery.Result.toEpisodes(): Episodes {
-    return Episodes(
-        id = id,
-        name = name,
-        episode = episode,
-        air_date = air_date,
-        images = characters.mapNotNull { it?.image }
+fun GetEpisodesQuery.Episodes.toEpisodes(): EpisodesData {
+    return EpisodesData(
+        pages = Paginate(
+            next = info?.pageInfo?.next,
+            prev = info?.pageInfo?.prev,
+            pages = info?.pageInfo?.pages,
+            count = info?.pageInfo?.count
+        ),
+        episodesData = results?.mapNotNull {
+            Episodes(
+                it?.id,
+                it?.name,
+                it?.episode,
+                it?.air_date,
+                it?.characters?.mapNotNull { it?.image }
+            )
+        }
+
     )
 }

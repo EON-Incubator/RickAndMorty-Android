@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -30,11 +31,29 @@ fun EpisodeDetails(
     onCharacterClick: (String) -> Unit,
 ) {
     Scaffold(topBar = {
-        RickAndMortyTopAppBar(
-            title = state.selectedEpisode?.name.toString(),
-            canNavigateBack = true,
-            navigateUp = navigateUp
-        )
+        if (state.isLoading) {
+            RickAndMortyTopAppBar(
+                title = stringResource(R.string.loading),
+                canNavigateBack = true,
+                navigateUp = navigateUp
+            )
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            }
+        } else {
+            RickAndMortyTopAppBar(
+                title = state.selectedEpisode?.name.toString(),
+                canNavigateBack = true,
+                navigateUp = navigateUp
+            )
+        }
+
     }) {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -42,7 +61,6 @@ fun EpisodeDetails(
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 if (state.isLoading) {
-                    ImageVector.vectorResource(id = R.drawable.loading_img)
                 } else if (state.selectedEpisode != null) {
                     Column() {
                         Spacer(modifier = Modifier.height(15.dp))

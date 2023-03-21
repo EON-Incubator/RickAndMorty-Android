@@ -30,9 +30,6 @@ fun EpisodesScreen(
     onSelectEpisode: (id: String?) -> Unit,
     listState: LazyListState
 ) {
-    val viewModel: EpisodeViewModel = viewModel()
-
-
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
@@ -43,7 +40,11 @@ fun EpisodesScreen(
                 onFilterClick = {}
             )
             if (state.isLoading) {
-                Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Bottom,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )

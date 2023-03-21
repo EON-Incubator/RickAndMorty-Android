@@ -44,7 +44,7 @@ class EpisodesScreenTest {
         Thread.sleep(5000)
 
         // Verify that the screen title is displayed.
-        composeTestRule.onNodeWithText("Episodes", ignoreCase = true).assertIsDisplayed()
+        composeTestRule.onNodeWithText("Episodes").assertIsDisplayed()
 
         // Verify that the list of items are displayed.
         composeTestRule.onNodeWithText("Episode 1").assertIsDisplayed()

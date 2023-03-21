@@ -12,14 +12,12 @@ class GetAllLocationUseCase(
     private val characterClient: CharacterClient,
 ) {
 
-    suspend fun execute(filterLocation: FilterLocation = FilterLocation()): List<Location> {
-        return characterClient
-            .getAllLocations(filterLocation)
-    }
-
-    suspend fun sortByName(filterLocation: FilterLocation = FilterLocation()): List<Location> {
-        return characterClient
-            .getAllLocations(filterLocation)
-            .sortedBy { it.name }
+    suspend fun execute(filterLocation: FilterLocation = FilterLocation(), page: Int = 1): LocationData {
+        val locationData = characterClient
+            .getAllLocations(filterLocation, page)
+        return LocationData(
+            location = locationData?.location,
+            pages = locationData?.pages
+        )
     }
 }

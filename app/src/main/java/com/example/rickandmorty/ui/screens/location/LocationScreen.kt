@@ -7,6 +7,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
@@ -30,6 +31,7 @@ object LocationDestination : NavigationDestination {
 fun LocationScreen(
     locationsUiState: LocationViewModel.LocationUiState,
     onClick: (String) -> Unit,
+    listState: LazyListState,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -43,7 +45,7 @@ fun LocationScreen(
 
             if (locationsUiState.isLoading) {
             } else {
-                LazyColumn() {
+                LazyColumn(state = listState) {
                     items(locationsUiState.locations) { location ->
 
                         // Method in CommonUtils that draws the Card with 4 Images

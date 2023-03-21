@@ -112,12 +112,20 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<LocationViewModel>()
             val locationsState by viewModel.location.collectAsState()
+            val listState = rememberLazyListState()
+
+            if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                listState.layoutInfo.totalItemsCount - 1
+            ) {
+                viewModel.updateList()
+            }
 
             LocationScreen(
                 locationsState,
                 onClick = {
                     navController.navigate(LocationDetailsDestination.route + "?id=$it")
-                }
+                },
+                listState = listState
             )
         }
         composable(LocationDetailsDestination.route + "?id={id}") {

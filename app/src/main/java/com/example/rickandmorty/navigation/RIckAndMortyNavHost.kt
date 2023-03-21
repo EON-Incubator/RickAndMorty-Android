@@ -41,7 +41,9 @@ fun RickAndMortyNavHost(
             var characterInfo = characterState.character?.ID.toString()
             val listState = rememberLazyGridState()
 
-            if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index == listState.layoutInfo.totalItemsCount - 1) {
+            if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                listState.layoutInfo.totalItemsCount - 1
+            ) {
                 viewModel.updateList()
             }
             Characters(

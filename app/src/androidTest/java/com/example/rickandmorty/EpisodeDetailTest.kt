@@ -50,7 +50,7 @@ class EpisodesDetailScreenTest {
         // Verify that the screen title is displayed.
         composeTestRule.onNodeWithText("Pilot", ignoreCase = true).assertIsDisplayed()
 
-        // Verify that the episode info is displayed
+        // Verify that the episode info is displayed.
         composeTestRule.onNodeWithText("S01E01").assertIsDisplayed()
         composeTestRule.onNodeWithText("2021-01-01").assertIsDisplayed()
 

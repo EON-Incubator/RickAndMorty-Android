@@ -1,6 +1,5 @@
 package com.example.rickandmorty.domain.episodeusecase
 
-import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import kotlinx.coroutines.runBlocking
 
@@ -17,22 +16,22 @@ class GetAllEpisodeUseCaseTest {
         fakeRepo = FakeRepo()
         getAllEpisodeUseCase = GetAllEpisodeUseCase(fakeRepo)
 
-        val episodeToInsert = mutableListOf<Episodes>()
-        ('a'..'z').forEachIndexed { index, c ->
-            episodeToInsert.add(
-                Episodes(
-                    id = c.toString(),
-                    name = c.toString(),
-                    air_date = c.toString(),
-                    episode = c.toString(),
-                    images = emptyList()
-                )
-            )
-        }
-        episodeToInsert.shuffle()
-        runBlocking {
-            episodeToInsert.forEach { fakeRepo.getEpisodes() }
-        }
+//        val episodeToInsert = mutableListOf<Episodes>()
+//        ('a'..'z').forEachIndexed { index, c ->
+//            episodeToInsert.add(
+//                Episodes(
+//                    id = c.toString(),
+//                    name = c.toString(),
+//                    air_date = c.toString(),
+//                    episode = c.toString(),
+//                    images = emptyList()
+//                )
+//            )
+//        }
+//        episodeToInsert.shuffle()
+//        runBlocking {
+//            episodeToInsert.forEach { fakeRepo.getEpisodes() }
+//        }
     }
 
     @Test

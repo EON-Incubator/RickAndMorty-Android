@@ -7,14 +7,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.search.GetSearchResultUseCase
 import com.example.rickandmorty.domain.search.LocationData
@@ -23,8 +21,6 @@ import kotlinx.coroutines.Dispatchers
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getSearchResultUseCase: GetSearchResultUseCase,
-    private val getCharacterUseCase: GetCharacterUseCase,
-    private val getAllLocationUseCase: GetAllLocationUseCase,
 ) :
     ViewModel() {
 

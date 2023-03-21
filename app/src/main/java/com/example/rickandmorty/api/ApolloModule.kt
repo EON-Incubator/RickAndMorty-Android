@@ -1,7 +1,7 @@
 package com.example.rickandmorty.api
 
 import com.apollographql.apollo3.ApolloClient
-import com.example.rickandmorty.domain.data.ApolloCharacterClient
+import com.example.rickandmorty.data.ApolloCharacterClient
 // import com.example.rickandmorty.data.ApolloEpisodeClient
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.domain.CharacterClient
@@ -56,19 +56,22 @@ provideGetCharactersClient() method for abstraction
 
     @Provides
     @Singleton
-    fun provideGetAllLocationUseCase(characterClient: CharacterClient): GetAllLocationUseCase {
+    fun provideGetAllLocationUseCase(characterClient: CharacterClient):
+        GetAllLocationUseCase {
         return GetAllLocationUseCase(characterClient)
     }
 
     @Provides
     @Singleton
-    fun provideGetLocationDetailUseCase(characterClient: CharacterClient): GetLocationDetailUseCase {
+    fun provideGetLocationDetailUseCase(characterClient: CharacterClient):
+        GetLocationDetailUseCase {
         return GetLocationDetailUseCase(characterClient)
     }
 
     @Provides
     @Singleton
-    fun provideGetEpisodeUseCase(characterClient: CharacterClient): GetEpisodeUseCase {
+    fun provideGetEpisodeUseCase(characterClient: CharacterClient):
+        GetEpisodeUseCase {
         return GetEpisodeUseCase(characterClient)
     }
 

@@ -16,8 +16,13 @@ query SpecificCharacter($characterId: ID!) {
         status
         gender
         location {
-            dimension
-            created
+            name
+            id
+        }
+        origin {
+            name
+            id
         }
     }
+
 }

@@ -2,6 +2,7 @@ package com.example.rickandmorty.ui.screens.location
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.Location
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,19 +32,36 @@ class LocationViewModel @Inject constructor(
             it.copy(isLoading = true)
         }
 
-        getAllLocations()
+        viewModelScope.launch {
+            val locationData = getAllLocationUseCase.execute()
+            _locations.update {
+                it.copy(
+                    locations = locationData.location ?: emptyList(),
+                    isLoading = false,
+                    pages = locationData.pages
+                )
+            }
+        }
     }
 
     /**
      * Coroutine function that gets All Location from GraphQL
      */
-    fun getAllLocations() {
+    fun updateList() {
         viewModelScope.launch {
-            _locations.update {
-                it.copy(
-                    locations = getAllLocationUseCase.execute(),
-                    isLoading = false
-                )
+            if (location.value.pages?.next != null) {
+                _locations.update {
+                    it.copy(isLoading = true)
+                }
+
+                val locationData = getAllLocationUseCase.execute(page = location.value.pages?.next ?: 1)
+                _locations.update {
+                    it.copy(
+                        locations = it.locations + (locationData.location ?: emptyList()),
+                        pages = locationData.pages,
+                        isLoading = false
+                    )
+                }
             }
         }
     }
@@ -51,5 +69,6 @@ class LocationViewModel @Inject constructor(
     data class LocationUiState(
         val locations: List<Location> = emptyList(),
         val isLoading: Boolean = false,
+        var pages: Paginate? = null,
     )
 }

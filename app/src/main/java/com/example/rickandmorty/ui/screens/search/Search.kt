@@ -74,7 +74,10 @@ fun Search(
                         Modifier.padding(horizontal = 5.dp)
                     )
                 }
-                Text(text = "Characters (${searchResultState.characterData?.characters?.size ?: 0})")
+                Text(
+                    text =
+                    "Characters (${searchResultState.characterData?.characters?.size ?: 0})"
+                )
             }
             Button(
                 onClick = onShowLocations,

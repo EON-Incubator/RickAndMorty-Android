@@ -20,8 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -85,9 +83,7 @@ fun GetInfoInLine(
     topic: String,
     topicAnswer: String,
     modifier: Modifier = Modifier.clickable {
-        if (showIt != "null") {
-            action()
-        }
+        if (showIt != "null") { action() }
     },
     showIt: String? = null,
     action: () -> Unit = {},
@@ -211,7 +207,6 @@ fun GetRowWithOneImage(
         elevation = 7.dp,
         modifier = Modifier
             .padding(5.dp)
-            .semantics { contentDescription = "Single Image Row" }
             .clickable {
                 onClickable(id)
             }
@@ -226,7 +221,6 @@ fun GetRowWithOneImage(
                 modifier = Modifier
                     .width(80.dp)
                     .rotate(-90f)
-                    .semantics { contentDescription = "Item Name" }
                     .background(
                         when (status) {
                             "Dead" -> Color.Red

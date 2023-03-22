@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -23,7 +22,7 @@ fun BottomNavigationBar(
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
     BottomNavigation(
-        modifier = modifier.testTag("bottom-bar"),
+        modifier = modifier,
         backgroundColor = MaterialTheme.colors.primary,
         elevation = 5.dp
     ) {

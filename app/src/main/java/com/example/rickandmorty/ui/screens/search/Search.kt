@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
@@ -37,7 +39,9 @@ fun Search(
             OutlinedTextField(
                 value = query.text,
                 onValueChange = onValueChange,
-                Modifier.fillMaxWidth()
+                Modifier
+                    .fillMaxWidth()
+                    .semantics { contentDescription = "Search Bar" }
             )
         }
         Row(
@@ -110,7 +114,9 @@ fun Search(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .semantics { contentDescription = "Fetching Records" }
                 )
             }
         } else {

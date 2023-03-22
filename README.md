@@ -44,6 +44,12 @@ In addition to these two main branches, each new feature will have their own bra
 7. Once the project is imported, You can then setup Android Emulator to run the app using the steps in this [link](https://developer.android.com/codelabs/basic-android-kotlin-compose-emulator?continue=https%3A%2F%2Fdeveloper.android.com%2Fcourses%2Fpathways%2Fandroid-basics-compose-unit-1-pathway-2%23codelab-https%3A%2F%2Fdeveloper.android.com%2Fcodelabs%2Fbasic-android-kotlin-compose-emulator#2)
 8. Finally, you can run it by clicking the "Run" button in the Android Studio toolbar. You can choose a device or emulator to run the app on. 
 
+## How to Run Tests
+1. Make sure your device is turned on(Emulator or Physical).
+2. Run command `./gradlew createDebugCoverageReport` in Android Studio `terminal` which is located on the bottom bar.
+3. It will run all unit tests, UI behaviour tests, system tests.
+4. Once it is done, it will generate a test coverage report in `build/reports/coverage` or you can copy/paste the link `terminal` provides to any browser to see the coverage.
+
 ## Development Instructions for Incubator
 Final project of EON Mobile Incubator W23
 

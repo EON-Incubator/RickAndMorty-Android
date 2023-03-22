@@ -61,7 +61,8 @@ class EpisodeViewModel @Inject constructor(
         episodes: List<Episodes> = emptyList(),
         isLoading: Boolean = false,
         pages: Paginate? = null,
-        selectedEpisode: DetailedEpisode? = null) {
+        selectedEpisode: DetailedEpisode? = null,
+    ) {
         _episode.update {
             it.copy(
                 episodes = episodes,

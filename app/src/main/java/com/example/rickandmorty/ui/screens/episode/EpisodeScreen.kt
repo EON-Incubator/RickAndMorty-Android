@@ -15,13 +15,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 object EpisodeDestination : NavigationDestination {
     override val route = "episodes"

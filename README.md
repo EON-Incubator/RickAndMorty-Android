@@ -51,6 +51,12 @@ Mobile app that consume the public RickyAndMorty GraphQL
   - URL - https://rickandmortyapi.com/graphql
   - Docs - https://rickandmortyapi.com/documentation
 
+## How to Run Tests
+1. Make sure your device is turned on(Emulator or Physical).
+2. Run command `./gradlew createDebugCoverageReport` in Android Studio `terminal` which is located on the bottom bar.
+3. It will run all unit tests, UI behaviour tests, system tests.
+4. Once it is done, it will generate a test coverage report in `build/reports/coverage` or you can copy/paste the link `terminal` provides to any browser to see the coverage.
+
 **Ground Rules**
 * You must use Kotlin
 * You must use MVVM as the app architecture

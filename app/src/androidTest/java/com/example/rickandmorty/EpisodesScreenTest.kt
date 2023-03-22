@@ -1,18 +1,14 @@
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-//import androidx.compose.ui.test.junit4.onNodeWithText
-//import androidx.compose.ui.test.junit4.onNodeWithTag
-import com.example.rickandmorty.domain.DetailedEpisode
+// import androidx.compose.ui.test.junit4.onNodeWithText
+// import androidx.compose.ui.test.junit4.onNodeWithTag
 import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.ui.screens.episode.EpisodesScreen
 import com.example.rickandmorty.ui.screens.episode.EpisodeViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import org.junit.Rule
 import org.junit.Test
-
 
 class EpisodesScreenTest {
 
@@ -55,4 +51,3 @@ class EpisodesScreenTest {
         composeTestRule.onNodeWithText("2021-01-02").assertIsDisplayed()
     }
 }
-

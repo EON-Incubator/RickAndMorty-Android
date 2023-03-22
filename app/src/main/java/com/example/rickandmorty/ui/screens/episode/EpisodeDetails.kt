@@ -53,6 +53,7 @@ fun EpisodeDetails(
                 navigateUp = navigateUp
             )
         }
+
     }) {
         Surface(
             modifier = Modifier.fillMaxSize(),

@@ -13,7 +13,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class SearchUITest {
+class SearchSystemTest {
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 
@@ -24,7 +24,7 @@ class SearchUITest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun searchShowsResultsSuccessfully() = runTest {
+    fun searchFunctionality() = runTest {
         composeTestRule.onNodeWithContentDescription("Search").performClick()
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Rick")

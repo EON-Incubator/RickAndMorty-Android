@@ -1,4 +1,7 @@
+<<<<<<< HEAD:app/src/androidTest/java/com/example/rickandmorty/EpisodesDetailScreenTest.kt
 
+=======
+>>>>>>> parent of 627b0f0 (Revert "Setup: Jacoco coverage"):app/src/androidTest/java/com/example/rickandmorty/EpisodeDetailTest.kt
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 // import androidx.compose.ui.test.junit4.onNodeWithText

@@ -50,4 +50,8 @@ class EpisodesScreenTest {
         composeTestRule.onNodeWithText("S01E02").assertIsDisplayed()
         composeTestRule.onNodeWithText("2021-01-02").assertIsDisplayed()
     }
+<<<<<<< HEAD:app/src/androidTest/java/com/example/rickandmorty/EpisodesScreenTest.kt
 }
+=======
+}
+>>>>>>> parent of 627b0f0 (Revert "Setup: Jacoco coverage"):app/src/androidTest/java/com/example/rickandmorty/EpisodeTest.kt

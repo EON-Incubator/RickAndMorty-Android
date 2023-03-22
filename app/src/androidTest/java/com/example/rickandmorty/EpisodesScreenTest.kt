@@ -20,8 +20,20 @@ class EpisodesScreenTest {
         // Set up the viewmodel with some test data.
         val viewModel = EpisodeViewModel.EpisodesState(
             episodes = listOf(
-                Episodes("1", "Episode 1", "S01E01", "2021-01-01", listOf("image_url_1", "image_url_2")),
-                Episodes("2", "Episode 2", "S01E02", "2021-01-02", listOf("image_url_3", "image_url_4"))
+                Episodes(
+                    "1",
+                    "Episode 1",
+                    "S01E01",
+                    "2021-01-01",
+                    listOf("image_url_1", "image_url_2")
+                ),
+                Episodes(
+                    "2",
+                    "Episode 2",
+                    "S01E02",
+                    "2021-01-02",
+                    listOf("image_url_3", "image_url_4")
+                )
             ),
             isLoading = false,
             pages = Paginate(1, 2, 0, 20)
@@ -50,8 +62,4 @@ class EpisodesScreenTest {
         composeTestRule.onNodeWithText("S01E02").assertIsDisplayed()
         composeTestRule.onNodeWithText("2021-01-02").assertIsDisplayed()
     }
-<<<<<<< HEAD:app/src/androidTest/java/com/example/rickandmorty/EpisodesScreenTest.kt
 }
-=======
-}
->>>>>>> parent of 627b0f0 (Revert "Setup: Jacoco coverage"):app/src/androidTest/java/com/example/rickandmorty/EpisodeTest.kt

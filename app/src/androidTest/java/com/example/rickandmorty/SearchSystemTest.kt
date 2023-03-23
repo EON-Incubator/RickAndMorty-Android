@@ -3,10 +3,8 @@ package com.example.rickandmorty
 import androidx.compose.runtime.*
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import com.example.rickandmorty.ui.screens.search.SearchViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
@@ -19,8 +17,6 @@ class SearchSystemTest {
 
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
-
-    val searchViewModel = mockk<SearchViewModel>()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
@@ -38,5 +34,28 @@ class SearchSystemTest {
         composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
             hasContentDescription("Item Name")
         )
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun location_functionality() = runTest {
+        composeTestRule.onNodeWithContentDescription("Locations").performClick()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithText("Abadango").performClick()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithText("Female").performClick()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
     }
 }

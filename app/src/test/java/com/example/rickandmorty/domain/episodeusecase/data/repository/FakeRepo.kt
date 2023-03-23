@@ -20,7 +20,12 @@ class FakeRepo : CharacterClient {
     private val locations = mutableListOf<Location>()
     override suspend fun getAllLocations(filterLocation: FilterLocation, page: Int): LocationData? {
         return LocationData(
-            pages = null,
+            pages = Paginate(
+                next = null,
+                pages = 1,
+                prev = null,
+                count = 1
+            ),
             locations = listOf(
                 Location(
                     id = "id",

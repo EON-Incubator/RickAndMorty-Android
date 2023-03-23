@@ -5,6 +5,7 @@ import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.ui.screens.location.LocationViewModel
 import junit.framework.TestCase.assertEquals
+import org.junit.Assert
 // import kotlinx.coroutines.ExperimentalCoroutinesApi
 // import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
@@ -44,5 +45,12 @@ class LocationViewModelTest {
         assert(!viewModel.location.value.isLoading)
         assertEquals(viewModel.location.value.locations.get(0).id, "id")
         assertNotEquals(viewModel.location.value.locations.get(0).name, "name2")
+    }
+
+    @Test
+    fun `check updating list is working`(){
+        viewModel.updateList()
+        Assert.assertNull(viewModel.location.value.pages?.next)
+        Assert.assertNull(viewModel.location.value.pages?.prev)
     }
 }

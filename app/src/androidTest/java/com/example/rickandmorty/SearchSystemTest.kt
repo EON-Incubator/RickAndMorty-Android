@@ -57,8 +57,5 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
-
     }
-
-
 }

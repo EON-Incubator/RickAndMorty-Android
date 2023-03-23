@@ -10,7 +10,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class NavgationTesting {
+class NavigationTesting {
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 
@@ -20,16 +20,12 @@ class NavgationTesting {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun naviagateToAllScreens() = runTest {
-//        composeTestRule.waitForIdle()
-//        composeTestRule.onNodeWithContentDescription("Characters").performClick()
         composeTestRule.waitUntil(10000) {
             composeTestRule
                 .onAllNodesWithContentDescription("Fetching Characters")
                 .fetchSemanticsNodes().isEmpty()
         }
         composeTestRule.onNodeWithContentDescription("Episodes").performClick()
-        // composeTestRule.onNodeWithText("Episodes").performClick()
-
         composeTestRule.waitForIdle()
         composeTestRule.waitUntil(10000) {
             composeTestRule

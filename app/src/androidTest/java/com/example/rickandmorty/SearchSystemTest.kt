@@ -57,19 +57,19 @@ class SearchSystemTest {
                 .fetchSemanticsNodes().isEmpty()
         }
         composeTestRule.onNodeWithText("Pilot").performClick()
+    }
 
-        @OptIn(ExperimentalCoroutinesApi::class)
-        @Test
-        fun location_functionality() = runTest {
-            composeTestRule.onNodeWithContentDescription("Locations").performClick()
-            composeTestRule.waitUntil(10000) {
-                composeTestRule
-                    .onAllNodesWithContentDescription("Fetching Records")
-                    .fetchSemanticsNodes().isEmpty()
-            }
-            composeTestRule.onNodeWithText("Abadango").performClick()
-
-            composeTestRule.waitForIdle()
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun location_functionality() = runTest {
+        composeTestRule.onNodeWithContentDescription("Locations").performClick()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
         }
+        composeTestRule.onNodeWithText("Abadango").performClick()
+
+        composeTestRule.waitForIdle()
     }
 }

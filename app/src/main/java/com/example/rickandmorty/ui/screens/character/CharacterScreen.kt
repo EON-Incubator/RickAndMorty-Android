@@ -53,8 +53,8 @@ fun Characters(
                 columns = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(8.dp)
-//                state = listState
+                modifier = Modifier.padding(8.dp),
+                state = listState
             ) {
                 items(state.characters) { character ->
                     characterItem(

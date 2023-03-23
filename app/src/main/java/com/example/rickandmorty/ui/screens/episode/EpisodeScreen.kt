@@ -15,6 +15,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
@@ -47,11 +49,16 @@ fun EpisodesScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .semantics { contentDescription = "Fetching Episodes" }
                     )
                 }
             } else {
-                LazyColumn(state = listState) {
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier.semantics { contentDescription = "Click Episode" }
+                ) {
                     items(state.episodes) { episode ->
                         GetRowWithFourImages(
                             imageUrlLink = episode.images,
@@ -59,7 +66,7 @@ fun EpisodesScreen(
                             property1 = episode.episode.toString(),
                             property2 = episode.air_date.toString(),
                             onClickable = { onSelectEpisode(episode.id.toString()) },
-                            id = episode.id.toString()
+                            id = episode.id.toString(),
                         )
                     }
                 }

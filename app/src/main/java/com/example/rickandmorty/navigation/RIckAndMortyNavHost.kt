@@ -40,11 +40,12 @@ fun RickAndMortyNavHost(
             val characterState by viewModel.characters.collectAsState()
             var characterInfo = characterState.character?.ID.toString()
             val listState = rememberLazyGridState()
-            if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                listState.layoutInfo.totalItemsCount - 1
-
-            ) {
-                viewModel.updateList()
+            if (listState.isScrollInProgress) {
+                if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                    listState.layoutInfo.totalItemsCount - 1
+                ) {
+                    viewModel.updateList()
+                }
             }
             Characters(
                 characterState,
@@ -82,11 +83,12 @@ fun RickAndMortyNavHost(
             val state by viewModel.state.collectAsState()
             val listState = rememberLazyListState()
 
-            if (
-                listState.layoutInfo.visibleItemsInfo.lastOrNull()
-                    ?.index == listState.layoutInfo.totalItemsCount - 1
-            ) {
-                viewModel.updateEpisodeList()
+            if (listState.isScrollInProgress) {
+                if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                    listState.layoutInfo.totalItemsCount - 1
+                ) {
+                    viewModel.updateEpisodeList()
+                }
             }
             EpisodesScreen(
                 state = state,
@@ -114,10 +116,12 @@ fun RickAndMortyNavHost(
             val locationsState by viewModel.location.collectAsState()
             val listState = rememberLazyListState()
 
-            if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                listState.layoutInfo.totalItemsCount - 1
-            ) {
-                viewModel.updateList()
+            if (listState.isScrollInProgress) {
+                if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                    listState.layoutInfo.totalItemsCount - 1
+                ) {
+                    viewModel.updateList()
+                }
             }
 
             LocationScreen(

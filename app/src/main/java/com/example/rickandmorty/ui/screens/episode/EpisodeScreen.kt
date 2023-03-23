@@ -33,7 +33,7 @@ fun EpisodesScreen(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "epi" }) {
+        Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "Fetching Episodes" }) {
             ScreenNameBar(
                 name = stringResource(R.string.episodes_screen_title),
                 onFilterClick = {}

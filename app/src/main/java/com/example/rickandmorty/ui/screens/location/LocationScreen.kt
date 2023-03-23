@@ -40,7 +40,7 @@ fun LocationScreen(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "episodes" }) {
+        Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "Locations" }) {
             ScreenNameBar(
                 name = stringResource(R.string.location),
                 onFilterClick = {}

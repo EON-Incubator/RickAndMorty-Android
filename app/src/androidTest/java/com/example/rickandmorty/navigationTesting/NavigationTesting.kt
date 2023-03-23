@@ -29,14 +29,14 @@ class NavigationTesting {
         composeTestRule.waitForIdle()
         composeTestRule.waitUntil(10000) {
             composeTestRule
-                .onAllNodesWithContentDescription("Fetching Character")
+                .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
         composeTestRule.onNodeWithContentDescription("Locations").performClick()
         composeTestRule.waitForIdle()
 
         composeTestRule.waitUntil(10000) {
-            composeTestRule.onAllNodesWithContentDescription("Fetching Records").fetchSemanticsNodes().isEmpty()
+            composeTestRule.onAllNodesWithContentDescription("Fetching Episodes").fetchSemanticsNodes().isEmpty()
         }
         composeTestRule.onNodeWithContentDescription("Search").performClick()
     }

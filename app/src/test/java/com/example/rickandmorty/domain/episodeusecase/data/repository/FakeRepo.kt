@@ -1,11 +1,7 @@
 package com.example.rickandmorty.domain.episodeusecase.data.repository
 
-import com.example.rickandmorty.domain.CharacterClient
-import com.example.rickandmorty.domain.DetailedEpisode
-import com.example.rickandmorty.domain.Episodes
-import com.example.rickandmorty.domain.Paginate
+import com.example.rickandmorty.domain.*
 import com.example.rickandmorty.domain.character.Character
-import com.example.rickandmorty.domain.EpisodesData
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.Location
@@ -24,8 +20,13 @@ class FakeRepo : CharacterClient {
     private val locations = mutableListOf<Location>()
     override suspend fun getAllLocations(filterLocation: FilterLocation, page: Int): LocationData? {
         return LocationData(
-            pages = null,
-            location = listOf(
+            pages = Paginate(
+                next = null,
+                pages = 1,
+                prev = null,
+                count = 1
+            ),
+            locations = listOf(
                 Location(
                     id = "id",
                     name = "name",
@@ -80,7 +81,63 @@ class FakeRepo : CharacterClient {
     }
 
     override suspend fun getSearchResult(queryString: String, page: Int): SearchResult? {
-        TODO("Not yet implemented")
+//        if(queryString.equals( "Rick")){
+        return SearchResult(
+            CharacterData(
+                pages = Paginate(
+                    next = null,
+                    prev = 1,
+                    pages = 1,
+                    count = 1
+                ),
+                characters = listOf(
+                    Character(
+                        ID = "1",
+                        name = "Rick",
+                        image = "",
+                        status = "Alive",
+                        species = "Human",
+                        gender = "Male"
+                    )
+                )
+            ),
+            LocationData(
+                pages = Paginate(
+                    next = null,
+                    prev = 1,
+                    pages = 1,
+                    count = 1
+                ),
+                locations = listOf(
+                    Location(
+                        id = "1",
+                        name = "Earth",
+                        type = "Planet",
+                        dimension = "Unknown",
+                        images = emptyList(),
+                        created = ""
+                    )
+                )
+            ),
+            LocationData(
+                pages = Paginate(
+                    next = null,
+                    prev = 1,
+                    pages = 1,
+                    count = 1
+                ),
+                locations = listOf(
+                    Location(
+                        id = "1",
+                        name = "Earth",
+                        type = "Planet",
+                        dimension = "Unknown",
+                        images = emptyList(),
+                        created = ""
+                    )
+                )
+            )
+        )
     }
 
     override suspend fun getSingleCharacter(code: String): DetailedCharacter? {
@@ -129,4 +186,9 @@ class FakeRepo : CharacterClient {
 
         )
     }
+
+//        else{
+//            return null
+//        }
+//    }
 }

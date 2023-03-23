@@ -36,7 +36,7 @@ class LocationViewModel @Inject constructor(
             val locationData = getAllLocationUseCase.execute()
             _locations.update {
                 it.copy(
-                    locations = locationData.location ?: emptyList(),
+                    locations = locationData.locations ?: emptyList(),
                     isLoading = false,
                     pages = locationData.pages
                 )
@@ -57,7 +57,7 @@ class LocationViewModel @Inject constructor(
                 val locationData = getAllLocationUseCase.execute(page = location.value.pages?.next ?: 1)
                 _locations.update {
                     it.copy(
-                        locations = it.locations + (locationData.location ?: emptyList()),
+                        locations = it.locations + (locationData.locations ?: emptyList()),
                         pages = locationData.pages,
                         isLoading = false
                     )

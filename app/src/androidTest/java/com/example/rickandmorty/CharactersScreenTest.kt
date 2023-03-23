@@ -1,4 +1,4 @@
-package com.example.rickandmorty.characterUiTesting
+package com.example.rickandmorty
 
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.ui.test.assertIsDisplayed
@@ -10,7 +10,7 @@ import com.example.rickandmorty.ui.screens.character.Characters
 import org.junit.Rule
 import org.junit.Test
 
-class UiTest1 {
+class CharactersScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 

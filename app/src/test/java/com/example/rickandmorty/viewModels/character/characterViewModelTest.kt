@@ -1,4 +1,4 @@
-package com.example.rickandmorty.characterViewModelsTesting
+package com.example.rickandmorty.viewModels.character
 
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo

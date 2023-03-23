@@ -39,4 +39,27 @@ class SearchSystemTest {
             hasContentDescription("Item Name")
         )
     }
+
+    /**
+     * BDD testing for character screen
+     */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun clickToGoOnCharactersScreen() = runTest {
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Characters")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithText("Rick Sanchez").performClick()
+
+        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Character")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithText("Pilot").performClick()
+        composeTestRule.waitForIdle()
+    }
 }

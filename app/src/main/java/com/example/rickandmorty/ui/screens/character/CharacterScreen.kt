@@ -36,6 +36,7 @@ fun Characters(
     listState: LazyGridState,
 ) {
     Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "characters" }) {
+        ScreenNameBar(name = "Characters", onFilterClick = {})
         if (state.isLoading) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -44,16 +45,16 @@ fun Characters(
             ) {
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.CenterHorizontally)
+                        .semantics { contentDescription = "Fetching Characters" }
                 )
             }
         } else {
-            ScreenNameBar(name = "Characters", onFilterClick = {})
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(8.dp),
-                state = listState
+                modifier = Modifier.padding(8.dp)
+//                state = listState
             ) {
                 items(state.characters) { character ->
                     characterItem(

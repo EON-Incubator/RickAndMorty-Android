@@ -19,75 +19,29 @@ class NavgationTesting {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun clickToGoOnCharactersScreen() = runTest {
+    fun naviagateToAllScreens() = runTest {
 //        composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithContentDescription("Characters").performClick()
+//        composeTestRule.onNodeWithContentDescription("Characters").performClick()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Characters")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithContentDescription("Episodes").performClick()
+        // composeTestRule.onNodeWithText("Episodes").performClick()
+
         composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithText("Rick Sanchez").performClick()
-//
-//        composeTestRule.waitUntil(5000) {
-// //            composeTestRule
-// //                .onNodeWithContentDescription("Row").fetchSemanticsNode()
-//        }
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Character")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithContentDescription("Locations").performClick()
+        composeTestRule.waitForIdle()
 
-        //    Thread.sleep(5000)
-//        composeTestRule.waitUntil(5000) {
-//            composeTestRule
-//                .onAllNodesWithContentDescription("characters")
-//                .fetchSemanticsNodes().isNotEmpty()
-//        }
-
-        //  Thread.sleep(5000)
-
-//    }
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @Test
-//    fun clickToGoOnEpisodesScreen()= runTest{
-//
-//        composeTestRule.onNodeWithContentDescription("Episodes").performClick()
-// //        Thread.sleep(5000)
-// //        composeTestRule.waitUntil(10000) {
-// //            composeTestRule
-// //                .onAllNodesWithContentDescription("epi")
-// //                .fetchSemanticsNodes().isNotEmpty()
-// //        }
-//
-//
-//
-//
-//
-//    //composeTestRule.waitForIdle(10000)
-// //        composeTestRule.setIdleTimeout(1000)
-// //        composeTestRule.onAllNodesWithContentDescription("episodes").isEmpty()
-//    }
-//
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @Test
-//    fun clickToGoOnLocationsScreen()= runTest{
-//
-//        composeTestRule.onNodeWithContentDescription("Locations").performClick()
-//        Thread.sleep(5000)
-//        composeTestRule.waitUntil(5000) {
-//            composeTestRule
-//                .onAllNodesWithContentDescription("locations")
-//                .fetchSemanticsNodes().isNotEmpty()
-//        }
-//
-//
-//    }
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @Test
-//    fun clickToGoOnSearchScreen()= runTest{
-//
-//        composeTestRule.onNodeWithContentDescription("Search").performClick()
-//        Thread.sleep(5000)
-//        composeTestRule.waitUntil(5000) {
-//            composeTestRule
-//                .onAllNodesWithContentDescription("Search Bar")
-//                .fetchSemanticsNodes().isNotEmpty()
-//        }
-//
-//
-//    }
+        composeTestRule.waitUntil(10000) {
+            composeTestRule.onAllNodesWithContentDescription("Fetching Records").fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithContentDescription("Search").performClick()
     }
 }

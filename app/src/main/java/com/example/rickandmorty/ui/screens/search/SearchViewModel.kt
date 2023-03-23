@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens.search
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.search.GetSearchResultUseCase
-import com.example.rickandmorty.domain.search.LocationData
+import com.example.rickandmorty.domain.location.LocationData
 import kotlinx.coroutines.Dispatchers
 
 @HiltViewModel
@@ -39,7 +38,7 @@ class SearchViewModel @Inject constructor(
                     )
                 }
                 val characterData = getSearchResultUseCase.execute(name)
-                Log.v("Search test: View Model", characterData.toString())
+//                Log.v("Search test: View Model", characterData.toString())
 
                 _searchResult.update {
                     it.copy(

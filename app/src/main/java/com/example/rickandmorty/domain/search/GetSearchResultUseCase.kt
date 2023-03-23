@@ -3,6 +3,7 @@ package com.example.rickandmorty.domain.search
 import android.util.Log
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.character.CharacterData
+import com.example.rickandmorty.domain.location.LocationData
 
 /**
  * Class that gets the Data from CharacterClients
@@ -49,9 +50,9 @@ class GetSearchResultUseCase(
                 )
             )
         }
-        Log.v("Search test:Character", resultData?.characterData?.characters?.size.toString())
-        Log.v("Search test: by name", resultData?.locationByName?.locations?.size.toString())
-        Log.v("Search test: by type", resultData?.locationByType?.locations?.size.toString())
+//        Log.v("Search test:Character", resultData?.characterData?.characters?.size.toString())
+//        Log.v("Search test: by name", resultData?.locationByName?.locations?.size.toString())
+//        Log.v("Search test: by type", resultData?.locationByType?.locations?.size.toString())
 
         return resultData?.copy(
             locationByName = resultData?.locationByName?.copy(

@@ -48,4 +48,41 @@ class SearchSystemTest {
         composeTestRule.onNodeWithText("Abadango").performClick()
         composeTestRule.waitForIdle()
     }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun episodesAndDetailFunctionality() = runTest {
+        composeTestRule.onNodeWithContentDescription("Episodes").performClick()
+        composeTestRule.waitUntil(2000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        Thread.sleep(1000)
+
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("Pilot").performClick()
+        composeTestRule.waitUntil(2000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("EP Detail")
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+        Thread.sleep(1000)
+
+        composeTestRule.waitForIdle()
+        composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
+            hasContentDescription("Item Name")
+        )
+
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("Rick Sanchez").performClick()
+        composeTestRule.waitUntil(5000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Character")
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+        Thread.sleep(1000)
+        composeTestRule.waitForIdle()
+
+    }
 }

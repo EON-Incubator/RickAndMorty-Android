@@ -51,13 +51,12 @@ fun EpisodesScreen(
                     CircularProgressIndicator(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
-                            .semantics { contentDescription = "Fetching Episodes" }
+                            .semantics { contentDescription = "Fetching Records" }
                     )
                 }
             } else {
                 LazyColumn(
-                    state = listState,
-                    modifier = Modifier.semantics { contentDescription = "Click Episode" }
+                    state = listState
                 ) {
                     items(state.episodes) { episode ->
                         GetRowWithFourImages(

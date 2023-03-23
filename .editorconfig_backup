@@ -1,0 +1,57 @@
+root = true
+#
+# [app/*.{kt,kts}]
+# insert_final_newline = false
+# #
+# [*.{kt,kts}]
+# insert_final_newline = true
+#Ignore paths
+[app/build/**]
+insert_final_newline = false
+indent_size  = unset
+ktlint_standard_import-ordering = disabled
+ktlint_standard_trailing-comma-on-call-site = disabled
+ktlint_standard_final-newline = disabled
+ktlint_standard_no-trailing-spaces = disabled
+ktlint_standard_no-unit-return = disabled
+ktlint_standard_wrapping = disabled
+ktlint_standard_keyword-spacing = disabled
+ktlint_standard_import-ordering = disabled
+ktlint_standard_trailing-comma-on-declaration-site = disabled
+
+
+[app/src/**]
+insert_final_newline = false
+# indent_size  = unset
+# trim_trailing_whitespace=false
+ij_kotlin_allow_trailing_comma_on_call_site = false
+# disabled_rules=no-wildcard-imports
+# disabled_rules=op-spacing
+ktlint_standard_no-wildcard-imports = disabled
+ktlint_standard_op-spacing = disabled
+ktlint_standard_import-ordering = disabled
+
+# ktlint_experimental= true
+
+# # Ignore paths
+# [app/**]
+# generated_code = true
+# # Exclude specific paths for Ktlint checks
+#
+#
+# # [build/**/*.kt]
+# # exclude_rules = true
+#
+#
+[app/]
+exclude_rules = true
+# #
+# #Ignore paths
+# [/app/*]
+# generated_code=true
+# charset = unset
+# end_of_line = unset
+# insert_final_newline = unset
+# trim_trailing_whitespace = unset
+# indent_style = unset
+# indent_size = unset

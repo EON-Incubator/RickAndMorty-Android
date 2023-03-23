@@ -1,0 +1,8 @@
+query SearchCharacter($name: String!){
+    characters(filter: { name: $name }) {
+        results {
+            id
+            name
+        }
+    }
+}

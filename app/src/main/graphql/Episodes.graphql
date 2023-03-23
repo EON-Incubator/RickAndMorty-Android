@@ -1,0 +1,17 @@
+query GetEpisodes{
+    episodes {
+        results {
+            id
+            name
+            episode
+            air_date
+            characters {
+                image
+                name
+                status
+                species
+                gender
+            }
+        }
+    }
+}

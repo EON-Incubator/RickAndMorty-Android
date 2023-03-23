@@ -1,0 +1,13 @@
+query AllLocations($name:String!) {
+    locations(filter:{name:$name}) {
+        results {
+            id
+            name
+            type
+            dimension
+            residents {
+                image
+            }
+        }
+    }
+}

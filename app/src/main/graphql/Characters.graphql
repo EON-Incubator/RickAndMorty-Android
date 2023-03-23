@@ -1,11 +1,12 @@
-query CharactersQuery{
-    characters {
+query CharactersQuery($name:String!){
+    characters(filter:{name:$name}) {
         results {
             id
             name
             image
             species
             status
+            gender
         }
     }
 }

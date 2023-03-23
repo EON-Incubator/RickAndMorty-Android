@@ -1,2 +1,157 @@
 package com.example.rickandmorty.ui.screens.search
 
+import android.graphics.drawable.Icon
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
+import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
+import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
+
+@Composable
+fun Search(
+    characterState: SearchViewModel.CharacterState,
+    locationState: SearchViewModel.LocationState,
+    onValueChange: (name: String) -> Unit,
+    query: TextFieldValue,
+    onLocationClick: (id: String) -> Unit,
+    onCharacterClick: (id: String) -> Unit,
+    onShowCharacters: () -> Unit,
+    showCharacters: Boolean,
+    onShowLocations: () -> Unit,
+    showLocations: Boolean,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.padding(5.dp)) {
+            OutlinedTextField(
+                value = query.text,
+                onValueChange = onValueChange,
+                Modifier.fillMaxWidth()
+            )
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(5.dp), modifier = Modifier.padding(5.dp)) {
+            Button(
+                onClick = onShowCharacters,
+                Modifier.weight(1.0f),
+                colors = if (showCharacters) {
+                    ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                } else {
+                    ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+                }
+            ) {
+                if (showCharacters) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(
+                            id = R.drawable.outline_check_box_24
+                        ),
+                        contentDescription = "Selected",
+                        Modifier.padding(horizontal = 5.dp)
+                    )
+                } else {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(
+                            id = R.drawable.outline_check_box_outline_blank_24
+                        ),
+                        contentDescription = "Selected",
+                        Modifier.padding(horizontal = 5.dp)
+                    )
+                }
+                Text(text = "Characters (${characterState.characters?.size})")
+            }
+            Button(
+                onClick = onShowLocations,
+                Modifier.weight(1.0f),
+                colors = if (showLocations) {
+                    ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                } else {
+                    ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+                }
+            ) {
+                if (showLocations) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(
+                            id =
+                            R.drawable.outline_check_box_24
+                        ),
+                        contentDescription = "Selected",
+                        Modifier.padding(horizontal = 5.dp)
+                    )
+                } else {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(
+                            id =
+                            R.drawable.outline_check_box_outline_blank_24
+                        ),
+                        contentDescription = "Selected",
+                        Modifier.padding(horizontal = 5.dp)
+                    )
+                }
+                Text(text = "Locations (${locationState.locations?.size})")
+            }
+        }
+
+        LazyColumn {
+            if (characterState.characters.isNotEmpty() && showCharacters) {
+                item {
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = "Characters",
+                        Modifier
+                            .background(Color.LightGray)
+                            .fillMaxWidth()
+                            .padding(2.dp)
+                    )
+                }
+                items(characterState.characters, key = { it.ID.toString() }) { item ->
+                    GetRowWithOneImage(
+                        imageUrlLink = item.image.toString(),
+                        titleName = item.name.toString(),
+                        property1 = item.species.toString(),
+                        property2 = item.gender.toString(),
+                        status = item.status.toString(),
+                        id = item.ID.toString(),
+                        onClickable = onCharacterClick
+                    )
+                }
+            }
+
+            if (locationState.locations.isNotEmpty() && showLocations) {
+                item {
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = "Locations",
+                        Modifier
+                            .background(Color.LightGray)
+                            .fillMaxWidth()
+                            .padding(2.dp)
+                    )
+                }
+                items(locationState.locations) { item ->
+                    GetRowWithFourImages(
+                        imageUrlLink = item.images,
+                        titleName = item.name.toString(),
+                        property1 = item.type.toString(),
+                        property2 = item.dimension.toString(),
+                        id = item.id.toString(),
+                        onClickable = { onLocationClick(item.id.toString()) }
+                    )
+                }
+            }
+        }
+    }
+}
+
+object SearchDestination : NavigationDestination {
+    override val route = "search"
+    override val screenTitleRes = R.string.search_screen_title
+}

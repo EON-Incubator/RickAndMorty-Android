@@ -1,0 +1,15 @@
+query LocationDetail($locationId: ID!) {
+    location(id: $locationId) {
+        dimension
+        name
+        residents {
+            id
+            gender
+            image
+            name
+            status
+            species
+        }
+        type
+    }
+}

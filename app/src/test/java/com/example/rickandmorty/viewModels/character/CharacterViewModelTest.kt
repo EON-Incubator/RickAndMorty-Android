@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class characterViewModelTest() {
+class CharacterViewModelTest() {
     private lateinit var viewModel: CharacterViewModel
     private lateinit var fakeRepo: FakeRepo
 

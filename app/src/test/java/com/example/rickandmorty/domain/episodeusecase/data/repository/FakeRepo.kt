@@ -52,11 +52,6 @@ class FakeRepo : CharacterClient {
         }
     }
 
-//    override suspend fun getEpisodes(): List<Episodes> {
-//        return FakeDataSource.episodesList
-//
-//    }
-
     override suspend fun getEpisodes(filterEpisode: FilterEpisode, page: Int): EpisodesData? {
         return EpisodesData(
             pages = null,
@@ -84,53 +79,6 @@ class FakeRepo : CharacterClient {
         } else {
             return null
         }
-    }
-
-    override suspend fun getSingleCharacter(code: String): DetailedCharacter? {
-        if (code.equals("1")) {
-            return DetailedCharacter(
-                "ID",
-                "name1",
-                "img1",
-                "species",
-                "status",
-                "gender1",
-                emptyList<Episodes>(),
-                "location1",
-                "loci1ID",
-                "origin1",
-                "origin1ID"
-            )
-        } else {
-            return null
-        }
-    }
-
-    override suspend fun getCharacters(
-        filterCharacter: FilterCharacter,
-        page: Int,
-    ): CharacterData? {
-        return CharacterData(
-            pages = Paginate(
-
-                3,
-                10,
-                1,
-                20
-            ),
-            characters = listOf(
-                Character(
-                    "ID",
-                    "name2",
-                    "img2",
-                    "species2",
-                    "status1",
-                    "gender"
-                )
-
-            )
-
-        )
     }
 
     override suspend fun getSearchResult(queryString: String, page: Int): SearchResult? {
@@ -192,6 +140,54 @@ class FakeRepo : CharacterClient {
             )
         )
     }
+
+    override suspend fun getSingleCharacter(code: String): DetailedCharacter? {
+        if (code.equals("1")) {
+            return DetailedCharacter(
+                "ID",
+                "name1",
+                "img1",
+                "species",
+                "status",
+                "gender1",
+                emptyList<Episodes>(),
+                "location1",
+                "loci1ID",
+                "origin1",
+                "origin1ID"
+            )
+        } else {
+            return null
+        }
+    }
+
+    override suspend fun getCharacters(
+        filterCharacter: FilterCharacter,
+        page: Int,
+    ): CharacterData? {
+        return CharacterData(
+            pages = Paginate(
+
+                3,
+                10,
+                1,
+                20
+            ),
+            characters = listOf(
+                Character(
+                    "ID",
+                    "name2",
+                    "img2",
+                    "species2",
+                    "status1",
+                    "gender"
+                )
+
+            )
+
+        )
+    }
+
 //        else{
 //            return null
 //        }

@@ -7,3 +7,8 @@ data class Episodes(
     val air_date: String?,
     val images: List<String>?,
 )
+
+data class EpisodesData(
+    val pages: Paginate?,
+    val episodesData: List<Episodes>?,
+)

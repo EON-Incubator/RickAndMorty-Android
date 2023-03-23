@@ -1,6 +1,7 @@
 package com.example.rickandmorty.navigation
 
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,6 +20,15 @@ fun RickAndMortyNavHost(
     modifier: Modifier = Modifier,
     onDetailScreen: (Boolean) -> Unit,
 ) {
+    val viewModel = hiltViewModel<SearchViewModel>()
+    val searchResultState by viewModel.searchResult.collectAsState()
+    var showCharacters by remember {
+        mutableStateOf(true)
+    }
+    var showLocations by remember {
+        mutableStateOf(true)
+    }
+
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -31,8 +41,12 @@ fun RickAndMortyNavHost(
             var characterInfo = characterState.character?.ID.toString()
             val listState = rememberLazyGridState()
 
-            if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index == listState.layoutInfo.totalItemsCount - 1) {
-                viewModel.updateList()
+            if (listState.isScrollInProgress) {
+                if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                    listState.layoutInfo.totalItemsCount - 1
+                ) {
+                    viewModel.updateList()
+                }
             }
             Characters(
                 characterState,
@@ -68,11 +82,21 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<EpisodeViewModel>()
             val state by viewModel.state.collectAsState()
+            val listState = rememberLazyListState()
+
+            if (listState.isScrollInProgress) {
+                if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                    listState.layoutInfo.totalItemsCount - 1
+                ) {
+                    viewModel.updateEpisodeList()
+                }
+            }
             EpisodesScreen(
                 state = state,
                 onSelectEpisode = {
                     navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
-                }
+                },
+                listState = listState
             )
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {
@@ -91,12 +115,22 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<LocationViewModel>()
             val locationsState by viewModel.location.collectAsState()
+            val listState = rememberLazyListState()
+
+            if (listState.isScrollInProgress) {
+                if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                    listState.layoutInfo.totalItemsCount - 1
+                ) {
+                    viewModel.updateList()
+                }
+            }
 
             LocationScreen(
                 locationsState,
                 onClick = {
                     navController.navigate(LocationDetailsDestination.route + "?id=$it")
-                }
+                },
+                listState = listState
             )
         }
         composable(LocationDetailsDestination.route + "?id={id}") {
@@ -113,19 +147,8 @@ fun RickAndMortyNavHost(
             )
         }
         composable("search") {
-            val viewModel = hiltViewModel<SearchViewModel>()
-            val characterState by viewModel.characters.collectAsState()
-            val locationState by viewModel.locations.collectAsState()
-            var showCharacters by remember {
-                mutableStateOf(true)
-            }
-            var showLocations by remember {
-                mutableStateOf(true)
-            }
-
             Search(
-                characterState = characterState,
-                locationState = locationState,
+                searchResultState = searchResultState,
                 onValueChange = { viewModel.onSearch(it) },
                 query = viewModel.query,
                 onLocationClick = {

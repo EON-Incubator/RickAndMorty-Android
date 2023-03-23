@@ -1,15 +1,17 @@
-package com.example.rickandmorty.domain.data
+package com.example.rickandmorty.data
 
 import com.apollographql.apollo3.ApolloClient
 import com.example.*
-import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.character.DetailedCharacter
-import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.EpisodesData
 import com.example.rickandmorty.domain.character.CharacterData
+import com.example.rickandmorty.domain.location.LocationData
+import com.example.rickandmorty.domain.search.SearchResult
 import com.example.type.FilterCharacter
+import com.example.type.FilterEpisode
 import com.example.type.FilterLocation
 
 class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterClient {
@@ -22,15 +24,13 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterC
             ?.toCharacter()
     }
 
-    override suspend fun getAllLocations(filterLocation: FilterLocation): List<Location> {
+    override suspend fun getAllLocations(filterLocation: FilterLocation, page: Int): LocationData? {
         return apolloClient
-            .query(AllLocationsQuery(filterLocation))
+            .query(AllLocationsQuery(filterLocation, page))
             .execute()
             .data
             ?.locations
-            ?.results
-            ?.mapNotNull { it?.toAllLocations() }
-            ?: emptyList<Location>()
+            ?.toAllLocations()
     }
 
     override suspend fun getLocationDetail(id: String): LocationDetail? {
@@ -47,15 +47,17 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterC
             .execute().data?.character?.toSpecificChar()
     }
 
-    override suspend fun getEpisodes(): List<Episodes> {
+    override suspend fun getEpisodes(filterEpisode: FilterEpisode, page: Int): EpisodesData? {
         return apolloClient
-            .query(GetEpisodesQuery())
+            .query(GetEpisodesQuery(filterEpisode, page))
             .execute()
             .data
             ?.episodes
-            ?.results
-            ?.mapNotNull { it?.toEpisodes() }
-            ?: emptyList()
+            ?.toEpisodes()
+
+//            ?.results
+//            ?.mapNotNull { it?.toEpisodes() }
+//            ?: emptyList()
     }
 
     override suspend fun getEpisode(id: String): DetailedEpisode? {
@@ -65,5 +67,13 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterC
             .data
             ?.episode
             ?.toDetailedEpisode()
+    }
+
+    override suspend fun getSearchResult(queryString: String, page: Int): SearchResult? {
+        return apolloClient
+            .query(SearchQuery(queryString, page))
+            .execute()
+            .data
+            ?.toSearchResult()
     }
 }

@@ -1,5 +1,8 @@
-query AllLocations($filter:FilterLocation!) {
-    locations(filter:$filter) {
+query AllLocations($filter:FilterLocation!, $page:Int!) {
+    locations(filter:$filter, page: $page) {
+        info{
+            ...pageInfo
+        }
         results {
             id
             name

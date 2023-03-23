@@ -22,7 +22,3 @@ jobs:
         with:
           report-path: build/*.xml # Support glob patterns by https://www.npmjs.com/package/@actions/glob
         continue-on-error: false # If annotations contain error of severity, action-ktlint exit 1.
-  Codecov:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: codecov/codecov-action@v3

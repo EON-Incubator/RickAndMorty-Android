@@ -3,7 +3,6 @@ package com.example.rickandmorty
 import androidx.compose.runtime.*
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import com.example.rickandmorty.ui.screens.search.SearchViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,5 +34,18 @@ class SearchSystemTest {
         composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
             hasContentDescription("Item Name")
         )
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun location_functionality() = runTest {
+        composeTestRule.onNodeWithContentDescription("Locations").performClick()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithText("Abadango").performClick()
+        composeTestRule.waitForIdle()
     }
 }

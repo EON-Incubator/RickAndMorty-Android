@@ -11,7 +11,7 @@ import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episode
-import com.example.rickandmorty.domain.search.LocationData
+import com.example.rickandmorty.domain.location.LocationData
 import com.example.rickandmorty.domain.search.SearchResult
 
 fun CharactersQuery.Characters.toCharacter(): CharacterData {
@@ -43,7 +43,7 @@ fun AllLocationsQuery.Locations.toAllLocations(): com.example.rickandmorty.domai
             pages = info?.pageInfo?.pages,
             count = info?.pageInfo?.count
         ),
-        location = results?.mapNotNull {
+        locations = results?.mapNotNull {
             Location(
                 id = it?.id,
                 name = it?.name,

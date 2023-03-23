@@ -16,7 +16,7 @@ class GetAllLocationUseCase(
         val locationData = characterClient
             .getAllLocations(filterLocation, page)
         return LocationData(
-            location = locationData?.location,
+            locations = locationData?.locations,
             pages = locationData?.pages
         )
     }

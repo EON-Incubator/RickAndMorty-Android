@@ -13,5 +13,5 @@ data class Location(
 
 data class LocationData(
     val pages: Paginate?,
-    val location: List<Location>?,
+    val locations: List<Location>?,
 )

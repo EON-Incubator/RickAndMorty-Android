@@ -18,6 +18,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -33,7 +35,7 @@ fun Characters(
     onCharacterClick: (code: String) -> Unit,
     listState: LazyGridState,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "characters" }) {
         if (state.isLoading) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -100,7 +102,7 @@ private fun characterItem(
                 text = charstate.name.toString(),
                 modifier = Modifier
                     .background(MaterialTheme.colors.primaryVariant)
-                    .fillMaxWidth(),
+                    .fillMaxWidth().semantics { contentDescription = "Row" },
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colors.onPrimary,
                 style = MaterialTheme.typography.body1

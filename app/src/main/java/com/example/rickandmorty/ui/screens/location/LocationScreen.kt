@@ -7,10 +7,13 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
@@ -30,12 +33,13 @@ object LocationDestination : NavigationDestination {
 fun LocationScreen(
     locationsUiState: LocationViewModel.LocationUiState,
     onClick: (String) -> Unit,
+    listState: LazyListState,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "episodes" }) {
             ScreenNameBar(
                 name = stringResource(R.string.location),
                 onFilterClick = {}
@@ -43,7 +47,7 @@ fun LocationScreen(
 
             if (locationsUiState.isLoading) {
             } else {
-                LazyColumn() {
+                LazyColumn(state = listState) {
                     items(locationsUiState.locations) { location ->
 
                         // Method in CommonUtils that draws the Card with 4 Images

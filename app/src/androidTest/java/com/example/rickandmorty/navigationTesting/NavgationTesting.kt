@@ -1,53 +1,93 @@
 package com.example.rickandmorty.navigationTesting
-
-import androidx.activity.compose.setContent
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.navigation.compose.ComposeNavigator
-import androidx.navigation.testing.TestNavHostController
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.rickandmorty.ui.screens.RickAndMortyMainApp
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import com.example.rickandmorty.MainActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.Assert.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
 @HiltAndroidTest
-@RunWith(AndroidJUnit4::class)
 class NavgationTesting {
-    @get:Rule
+    @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+    @get:Rule(order = 1)
+    val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-    private lateinit var navController: TestNavHostController
-
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun initialSetup() {
-        composeTestRule.setContent {
-            navController = TestNavHostController(LocalContext.current)
-            navController.navigatorProvider.addNavigator(ComposeNavigator())
-            RickAndMortyMainApp(navController = navController)
-        }
-//        Log.v("name",navController.currentBackStackEntry?.destination?.route.toString())
-//        Log.v("tg",CharacterDestination.route.toString())
-    }
-
-    @Test
-    fun rickAndMoryNavHost_verifyStartDestination() {
-//        val viewModel: MyViewModel = composeTestRule.activity
-//            .viewModel(HiltViewModelFactory(composeTestRule.activity, null))
+    fun clickToGoOnCharactersScreen() = runTest {
+//        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithContentDescription("Characters").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("Rick Sanchez").performClick()
 //
-//        composeTestRule.setContent {
-//            Characters(state = , onClick = {}, onCharacterClick ={} , listState = LazyGridState() )
+//        composeTestRule.waitUntil(5000) {
+// //            composeTestRule
+// //                .onNodeWithContentDescription("Row").fetchSemanticsNode()
 //        }
-//        val navigateButton= composeTestRule.onNodeWithText("Characters")
-//        navigateButton.performClick()
+
+        //    Thread.sleep(5000)
+//        composeTestRule.waitUntil(5000) {
+//            composeTestRule
+//                .onAllNodesWithContentDescription("characters")
+//                .fetchSemanticsNodes().isNotEmpty()
+//        }
+
+        //  Thread.sleep(5000)
+
+//    }
+//    @OptIn(ExperimentalCoroutinesApi::class)
+//    @Test
+//    fun clickToGoOnEpisodesScreen()= runTest{
 //
-//        composeTestRule.onNodeWithText("Characters").assertExists()
-        assertEquals(null, navController.currentBackStackEntry?.destination?.route)
+//        composeTestRule.onNodeWithContentDescription("Episodes").performClick()
+// //        Thread.sleep(5000)
+// //        composeTestRule.waitUntil(10000) {
+// //            composeTestRule
+// //                .onAllNodesWithContentDescription("epi")
+// //                .fetchSemanticsNodes().isNotEmpty()
+// //        }
+//
+//
+//
+//
+//
+//    //composeTestRule.waitForIdle(10000)
+// //        composeTestRule.setIdleTimeout(1000)
+// //        composeTestRule.onAllNodesWithContentDescription("episodes").isEmpty()
+//    }
+//
+//    @OptIn(ExperimentalCoroutinesApi::class)
+//    @Test
+//    fun clickToGoOnLocationsScreen()= runTest{
+//
+//        composeTestRule.onNodeWithContentDescription("Locations").performClick()
+//        Thread.sleep(5000)
+//        composeTestRule.waitUntil(5000) {
+//            composeTestRule
+//                .onAllNodesWithContentDescription("locations")
+//                .fetchSemanticsNodes().isNotEmpty()
+//        }
+//
+//
+//    }
+//    @OptIn(ExperimentalCoroutinesApi::class)
+//    @Test
+//    fun clickToGoOnSearchScreen()= runTest{
+//
+//        composeTestRule.onNodeWithContentDescription("Search").performClick()
+//        Thread.sleep(5000)
+//        composeTestRule.waitUntil(5000) {
+//            composeTestRule
+//                .onAllNodesWithContentDescription("Search Bar")
+//                .fetchSemanticsNodes().isNotEmpty()
+//        }
+//
+//
+//    }
     }
 }

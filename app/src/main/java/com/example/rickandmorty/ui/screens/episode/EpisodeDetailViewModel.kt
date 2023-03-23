@@ -54,6 +54,5 @@ class EpisodeDetailViewModel @Inject constructor(
         val characters: List<com.example.rickandmorty.domain.character.Character> = emptyList(),
         val isLoading: Boolean = false,
         val selectedEpisode: DetailedEpisode? = null,
-
     )
 }

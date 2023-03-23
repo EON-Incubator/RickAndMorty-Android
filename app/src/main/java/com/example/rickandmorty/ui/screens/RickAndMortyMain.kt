@@ -18,8 +18,7 @@ fun RickAndMortyMainApp(
     navController: NavHostController = rememberNavController(),
 ) {
     var invisible by remember { mutableStateOf(false) }
-//    val viewModel = hiltViewModel<CharacterViewModel>()
-//    val characterState by viewModel.characters.collectAsState()
+
     Scaffold(topBar = {
         if (!invisible) {
             RickAndMortyTopAppBar(

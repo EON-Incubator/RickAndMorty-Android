@@ -2,8 +2,9 @@ package com.example.rickandmorty.domain
 
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
-import com.example.rickandmorty.domain.location.Location
+import com.example.rickandmorty.domain.location.LocationData
 import com.example.rickandmorty.domain.location.LocationDetail
+import com.example.rickandmorty.domain.search.SearchResult
 import com.example.type.FilterCharacter
 import com.example.type.FilterEpisode
 import com.example.type.FilterLocation
@@ -12,7 +13,8 @@ interface CharacterClient {
 
     suspend fun getAllLocations(
         filterLocation: FilterLocation = FilterLocation(),
-    ): List<Location>
+        page: Int = 1,
+    ): LocationData?
 
     suspend fun getLocationDetail(id: String): LocationDetail?
 
@@ -29,4 +31,6 @@ interface CharacterClient {
     ): EpisodesData?
 
     suspend fun getEpisode(id: String): DetailedEpisode?
+
+    suspend fun getSearchResult(queryString: String, page: Int = 1): SearchResult?
 }

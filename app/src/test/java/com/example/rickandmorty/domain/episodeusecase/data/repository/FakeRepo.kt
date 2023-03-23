@@ -9,7 +9,9 @@ import com.example.rickandmorty.domain.EpisodesData
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.Location
+import com.example.rickandmorty.domain.location.LocationData
 import com.example.rickandmorty.domain.location.LocationDetail
+import com.example.rickandmorty.domain.search.SearchResult
 import com.example.type.FilterCharacter
 import com.example.type.FilterEpisode
 import com.example.type.FilterLocation
@@ -20,17 +22,18 @@ class FakeRepo : CharacterClient {
     private val detailedEpisode = mutableListOf<DetailedEpisode>()
 
     private val locations = mutableListOf<Location>()
-
-    override suspend fun getAllLocations(filterLocation: FilterLocation): List<Location> {
-        return listOf(
-            Location(
-                id = "id",
-                name = "name",
-                type = "type",
-                dimension = "dimension",
-                images = emptyList(),
-                created = "created"
-
+    override suspend fun getAllLocations(filterLocation: FilterLocation, page: Int): LocationData? {
+        return LocationData(
+            pages = null,
+            location = listOf(
+                Location(
+                    id = "id",
+                    name = "name",
+                    type = "type",
+                    dimension = "dimension",
+                    images = emptyList(),
+                    created = "created"
+                )
             )
         )
     }
@@ -127,5 +130,9 @@ class FakeRepo : CharacterClient {
             )
 
         )
+    }
+
+    override suspend fun getSearchResult(queryString: String, page: Int): SearchResult? {
+        TODO("Not yet implemented")
     }
 }

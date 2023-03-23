@@ -1,16 +1,20 @@
 package com.example.rickandmorty.ui.screens.search
 
 import android.graphics.drawable.Icon
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
@@ -20,8 +24,7 @@ import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 
 @Composable
 fun Search(
-    characterState: SearchViewModel.CharacterState,
-    locationState: SearchViewModel.LocationState,
+    searchResultState: SearchViewModel.SearchResult,
     onValueChange: (name: String) -> Unit,
     query: TextFieldValue,
     onLocationClick: (id: String) -> Unit,
@@ -36,10 +39,15 @@ fun Search(
             OutlinedTextField(
                 value = query.text,
                 onValueChange = onValueChange,
-                Modifier.fillMaxWidth()
+                Modifier
+                    .fillMaxWidth()
+                    .semantics { contentDescription = "Search Bar" }
             )
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(5.dp), modifier = Modifier.padding(5.dp)) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(5.dp),
+            modifier = Modifier.padding(5.dp)
+        ) {
             Button(
                 onClick = onShowCharacters,
                 Modifier.weight(1.0f),
@@ -66,7 +74,10 @@ fun Search(
                         Modifier.padding(horizontal = 5.dp)
                     )
                 }
-                Text(text = "Characters (${characterState.characters?.size})")
+                Text(
+                    text =
+                    "Characters (${searchResultState.characterData?.characters?.size ?: 0})"
+                )
             }
             Button(
                 onClick = onShowLocations,
@@ -96,55 +107,75 @@ fun Search(
                         Modifier.padding(horizontal = 5.dp)
                     )
                 }
-                Text(text = "Locations (${locationState.locations?.size})")
+                Text(text = "Locations (${searchResultState.locationByName?.locations?.size ?: 0})")
             }
         }
-
-        LazyColumn {
-            if (characterState.characters.isNotEmpty() && showCharacters) {
-                item {
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Text(
-                        text = "Characters",
-                        Modifier
-                            .background(Color.LightGray)
-                            .fillMaxWidth()
-                            .padding(2.dp)
-                    )
-                }
-                items(characterState.characters, key = { it.ID.toString() }) { item ->
-                    GetRowWithOneImage(
-                        imageUrlLink = item.image.toString(),
-                        titleName = item.name.toString(),
-                        property1 = item.species.toString(),
-                        property2 = item.gender.toString(),
-                        status = item.status.toString(),
-                        id = item.ID.toString(),
-                        onClickable = onCharacterClick
-                    )
-                }
+        if (searchResultState.isLoading) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .semantics { contentDescription = "Fetching Records" }
+                )
             }
-
-            if (locationState.locations.isNotEmpty() && showLocations) {
-                item {
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Text(
-                        text = "Locations",
-                        Modifier
-                            .background(Color.LightGray)
-                            .fillMaxWidth()
-                            .padding(2.dp)
+        } else {
+            LazyColumn {
+                if (searchResultState.characterData?.characters != null && showCharacters) {
+                    item {
+                        Spacer(modifier = Modifier.height(5.dp))
+                        Text(
+                            text = "Characters",
+                            Modifier
+                                .background(Color.LightGray)
+                                .fillMaxWidth()
+                                .padding(2.dp)
+                        )
+                    }
+                    Log.v(
+                        "Search test: Screen:",
+                        searchResultState.characterData.characters.toString()
                     )
+                    items(
+                        searchResultState.characterData.characters,
+                        key = { it.ID.toString() }
+                    ) { item ->
+                        GetRowWithOneImage(
+                            imageUrlLink = item.image.toString(),
+                            titleName = item.name.toString(),
+                            property1 = item.species.toString(),
+                            property2 = item.gender.toString(),
+                            status = item.status.toString(),
+                            id = item.ID.toString(),
+                            onClickable = onCharacterClick
+                        )
+                    }
                 }
-                items(locationState.locations) { item ->
-                    GetRowWithFourImages(
-                        imageUrlLink = item.images,
-                        titleName = item.name.toString(),
-                        property1 = item.type.toString(),
-                        property2 = item.dimension.toString(),
-                        id = item.id.toString(),
-                        onClickable = { onLocationClick(item.id.toString()) }
-                    )
+
+                if (searchResultState.locationByName?.locations != null && showLocations) {
+                    item {
+                        Spacer(modifier = Modifier.height(5.dp))
+                        Text(
+                            text = "Locations",
+                            Modifier
+                                .background(Color.LightGray)
+                                .fillMaxWidth()
+                                .padding(2.dp)
+                        )
+                    }
+                    items(searchResultState.locationByName.locations) { item ->
+                        GetRowWithFourImages(
+                            imageUrlLink = item.images,
+                            titleName = item.name.toString(),
+                            property1 = item.type.toString(),
+                            property2 = item.dimension.toString(),
+                            id = item.id.toString(),
+                            onClickable = { onLocationClick(item.id.toString()) }
+                        )
+                    }
                 }
             }
         }

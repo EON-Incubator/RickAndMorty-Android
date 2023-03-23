@@ -20,6 +20,15 @@ fun RickAndMortyNavHost(
     modifier: Modifier = Modifier,
     onDetailScreen: (Boolean) -> Unit,
 ) {
+    val viewModel = hiltViewModel<SearchViewModel>()
+    val searchResultState by viewModel.searchResult.collectAsState()
+    var showCharacters by remember {
+        mutableStateOf(true)
+    }
+    var showLocations by remember {
+        mutableStateOf(true)
+    }
+
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -31,9 +40,9 @@ fun RickAndMortyNavHost(
             val characterState by viewModel.characters.collectAsState()
             var characterInfo = characterState.character?.ID.toString()
             val listState = rememberLazyGridState()
+            if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                listState.layoutInfo.totalItemsCount - 1
 
-            if (listState.layoutInfo
-                    .visibleItemsInfo.lastOrNull()?.index == listState.layoutInfo.totalItemsCount - 1
             ) {
                 viewModel.updateList()
             }
@@ -103,12 +112,20 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<LocationViewModel>()
             val locationsState by viewModel.location.collectAsState()
+            val listState = rememberLazyListState()
+
+            if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                listState.layoutInfo.totalItemsCount - 1
+            ) {
+                viewModel.updateList()
+            }
 
             LocationScreen(
                 locationsState,
                 onClick = {
                     navController.navigate(LocationDetailsDestination.route + "?id=$it")
-                }
+                },
+                listState = listState
             )
         }
         composable(LocationDetailsDestination.route + "?id={id}") {
@@ -125,19 +142,8 @@ fun RickAndMortyNavHost(
             )
         }
         composable("search") {
-            val viewModel = hiltViewModel<SearchViewModel>()
-            val characterState by viewModel.characters.collectAsState()
-            val locationState by viewModel.locations.collectAsState()
-            var showCharacters by remember {
-                mutableStateOf(true)
-            }
-            var showLocations by remember {
-                mutableStateOf(true)
-            }
-
             Search(
-                characterState = characterState,
-                locationState = locationState,
+                searchResultState = searchResultState,
                 onValueChange = { viewModel.onSearch(it) },
                 query = viewModel.query,
                 onLocationClick = {

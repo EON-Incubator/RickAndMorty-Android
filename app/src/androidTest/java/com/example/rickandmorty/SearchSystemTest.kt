@@ -70,6 +70,16 @@ class SearchSystemTest {
         }
         composeTestRule.onNodeWithText("Abadango").performClick()
 
-        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithText("Female").performClick()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
     }
 }

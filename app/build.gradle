@@ -136,9 +136,9 @@ dependencies {
     androidTestImplementation 'androidx.test:core-ktx:1.4.0'
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:4.9.1"
 
-//    const val mockk = "1.12.5"
-//
-//    const val mockk = "io.mockk:mockk-common:${Version.mockk}"
+
+//    androidTestImplementation "io.mockk:mockk-common:1.12.5"
+
 //    androidTestImplementation "io.mockk:mockk-android:1.10.5"
 
 //    androidTestImplementation "io.mockk:mockk:1.12.5"
@@ -158,12 +158,19 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4"
     debugImplementation "androidx.compose.ui:ui-test-manifest"
 
+<<<<<<< HEAD
     androidTestImplementation "androidx.compose.ui:ui-test-junit4"
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.0'
     androidTestImplementation "androidx.navigation:navigation-testing:2.5.3"
     debugImplementation "androidx.compose.ui:ui-test-manifest"
     debugImplementation "androidx.compose.ui:ui-tooling"
+=======
+    //Apollo Mock for testing
+    testImplementation "com.apollographql.apollo3:apollo-mockserver:3.2.1"
+    androidTestImplementation "com.apollographql.apollo3:apollo-mockserver-jvm:3.2.1"
+
+>>>>>>> 00e4b75f58039dbf9309ca579426f9762977feed
 
 }
 apollo {

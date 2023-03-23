@@ -36,7 +36,7 @@ class CharacterDetailsScreenTesting() {
     }
 
     @Test
-    fun `when getting a character`() {
+    fun `when getting a character, confirmaing the data in state`() {
         assertEquals(viewModel.character.value.character?.ID, "ID")
         assert(!viewModel.character.value.isLoading)
         assertNotEquals(viewModel.character.value.character?.origin, "origin1")

@@ -5,6 +5,8 @@ buildscript {
 
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.44"
+        classpath "com.apollographql.apollo3:apollo-mockserver-jvm:3.2.1"
+        classpath "com.apollographql.apollo3:apollo-mockserver:3.2.1"
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {

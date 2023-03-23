@@ -14,8 +14,10 @@ import com.example.type.FilterCharacter
 import com.example.type.FilterEpisode
 import com.example.type.FilterLocation
 
-class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterClient {
-    override suspend fun getCharacters(filterCharacter: FilterCharacter, page: Int): CharacterData? {
+class ApolloCharacterClient(private val apolloClient: ApolloClient) :
+    CharacterClient {
+    override suspend fun getCharacters(filterCharacter: FilterCharacter, page: Int):
+        CharacterData? {
         return apolloClient
             .query(CharactersQuery(filterCharacter, page))
             .execute()

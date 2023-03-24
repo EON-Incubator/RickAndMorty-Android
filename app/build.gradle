@@ -125,7 +125,7 @@ dependencies {
     // Needed for createAndroidComposeRule, but not createComposeRule:
     debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_ui_version")
 
-// Instrumentation tests
+    // Instrumentation tests
     androidTestImplementation 'com.google.dagger:hilt-android-testing:2.37'
     kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.37'
     androidTestImplementation "junit:junit:4.13.2"
@@ -136,7 +136,14 @@ dependencies {
     androidTestImplementation 'androidx.test:core-ktx:1.4.0'
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:4.9.1"
 
+    //Material Theme
+    implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
 
+
+<<<<<<< HEAD
+
+    androidTestImplementation "io.mockk:mockk-android:1.12.5"
+=======
 //    androidTestImplementation "io.mockk:mockk-common:1.12.5"
 
 //    androidTestImplementation "io.mockk:mockk-android:1.10.5"
@@ -146,6 +153,7 @@ dependencies {
 //    androidTestImplementation "io.mockk:mockk-agent-android:1.10.5"
 
 
+>>>>>>> 8b188a12a8e8255f8d1611f8db337a164e102f40
     androidTestImplementation 'androidx.test:runner:1.4.0'
 
     // Testing dependencies

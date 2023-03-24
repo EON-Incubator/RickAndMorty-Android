@@ -117,6 +117,5 @@ class SearchSystemTest {
         }
         Thread.sleep(1000)
         composeTestRule.waitForIdle()
-
     }
 }

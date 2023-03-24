@@ -151,6 +151,7 @@ fun GetRowWithFourImages(
     property2: String,
     onClickable: (String) -> Unit,
     id: String,
+    modifier: Modifier = Modifier,
 ) {
     var mutableImageLink = imageUrlLink!!.toMutableList()
 
@@ -176,11 +177,11 @@ fun GetRowWithFourImages(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(modifier = Modifier.weight(1f)) {
+            Row(modifier = modifier.weight(1f)) {
                 GetImages(mutableImageLink)
             }
 
-            Row(modifier = Modifier.weight(2f)) {
+            Row(modifier = modifier.weight(2f)) {
                 GetData(
                     titleName,
                     property1,
@@ -205,12 +206,13 @@ fun GetRowWithOneImage(
     status: String,
     id: String,
     onClickable: (String) -> Unit,
+    modifier: Modifier = Modifier,
 
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
         elevation = 7.dp,
-        modifier = Modifier
+        modifier = modifier
             .padding(5.dp)
             .semantics { contentDescription = "Single Image Row" }
             .clickable {
@@ -224,7 +226,7 @@ fun GetRowWithOneImage(
         ) {
             Text(
                 textAlign = TextAlign.Center,
-                modifier = Modifier
+                modifier = modifier
                     .width(80.dp)
                     .rotate(-90f)
                     .semantics { contentDescription = "Item Name" }
@@ -242,7 +244,7 @@ fun GetRowWithOneImage(
 
             Row(modifier = Modifier.weight(1f)) {
                 AsyncImage(
-                    modifier = Modifier
+                    modifier = modifier
                         .padding(start = 15.dp, end = 7.dp, bottom = 7.dp, top = 7.dp)
                         .clip(CircleShape)
                         .size(70.dp)
@@ -259,7 +261,7 @@ fun GetRowWithOneImage(
                 )
             }
 
-            Row(modifier = Modifier.weight(2f)) {
+            Row(modifier = modifier.weight(2f)) {
                 GetData(
                     titleName,
                     property1,

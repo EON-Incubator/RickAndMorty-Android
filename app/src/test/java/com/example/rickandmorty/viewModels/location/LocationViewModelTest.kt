@@ -48,7 +48,7 @@ class LocationViewModelTest {
     }
 
     @Test
-    fun `check updating list is working`(){
+    fun `check updating list is working`() {
         viewModel.updateList()
         Assert.assertNull(viewModel.location.value.pages?.next)
         Assert.assertNull(viewModel.location.value.pages?.prev)

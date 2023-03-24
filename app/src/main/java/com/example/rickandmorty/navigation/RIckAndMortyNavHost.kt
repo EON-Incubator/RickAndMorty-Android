@@ -8,6 +8,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.character.*
 import com.example.rickandmorty.ui.screens.episode.*
 import com.example.rickandmorty.ui.screens.location.*
@@ -19,6 +20,7 @@ fun RickAndMortyNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     onDetailScreen: (Boolean) -> Unit,
+    deviceType: ScreenType,
 ) {
     val viewModel = hiltViewModel<SearchViewModel>()
     val searchResultState by viewModel.searchResult.collectAsState()
@@ -115,7 +117,7 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<LocationViewModel>()
             val locationsState by viewModel.location.collectAsState()
-            val listState = rememberLazyListState()
+            val listState = rememberLazyGridState()
 
             if (listState.isScrollInProgress) {
                 if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
@@ -130,7 +132,8 @@ fun RickAndMortyNavHost(
                 onClick = {
                     navController.navigate(LocationDetailsDestination.route + "?id=$it")
                 },
-                listState = listState
+                listState = listState,
+                deviceType = deviceType
             )
         }
         composable(LocationDetailsDestination.route + "?id={id}") {

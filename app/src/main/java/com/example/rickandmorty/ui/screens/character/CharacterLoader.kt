@@ -47,9 +47,9 @@ fun CharacterLoader() {
                                 .clip(
                                     RoundedCornerShape(8.dp)
                                 )
-                                .shimmerBackground(RoundedCornerShape(40.dp)),
-                            contentScale = ContentScale.Crop,
-                            placeholder = painterResource(R.drawable.loading_img)
+                                .shimmerBackground(RoundedCornerShape(40.dp))
+                                .size(150.dp),
+                            contentScale = ContentScale.Crop
                         )
                     }
                 }

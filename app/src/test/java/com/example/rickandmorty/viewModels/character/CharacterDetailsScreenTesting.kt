@@ -40,5 +40,9 @@ class CharacterDetailsScreenTesting() {
         assertEquals(viewModel.character.value.character?.ID, "ID")
         assert(!viewModel.character.value.isLoading)
         assertNotEquals(viewModel.character.value.character?.origin, "origin1")
+        assertEquals(viewModel.character.value.character?.lastseen, "location1")
+        assertEquals(viewModel.character.value.character?.lastseenId, "loci1ID")
+        assertEquals(viewModel.character.value.character?.origin, "origin1ID")
+        assertEquals(viewModel.character.value.character?.originId, "origin1")
     }
 }

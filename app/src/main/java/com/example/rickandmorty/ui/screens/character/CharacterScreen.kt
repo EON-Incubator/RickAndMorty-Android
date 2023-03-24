@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -33,19 +34,21 @@ fun Characters(
     onCharacterClick: (code: String) -> Unit,
     listState: LazyGridState,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "characters" }) {
+        ScreenNameBar(name = "Characters", onFilterClick = {})
         if (state.isLoading) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-            }
+//            Column(
+//                modifier = Modifier.fillMaxSize(),
+//                verticalArrangement = Arrangement.Bottom,
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//                CircularProgressIndicator(
+//                    modifier = Modifier.align(Alignment.CenterHorizontally)
+//                        .semantics { contentDescription = "Fetching Characters" }
+//                )
+//            }
+            CharacterLoader()
         } else {
-            ScreenNameBar(name = "Characters", onFilterClick = {})
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -100,7 +103,7 @@ private fun characterItem(
                 text = charstate.name.toString(),
                 modifier = Modifier
                     .background(MaterialTheme.colors.primaryVariant)
-                    .fillMaxWidth(),
+                    .fillMaxWidth().semantics { contentDescription = "Row" },
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colors.onPrimary,
                 style = MaterialTheme.typography.body1

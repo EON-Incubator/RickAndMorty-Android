@@ -36,6 +36,29 @@ class SearchSystemTest {
         )
     }
 
+    /**
+     * BDD testing for character screen
+     */
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun clickToGoOnCharactersScreen() = runTest {
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Characters")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithText("Rick Sanchez").performClick()
+
+        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Character")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithText("Pilot").performClick()
+    }
+
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun location_functionality() = runTest {
@@ -46,6 +69,7 @@ class SearchSystemTest {
                 .fetchSemanticsNodes().isEmpty()
         }
         composeTestRule.onNodeWithText("Abadango").performClick()
+
         composeTestRule.waitUntil(10000) {
             composeTestRule
                 .onAllNodesWithContentDescription("Fetching Records")
@@ -57,5 +81,41 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun episodesAndDetailFunctionality() = runTest {
+        composeTestRule.onNodeWithContentDescription("Episodes").performClick()
+        composeTestRule.waitUntil(2000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        Thread.sleep(1000)
+
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("Pilot").performClick()
+        composeTestRule.waitUntil(2000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("EP Detail")
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+        Thread.sleep(1000)
+
+        composeTestRule.waitForIdle()
+        composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
+            hasContentDescription("Item Name")
+        )
+
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("Rick Sanchez").performClick()
+        composeTestRule.waitUntil(5000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Character")
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+        Thread.sleep(1000)
+        composeTestRule.waitForIdle()
     }
 }

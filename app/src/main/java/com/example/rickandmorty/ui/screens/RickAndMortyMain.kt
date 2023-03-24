@@ -63,6 +63,7 @@ fun RickAndMortyMainApp(
                     popUpTo(CharacterDestination.route) {
                         inclusive = false
                     }
+                    // launchSingleTop=true
                 }
             }
         )

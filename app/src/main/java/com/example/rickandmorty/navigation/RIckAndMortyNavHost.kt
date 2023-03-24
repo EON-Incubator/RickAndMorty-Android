@@ -42,7 +42,6 @@ fun RickAndMortyNavHost(
             val characterState by viewModel.characters.collectAsState()
             var characterInfo = characterState.character?.ID.toString()
             val listState = rememberLazyGridState()
-
             if (listState.isScrollInProgress) {
                 if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
                     listState.layoutInfo.totalItemsCount - 1

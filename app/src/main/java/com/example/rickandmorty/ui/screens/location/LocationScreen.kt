@@ -46,14 +46,13 @@ fun LocationScreen(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "Locations" }) {
             if (deviceType != ScreenType.LANDSCAPE_PHONE) {
                 ScreenNameBar(
                     name = stringResource(R.string.location),
                     onFilterClick = {}
                 )
             }
-
             if (locationsUiState.isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier

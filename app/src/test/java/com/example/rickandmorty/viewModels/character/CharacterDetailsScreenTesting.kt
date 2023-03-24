@@ -5,8 +5,7 @@ import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.character.DetailedCharacterViewModel
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -36,9 +35,14 @@ class CharacterDetailsScreenTesting() {
     }
 
     @Test
-    fun `when getting a character, confirmaing the data in state`() {
+    fun `when getting a character, confirming the data in state`() {
         assertEquals(viewModel.character.value.character?.ID, "ID")
         assert(!viewModel.character.value.isLoading)
+        assertFalse(viewModel.character.value.isLoading)
         assertNotEquals(viewModel.character.value.character?.origin, "origin1")
+        assertEquals(viewModel.character.value.character?.lastseen, "location1")
+        assertEquals(viewModel.character.value.character?.lastseenId, "loci1ID")
+        assertEquals(viewModel.character.value.character?.origin, "origin1ID")
+        assertEquals(viewModel.character.value.character?.originId, "origin1")
     }
 }

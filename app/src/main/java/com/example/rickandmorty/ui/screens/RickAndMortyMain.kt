@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
@@ -23,32 +22,7 @@ fun RickAndMortyMainApp(
     windowSize: WindowSizeClass,
 ) {
     var invisible by remember { mutableStateOf(false) }
-    var deviceType = ScreenType.PORTRAIT_PHONE
-
-//    when(windowSize.widthSizeClass){
-//        WindowWidthSizeClass.Compact -> {deviceType=ScreenType.LANDSCAPE_PHONE}
-//        WindowWidthSizeClass.Medium -> {deviceType = ScreenType.PORTRAIT_TABLET}
-//        else -> {deviceType = ScreenType.LANDSCAPE_TABLET}
-//    }
-//
-//    when(windowSize.heightSizeClass) {
-//        WindowHeightSizeClass.Compact -> {deviceType=ScreenType.LANDSCAPE_PHONE}
-//        else -> {deviceType = ScreenType.PORTRAIT_TABLET}
-//    }
-
-    Log.v("Window Width", windowSize.widthSizeClass.toString())
-
-    Log.v("Window Height", windowSize.heightSizeClass.toString())
-
-    if (windowSize.widthSizeClass == WindowWidthSizeClass.Compact &&
-        windowSize.heightSizeClass == WindowHeightSizeClass.Medium
-    ) { deviceType = ScreenType.PORTRAIT_PHONE } else if (windowSize.heightSizeClass == WindowHeightSizeClass.Compact &&
-        windowSize.widthSizeClass == WindowWidthSizeClass.Expanded
-    ) { deviceType = ScreenType.LANDSCAPE_PHONE } else if (windowSize.widthSizeClass == WindowWidthSizeClass.Medium &&
-        windowSize.heightSizeClass == WindowHeightSizeClass.Expanded
-    ) { deviceType = ScreenType.PORTRAIT_TABLET } else if (windowSize.widthSizeClass == WindowWidthSizeClass.Expanded &&
-        windowSize.heightSizeClass == WindowHeightSizeClass.Medium
-    ) { deviceType = ScreenType.LANDSCAPE_TABLET }
+    var deviceType = GetDeviceType(windowSize)
 
     Scaffold(topBar = {
         if (!invisible) {
@@ -102,6 +76,29 @@ fun RickAndMortyMainApp(
             deviceType = deviceType
         )
     }
+}
+fun GetDeviceType(windowSize: WindowSizeClass): ScreenType {
+    var deviceType = ScreenType.PORTRAIT_PHONE
+
+    if (windowSize.widthSizeClass == WindowWidthSizeClass.Compact &&
+        windowSize.heightSizeClass == WindowHeightSizeClass.Medium
+    ) {
+        deviceType = ScreenType.PORTRAIT_PHONE
+    } else if (windowSize.heightSizeClass == WindowHeightSizeClass.Compact &&
+        windowSize.widthSizeClass == WindowWidthSizeClass.Expanded
+    ) {
+        deviceType = ScreenType.LANDSCAPE_PHONE
+    } else if (windowSize.widthSizeClass == WindowWidthSizeClass.Medium &&
+        windowSize.heightSizeClass == WindowHeightSizeClass.Expanded
+    ) {
+        deviceType = ScreenType.PORTRAIT_TABLET
+    } else if (windowSize.widthSizeClass == WindowWidthSizeClass.Expanded &&
+        windowSize.heightSizeClass == WindowHeightSizeClass.Medium
+    ) {
+        deviceType = ScreenType.LANDSCAPE_TABLET
+    }
+
+    return deviceType
 }
 
 enum class ScreenType {

@@ -2,7 +2,9 @@ package com.example.rickandmorty.ui.character
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.ui.screens.character.CharacterDetails
@@ -57,10 +59,46 @@ class CharacterDetailsScreenTest() {
         Thread.sleep(6000)
     }
 
+    @Test
     fun detailed_character_screen_data_getting_displayed() {
         composeTestRule.setContent {
             RickAndMortyTheme() {
+                CharacterDetails(
+                    state = testState,
+                    navigateUp = { /*TODO*/ },
+                    onEpisodeClick = {},
+                    onOriginClick = {},
+                    onLastSeenClick = {}
+                )
             }
         }
+
+        composeTestRule.onNodeWithText("Gender").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
+        composeTestRule.onNodeWithText("ludhiana").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Earth").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Gender").assertIsDisplayed()
+
+        Thread.sleep(6000)
+    }
+
+    @Test
+    fun sacffold_navigation_testing() {
+        var navstate = false
+        composeTestRule.setContent {
+            RickAndMortyTheme() {
+                CharacterDetails(
+                    state = testState,
+                    navigateUp = { navstate = true },
+                    onEpisodeClick = {},
+                    onOriginClick = {},
+                    onLastSeenClick = {}
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithContentDescription("Back Button").performClick()
+        assert(navstate)
+        Thread.sleep(5000)
     }
 }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -111,17 +110,18 @@ fun Search(
             }
         }
         if (searchResultState.isLoading) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .semantics { contentDescription = "Fetching Records" }
-                )
-            }
+//            Column(
+//                modifier = Modifier.fillMaxSize(),
+//                verticalArrangement = Arrangement.Bottom,
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//                CircularProgressIndicator(
+//                    modifier = Modifier
+//                        .align(Alignment.CenterHorizontally)
+//                        .semantics { contentDescription = "Fetching Records" }
+//                )
+//            }
+            SearchLoader()
         } else {
             LazyColumn {
                 if (searchResultState.characterData?.characters != null && showCharacters) {

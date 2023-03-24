@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -34,18 +33,19 @@ fun Characters(
     listState: LazyGridState,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
+        ScreenNameBar(name = "Characters", onFilterClick = {})
         if (state.isLoading) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-            }
+//            Column(
+//                modifier = Modifier.fillMaxSize(),
+//                verticalArrangement = Arrangement.Bottom,
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//                CircularProgressIndicator(
+//                    modifier = Modifier.align(Alignment.CenterHorizontally)
+//                )
+//            }
+            CharacterLoader()
         } else {
-            ScreenNameBar(name = "Characters", onFilterClick = {})
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(8.dp),

@@ -49,7 +49,6 @@ fun CharacterDetails(
                     .fillMaxSize()
                     .padding(it)
                     .semantics { contentDescription = "Fetching Character" }
-                // .align(Alignment.Center)
             )
         }
     } else {

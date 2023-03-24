@@ -1,4 +1,4 @@
-package com.example.rickandmorty.characterViewModelsTesting
+package com.example.rickandmorty.viewModels.character
 
 import androidx.lifecycle.SavedStateHandle
 import com.example.rickandmorty.domain.character.GetCharacterUseCase

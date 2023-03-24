@@ -18,6 +18,7 @@ fun RickAndMortyMainApp(
     navController: NavHostController = rememberNavController(),
 ) {
     var invisible by remember { mutableStateOf(false) }
+
     Scaffold(topBar = {
         if (!invisible) {
             RickAndMortyTopAppBar(
@@ -57,6 +58,7 @@ fun RickAndMortyMainApp(
                     popUpTo(CharacterDestination.route) {
                         inclusive = false
                     }
+                    // launchSingleTop=true
                 }
             }
         )

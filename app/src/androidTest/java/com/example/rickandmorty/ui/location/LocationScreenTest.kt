@@ -1,7 +1,7 @@
 package com.example.rickandmorty.ui.location
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -9,6 +9,7 @@ import androidx.compose.ui.test.performClick
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.location.Location
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.location.LocationScreen
 import com.example.rickandmorty.ui.screens.location.LocationViewModel
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
@@ -47,7 +48,8 @@ class LocationScreenTest {
                 LocationScreen(
                     locationsUiState = viewModel,
                     onClick = {},
-                    listState = LazyListState()
+                    listState = LazyGridState(),
+                    deviceType = ScreenType.PORTRAIT_PHONE
                 )
             }
         }
@@ -62,7 +64,8 @@ class LocationScreenTest {
                 LocationScreen(
                     locationsUiState = viewModel,
                     onClick = {},
-                    listState = LazyListState()
+                    listState = LazyGridState(),
+                    deviceType = ScreenType.PORTRAIT_PHONE
                 )
             }
         }
@@ -82,7 +85,8 @@ class LocationScreenTest {
                 LocationScreen(
                     locationsUiState = viewModel,
                     onClick = { id = it },
-                    listState = LazyListState()
+                    listState = LazyGridState(),
+                    deviceType = ScreenType.PORTRAIT_PHONE
                 )
             }
         }

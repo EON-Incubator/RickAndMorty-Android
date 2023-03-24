@@ -33,8 +33,7 @@ fun RickAndMortyMainApp(
         WindowWidthSizeClass.Medium -> {
             if (windowSize.heightSizeClass == WindowHeightSizeClass.Expanded) {
                 deviceType = ScreenType.PORTRAIT_TABLET
-            }
-            else if (windowSize.heightSizeClass == WindowHeightSizeClass.Compact) {
+            } else if (windowSize.heightSizeClass == WindowHeightSizeClass.Compact) {
                 deviceType = ScreenType.LANDSCAPE_PHONE
             }
         }

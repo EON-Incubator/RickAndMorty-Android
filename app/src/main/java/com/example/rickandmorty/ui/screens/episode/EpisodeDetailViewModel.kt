@@ -7,6 +7,7 @@ import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.episodeusecase.GetEpisodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -32,7 +33,7 @@ class EpisodeDetailViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getEpisode() {
+    suspend fun getEpisode() {
         _episode.update {
             it.copy(
                 selectedEpisode = getEpisodeUseCase.execute(id.toString()),

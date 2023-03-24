@@ -75,6 +75,7 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
+        composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Female").performClick()
         composeTestRule.waitUntil(10000) {
             composeTestRule
@@ -110,7 +111,7 @@ class SearchSystemTest {
 
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
-        composeTestRule.waitUntil(5000) {
+        composeTestRule.waitUntil(3000) {
             composeTestRule
                 .onAllNodesWithContentDescription("Fetching Character")
                 .fetchSemanticsNodes().isNotEmpty()

@@ -84,14 +84,14 @@ fun GetInfoInLine(
     icons: ImageVector,
     topic: String,
     topicAnswer: String,
-    modifier: Modifier = Modifier.clickable {
-        if (showIt != "null") {
-            action()
-        }
-    },
+//    modifier: Modifier = Modifier.clickable {
+//        if (showIt != "null") {
+//            action()
+//        }
+//    },
+    modifier: Modifier = Modifier,
     showIt: String? = null,
     action: () -> Unit = {},
-
 ) {
     Row(
         modifier = modifier

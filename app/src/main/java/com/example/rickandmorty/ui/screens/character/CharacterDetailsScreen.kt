@@ -1,6 +1,7 @@
 package com.example.rickandmorty.ui.screens.character
 
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -164,10 +165,15 @@ fun DetailedScreen(
                                 .vectorResource(R.drawable.trip_origin_fill0_wght400_grad0_opsz48),
                             topic = "Origin",
                             topicAnswer = charInfo?.origin.toString(),
-                            action = {
-                                onOriginClick(charInfo?.originId.toString())
-                            },
-                            showIt = charInfo?.originId
+//                            action = {
+//                                onOriginClick(charInfo?.originId.toString())
+//                            },
+                            showIt = charInfo?.originId,
+                            modifier = modifier.clickable {
+                                if (charInfo?.originId != "null"){
+                                    onOriginClick(charInfo?.originId.toString())
+                                }
+                            }
 
                         )
                         GetInfoInLine(
@@ -175,10 +181,15 @@ fun DetailedScreen(
                                 .vectorResource(R.drawable.explore_fill0_wght400_grad0_opsz48),
                             topic = "Last Seen",
                             topicAnswer = charInfo?.lastseen.toString(),
-                            action = {
-                                onLastSeenClick(charInfo?.lastseenId.toString())
-                            },
-                            showIt = charInfo?.lastseenId
+//                            action = {
+//                                onOriginClick(charInfo?.originId.toString()
+//                            },
+                            showIt = charInfo?.lastseenId,
+                            modifier = modifier.clickable {
+                                if (charInfo?.lastseenId != "null"){
+                                    onOriginClick(charInfo?.lastseenId.toString())
+                                }
+                            }
                         )
                         Text(
                             text = "EPISODES",

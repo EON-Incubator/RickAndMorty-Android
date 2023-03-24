@@ -22,7 +22,9 @@ class EpisodeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+
             val episodeDataById = getAllEpisodeUseCase.sortEpisodeById()
+
             allEpisode(isLoading = true)
             allEpisode(
                 episodes = episodeDataById.episodesData ?: emptyList(),
@@ -44,7 +46,6 @@ class EpisodeViewModel @Inject constructor(
                 }
 //                allEpisode(isLoading = true)
                 val episodeDataById = getAllEpisodeUseCase.sortEpisodeById(page = state.value.pages?.next ?: 1)
-
                 _episode.update {
                     it.copy(
                         episodes = it.episodes + (episodeDataById.episodesData ?: emptyList()),

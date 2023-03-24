@@ -20,7 +20,7 @@ class CharacterScreenTest() {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    var teststate: CharacterViewModel.CharacterState = CharacterViewModel.CharacterState()
+    lateinit var teststate: CharacterViewModel.CharacterState
 
     @Before
     fun data_getting_initilized() {

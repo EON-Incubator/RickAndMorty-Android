@@ -6,8 +6,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -45,11 +49,15 @@ fun EpisodesScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .semantics { contentDescription = "Fetching Records" }
                     )
                 }
             } else {
-                LazyColumn(state = listState) {
+                LazyColumn(
+                    state = listState
+                ) {
                     items(state.episodes) { episode ->
                         GetRowWithFourImages(
                             imageUrlLink = episode.images,
@@ -57,7 +65,7 @@ fun EpisodesScreen(
                             property1 = episode.episode.toString(),
                             property2 = episode.air_date.toString(),
                             onClickable = { onSelectEpisode(episode.id.toString()) },
-                            id = episode.id.toString()
+                            id = episode.id.toString(),
                         )
                     }
                 }

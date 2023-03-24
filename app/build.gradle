@@ -170,7 +170,8 @@ dependencies {
     testImplementation "com.apollographql.apollo3:apollo-mockserver:3.2.1"
     androidTestImplementation "com.apollographql.apollo3:apollo-mockserver-jvm:3.2.1"
 
-
+    // Using this material theme for "no-bug" pullRefresh
+//    implementation "androidx.compose.material:material:1.4.0-beta01"
 
 }
 apollo {

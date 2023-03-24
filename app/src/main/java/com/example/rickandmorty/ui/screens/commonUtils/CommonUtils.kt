@@ -166,6 +166,7 @@ fun GetRowWithFourImages(
         elevation = 7.dp,
         modifier = Modifier
             .padding(5.dp)
+            .semantics { contentDescription = "Four Image Row" }
             .clickable {
                 onClickable(id)
             }

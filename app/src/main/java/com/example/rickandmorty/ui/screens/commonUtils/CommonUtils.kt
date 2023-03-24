@@ -224,23 +224,24 @@ fun GetRowWithOneImage(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                textAlign = TextAlign.Center,
-                modifier = modifier
-                    .width(80.dp)
-                    .rotate(-90f)
-                    .semantics { contentDescription = "Item Name" }
-                    .background(
-                        when (status) {
-                            "Dead" -> Color.Red
-                            "Alive" -> Color.Green
-                            else -> Color.Gray
-                        }
-
-                    ),
-                softWrap = false,
-                text = status
-            )
+            if (status != "") {
+                Text(
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .width(80.dp)
+                        .rotate(-90f)
+                        .semantics { contentDescription = "Item Name" }
+                        .background(
+                            when (status) {
+                                "Dead" -> Color.Red
+                                "Alive" -> Color.Green
+                                else -> Color.Gray
+                            }
+                        ),
+                    softWrap = false,
+                    text = status
+                )
+            }
 
             Row(modifier = Modifier.weight(1f)) {
                 AsyncImage(

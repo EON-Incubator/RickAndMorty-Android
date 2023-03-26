@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
@@ -359,20 +360,34 @@ fun GetData(
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colors.onBackground
         )
+        var lineHeight = MaterialTheme.typography.body2.fontSize*4/3
         Row() {
             Text(
                 text = property1,
                 modifier = Modifier
-                    .padding(end = 15.dp)
-                    .background(Color.LightGray),
+                    .padding(15.dp)
+                    .weight(1f)
+                    .background(Color.LightGray)
+                    .sizeIn(minHeight = with(LocalDensity.current) {
+                        (lineHeight*2).toDp()})
+                    ,
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body2,
+                maxLines = 2,
                 color = MaterialTheme.colors.onBackground
             )
 
             Text(
                 modifier = Modifier
-                    .background(Color.LightGray),
+                    .padding(15.dp)
+                    .weight(1f)
+                    .background(Color.LightGray)
+                    .sizeIn(minHeight = with(LocalDensity.current) {
+                        (lineHeight*2).toDp()})
+                    ,
+                textAlign = TextAlign.Center,
                 text = property2,
+                maxLines=2,
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground
             )

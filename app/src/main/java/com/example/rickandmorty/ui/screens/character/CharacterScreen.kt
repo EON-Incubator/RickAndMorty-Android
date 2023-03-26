@@ -35,7 +35,7 @@ fun Characters(
     listState: LazyGridState,
 ) {
     Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "characters" }) {
-        ScreenNameBar(name = "Characters", onFilterClick = {})
+        ScreenNameBar(name = "Characters", onFilterClick = {}, putIcon = true)
         if (state.isLoading) {
 //            Column(
 //                modifier = Modifier.fillMaxSize(),

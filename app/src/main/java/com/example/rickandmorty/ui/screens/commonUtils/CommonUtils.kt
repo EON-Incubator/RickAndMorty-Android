@@ -40,12 +40,15 @@ fun ScreenNameBar(
     modifier: Modifier = Modifier,
     name: String,
     onFilterClick: () -> Unit,
+    putIcon: Boolean = false,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .padding(3.dp)
+            .height(45.dp)
+            .padding(5.dp)
     ) {
         Text(
             text = name,
@@ -56,14 +59,16 @@ fun ScreenNameBar(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
-            IconButton(
-                onClick = onFilterClick
-            ) {
-                Icon(
-                    modifier = Modifier.size(27.dp),
-                    imageVector = ImageVector.vectorResource(id = R.drawable.sort),
-                    contentDescription = "Filter"
-                )
+            if (putIcon) {
+                IconButton(
+                    onClick = onFilterClick
+                ) {
+                    Icon(
+                        modifier = Modifier.size(27.dp),
+                        imageVector = ImageVector.vectorResource(id = R.drawable.sort),
+                        contentDescription = "Filter"
+                    )
+                }
             }
         }
     }
@@ -360,7 +365,7 @@ fun GetData(
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colors.onBackground
         )
-        var lineHeight = MaterialTheme.typography.body2.fontSize*4/3
+        var lineHeight = MaterialTheme.typography.body2.fontSize * 4 / 3
         Row() {
             Text(
                 text = property1,
@@ -368,9 +373,11 @@ fun GetData(
                     .padding(15.dp)
                     .weight(1f)
                     .background(Color.LightGray)
-                    .sizeIn(minHeight = with(LocalDensity.current) {
-                        (lineHeight*2).toDp()})
-                    ,
+                    .sizeIn(
+                        minHeight = with(LocalDensity.current) {
+                            (lineHeight * 2).toDp()
+                        }
+                    ),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body2,
                 maxLines = 2,
@@ -382,12 +389,14 @@ fun GetData(
                     .padding(15.dp)
                     .weight(1f)
                     .background(Color.LightGray)
-                    .sizeIn(minHeight = with(LocalDensity.current) {
-                        (lineHeight*2).toDp()})
-                    ,
+                    .sizeIn(
+                        minHeight = with(LocalDensity.current) {
+                            (lineHeight * 2).toDp()
+                        }
+                    ),
                 textAlign = TextAlign.Center,
                 text = property2,
-                maxLines=2,
+                maxLines = 2,
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground
             )

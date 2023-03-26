@@ -5,18 +5,15 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
-import androidx.compose.material.pullrefresh.PullRefreshIndicator
-import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -29,6 +26,9 @@ import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 /**
  * Defining the route for the LocationScreen
@@ -51,25 +51,37 @@ fun LocationScreen(
 ) {
     val viewModel: LocationViewModel = hiltViewModel()
     val isRefreshing by viewModel.isRefreshing.collectAsState()
-    val pullRefreshState =
-        rememberPullRefreshState(isRefreshing, onRefresh = { viewModel.refresh() })
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
+
     Surface(
         modifier = Modifier
             .fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .semantics { contentDescription = "Locations" }
-            ) {
-                if (deviceType != ScreenType.LANDSCAPE_PHONE) {
-                    ScreenNameBar(
-                        name = stringResource(R.string.location),
-                        onFilterClick = {}
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .semantics { contentDescription = "Locations" }
+        ) {
+            if (deviceType != ScreenType.LANDSCAPE_PHONE) {
+                ScreenNameBar(
+                    name = stringResource(R.string.location),
+                    onFilterClick = {}
+                )
+            }
+
+            SwipeRefresh(
+                state = swipeRefreshState,
+                onRefresh = { viewModel.refresh() },
+                indicator = { state, refreshTrigger ->
+                    SwipeRefreshIndicator(
+                        state = state,
+                        refreshTriggerDistance = refreshTrigger,
+                        backgroundColor = MaterialTheme.colors.primary,
+                        contentColor = MaterialTheme.colors.onPrimary
                     )
                 }
+            ) {
                 if (locationsUiState.isLoading) {
                     LocationLoader(deviceType)
                 } else {
@@ -120,11 +132,6 @@ fun LocationScreen(
                     }
                 }
             }
-            PullRefreshIndicator(
-                refreshing = isRefreshing,
-                state = pullRefreshState,
-                modifier = Modifier.align(Alignment.TopCenter)
-            )
         }
     }
 }

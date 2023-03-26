@@ -145,7 +145,8 @@ fun RickAndMortyNavHost(
                 navigateUp = { navController.popBackStack() },
                 onCharacterClick = {
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
-                }
+                },
+                deviceType = deviceType
             )
         }
         composable("search") {

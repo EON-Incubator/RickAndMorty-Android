@@ -286,6 +286,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                 modifier = Modifier
                     .padding(2.dp)
                     .weight(1f)
+                    .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
                 model = imageUrlLink[0],
                 error = painterResource(R.drawable.person_image),
@@ -297,6 +298,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                 modifier = Modifier
                     .padding(2.dp)
                     .weight(1f)
+                    .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
                 error = painterResource(R.drawable.person_image),
                 placeholder = painterResource(R.drawable.loading_img),
@@ -310,6 +312,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                 modifier = Modifier
                     .padding(2.dp)
                     .weight(1f)
+                    .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
                 error = painterResource(R.drawable.person_image),
                 placeholder = painterResource(R.drawable.loading_img),
@@ -321,6 +324,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                 modifier = Modifier
                     .padding(2.dp)
                     .weight(1f)
+                    .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
                 error = painterResource(R.drawable.person_image),
                 placeholder = painterResource(R.drawable.loading_img),

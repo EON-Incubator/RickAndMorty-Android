@@ -53,11 +53,6 @@ fun LocationScreen(
             }
             if (locationsUiState.isLoading) {
                 LocationLoader(deviceType)
-//                CircularProgressIndicator(
-//                    modifier = Modifier
-//                        .align(Alignment.CenterHorizontally)
-//                        .semantics { contentDescription = "Fetching Records" }
-//                )
             } else {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(

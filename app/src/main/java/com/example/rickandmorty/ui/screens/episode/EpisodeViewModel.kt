@@ -27,20 +27,41 @@ class EpisodeViewModel @Inject constructor(
 
 
     init {
+        refresh()
+//        viewModelScope.launch {
+//
+//            val episodeDataById = getAllEpisodeUseCase.sortEpisodeById()
+//
+//            allEpisode(isLoading = true)
+//            allEpisode(
+//                episodes = episodeDataById.episodesData ?: emptyList(),
+//                isLoading = false,
+//                pages = episodeDataById.pages
+//            )
+////            val episodeDataByName = getAllEpisodeUseCase.execute()
+////            allEpisode(episodes = episodeDataByName, isLoading = false)
+//            _isRefreshing.emit(false)
+//            updateEpisodeList()
+//        }
+    }
+
+    fun refresh() {
+        allEpisode(isLoading = true)
+
         viewModelScope.launch {
-
             val episodeDataById = getAllEpisodeUseCase.sortEpisodeById()
-
-            allEpisode(isLoading = true)
             allEpisode(
                 episodes = episodeDataById.episodesData ?: emptyList(),
                 isLoading = false,
                 pages = episodeDataById.pages
             )
-//            val episodeDataByName = getAllEpisodeUseCase.execute()
-//            allEpisode(episodes = episodeDataByName, isLoading = false)
+
             _isRefreshing.emit(false)
+
         }
+
+
+
     }
 
     fun updateEpisodeList() {
@@ -61,6 +82,7 @@ class EpisodeViewModel @Inject constructor(
                     )
                 }
             }
+            _isRefreshing.emit(false)
         }
     }
 

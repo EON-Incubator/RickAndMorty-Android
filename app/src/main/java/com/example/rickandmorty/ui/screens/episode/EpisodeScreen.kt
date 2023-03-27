@@ -21,9 +21,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 object EpisodeDestination : NavigationDestination {
     override val route = "episodes"
@@ -36,25 +40,40 @@ fun EpisodesScreen(
     state: EpisodeViewModel.EpisodesState,
     onSelectEpisode: (id: String?) -> Unit,
     listState: LazyListState,
+    device: ScreenType? = ScreenType.PORTRAIT_PHONE
 ) {
     val viewModel: EpisodeViewModel = hiltViewModel()
     val isRefreshing by viewModel.isRefreshing.collectAsState()
-    val pullRefreshState = rememberPullRefreshState(refreshing = isRefreshing, onRefresh = { viewModel.updateEpisodeList() })
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
 
     Surface(
         modifier = Modifier
             .fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .semantics { contentDescription = "Fetching Episodes" }
+
+
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .semantics { contentDescription = "Fetching Episodes" }
+        ) {
+            ScreenNameBar(
+                name = stringResource(R.string.episodes_screen_title),
+                onFilterClick = {}
+            )
+            SwipeRefresh(
+                state = swipeRefreshState,
+                onRefresh = { viewModel.updateEpisodeList() },
+                indicator = { state, refreshTrigger ->
+                    SwipeRefreshIndicator(
+                        state = state,
+                        refreshTriggerDistance = refreshTrigger,
+                        backgroundColor = MaterialTheme.colors.primary,
+                        contentColor = MaterialTheme.colors.onPrimary
+                    )
+                }
             ) {
-                ScreenNameBar(
-                    name = stringResource(R.string.episodes_screen_title),
-                    onFilterClick = {}
-                )
+
                 if (state.isLoading) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
@@ -100,8 +119,11 @@ fun EpisodesScreen(
                         }
                     }
                 }
+
             }
-            PullRefreshIndicator(refreshing = isRefreshing, state = pullRefreshState, modifier = Modifier.align(Alignment.TopCenter))
+
+
+
         }
     }
 }

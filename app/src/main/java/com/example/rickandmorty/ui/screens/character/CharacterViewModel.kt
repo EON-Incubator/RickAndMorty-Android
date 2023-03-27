@@ -15,6 +15,7 @@ import com.example.type.FilterCharacter
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -36,6 +37,10 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
 
     private val _characters = MutableStateFlow(CharacterState())
     val characters = _characters.asStateFlow()
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean>
+        get() = _isRefreshing.asStateFlow()
+
 
     private val _filterCharacter = MutableStateFlow(
         FilterCharacter(
@@ -50,6 +55,11 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     var status by mutableStateOf("")
 
     init {
+
+        refresh()
+    }
+
+    fun refresh() {
         viewModelScope.launch {
             _characters.update {
                 it.copy(
@@ -64,6 +74,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                     pages = characterData.pages
                 )
             }
+            _isRefreshing.emit(false)
         }
     }
 
@@ -147,6 +158,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             }
         }
     }
+
     data class CharacterState(
         val characters: List<Character> = emptyList(),
         val character: com.example.rickandmorty.domain.character.DetailedCharacter? = null,

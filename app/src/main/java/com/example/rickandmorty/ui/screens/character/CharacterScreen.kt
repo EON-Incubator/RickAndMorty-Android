@@ -21,11 +21,16 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.example.rickandmorty.domain.character.Character
+import com.example.rickandmorty.ui.screens.location.LocationViewModel
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
 fun Characters(
@@ -38,7 +43,10 @@ fun Characters(
     selectGender: () -> Unit,
     changeGender: (String) -> Unit,
     changeStatus: (String) -> Unit,
-) {
+) {  val viewModel: CharacterViewModel= hiltViewModel()
+    val isRefreshing by viewModel.isRefreshing.collectAsState()
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
+
     var showFilter by remember {
         mutableStateOf(false)
     }
@@ -56,7 +64,20 @@ fun Characters(
                 .semantics { contentDescription = "characters" }
         ) {
             ScreenNameBar(name = "Characters", onFilterClick = { showFilter = !showFilter }, putIcon = true)
-            if (state.isLoading) {
+            SwipeRefresh(
+                state = swipeRefreshState,
+                onRefresh = { viewModel.refresh() },
+                indicator = { state, refreshTrigger ->
+                    SwipeRefreshIndicator(
+                        state = state,
+                        refreshTriggerDistance = refreshTrigger,
+                        backgroundColor = MaterialTheme.colors.primary,
+                        contentColor = MaterialTheme.colors.onPrimary
+                    )
+                }
+            )
+            {
+                if (state.isLoading) {
 //            Column(
 //                modifier = Modifier.fillMaxSize(),
 //                verticalArrangement = Arrangement.Bottom,
@@ -67,21 +88,22 @@ fun Characters(
 //                        .semantics { contentDescription = "Fetching Characters" }
 //                )
 //            }
-                CharacterLoader()
-            } else {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier.padding(8.dp),
-                    state = listState
-                ) {
-                    items(state.characters) { character ->
-                        characterItem(
-                            charstate = character,
-                            onClick = onClick
+                    CharacterLoader()
+                } else {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(8.dp),
+                        state = listState
+                    ) {
+                        items(state.characters) { character ->
+                            characterItem(
+                                charstate = character,
+                                onClick = onClick
 
-                        )
+                            )
+                        }
                     }
                 }
             }

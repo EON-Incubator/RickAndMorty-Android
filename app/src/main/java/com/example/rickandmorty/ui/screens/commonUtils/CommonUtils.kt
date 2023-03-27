@@ -96,7 +96,7 @@ fun GetInfoInLine(
     modifier: Modifier = Modifier,
     showIt: String? = null,
     action: () -> Unit = {},
-    iconArrow: ImageVector? = null
+    iconArrow: ImageVector? = null,
 ) {
     Row(
         modifier = modifier
@@ -105,7 +105,6 @@ fun GetInfoInLine(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-
         Log.v(topic + 2, showIt.toString())
         Icon(
             modifier = Modifier

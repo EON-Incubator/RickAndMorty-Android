@@ -68,14 +68,14 @@ fun EpisodeDetails(
                     GetInfoInLine(
                         icons = ImageVector.vectorResource(id = R.drawable.episode),
                         topic = stringResource(id = R.string.episode),
-                        topicAnswer = "Loading...",
+                        topicAnswer = "Loading..."
                     )
 
                     Row() {
                         GetInfoInLine(
                             icons = ImageVector.vectorResource(id = R.drawable.date),
                             topic = stringResource(id = R.string.air_date),
-                            topicAnswer = "Loading...",
+                            topicAnswer = "Loading..."
                         )
                     }
                     Divider(
@@ -144,14 +144,14 @@ fun EpisodeDetails(
                         GetInfoInLine(
                             icons = ImageVector.vectorResource(id = R.drawable.episode),
                             topic = stringResource(id = R.string.episode),
-                            topicAnswer = state.selectedEpisode?.episode.toString(),
+                            topicAnswer = state.selectedEpisode?.episode.toString()
                         )
 
                         Row() {
                             GetInfoInLine(
                                 icons = ImageVector.vectorResource(id = R.drawable.date),
                                 topic = stringResource(id = R.string.air_date),
-                                topicAnswer = state.selectedEpisode?.air_date.toString(),
+                                topicAnswer = state.selectedEpisode?.air_date.toString()
                             )
                         }
                         Divider(

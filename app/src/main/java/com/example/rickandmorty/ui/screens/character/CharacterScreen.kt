@@ -30,10 +30,14 @@ import com.example.rickandmorty.domain.character.Character
 @Composable
 fun Characters(
     state: CharacterViewModel.CharacterState,
+    genderVal: String,
+    statusVal: String,
     onClick: (id: String) -> Unit,
     onCharacterClick: (code: String) -> Unit,
     listState: LazyGridState,
-    selectGender: (genderState: String, cc: String) -> Unit,
+    selectGender: () -> Unit,
+    changeGender: (String) -> Unit,
+    changeStatus: (String) -> Unit,
 ) {
     var showFilter by remember {
         mutableStateOf(false)
@@ -44,7 +48,7 @@ fun Characters(
             .semantics { contentDescription = "characters" }
     ) {
         if (showFilter) {
-            DialogBox(selectGender)
+            DialogBox(genderVal, statusVal, selectGender, changeGender, changeStatus)
         }
         Column(
             modifier = Modifier

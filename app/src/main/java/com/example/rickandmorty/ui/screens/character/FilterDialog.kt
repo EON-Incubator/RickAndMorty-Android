@@ -7,7 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DialogBox(selectGender: (code: String, id: String) -> Unit) {
+fun DialogBox(
+    genderVal: String,
+    statusVal: String,
+    selectGender: () -> Unit,
+    changeGender: (String) -> Unit,
+    changeStatus: (String) -> Unit,
+) {
     var genderState by remember {
         mutableStateOf("null")
     }
@@ -27,21 +33,31 @@ fun DialogBox(selectGender: (code: String, id: String) -> Unit) {
                 val statusList = listOf<String>("All", "Alive", "dead", "unknown")
                 val genderList = listOf<String>("All", "Male", "Female", "Genderless", "unknown")
                 Column() {
-                    genderState = DropdownDemo(options = statusList, tag = "Status")
+                    genderState = DropdownDemo(
+                        options = genderList,
+                        tag = "Gender",
+                        selectedValue = genderVal,
+                        setup = changeGender
+                    )
                     Spacer(modifier = Modifier.height(12.dp))
-                    aliveState = DropdownDemo(options = genderList, tag = "Gender")
+                    aliveState = DropdownDemo(
+                        options = statusList,
+                        tag = "Status",
+                        selectedValue = statusVal,
+                        setup = changeStatus
+                    )
                 }
             },
             buttons = {
                 Row(
                     modifier = Modifier.padding(all = 8.dp),
-                    horizontalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            showDialog.value = false;
-                            selectGender(genderState, aliveState)
+                            selectGender()
+                            showDialog.value = false
                         }
                     ) {
                         Text("Click to Apply")
@@ -50,15 +66,17 @@ fun DialogBox(selectGender: (code: String, id: String) -> Unit) {
             },
             modifier = Modifier.fillMaxWidth()
         )
-
-
     }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DropdownDemo(options: List<String>, tag: String)//, selectGender:(code:String)->Unit) {
-        : String {
+fun DropdownDemo(
+    options: List<String>,
+    tag: String,
+    selectedValue: String,
+    setup: (String) -> Unit,
+): String {
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf(options[0]) }
     // selectGender(selectedOptionText)
@@ -71,9 +89,9 @@ fun DropdownDemo(options: List<String>, tag: String)//, selectGender:(code:Strin
     ) {
         TextField(
             readOnly = true,
-            value = selectedOptionText,
-            onValueChange = { },
-            label = { Text("${tag}") },
+            value = selectedValue,
+            onValueChange = {},
+            label = { Text("$tag") },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(
                     expanded = expanded
@@ -92,9 +110,8 @@ fun DropdownDemo(options: List<String>, tag: String)//, selectGender:(code:Strin
                 DropdownMenuItem(
                     onClick = {
                         selectedOptionText = selectionOption
+                        setup(selectionOption)
                         expanded = false
-
-
                     }
                 ) {
                     Text(text = selectionOption)
@@ -104,13 +121,3 @@ fun DropdownDemo(options: List<String>, tag: String)//, selectGender:(code:Strin
     }
     return selectedOptionText
 }
-//@Preview
-//@Composable
-//fun showit() {
-//    Column() {
-//
-//
-//        buttonGroup(buttonsInfo = listOf("men", "people"))
-//        buttonGroup(buttonsInfo = listOf("Male", "Female", "Genderless", "unknown"))
-//    }
-//}

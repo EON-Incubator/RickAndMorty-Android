@@ -8,6 +8,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
@@ -24,6 +26,7 @@ fun SearchLoader() {
                     .fillMaxWidth()
                     .padding(2.dp)
                     .shimmerBackground(RoundedCornerShape(40.dp))
+                    .semantics { contentDescription = "Fetching Records" }
             )
         }
         repeat(2) {

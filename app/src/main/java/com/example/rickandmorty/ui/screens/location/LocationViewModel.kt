@@ -7,6 +7,7 @@ import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.Location
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -24,10 +25,17 @@ class LocationViewModel @Inject constructor(
     // Mutable Flow State variables
     private val _locations = MutableStateFlow(LocationUiState())
     val location = _locations.asStateFlow()
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean>
+        get() = _isRefreshing.asStateFlow()
 
     // Initialization of components after launching
     init {
 
+        refresh()
+    }
+
+    fun refresh() {
         _locations.update {
             it.copy(isLoading = true)
         }
@@ -41,6 +49,7 @@ class LocationViewModel @Inject constructor(
                     pages = locationData.pages
                 )
             }
+            _isRefreshing.emit(false)
         }
     }
 

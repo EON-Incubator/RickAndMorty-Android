@@ -35,7 +35,7 @@ fun Characters(
     listState: LazyGridState,
 ) {
     Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "characters" }) {
-        ScreenNameBar(name = "Characters", onFilterClick = {})
+        ScreenNameBar(name = "Characters", onFilterClick = {}, putIcon = true)
         if (state.isLoading) {
 //            Column(
 //                modifier = Modifier.fillMaxSize(),
@@ -93,7 +93,7 @@ private fun characterItem(
                 model = charstate.image,
                 contentDescription = null,
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxSize().size(150.dp)
                     .clip(
                         RoundedCornerShape(8.dp)
                     ),

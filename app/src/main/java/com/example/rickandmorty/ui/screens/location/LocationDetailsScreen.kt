@@ -39,7 +39,7 @@ fun LocationDetailScreen(
     locationsDetailUiState: LocationDetailViewModel.LocationDetailUiState,
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
-    deviceType: ScreenType,
+    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
     // Scaffold to have a seperate Top Bar for this screen
     Scaffold(topBar = {

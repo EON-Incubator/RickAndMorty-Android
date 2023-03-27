@@ -1,4 +1,4 @@
-package com.example.rickandmorty.viewModels.screen
+package com.example.rickandmorty.viewModels.search
 
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import com.example.rickandmorty.domain.search.GetSearchResultUseCase

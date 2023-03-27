@@ -31,7 +31,13 @@ class CharactersScreenTest {
 
                 )
             )
-            Characters(state = state, onClick = {}, onCharacterClick = {}, listState = rememberLazyGridState())
+            Characters(
+                state = state,
+                onClick = {},
+                onCharacterClick = {},
+                listState = rememberLazyGridState(),
+                selectGender =
+            )
         }
         Thread.sleep(6000)
         // Log the full semantics tree

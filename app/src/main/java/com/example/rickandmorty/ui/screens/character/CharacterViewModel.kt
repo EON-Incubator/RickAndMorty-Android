@@ -49,7 +49,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
         }
     }
 
-    open fun selectCountry(code: String) {
+    open fun selectFilter(code: String, id: String) {
         viewModelScope.launch {
             _characters.update {
                 it.copy(

@@ -54,8 +54,9 @@ fun RickAndMortyNavHost(
                 onClick = {
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
                 },
-                onCharacterClick = { viewModel.selectCountry(it) },
-                listState = listState
+                onCharacterClick = { }, // viewModel.selectCountry(it) },
+                listState = listState,
+                selectGender = { it, it2 -> viewModel.selectFilter(it, it2) }
             )
         }
         composable(CharacterDetailsDestination.route + "?id={id}") {

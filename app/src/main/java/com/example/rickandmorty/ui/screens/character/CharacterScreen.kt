@@ -12,7 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,10 +33,26 @@ fun Characters(
     onClick: (id: String) -> Unit,
     onCharacterClick: (code: String) -> Unit,
     listState: LazyGridState,
+    selectGender: (genderState: String, cc: String) -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "characters" }) {
-        ScreenNameBar(name = "Characters", onFilterClick = {}, putIcon = true)
-        if (state.isLoading) {
+    var showFilter by remember {
+        mutableStateOf(false)
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .semantics { contentDescription = "characters" }
+    ) {
+        if (showFilter) {
+            DialogBox(selectGender)
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .semantics { contentDescription = "characters" }
+        ) {
+            ScreenNameBar(name = "Characters", onFilterClick = { showFilter = !showFilter }, putIcon = true)
+            if (state.isLoading) {
 //            Column(
 //                modifier = Modifier.fillMaxSize(),
 //                verticalArrangement = Arrangement.Bottom,
@@ -47,21 +63,22 @@ fun Characters(
 //                        .semantics { contentDescription = "Fetching Characters" }
 //                )
 //            }
-            CharacterLoader()
-        } else {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(8.dp),
-                state = listState
-            ) {
-                items(state.characters) { character ->
-                    characterItem(
-                        charstate = character,
-                        onClick = onClick
+                CharacterLoader()
+            } else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.padding(8.dp),
+                    state = listState
+                ) {
+                    items(state.characters) { character ->
+                        characterItem(
+                            charstate = character,
+                            onClick = onClick
 
-                    )
+                        )
+                    }
                 }
             }
         }
@@ -93,7 +110,8 @@ private fun characterItem(
                 model = charstate.image,
                 contentDescription = null,
                 modifier = Modifier
-                    .fillMaxSize().size(150.dp)
+                    .fillMaxSize()
+                    .size(150.dp)
                     .clip(
                         RoundedCornerShape(8.dp)
                     ),
@@ -103,7 +121,8 @@ private fun characterItem(
                 text = charstate.name.toString(),
                 modifier = Modifier
                     .background(MaterialTheme.colors.primaryVariant)
-                    .fillMaxWidth().semantics { contentDescription = "Row" },
+                    .fillMaxWidth()
+                    .semantics { contentDescription = "Row" },
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colors.onPrimary,
                 style = MaterialTheme.typography.body1

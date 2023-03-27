@@ -110,7 +110,7 @@ class SearchScreenTest {
                     )
                 )
             ),
-            isLoading = false,
+            isLoading = false
 
         )
     }
@@ -159,16 +159,13 @@ class SearchScreenTest {
                 )
             }
         }
-        Thread.sleep(10000)
         composeTestRule.onNodeWithText("Rick").performClick()
         Assert.assertEquals(onCharacterClick, "1")
-        composeTestRule.onNodeWithText("Rick").performClick()
+        composeTestRule.onNodeWithText("Earth").performClick()
         Assert.assertEquals(onLocationClick, "1")
-        composeTestRule.onNodeWithText("Rick").performClick()
-        Assert.assertEquals(onValueChange, "Rick")
-        composeTestRule.onNodeWithText("Rick").performClick()
+        composeTestRule.onNodeWithContentDescription("Characters").performClick()
         Assert.assertEquals(onShowCharacters, "true")
-        composeTestRule.onNodeWithText("Rick").performClick()
+        composeTestRule.onNodeWithContentDescription("Locations").performClick()
         Assert.assertEquals(onShowLocations, "true")
         composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Rick")
         Assert.assertEquals(onValueChange, "Rick")

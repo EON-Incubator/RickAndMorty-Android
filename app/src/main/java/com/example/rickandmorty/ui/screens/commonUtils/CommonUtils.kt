@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +27,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
-import com.example.rickandmorty.domain.character.DetailedCharacter
 
 /**
  * Composable function that shows the screen bar with the
@@ -109,8 +106,6 @@ fun GetInfoInLine(
         horizontalArrangement = Arrangement.Center
     ) {
 
-
-
         Log.v(topic + 2, showIt.toString())
         Icon(
             modifier = Modifier
@@ -149,7 +144,6 @@ fun GetInfoInLine(
                 contentDescription = "to go on next location screen"
             )
         }
-
     }
     Divider(
         Modifier.height(1.dp),

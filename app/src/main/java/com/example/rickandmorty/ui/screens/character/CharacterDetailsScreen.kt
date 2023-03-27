@@ -172,7 +172,7 @@ fun DetailedScreen(
 //                            },
                             showIt = charInfo?.originId,
                             modifier = modifier.clickable {
-                                if (charInfo?.originId != "null"){
+                                if (charInfo?.originId != "null") {
                                     onOriginClick(charInfo?.originId.toString())
                                 }
                             },
@@ -189,7 +189,7 @@ fun DetailedScreen(
 //                            },
                             showIt = charInfo?.lastseenId,
                             modifier = modifier.clickable {
-                                if (charInfo?.lastseenId != "null"){
+                                if (charInfo?.lastseenId != "null") {
                                     onOriginClick(charInfo?.lastseenId.toString())
                                 }
                             },

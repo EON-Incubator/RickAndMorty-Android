@@ -1,12 +1,15 @@
 package com.example.rickandmorty.ui.screens.character
 
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -164,10 +167,16 @@ fun DetailedScreen(
                                 .vectorResource(R.drawable.trip_origin_fill0_wght400_grad0_opsz48),
                             topic = "Origin",
                             topicAnswer = charInfo?.origin.toString(),
-                            action = {
-                                onOriginClick(charInfo?.originId.toString())
+//                            action = {
+//                                onOriginClick(charInfo?.originId.toString())
+//                            },
+                            showIt = charInfo?.originId,
+                            modifier = modifier.clickable {
+                                if (charInfo?.originId != "null"){
+                                    onOriginClick(charInfo?.originId.toString())
+                                }
                             },
-                            showIt = charInfo?.originId
+                            iconArrow = if (charInfo?.originId != "null") Icons.Outlined.KeyboardArrowRight else null
 
                         )
                         GetInfoInLine(
@@ -175,10 +184,16 @@ fun DetailedScreen(
                                 .vectorResource(R.drawable.explore_fill0_wght400_grad0_opsz48),
                             topic = "Last Seen",
                             topicAnswer = charInfo?.lastseen.toString(),
-                            action = {
-                                onLastSeenClick(charInfo?.lastseenId.toString())
+//                            action = {
+//                                onOriginClick(charInfo?.originId.toString()
+//                            },
+                            showIt = charInfo?.lastseenId,
+                            modifier = modifier.clickable {
+                                if (charInfo?.lastseenId != "null"){
+                                    onOriginClick(charInfo?.lastseenId.toString())
+                                }
                             },
-                            showIt = charInfo?.lastseenId
+                            iconArrow = if (charInfo?.lastseenId != "null") Icons.Outlined.KeyboardArrowRight else null
                         )
                         Text(
                             text = "EPISODES",

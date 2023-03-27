@@ -2,7 +2,7 @@ package com.example.rickandmorty.ui.screens.episode
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-//import androidx.compose.foundation.layout.ColumnScopeInstance.align
+// import androidx.compose.foundation.layout.ColumnScopeInstance.align
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -47,9 +47,10 @@ fun EpisodesScreen(
         color = MaterialTheme.colors.background
     ) {
         Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .semantics { contentDescription = "Fetching Episodes" }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics { contentDescription = "Fetching Episodes" }
             ) {
                 ScreenNameBar(
                     name = stringResource(R.string.episodes_screen_title),
@@ -95,7 +96,7 @@ fun EpisodesScreen(
                                 property1 = episode.episode.toString(),
                                 property2 = episode.air_date.toString(),
                                 onClickable = { onSelectEpisode(episode.id.toString()) },
-                                id = episode.id.toString(),
+                                id = episode.id.toString()
                             )
                         }
                     }

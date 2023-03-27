@@ -89,7 +89,6 @@ fun RickAndMortyMainApp(
             }
         )
     }) {
-
         RickAndMortyNavHost(
             navController = navController,
             modifier = Modifier.padding(it),

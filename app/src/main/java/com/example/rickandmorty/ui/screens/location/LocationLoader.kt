@@ -66,6 +66,21 @@ fun LocationLoader(deviceType: ScreenType) {
 
 @Composable
 fun LocationDetailLoader(deviceType: ScreenType) {
+    var list = List(5) {
+        DetailedCharacter(
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            emptyList(),
+            "",
+            "",
+            "",
+            ""
+        )
+    }
     if (deviceType == ScreenType.PORTRAIT_PHONE) {
         Column(
             modifier = Modifier
@@ -76,39 +91,13 @@ fun LocationDetailLoader(deviceType: ScreenType) {
                 modifier = Modifier.shimmerBackground()
             )
             Spacer(modifier = Modifier.height(30.dp))
+
             GetResidents(
                 LocationDetailViewModel.LocationDetailUiState(
                     LocationDetail(
                         "",
                         "",
-                        listOf(
-                            DetailedCharacter(
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                emptyList(),
-                                "",
-                                "",
-                                "",
-                                ""
-                            ),
-                            DetailedCharacter(
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                emptyList(),
-                                "",
-                                "",
-                                "",
-                                ""
-                            )
-                        ),
+                        list,
                         ""
                     ),
                     false
@@ -116,36 +105,56 @@ fun LocationDetailLoader(deviceType: ScreenType) {
                 {}
             )
         }
-//    } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
-//        Row(
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .padding(it)
-//        ) {
-//            GetInfo(
-//                locationsDetailUiState,
-//                modifier = Modifier.weight(2f)
-//            )
-//            GetResidents(
-//                locationsDetailUiState,
-//                onCharacterClick,
-//                modifier = Modifier.weight(5f)
-//            )
-//        }
-//    } else {
-//        Column(
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .padding(it)
-//        ) {
-//            GetInfo(
-//                locationsDetailUiState
-//            )
-//            GetResidents(
-//                locationsDetailUiState,
-//                onCharacterClick,
-//                fixedElement = 2
-//            )
-//        }
+    } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            GetInfo(
+                LocationDetailViewModel.LocationDetailUiState(),
+                modifier = Modifier
+                    .weight(2f)
+                    .shimmerBackground()
+            )
+            GetResidents(
+                LocationDetailViewModel.LocationDetailUiState(
+                    LocationDetail(
+                        "",
+                        "",
+                        list,
+                        ""
+                    ),
+                    false
+                ),
+                { },
+                modifier = Modifier
+                    .weight(5f)
+                    .shimmerBackground()
+            )
+        }
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            GetInfo(
+                LocationDetailViewModel.LocationDetailUiState(),
+                modifier = Modifier.shimmerBackground()
+
+            )
+            GetResidents(
+                LocationDetailViewModel.LocationDetailUiState(
+                    LocationDetail(
+                        "",
+                        "",
+                        list,
+                        ""
+                    ),
+                    false
+                ),
+                { },
+                fixedElement = 2
+            )
+        }
     }
 }

@@ -25,7 +25,6 @@ class EpisodeViewModel @Inject constructor(
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
 
-
     init {
         viewModelScope.launch {
 

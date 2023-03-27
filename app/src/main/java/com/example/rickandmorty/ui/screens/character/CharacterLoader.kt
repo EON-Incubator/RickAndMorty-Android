@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
@@ -24,6 +26,7 @@ fun CharacterLoader() {
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier.padding(8.dp)
+            .semantics { contentDescription = "Fetching Characters" }
     ) {
         repeat(8) {
             item {
@@ -44,9 +47,9 @@ fun CharacterLoader() {
                                 .clip(
                                     RoundedCornerShape(8.dp)
                                 )
-                                .shimmerBackground(RoundedCornerShape(40.dp)),
-                            contentScale = ContentScale.Crop,
-                            placeholder = painterResource(R.drawable.loading_img)
+                                .shimmerBackground(RoundedCornerShape(40.dp))
+                                .size(150.dp),
+                            contentScale = ContentScale.Crop
                         )
                     }
                 }

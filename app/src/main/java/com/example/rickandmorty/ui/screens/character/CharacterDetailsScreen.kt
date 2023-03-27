@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.items
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -173,7 +175,8 @@ fun DetailedScreen(
                                 if (charInfo?.originId != "null"){
                                     onOriginClick(charInfo?.originId.toString())
                                 }
-                            }
+                            },
+                            iconArrow = if (charInfo?.originId != "null") Icons.Outlined.KeyboardArrowRight else null
 
                         )
                         GetInfoInLine(
@@ -189,7 +192,8 @@ fun DetailedScreen(
                                 if (charInfo?.lastseenId != "null"){
                                     onOriginClick(charInfo?.lastseenId.toString())
                                 }
-                            }
+                            },
+                            iconArrow = if (charInfo?.lastseenId != "null") Icons.Outlined.KeyboardArrowRight else null
                         )
                         Text(
                             text = "EPISODES",

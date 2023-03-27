@@ -8,6 +8,7 @@ import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.episodeusecase.GetAllEpisodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -19,6 +20,11 @@ class EpisodeViewModel @Inject constructor(
 ) : ViewModel() {
     private val _episode = MutableStateFlow(EpisodesState())
     val state = _episode.asStateFlow()
+
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean>
+        get() = _isRefreshing.asStateFlow()
+
 
     init {
         viewModelScope.launch {
@@ -33,6 +39,7 @@ class EpisodeViewModel @Inject constructor(
             )
 //            val episodeDataByName = getAllEpisodeUseCase.execute()
 //            allEpisode(episodes = episodeDataByName, isLoading = false)
+            _isRefreshing.emit(false)
         }
     }
 

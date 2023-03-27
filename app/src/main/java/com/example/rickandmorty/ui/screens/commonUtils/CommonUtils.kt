@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
+import com.example.rickandmorty.domain.character.DetailedCharacter
 
 /**
  * Composable function that shows the screen bar with the
@@ -90,14 +91,15 @@ fun GetInfoInLine(
     icons: ImageVector,
     topic: String,
     topicAnswer: String,
-    modifier: Modifier = Modifier.clickable {
-        if (showIt != "null") {
-            action()
-        }
-    },
+//    modifier: Modifier = Modifier.clickable {
+//        if (showIt != "null") {
+//            action()
+//        }
+//    },
+    modifier: Modifier = Modifier,
     showIt: String? = null,
     action: () -> Unit = {},
-
+    iconArrow: ImageVector? = null
 ) {
     Row(
         modifier = modifier
@@ -106,6 +108,9 @@ fun GetInfoInLine(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
+
+
+
         Log.v(topic + 2, showIt.toString())
         Icon(
             modifier = Modifier
@@ -131,12 +136,20 @@ fun GetInfoInLine(
             fontWeight = FontWeight.Normal
         )
 
-        if (showIt != "null") {
+//        if (showIt != null  ) {
+//            Icon(
+//                imageVector = Icons.Outlined.KeyboardArrowRight,
+//                contentDescription = "to go on next location screen"
+//            )
+//        }
+
+        iconArrow?.let {
             Icon(
-                imageVector = Icons.Outlined.KeyboardArrowRight,
+                imageVector = it,
                 contentDescription = "to go on next location screen"
             )
         }
+
     }
     Divider(
         Modifier.height(1.dp),

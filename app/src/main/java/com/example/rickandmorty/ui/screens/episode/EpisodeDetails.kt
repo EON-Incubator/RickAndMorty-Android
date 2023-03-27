@@ -3,11 +3,15 @@ package com.example.rickandmorty.ui.screens.episode
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,11 +23,13 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
+import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -47,6 +53,68 @@ fun EpisodeDetails(
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.CenterHorizontally).semantics { contentDescription = "Fetching Detail" }
                 )
+
+                Column() {
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Text(
+                        text = stringResource(R.string.info),
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .padding(start = 10.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Divider(
+                        Modifier.height(1.dp),
+                        color = MaterialTheme.colors.onBackground
+                    )
+
+                    GetInfoInLine(
+                        icons = ImageVector.vectorResource(id = R.drawable.episode),
+                        topic = stringResource(id = R.string.episode),
+                        topicAnswer = "Loading...",
+                    )
+
+                    Row() {
+                        GetInfoInLine(
+                            icons = ImageVector.vectorResource(id = R.drawable.date),
+                            topic = stringResource(id = R.string.air_date),
+                            topicAnswer = "Loading...",
+                        )
+                    }
+                    Divider(
+                        Modifier.height(1.dp),
+                        color = MaterialTheme.colors.onBackground
+                    )
+
+                    Spacer(modifier = Modifier.height(40.dp))
+
+                    Text(
+                        text = stringResource(R.string.characters),
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .padding(start = 10.dp)
+                    )
+
+                    LazyColumn() {
+                        repeat(4){
+                            item {
+                                GetRowWithOneImage(
+                                    imageUrlLink = "",
+                                    titleName = "",
+                                    property1 = "",
+                                    property2 = "",
+                                    status = "",
+                                    id = "",
+                                    onClickable = {
+                                    },
+                                    modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp))
+                                )
+                            }
+                        }
+                    }
+                }
+
             }
         } else {
             RickAndMortyTopAppBar(
@@ -65,7 +133,6 @@ fun EpisodeDetails(
                 } else if (state.selectedEpisode != null) {
                     Column() {
                         Spacer(modifier = Modifier.height(15.dp))
-
                         Text(
                             text = stringResource(R.string.info),
                             fontSize = 12.sp,
@@ -74,7 +141,6 @@ fun EpisodeDetails(
                         )
 
                         Spacer(modifier = Modifier.height(8.dp))
-
                         Divider(
                             Modifier.height(1.dp),
                             color = MaterialTheme.colors.onBackground
@@ -83,14 +149,14 @@ fun EpisodeDetails(
                         GetInfoInLine(
                             icons = ImageVector.vectorResource(id = R.drawable.episode),
                             topic = stringResource(id = R.string.episode),
-                            topicAnswer = state.selectedEpisode?.episode.toString()
+                            topicAnswer = state.selectedEpisode?.episode.toString(),
                         )
 
                         Row() {
                             GetInfoInLine(
                                 icons = ImageVector.vectorResource(id = R.drawable.date),
                                 topic = stringResource(id = R.string.air_date),
-                                topicAnswer = state.selectedEpisode?.air_date.toString()
+                                topicAnswer = state.selectedEpisode?.air_date.toString(),
                             )
                         }
                         Divider(

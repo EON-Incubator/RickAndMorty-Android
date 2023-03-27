@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
@@ -39,12 +40,15 @@ fun ScreenNameBar(
     modifier: Modifier = Modifier,
     name: String,
     onFilterClick: () -> Unit,
+    putIcon: Boolean = false,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .padding(3.dp)
+            .height(45.dp)
+            .padding(5.dp)
     ) {
         Text(
             text = name,
@@ -55,14 +59,16 @@ fun ScreenNameBar(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
-            IconButton(
-                onClick = onFilterClick
-            ) {
-                Icon(
-                    modifier = Modifier.size(27.dp),
-                    imageVector = ImageVector.vectorResource(id = R.drawable.sort),
-                    contentDescription = "Filter"
-                )
+            if (putIcon) {
+                IconButton(
+                    onClick = onFilterClick
+                ) {
+                    Icon(
+                        modifier = Modifier.size(27.dp),
+                        imageVector = ImageVector.vectorResource(id = R.drawable.sort),
+                        contentDescription = "Filter"
+                    )
+                }
             }
         }
     }
@@ -286,6 +292,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                 modifier = Modifier
                     .padding(2.dp)
                     .weight(1f)
+                    .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
                 model = imageUrlLink[0],
                 error = painterResource(R.drawable.person_image),
@@ -297,6 +304,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                 modifier = Modifier
                     .padding(2.dp)
                     .weight(1f)
+                    .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
                 error = painterResource(R.drawable.person_image),
                 placeholder = painterResource(R.drawable.loading_img),
@@ -310,6 +318,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                 modifier = Modifier
                     .padding(2.dp)
                     .weight(1f)
+                    .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
                 error = painterResource(R.drawable.person_image),
                 placeholder = painterResource(R.drawable.loading_img),
@@ -321,6 +330,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                 modifier = Modifier
                     .padding(2.dp)
                     .weight(1f)
+                    .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
                 error = painterResource(R.drawable.person_image),
                 placeholder = painterResource(R.drawable.loading_img),
@@ -355,20 +365,38 @@ fun GetData(
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colors.onBackground
         )
+        var lineHeight = MaterialTheme.typography.body2.fontSize * 4 / 3
         Row() {
             Text(
                 text = property1,
                 modifier = Modifier
-                    .padding(end = 15.dp)
-                    .background(Color.LightGray),
+                    .padding(15.dp)
+                    .weight(1f)
+                    .background(Color.LightGray)
+                    .sizeIn(
+                        minHeight = with(LocalDensity.current) {
+                            (lineHeight * 2).toDp()
+                        }
+                    ),
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body2,
+                maxLines = 2,
                 color = MaterialTheme.colors.onBackground
             )
 
             Text(
                 modifier = Modifier
-                    .background(Color.LightGray),
+                    .padding(15.dp)
+                    .weight(1f)
+                    .background(Color.LightGray)
+                    .sizeIn(
+                        minHeight = with(LocalDensity.current) {
+                            (lineHeight * 2).toDp()
+                        }
+                    ),
+                textAlign = TextAlign.Center,
                 text = property2,
+                maxLines = 2,
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground
             )

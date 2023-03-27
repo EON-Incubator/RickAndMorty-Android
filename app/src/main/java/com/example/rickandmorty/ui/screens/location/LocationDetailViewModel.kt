@@ -50,7 +50,7 @@ class LocationDetailViewModel @Inject constructor(
                         emptyList(),
                         ""
                     ),
-                    isLoading = true
+                    isLoading = false
                 )
             }
         }

@@ -219,7 +219,6 @@ fun GetRowWithOneImage(
     id: String,
     onClickable: (String) -> Unit,
     modifier: Modifier = Modifier,
-
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),

@@ -47,7 +47,7 @@ fun LocationScreen(
     locationsUiState: LocationViewModel.LocationUiState,
     onClick: (String) -> Unit,
     listState: LazyGridState,
-    deviceType: ScreenType,
+    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
     val viewModel: LocationViewModel = hiltViewModel()
     val isRefreshing by viewModel.isRefreshing.collectAsState()

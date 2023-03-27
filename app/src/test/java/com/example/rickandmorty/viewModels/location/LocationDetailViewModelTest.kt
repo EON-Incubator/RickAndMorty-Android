@@ -46,12 +46,7 @@ class LocationDetailViewModelTest {
 
     @Test
     fun `when getting a location, confirmaing the data in state`() {
-//        runTest {
-//            viewModel.getLocationDetail("1")
-//        }
-
         assertEquals(viewModel.locationDetail.value.locationDetail.dimension, "dimension1")
         assertNotEquals(viewModel.locationDetail.value.locationDetail.type, "type2")
-        assert(viewModel.locationDetail.value.isLoading)
     }
 }

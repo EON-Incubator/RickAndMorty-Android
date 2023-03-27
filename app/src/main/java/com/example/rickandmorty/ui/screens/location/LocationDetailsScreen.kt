@@ -39,7 +39,7 @@ fun LocationDetailScreen(
     locationsDetailUiState: LocationDetailViewModel.LocationDetailUiState,
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
-    deviceType: ScreenType,
+    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
     // Scaffold to have a seperate Top Bar for this screen
     Scaffold(topBar = {
@@ -49,53 +49,57 @@ fun LocationDetailScreen(
             navigateUp = navigateUp
         )
     }) {
-        if (deviceType == ScreenType.PORTRAIT_PHONE) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-            ) {
-                GetInfo(locationsDetailUiState)
-                Spacer(modifier = Modifier.height(30.dp))
-                GetResidents(locationsDetailUiState, onCharacterClick)
-            }
-        } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-            ) {
-                GetInfo(
-                    locationsDetailUiState,
-                    modifier = Modifier.weight(2f)
-                )
-                GetResidents(
-                    locationsDetailUiState,
-                    onCharacterClick,
-                    modifier = Modifier.weight(5f)
-                )
-            }
+        if (locationsDetailUiState.isLoading) {
+            LocationDetailLoader(deviceType = deviceType)
         } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-            ) {
-                GetInfo(
-                    locationsDetailUiState
-                )
-                GetResidents(
-                    locationsDetailUiState,
-                    onCharacterClick,
-                    fixedElement = 2
-                )
+            if (deviceType == ScreenType.PORTRAIT_PHONE) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(it)
+                ) {
+                    GetInfo(locationsDetailUiState)
+                    Spacer(modifier = Modifier.height(30.dp))
+                    GetResidents(locationsDetailUiState, onCharacterClick)
+                }
+            } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(it)
+                ) {
+                    GetInfo(
+                        locationsDetailUiState,
+                        modifier = Modifier.weight(2f)
+                    )
+                    GetResidents(
+                        locationsDetailUiState,
+                        onCharacterClick,
+                        modifier = Modifier.weight(5f)
+                    )
+                }
+            } else {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(it)
+                ) {
+                    GetInfo(
+                        locationsDetailUiState
+                    )
+                    GetResidents(
+                        locationsDetailUiState,
+                        onCharacterClick,
+                        fixedElement = 2
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun GetResidents(
+fun GetResidents(
     locationsDetailUiState: LocationDetailViewModel.LocationDetailUiState,
     onCharacterClick: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -132,7 +136,7 @@ private fun GetResidents(
 }
 
 @Composable
-private fun GetInfo(
+fun GetInfo(
     locationsDetailUiState: LocationDetailViewModel.LocationDetailUiState,
     modifier: Modifier = Modifier,
 ) {

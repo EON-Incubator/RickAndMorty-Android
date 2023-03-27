@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.LocationDetail
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.location.LocationDetailScreen
 import com.example.rickandmorty.ui.screens.location.LocationDetailViewModel
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
@@ -56,7 +57,9 @@ class LocationDetailScreenTest {
                 LocationDetailScreen(
                     locationsDetailUiState = viewModel,
                     navigateUp = {},
-                    onCharacterClick = {}
+                    onCharacterClick = {},
+                    ScreenType.PORTRAIT_PHONE
+
                 )
             }
         }

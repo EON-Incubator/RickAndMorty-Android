@@ -130,5 +130,6 @@ class CharacterScreenTest() {
         }
         composeTestRule.onNodeWithContentDescription("Filter").performClick()
         composeTestRule.onNodeWithText("Filter for Characters").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Click to Apply").assertIsDisplayed()
     }
 }

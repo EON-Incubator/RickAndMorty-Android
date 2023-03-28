@@ -142,68 +142,207 @@ fun EpisodeDetails(
                 ,) {
                 if (state.isLoading) {
                 } else if (state.selectedEpisode != null) {
-                    Column() {
-                        Spacer(modifier = Modifier.height(15.dp))
-                        Text(
-                            text = stringResource(R.string.info),
-                            fontSize = 12.sp,
-                            modifier = Modifier
-                                .padding(start = 10.dp)
-                        )
-
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Divider(
-                            Modifier.height(1.dp),
-                            color = MaterialTheme.colors.onBackground
-                        )
-
-                        GetInfoInLine(
-                            icons = ImageVector.vectorResource(id = R.drawable.episode),
-                            topic = stringResource(id = R.string.episode),
-                            topicAnswer = state.selectedEpisode?.episode.toString()
-                        )
-
-                        Row() {
-                            GetInfoInLine(
-                                icons = ImageVector.vectorResource(id = R.drawable.date),
-                                topic = stringResource(id = R.string.air_date),
-                                topicAnswer = state.selectedEpisode?.air_date.toString()
+                    if (deviceType == ScreenType.PORTRAIT_PHONE){
+                        Column() {
+                            Spacer(modifier = Modifier.height(15.dp))
+                            Text(
+                                text = stringResource(R.string.info),
+                                fontSize = 12.sp,
+                                modifier = Modifier
+                                    .padding(start = 10.dp)
                             )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Divider(
+                                Modifier.height(1.dp),
+                                color = MaterialTheme.colors.onBackground
+                            )
+
+                            GetInfoInLine(
+                                icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                topic = stringResource(id = R.string.episode),
+                                topicAnswer = state.selectedEpisode?.episode.toString()
+                            )
+
+                            Row() {
+                                GetInfoInLine(
+                                    icons = ImageVector.vectorResource(id = R.drawable.date),
+                                    topic = stringResource(id = R.string.air_date),
+                                    topicAnswer = state.selectedEpisode?.air_date.toString()
+                                )
+                            }
+                            Divider(
+                                Modifier.height(1.dp),
+                                color = MaterialTheme.colors.onBackground
+                            )
+
+                            Spacer(modifier = Modifier.height(40.dp))
+
+                            Text(
+                                text = stringResource(R.string.characters),
+                                fontSize = 12.sp,
+                                modifier = Modifier
+                                    .padding(start = 10.dp)
+                            )
+
+                            if (state.selectedEpisode.characters.isNotEmpty()) {
+                                Log.v("character", state.characters.toString())
+                                LazyColumn() {
+                                    items(state.selectedEpisode.characters) { episode ->
+                                        GetRowWithOneImage(
+                                            imageUrlLink = episode.image.toString(),
+                                            titleName = episode.name.toString(),
+                                            property1 = episode.gender.toString(),
+                                            property2 = episode.species.toString(),
+                                            status = episode.status.toString(),
+                                            id = episode.ID.toString(),
+                                            onClickable = {
+                                                onCharacterClick(it)
+                                            }
+                                        )
+                                    }
+                                }
+                            } else {
+                                ImageVector.vectorResource(id = R.drawable.ic_broken_image)
+                            }
                         }
-                        Divider(
-                            Modifier.height(1.dp),
-                            color = MaterialTheme.colors.onBackground
-                        )
+                    } else if (deviceType == ScreenType.LANDSCAPE_PHONE){
+                        Row(modifier = Modifier
+                            .fillMaxSize()
+                            .padding(it)
+                        ) {
+                            Column(modifier = Modifier.weight(2F)) {
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Text(
+                                    text = stringResource(R.string.info),
+                                    fontSize = 12.sp,
+                                    modifier = Modifier
+                                        .padding(start = 10.dp)
+                                )
 
-                        Spacer(modifier = Modifier.height(40.dp))
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Divider(
+                                    Modifier.height(1.dp),
+                                    color = MaterialTheme.colors.onBackground
+                                )
 
-                        Text(
-                            text = stringResource(R.string.characters),
-                            fontSize = 12.sp,
-                            modifier = Modifier
-                                .padding(start = 10.dp)
-                        )
+                                GetInfoInLine(
+                                    icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                    topic = stringResource(id = R.string.episode),
+                                    topicAnswer = state.selectedEpisode?.episode.toString()
+                                )
 
-                        if (state.selectedEpisode.characters.isNotEmpty()) {
-                            Log.v("character", state.characters.toString())
-                            LazyColumn() {
-                                items(state.selectedEpisode.characters) { episode ->
-                                    GetRowWithOneImage(
-                                        imageUrlLink = episode.image.toString(),
-                                        titleName = episode.name.toString(),
-                                        property1 = episode.gender.toString(),
-                                        property2 = episode.species.toString(),
-                                        status = episode.status.toString(),
-                                        id = episode.ID.toString(),
-                                        onClickable = {
-                                            onCharacterClick(it)
-                                        }
+                                Row() {
+                                    GetInfoInLine(
+                                        icons = ImageVector.vectorResource(id = R.drawable.date),
+                                        topic = stringResource(id = R.string.air_date),
+                                        topicAnswer = state.selectedEpisode?.air_date.toString()
                                     )
                                 }
+                                Divider(
+                                    Modifier.height(1.dp),
+                                    color = MaterialTheme.colors.onBackground
+                                )
+
+                                Spacer(modifier = Modifier.height(40.dp))
                             }
-                        } else {
-                            ImageVector.vectorResource(id = R.drawable.ic_broken_image)
+
+                            Column (modifier = Modifier.weight(5F)) {
+                                Text(
+                                    text = stringResource(R.string.characters),
+                                    fontSize = 12.sp,
+                                    modifier = Modifier
+                                        .padding(start = 10.dp)
+                                )
+
+                                if (state.selectedEpisode.characters.isNotEmpty()) {
+                                    Log.v("character", state.characters.toString())
+                                    LazyColumn() {
+                                        items(state.selectedEpisode.characters) { episode ->
+                                            GetRowWithOneImage(
+                                                imageUrlLink = episode.image.toString(),
+                                                titleName = episode.name.toString(),
+                                                property1 = episode.gender.toString(),
+                                                property2 = episode.species.toString(),
+                                                status = episode.status.toString(),
+                                                id = episode.ID.toString(),
+                                                onClickable = {
+                                                    onCharacterClick(it)
+                                                }
+                                            )
+                                        }
+                                    }
+                                } else {
+                                    ImageVector.vectorResource(id = R.drawable.ic_broken_image)
+                                }
+                            }
                         }
+                    } else {
+                        Column() {
+                            Spacer(modifier = Modifier.height(15.dp))
+                            Text(
+                                text = stringResource(R.string.info),
+                                fontSize = 12.sp,
+                                modifier = Modifier
+                                    .padding(start = 10.dp)
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Divider(
+                                Modifier.height(1.dp),
+                                color = MaterialTheme.colors.onBackground
+                            )
+
+                            GetInfoInLine(
+                                icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                topic = stringResource(id = R.string.episode),
+                                topicAnswer = state.selectedEpisode?.episode.toString()
+                            )
+
+                            Row() {
+                                GetInfoInLine(
+                                    icons = ImageVector.vectorResource(id = R.drawable.date),
+                                    topic = stringResource(id = R.string.air_date),
+                                    topicAnswer = state.selectedEpisode?.air_date.toString()
+                                )
+                            }
+                            Divider(
+                                Modifier.height(1.dp),
+                                color = MaterialTheme.colors.onBackground
+                            )
+
+                            Spacer(modifier = Modifier.height(40.dp))
+
+                            Text(
+                                text = stringResource(R.string.characters),
+                                fontSize = 12.sp,
+                                modifier = Modifier
+                                    .padding(start = 10.dp)
+                            )
+
+                            if (state.selectedEpisode.characters.isNotEmpty()) {
+                                Log.v("character", state.characters.toString())
+                                LazyColumn() {
+                                    items(state.selectedEpisode.characters) { episode ->
+                                        GetRowWithOneImage(
+                                            imageUrlLink = episode.image.toString(),
+                                            titleName = episode.name.toString(),
+                                            property1 = episode.gender.toString(),
+                                            property2 = episode.species.toString(),
+                                            status = episode.status.toString(),
+                                            id = episode.ID.toString(),
+                                            onClickable = {
+                                                onCharacterClick(it)
+                                            }
+                                        )
+                                    }
+                                }
+                            } else {
+                                ImageVector.vectorResource(id = R.drawable.ic_broken_image)
+                            }
+                        }
+
+
                     }
                 } else {
                     Image(

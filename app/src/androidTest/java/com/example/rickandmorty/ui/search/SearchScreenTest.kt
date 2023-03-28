@@ -11,6 +11,7 @@ import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationData
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.search.Search
 import com.example.rickandmorty.ui.screens.search.SearchViewModel
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
@@ -134,7 +135,8 @@ class SearchScreenTest {
                     showLocations = true,
                     updateLocationList = {},
                     updateCharacterList = {},
-                    searchListState = LazyListState()
+                    searchListState = LazyListState(),
+                    deviceType = ScreenType.PORTRAIT_PHONE
                 )
             }
         }
@@ -164,7 +166,8 @@ class SearchScreenTest {
                     showLocations = true,
                     updateLocationList = {},
                     updateCharacterList = {},
-                    searchListState = LazyListState()
+                    searchListState = LazyListState(),
+                    deviceType = ScreenType.PORTRAIT_PHONE
                 )
             }
         }

@@ -41,7 +41,6 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
 
-
     private val _filterCharacter = MutableStateFlow(
         FilterCharacter(
             Optional.presentIfNotNull(""),
@@ -167,4 +166,3 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
         var pages: Paginate? = null,
     )
 }
-

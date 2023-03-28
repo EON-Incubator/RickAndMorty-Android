@@ -63,12 +63,6 @@ fun CharacterDetails(
                 navigateUp = navigateUp
             )
         }) {
-//            CircularProgressIndicator(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .padding(it)
-//                    .semantics { contentDescription = "Fetching Character" }
-//            )
 
             DetailedCharacterLoader(modifier=Modifier.padding(it))
         }
@@ -111,7 +105,6 @@ fun CharacterDetails(
     }
 }
 
-
 @Composable
 fun DetailedScreen(
     modifier: Modifier = Modifier,
@@ -150,7 +143,6 @@ fun DetailedScreen(
                         )
                         Divider(color = Color.Black, thickness = 2.dp)
                         Column {
-
                             infoPart1(charInfo = charInfo)
 
                             Text(
@@ -192,8 +184,6 @@ fun DetailedScreen(
                                 horizontalArrangement = Arrangement.Center,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-
-
                                 Column(modifier = Modifier.weight(2f)) {
                                     Text(
                                         text = "INFO",
@@ -224,22 +214,16 @@ fun DetailedScreen(
                                     }
                                 }
                             }
-
-
                         }
                         item {
-
                             Text(
                                 text = "EPISODES",
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(top = 14.dp),
-                                textAlign = TextAlign.Center,
-
-
-                                )
-
+                                textAlign = TextAlign.Center
+                            )
                         }
 
                         charInfo?.let {
@@ -257,15 +241,10 @@ fun DetailedScreen(
                                 )
                             }
                         }
-
-
                     }
                 }
             }
-
-
         } else {
-
             Row() {
                 Column(
                     modifier = Modifier
@@ -302,27 +281,20 @@ fun DetailedScreen(
                 }
                 Column(
                     modifier = modifier.weight(2f)
-
                 ) {
-
                     LazyColumn() {
                         item {
-
                             Text(
                                 text = "EPISODES",
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(top = 14.dp),
-                                textAlign = TextAlign.Center,
-
-
-                                )
-
+                                textAlign = TextAlign.Center
+                            )
                         }
                         charInfo?.let {
                             items(it.episode) { eachEpisode ->
-
                                 GetRowWithFourImages(
                                     imageUrlLink = eachEpisode.images,
                                     titleName = eachEpisode.name.toString(),
@@ -335,19 +307,12 @@ fun DetailedScreen(
                                 )
                             }
                         }
-
                     }
-
                 }
-
-
             }
-
-
         }
     }
 }
-
 
 @Composable
 fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
@@ -412,7 +377,7 @@ fun infoPart1(charInfo: DetailedCharacter?) {
 fun infoPart2(
     charInfo: DetailedCharacter?,
     onOriginClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text = "LOCATION",
@@ -439,28 +404,27 @@ fun infoPart2(
                 onOriginClick(charInfo?.originId.toString())
             }
         },
-        iconArrow = if (charInfo?.originId != "null")
-            Icons.Outlined.KeyboardArrowRight else null
-
+        iconArrow = if (charInfo?.originId != "null") {
+            Icons.Outlined.KeyboardArrowRight
+        } else {
+            null
+        }
     )
     GetInfoInLine(
         icons = ImageVector
             .vectorResource(R.drawable.explore_fill0_wght400_grad0_opsz48),
         topic = "Last Seen",
         topicAnswer = charInfo?.lastseen.toString(),
-//                            action = {
-//                                onOriginClick(charInfo?.originId.toString()
-//                            },
         showIt = charInfo?.lastseenId,
         modifier = modifier.clickable {
             if (charInfo?.lastseenId != "null") {
                 onOriginClick(charInfo?.lastseenId.toString())
             }
         },
-        iconArrow = if (charInfo?.lastseenId != "null") Icons.Outlined.KeyboardArrowRight else null
+        iconArrow = if (charInfo?.lastseenId != "null") {
+            Icons.Outlined.KeyboardArrowRight
+        } else {
+            null
+        }
     )
 }
-
-
-
-

@@ -1,16 +1,16 @@
-//package com.example.rickandmorty
+// package com.example.rickandmorty
 //
-//import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-//import androidx.compose.ui.test.assertIsDisplayed
-//import androidx.compose.ui.test.junit4.createComposeRule
-//import androidx.compose.ui.test.onNodeWithText
-//import com.example.rickandmorty.domain.Paginate
-//import com.example.rickandmorty.ui.screens.character.CharacterViewModel
-//import com.example.rickandmorty.ui.screens.character.Characters
-//import org.junit.Rule
-//import org.junit.Test
+// import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+// import androidx.compose.ui.test.assertIsDisplayed
+// import androidx.compose.ui.test.junit4.createComposeRule
+// import androidx.compose.ui.test.onNodeWithText
+// import com.example.rickandmorty.domain.Paginate
+// import com.example.rickandmorty.ui.screens.character.CharacterViewModel
+// import com.example.rickandmorty.ui.screens.character.Characters
+// import org.junit.Rule
+// import org.junit.Test
 //
-//class CharactersScreenTest {
+// class CharactersScreenTest {
 //    @get:Rule
 //    val composeTestRule = createComposeRule()
 //
@@ -47,4 +47,4 @@
 //        // Log the full semantics tree
 //        composeTestRule.onNodeWithText("Characters").assertIsDisplayed()
 //    }
-//}
+// }

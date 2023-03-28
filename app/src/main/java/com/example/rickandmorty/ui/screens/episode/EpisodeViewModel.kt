@@ -26,18 +26,20 @@ class EpisodeViewModel @Inject constructor(
         get() = _isRefreshing.asStateFlow()
 
     init {
+        refresh()
+    }
+
+    fun refresh() {
+        _episode.update { it.copy(isLoading = true) }
         viewModelScope.launch {
-
             val episodeDataById = getAllEpisodeUseCase.sortEpisodeById()
-
-            allEpisode(isLoading = true)
-            allEpisode(
-                episodes = episodeDataById.episodesData ?: emptyList(),
-                isLoading = false,
-                pages = episodeDataById.pages
-            )
-//            val episodeDataByName = getAllEpisodeUseCase.execute()
-//            allEpisode(episodes = episodeDataByName, isLoading = false)
+            _episode.update {
+                it.copy(
+                    episodes = episodeDataById.episodesData ?: emptyList(),
+                    isLoading = false,
+                    pages = episodeDataById.pages
+                )
+            }
             _isRefreshing.emit(false)
         }
     }
@@ -50,8 +52,8 @@ class EpisodeViewModel @Inject constructor(
                         isLoading = true
                     )
                 }
-//                allEpisode(isLoading = true)
                 val episodeDataById = getAllEpisodeUseCase.sortEpisodeById(page = state.value.pages?.next ?: 1)
+
                 _episode.update {
                     it.copy(
                         episodes = it.episodes + (episodeDataById.episodesData ?: emptyList()),
@@ -63,22 +65,6 @@ class EpisodeViewModel @Inject constructor(
         }
     }
 
-    fun allEpisode(
-        episodes: List<Episodes> = emptyList(),
-        isLoading: Boolean = false,
-        pages: Paginate? = null,
-        selectedEpisode: DetailedEpisode? = null,
-    ) {
-        _episode.update {
-            it.copy(
-                episodes = episodes,
-                isLoading = isLoading,
-                pages = pages,
-                selectedEpisode = selectedEpisode
-            )
-        }
-    }
-
     data class EpisodesState(
         val episodes: List<Episodes> = emptyList(),
         val isLoading: Boolean = false,
@@ -86,3 +72,5 @@ class EpisodeViewModel @Inject constructor(
         var pages: Paginate? = null,
     )
 }
+
+

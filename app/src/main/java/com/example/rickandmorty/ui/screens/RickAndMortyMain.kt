@@ -48,61 +48,39 @@ fun RickAndMortyMainApp(
 
     Scaffold(topBar = {
         if (!invisible) {
-            RickAndMortyTopAppBar(
-                title = "Rick And Morty",
+            RickAndMortyTopAppBar(title = "Rick And Morty",
                 canNavigateBack = false,
-                navigateUp = { navController.popBackStack() }
-            )
+                navigateUp = { navController.popBackStack() })
         }
     }, bottomBar = {
         BottomNavigationBar(
 
             items = listOf(
                 BottomNavItem(
-                    name = "Characters",
-                    route = "characters",
-                    icon = Icons.Default.Person
-                ),
-                BottomNavItem(
-                    name = "Episodes",
-                    route = "episodes",
-                    icon = Icons.Default.PlayArrow
-                ),
-                BottomNavItem(
-                    name = "Locations",
-                    route = "locations",
-                    icon = Icons.Default.LocationOn
-                ),
-                BottomNavItem(
-                    name = "Search",
-                    route = "search",
-                    icon = Icons.Default.Search
+                    name = "Characters", route = "characters", icon = Icons.Default.Person
+                ), BottomNavItem(
+                    name = "Episodes", route = "episodes", icon = Icons.Default.PlayArrow
+                ), BottomNavItem(
+                    name = "Locations", route = "locations", icon = Icons.Default.LocationOn
+                ), BottomNavItem(
+                    name = "Search", route = "search", icon = Icons.Default.Search
                 )
-            ),
-            navController = navController,
-            onItemClick = {
+            ), navController = navController, onItemClick = {
                 navController.navigate(it.route) {
                     popUpTo(CharacterDestination.route) {
                         inclusive = false
                     }
                 }
-            }
-        )
+            })
     }) {
         RickAndMortyNavHost(
-            navController = navController,
-            modifier = Modifier.padding(it),
-            onDetailScreen = {
+            navController = navController, modifier = Modifier.padding(it), onDetailScreen = {
                 invisible = it
-            },
-            deviceType = deviceType
+            }, deviceType = deviceType
         )
     }
 }
 
 enum class ScreenType {
-    PORTRAIT_PHONE,
-    LANDSCAPE_PHONE,
-    PORTRAIT_TABLET,
-    LANDSCAPE_TABLET,
+    PORTRAIT_PHONE, LANDSCAPE_PHONE, PORTRAIT_TABLET, LANDSCAPE_TABLET,
 }

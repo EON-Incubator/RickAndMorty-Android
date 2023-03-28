@@ -42,12 +42,16 @@ fun EpisodeDetails(
                 navigateUp = navigateUp
             )
             Column(
-                modifier = Modifier.fillMaxSize().semantics { contentDescription = "Episode Detail Load" },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics { contentDescription = "Episode Detail Load" },
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.CenterHorizontally).semantics { contentDescription = "Fetching Detail" }
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .semantics { contentDescription = "Fetching Detail" }
                 )
 
                 Column() {
@@ -123,7 +127,11 @@ fun EpisodeDetails(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "EP Detail" }) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics { contentDescription = "EP Detail" }
+                ,) {
                 if (state.isLoading) {
                 } else if (state.selectedEpisode != null) {
                     Column() {

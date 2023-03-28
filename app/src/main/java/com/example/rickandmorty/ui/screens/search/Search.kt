@@ -49,7 +49,9 @@ fun Search(
         ) {
             Button(
                 onClick = onShowCharacters,
-                Modifier.weight(1.0f),
+                Modifier
+                    .weight(1.0f)
+                    .semantics { contentDescription = "Characters" },
                 colors = if (showCharacters) {
                     ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 } else {
@@ -80,7 +82,9 @@ fun Search(
             }
             Button(
                 onClick = onShowLocations,
-                Modifier.weight(1.0f),
+                Modifier
+                    .weight(1.0f)
+                    .semantics { contentDescription = "Locations" },
                 colors = if (showLocations) {
                     ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 } else {

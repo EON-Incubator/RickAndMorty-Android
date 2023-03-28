@@ -1,0 +1,123 @@
+package com.example.rickandmorty.ui.screens.character
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+
+@Composable
+fun DialogBox(
+    genderVal: String,
+    statusVal: String,
+    selectGender: () -> Unit,
+    changeGender: (String) -> Unit,
+    changeStatus: (String) -> Unit,
+) {
+    var genderState by remember {
+        mutableStateOf("null")
+    }
+    var aliveState by remember {
+        mutableStateOf("null")
+    }
+    val showDialog = remember { mutableStateOf(true) }
+    if (showDialog.value) {
+        AlertDialog(
+            onDismissRequest = {
+                showDialog.value = false
+            },
+            title = {
+                Text(text = "Filter for Characters")
+            },
+            text = {
+                val statusList = listOf<String>("All", "Alive", "dead", "unknown")
+                val genderList = listOf<String>("All", "Male", "Female", "Genderless", "unknown")
+                Column() {
+                    genderState = DropdownDemo(
+                        options = genderList,
+                        tag = "Gender",
+                        selectedValue = genderVal,
+                        setup = changeGender
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    aliveState = DropdownDemo(
+                        options = statusList,
+                        tag = "Status",
+                        selectedValue = statusVal,
+                        setup = changeStatus
+                    )
+                }
+            },
+            buttons = {
+                Row(
+                    modifier = Modifier.padding(all = 8.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = {
+                            selectGender()
+                            showDialog.value = false
+                        }
+                    ) {
+                        Text("Click to Apply")
+                    }
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun DropdownDemo(
+    options: List<String>,
+    tag: String,
+    selectedValue: String,
+    setup: (String) -> Unit,
+): String {
+    var expanded by remember { mutableStateOf(false) }
+    var selectedOptionText by remember { mutableStateOf(options[0]) }
+    // selectGender(selectedOptionText)
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = {
+            expanded = !expanded
+        }
+    ) {
+        TextField(
+            readOnly = true,
+            value = selectedValue,
+            onValueChange = {},
+            label = { Text("$tag") },
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(
+                    expanded = expanded
+
+                )
+            },
+            colors = ExposedDropdownMenuDefaults.textFieldColors()
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = {
+                expanded = false
+            }
+        ) {
+            options.forEach { selectionOption ->
+                DropdownMenuItem(
+                    onClick = {
+                        selectedOptionText = selectionOption
+                        setup(selectionOption)
+                        expanded = false
+                    }
+                ) {
+                    Text(text = selectionOption)
+                }
+            }
+        }
+    }
+    return selectedOptionText
+}

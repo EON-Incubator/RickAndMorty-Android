@@ -94,26 +94,7 @@ fun DetailedScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = "APPEARANCE",
-            style = MaterialTheme.typography.body2,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 12.dp),
-            textAlign = TextAlign.Start
-        )
-        AsyncImage(
-            model = charInfo?.image.toString(),
-            contentDescription = null,
-            modifier = Modifier
-                .clip(
-                    RoundedCornerShape(140.dp)
-                )
-                .size(280.dp),
-            alignment = Alignment.Center
-        )
         Spacer(modifier = Modifier.height(12.dp))
-
         LazyColumn() {
             item {
                 Column(
@@ -122,6 +103,24 @@ fun DetailedScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
+                    Text(
+                        text = "APPEARANCE",
+                        style = MaterialTheme.typography.body2,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 12.dp),
+                        textAlign = TextAlign.Start
+                    )
+                    AsyncImage(
+                        model = charInfo?.image.toString(),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .clip(
+                                RoundedCornerShape(140.dp)
+                            )
+                            .size(280.dp),
+                        alignment = Alignment.Center
+                    )
                     Text(
                         text = "INFO",
                         style = MaterialTheme.typography.body2,
@@ -172,7 +171,7 @@ fun DetailedScreen(
 //                            },
                             showIt = charInfo?.originId,
                             modifier = modifier.clickable {
-                                if (charInfo?.originId != "null"){
+                                if (charInfo?.originId != "null") {
                                     onOriginClick(charInfo?.originId.toString())
                                 }
                             },
@@ -189,7 +188,7 @@ fun DetailedScreen(
 //                            },
                             showIt = charInfo?.lastseenId,
                             modifier = modifier.clickable {
-                                if (charInfo?.lastseenId != "null"){
+                                if (charInfo?.lastseenId != "null") {
                                     onOriginClick(charInfo?.lastseenId.toString())
                                 }
                             },

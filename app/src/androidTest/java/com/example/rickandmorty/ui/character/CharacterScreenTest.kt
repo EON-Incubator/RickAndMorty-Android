@@ -70,9 +70,14 @@ class CharacterScreenTest() {
             RickAndMortyTheme() {
                 Characters(
                     state = teststate,
+                    genderVal = "",
+                    statusVal = "",
                     onClick = {},
                     onCharacterClick = {},
-                    listState = LazyGridState()
+                    listState = LazyGridState(),
+                    selectGender = {},
+                    changeGender = {},
+                    changeStatus = {}
                 )
             }
         }
@@ -85,7 +90,17 @@ class CharacterScreenTest() {
     fun character_screen_data_getting_displayed() {
         composeTestRule.setContent {
             RickAndMortyTheme() {
-                Characters(state = teststate, onClick = {}, onCharacterClick = {}, listState = LazyGridState())
+                Characters(
+                    state = teststate,
+                    genderVal = "",
+                    statusVal = "",
+                    onClick = {},
+                    onCharacterClick = {},
+                    listState = LazyGridState(),
+                    selectGender = {},
+                    changeGender = {},
+                    changeStatus = {}
+                )
             }
         }
         composeTestRule.onNodeWithText("Rick").assertIsDisplayed()

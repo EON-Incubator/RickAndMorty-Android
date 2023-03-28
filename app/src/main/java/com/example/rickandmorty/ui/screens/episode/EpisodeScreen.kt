@@ -114,7 +114,7 @@ fun EpisodesScreen(
                                 property1 = episode.episode.toString(),
                                 property2 = episode.air_date.toString(),
                                 onClickable = { onSelectEpisode(episode.id.toString()) },
-                                id = episode.id.toString(),
+                                id = episode.id.toString()
                             )
                         }
                     }

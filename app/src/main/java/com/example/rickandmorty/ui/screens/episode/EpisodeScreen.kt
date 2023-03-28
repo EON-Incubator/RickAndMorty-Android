@@ -14,7 +14,9 @@ import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -96,7 +98,11 @@ fun EpisodesScreen(
                                 property1 = episode.episode.toString(),
                                 property2 = episode.air_date.toString(),
                                 onClickable = { onSelectEpisode(episode.id.toString()) },
-                                id = episode.id.toString()
+                                id = episode.id.toString(),
+                                icons = listOf(
+                                    ImageVector.vectorResource(id = R.drawable.episode),
+                                    ImageVector.vectorResource(id = R.drawable.date)
+                                )
                             )
                         }
                     }

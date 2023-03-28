@@ -15,7 +15,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
@@ -115,7 +117,11 @@ fun LocationScreen(
                                     property2 = location.dimension.toString(),
                                     status = "",
                                     id = location.id.toString(),
-                                    onClickable = onClick
+                                    onClickable = onClick,
+                                    icons = listOf(
+                                        ImageVector.vectorResource(id = R.drawable.type),
+                                        ImageVector.vectorResource(id = R.drawable.dimension)
+                                    )
                                 )
                             } else {
                                 GetRowWithFourImages(
@@ -125,7 +131,11 @@ fun LocationScreen(
                                     property2 = location.dimension.toString(),
                                     onClickable =
                                     onClick,
-                                    id = location.id.toString()
+                                    id = location.id.toString(),
+                                    icons = listOf(
+                                        ImageVector.vectorResource(id = R.drawable.type),
+                                        ImageVector.vectorResource(id = R.drawable.dimension)
+                                    )
                                 )
                             }
                         }

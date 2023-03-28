@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val windowSize = calculateWindowSizeClass(this)
-            RickAndMortyTheme {
+            RickAndMortyTheme() {
                 RickAndMortyMainApp(windowSize = windowSize)
             }
         }

@@ -1,6 +1,8 @@
 package com.example.rickandmorty.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -46,49 +48,54 @@ fun RickAndMortyMainApp(
 //
 //    Log.v("Window Height", windowSize.heightSizeClass.toString())
 
-    Scaffold(topBar = {
-        if (!invisible) {
-            RickAndMortyTopAppBar(
-                title = "Rick And Morty",
-                canNavigateBack = false,
-                navigateUp = { navController.popBackStack() }
-            )
-        }
-    }, bottomBar = {
-        BottomNavigationBar(
-
-            items = listOf(
-                BottomNavItem(
-                    name = "Characters",
-                    route = "characters",
-                    icon = Icons.Default.Person
-                ),
-                BottomNavItem(
-                    name = "Episodes",
-                    route = "episodes",
-                    icon = Icons.Default.PlayArrow
-                ),
-                BottomNavItem(
-                    name = "Locations",
-                    route = "locations",
-                    icon = Icons.Default.LocationOn
-                ),
-                BottomNavItem(
-                    name = "Search",
-                    route = "search",
-                    icon = Icons.Default.Search
+    Scaffold(
+        topBar = {
+            if (!invisible) {
+                RickAndMortyTopAppBar(
+                    title = "Rick And Morty",
+                    canNavigateBack = false,
+                    navigateUp = { navController.popBackStack() }
                 )
-            ),
-            navController = navController,
-            onItemClick = {
-                navController.navigate(it.route) {
-                    popUpTo(CharacterDestination.route) {
-                        inclusive = false
+            }
+        },
+        backgroundColor = MaterialTheme.colors.background,
+
+        bottomBar = {
+            BottomNavigationBar(
+
+                items = listOf(
+                    BottomNavItem(
+                        name = "Characters",
+                        route = "characters",
+                        icon = Icons.Default.Person
+                    ),
+                    BottomNavItem(
+                        name = "Episodes",
+                        route = "episodes",
+                        icon = Icons.Default.PlayArrow
+                    ),
+                    BottomNavItem(
+                        name = "Locations",
+                        route = "locations",
+                        icon = Icons.Default.LocationOn
+                    ),
+                    BottomNavItem(
+                        name = "Search",
+                        route = "search",
+                        icon = Icons.Default.Search
+                    )
+                ),
+                navController = navController,
+                onItemClick = {
+                    navController.navigate(it.route) {
+                        popUpTo(CharacterDestination.route) {
+                            inclusive = false
+                        }
                     }
                 }
-            }
-        )
-    }) {
+            )
+        }
+    ) {
         RickAndMortyNavHost(
             navController = navController,
             modifier = Modifier.padding(it),

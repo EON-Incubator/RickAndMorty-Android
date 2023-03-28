@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
@@ -130,7 +131,9 @@ fun EpisodeDetails(
                         Spacer(modifier = Modifier.height(15.dp))
                         Text(
                             text = stringResource(R.string.info),
-                            fontSize = 12.sp,
+                            style = MaterialTheme.typography.body1,
+                            color = MaterialTheme.colors.onBackground,
+                            fontWeight = FontWeight.Normal,
                             modifier = Modifier
                                 .padding(start = 10.dp)
                         )
@@ -163,7 +166,9 @@ fun EpisodeDetails(
 
                         Text(
                             text = stringResource(R.string.characters),
-                            fontSize = 12.sp,
+                            style = MaterialTheme.typography.body1,
+                            color = MaterialTheme.colors.onBackground,
+                            fontWeight = FontWeight.Normal,
                             modifier = Modifier
                                 .padding(start = 10.dp)
                         )
@@ -181,7 +186,11 @@ fun EpisodeDetails(
                                         id = episode.ID.toString(),
                                         onClickable = {
                                             onCharacterClick(it)
-                                        }
+                                        },
+                                        icons = listOf(
+                                            ImageVector.vectorResource(id = R.drawable.man_fill0_wght400_grad0_opsz48),
+                                            ImageVector.vectorResource(id = R.drawable.category_fill0_wght400_grad0_opsz48)
+                                        )
                                     )
                                 }
                             }

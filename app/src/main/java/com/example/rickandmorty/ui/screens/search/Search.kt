@@ -53,34 +53,7 @@ fun Search(
         LazyColumn(
             state = searchListState
         ) {
-<<<<<<< HEAD
-            Button(
-                onClick = onShowCharacters,
-                Modifier
-                    .weight(1.0f)
-                    .semantics { contentDescription = "characters" },
-                colors = if (showCharacters) {
-                    ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
-                } else {
-                    ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
-                }
-            ) {
-                if (showCharacters) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(
-                            id = R.drawable.outline_check_box_24
-                        ),
-                        contentDescription = "Selected",
-                        Modifier.padding(horizontal = 5.dp)
-                    )
-                } else {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(
-                            id = R.drawable.outline_check_box_outline_blank_24
-                        ),
-                        contentDescription = "Selected",
-                        Modifier.padding(horizontal = 5.dp)
-=======
+
             if (deviceType != ScreenType.PORTRAIT_PHONE) {
                 item {
                     SearchBar(
@@ -90,7 +63,7 @@ fun Search(
                         onShowLocations = onShowLocations,
                         showCharacters = showCharacters,
                         onShowCharacters = onShowCharacters
->>>>>>> 0d046c8826385aaee9f6d3934e37d6283aa855b0
+
                     )
                 }
             }

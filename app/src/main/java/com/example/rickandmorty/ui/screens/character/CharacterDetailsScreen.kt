@@ -63,12 +63,14 @@ fun CharacterDetails(
                 navigateUp = navigateUp
             )
         }) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-                    .semantics { contentDescription = "Fetching Character" }
-            )
+//            CircularProgressIndicator(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(it)
+//                    .semantics { contentDescription = "Fetching Character" }
+//            )
+
+            DetailedCharacterLoader(modifier=Modifier.padding(it))
         }
     } else {
         Scaffold(topBar = {

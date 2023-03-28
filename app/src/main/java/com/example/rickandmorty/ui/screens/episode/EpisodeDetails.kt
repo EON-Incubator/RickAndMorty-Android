@@ -21,11 +21,17 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
+import com.example.rickandmorty.domain.character.DetailedCharacter
+import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
+import com.example.rickandmorty.ui.screens.location.GetInfo
+import com.example.rickandmorty.ui.screens.location.GetResidents
+import com.example.rickandmorty.ui.screens.location.LocationDetailViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -33,7 +39,9 @@ fun EpisodeDetails(
     state: EpisodeDetailViewModel.DetailEpisodesState,
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
+    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE
 ) {
+
     Scaffold(topBar = {
         if (state.isLoading) {
             RickAndMortyTopAppBar(
@@ -207,6 +215,7 @@ fun EpisodeDetails(
         }
     }
 }
+
 
 object EpisodeDetailsDestination : NavigationDestination {
     override val route = "episode_detail"

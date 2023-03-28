@@ -5,6 +5,10 @@ import androidx.compose.foundation.layout.*
 //import androidx.compose.foundation.layout.ColumnScopeInstance.align
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -23,8 +27,10 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
+import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
+import com.example.rickandmorty.ui.screens.location.LocationLoader
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -39,8 +45,8 @@ object EpisodeDestination : NavigationDestination {
 fun EpisodesScreen(
     state: EpisodeViewModel.EpisodesState,
     onSelectEpisode: (id: String?) -> Unit,
-    listState: LazyListState,
-    device: ScreenType? = ScreenType.PORTRAIT_PHONE
+    listState: LazyGridState,
+    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE
 ) {
     val viewModel: EpisodeViewModel = hiltViewModel()
     val isRefreshing by viewModel.isRefreshing.collectAsState()
@@ -51,16 +57,17 @@ fun EpisodesScreen(
             .fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-
-
+       
         Column(modifier = Modifier
             .fillMaxSize()
             .semantics { contentDescription = "Fetching Episodes" }
         ) {
-            ScreenNameBar(
-                name = stringResource(R.string.episodes_screen_title),
-                onFilterClick = {}
-            )
+            if (deviceType != ScreenType.LANDSCAPE_PHONE){
+                ScreenNameBar(
+                    name = stringResource(R.string.episodes_screen_title),
+                    onFilterClick = {}
+                )
+            }
             SwipeRefresh(
                 state = swipeRefreshState,
                 onRefresh = { viewModel.updateEpisodeList() },
@@ -75,55 +82,102 @@ fun EpisodesScreen(
             ) {
 
                 if (state.isLoading) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Bottom,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Box(contentAlignment = Alignment.Center) {
-                            CircularProgressIndicator(
-                                modifier = Modifier
-                                    .align(Alignment.Center)
-                                    .semantics { contentDescription = "Fetching Records" }
-                            )
-                            LazyColumn(
-                                state = listState
-                            ) {
-                                items(state.episodes) { episode ->
-                                    GetRowWithFourImages(
-                                        imageUrlLink = emptyList(),
-                                        titleName = "",
-                                        property1 = "",
-                                        property2 = "",
-                                        onClickable = { },
-                                        id = "",
-                                        modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp))
-                                    )
-                                }
+                    LocationLoader(deviceType)
+
+//                    deviceType?.let { LocationLoader(deviceType = it) }
+//                    Column(
+//                        modifier = Modifier.fillMaxSize(),
+//                        verticalArrangement = Arrangement.Bottom,
+//                        horizontalAlignment = Alignment.CenterHorizontally
+//                    ) {
+//
+//                        LazyColumn(
+//                            state = listState
+//                        ) {
+//                            items(state.episodes) { episode ->
+//                                GetRowWithFourImages(
+//                                    imageUrlLink = emptyList(),
+//                                    titleName = "",
+//                                    property1 = "",
+//                                    property2 = "",
+//                                    onClickable = { },
+//                                    id = "",
+//                                    modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp))
+//                                )
+//                            }
+//                        }
+//                        Box(contentAlignment = Alignment.Center) {
+//                            CircularProgressIndicator(
+//                                modifier = Modifier
+//                                    .align(Alignment.Center)
+//                                    .semantics { contentDescription = "Fetching Records" }
+//                            )
+//
+//                        }
+//                    }
+                } else {
+
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(
+                            when (deviceType) {
+                                ScreenType.PORTRAIT_PHONE -> 1
+                                else -> 2
+                            }
+                        ),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(8.dp),
+                        state = listState
+                    ){
+                        items(state.episodes) { episode ->
+
+                            // Method in CommonUtils that draws the Card with 4 Images
+
+                            if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+                                GetRowWithOneImage(
+                                    imageUrlLink =
+                                    if (episode.images?.isEmpty() == true) {
+                                        ""
+                                    } else {
+                                        episode.images?.get(0)
+                                    }
+                                        .toString(),
+                                    titleName = episode.name.toString(),
+                                    property1 = episode.episode.toString(),
+                                    property2 = episode.air_date.toString(),
+                                    status = "",
+                                    id = episode.id.toString(),
+                                    onClickable = onSelectEpisode
+                                )
+                            } else {
+                                GetRowWithFourImages(
+                                    imageUrlLink = episode.images,
+                                    titleName = episode.name.toString(),
+                                    property1 = episode.episode.toString(),
+                                    property2 = episode.air_date.toString(),
+                                    onClickable =
+                                    onSelectEpisode,
+                                    id = episode.id.toString()
+                                )
                             }
                         }
                     }
-                } else {
-                    LazyColumn(
-                        state = listState
-                    ) {
-                        items(state.episodes) { episode ->
-                            GetRowWithFourImages(
-                                imageUrlLink = episode.images,
-                                titleName = episode.name.toString(),
-                                property1 = episode.episode.toString(),
-                                property2 = episode.air_date.toString(),
-                                onClickable = { onSelectEpisode(episode.id.toString()) },
-                                id = episode.id.toString()
-                            )
-                        }
-                    }
+//                    LazyColumn(
+//                        state = listState
+//                    ) {
+//                        items(state.episodes) { episode ->
+//                            GetRowWithFourImages(
+//                                imageUrlLink = episode.images,
+//                                titleName = episode.name.toString(),
+//                                property1 = episode.episode.toString(),
+//                                property2 = episode.air_date.toString(),
+//                                onClickable = { onSelectEpisode(episode.id.toString()) },
+//                                id = episode.id.toString()
+//                            )
+//                        }
+//                    }
                 }
-
             }
-
-
-
         }
     }
 }

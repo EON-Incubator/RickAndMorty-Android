@@ -1,5 +1,6 @@
 package com.example.rickandmorty.navigation
 
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
@@ -89,7 +90,7 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<EpisodeViewModel>()
             val state by viewModel.state.collectAsState()
-            val listState = rememberLazyListState()
+            val listState = rememberLazyGridState()
 
             if (listState.isScrollInProgress) {
                 if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
@@ -103,7 +104,7 @@ fun RickAndMortyNavHost(
                 onSelectEpisode = {
                     navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
                 },
-                listState = listState
+                listState = listState,
             )
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {

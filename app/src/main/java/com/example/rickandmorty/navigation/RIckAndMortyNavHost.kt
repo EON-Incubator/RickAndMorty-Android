@@ -31,6 +31,7 @@ fun RickAndMortyNavHost(
     var showLocations by remember {
         mutableStateOf(true)
     }
+    val searchListState = rememberLazyListState()
 
     NavHost(
         modifier = modifier,
@@ -83,7 +84,8 @@ fun RickAndMortyNavHost(
                 onLastSeenClick = {
                     navController
                         .navigate(LocationDetailsDestination.route + "?id=$it")
-                }
+                },
+                deviceType = deviceType
             )
         }
         composable(EpisodeDestination.route) {
@@ -161,7 +163,7 @@ fun RickAndMortyNavHost(
             Search(
                 searchResultState = searchResultState,
                 onValueChange = { viewModel.onSearch(it) },
-                query = viewModel.query,
+                query = viewModel.query.collectAsState(),
                 onLocationClick = {
                     navController
                         .navigate(LocationDetailsDestination.route + "?id=$it")
@@ -173,7 +175,10 @@ fun RickAndMortyNavHost(
                 onShowCharacters = { showCharacters = !showCharacters },
                 onShowLocations = { showLocations = !showLocations },
                 showCharacters = showCharacters,
-                showLocations = showLocations
+                showLocations = showLocations,
+                updateCharacterList = { viewModel.updateCharacterList() },
+                updateLocationList = { viewModel.updateLocationList() },
+                searchListState = searchListState
             )
         }
     }

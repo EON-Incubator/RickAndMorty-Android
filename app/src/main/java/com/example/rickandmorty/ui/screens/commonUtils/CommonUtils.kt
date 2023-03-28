@@ -447,7 +447,6 @@ fun GetData(
 fun getErrorImage() =
     if (isSystemInDarkTheme()) {
         R.drawable.person_image_in_dark
-    }
-    else {
+    } else {
         R.drawable.person_image
     }

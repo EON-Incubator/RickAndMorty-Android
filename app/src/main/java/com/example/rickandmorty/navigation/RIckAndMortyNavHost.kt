@@ -83,7 +83,8 @@ fun RickAndMortyNavHost(
                 onLastSeenClick = {
                     navController
                         .navigate(LocationDetailsDestination.route + "?id=$it")
-                }
+                },
+                deviceType = deviceType
             )
         }
         composable(EpisodeDestination.route) {

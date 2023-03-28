@@ -1,5 +1,8 @@
 package com.example.rickandmorty.ui.search
 
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.text.input.TextFieldValue
@@ -126,9 +129,12 @@ class SearchScreenTest {
                     onValueChange = {},
                     onShowCharacters = {},
                     onShowLocations = {},
-                    query = TextFieldValue(),
+                    query = remember { mutableStateOf(TextFieldValue("")) },
                     showCharacters = true,
-                    showLocations = true
+                    showLocations = true,
+                    updateLocationList = {},
+                    updateCharacterList = {},
+                    searchListState = LazyListState()
                 )
             }
         }
@@ -153,9 +159,12 @@ class SearchScreenTest {
                     onValueChange = { onValueChange = it },
                     onShowCharacters = { onShowCharacters = "true" },
                     onShowLocations = { onShowLocations = "true" },
-                    query = TextFieldValue(),
+                    query = remember { mutableStateOf(TextFieldValue("")) },
                     showCharacters = true,
-                    showLocations = true
+                    showLocations = true,
+                    updateLocationList = {},
+                    updateCharacterList = {},
+                    searchListState = LazyListState()
                 )
             }
         }

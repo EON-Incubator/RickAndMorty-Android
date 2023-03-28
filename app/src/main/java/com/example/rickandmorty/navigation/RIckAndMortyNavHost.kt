@@ -105,6 +105,7 @@ fun RickAndMortyNavHost(
                     navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
                 },
                 listState = listState,
+                deviceType = deviceType
             )
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {

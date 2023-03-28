@@ -46,7 +46,7 @@ fun EpisodesScreen(
     state: EpisodeViewModel.EpisodesState,
     onSelectEpisode: (id: String?) -> Unit,
     listState: LazyGridState,
-    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE
+    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
     val viewModel: EpisodeViewModel = hiltViewModel()
     val isRefreshing by viewModel.isRefreshing.collectAsState()
@@ -80,43 +80,9 @@ fun EpisodesScreen(
                     )
                 }
             ) {
-
                 if (state.isLoading) {
                     LocationLoader(deviceType)
-
-//                    deviceType?.let { LocationLoader(deviceType = it) }
-//                    Column(
-//                        modifier = Modifier.fillMaxSize(),
-//                        verticalArrangement = Arrangement.Bottom,
-//                        horizontalAlignment = Alignment.CenterHorizontally
-//                    ) {
-//
-//                        LazyColumn(
-//                            state = listState
-//                        ) {
-//                            items(state.episodes) { episode ->
-//                                GetRowWithFourImages(
-//                                    imageUrlLink = emptyList(),
-//                                    titleName = "",
-//                                    property1 = "",
-//                                    property2 = "",
-//                                    onClickable = { },
-//                                    id = "",
-//                                    modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp))
-//                                )
-//                            }
-//                        }
-//                        Box(contentAlignment = Alignment.Center) {
-//                            CircularProgressIndicator(
-//                                modifier = Modifier
-//                                    .align(Alignment.Center)
-//                                    .semantics { contentDescription = "Fetching Records" }
-//                            )
-//
-//                        }
-//                    }
                 } else {
-
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(
                             when (deviceType) {
@@ -130,9 +96,6 @@ fun EpisodesScreen(
                         state = listState
                     ){
                         items(state.episodes) { episode ->
-
-                            // Method in CommonUtils that draws the Card with 4 Images
-
                             if (deviceType == ScreenType.LANDSCAPE_PHONE) {
                                 GetRowWithOneImage(
                                     imageUrlLink =
@@ -162,20 +125,6 @@ fun EpisodesScreen(
                             }
                         }
                     }
-//                    LazyColumn(
-//                        state = listState
-//                    ) {
-//                        items(state.episodes) { episode ->
-//                            GetRowWithFourImages(
-//                                imageUrlLink = episode.images,
-//                                titleName = episode.name.toString(),
-//                                property1 = episode.episode.toString(),
-//                                property2 = episode.air_date.toString(),
-//                                onClickable = { onSelectEpisode(episode.id.toString()) },
-//                                id = episode.id.toString()
-//                            )
-//                        }
-//                    }
                 }
             }
         }

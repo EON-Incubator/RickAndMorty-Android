@@ -163,7 +163,7 @@ class SearchScreenTest {
         Assert.assertEquals(onCharacterClick, "1")
         composeTestRule.onNodeWithText("Earth").performClick()
         Assert.assertEquals(onLocationClick, "1")
-        composeTestRule.onNodeWithContentDescription("Characters").performClick()
+        composeTestRule.onNodeWithContentDescription("characters").performClick()
         Assert.assertEquals(onShowCharacters, "true")
         composeTestRule.onNodeWithContentDescription("Locations").performClick()
         Assert.assertEquals(onShowLocations, "true")

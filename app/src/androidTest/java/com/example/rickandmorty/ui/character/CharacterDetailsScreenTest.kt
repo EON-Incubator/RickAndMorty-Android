@@ -53,9 +53,7 @@ class CharacterDetailsScreenTest() {
                 )
             }
         }
-
         composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
-
         Thread.sleep(6000)
     }
 

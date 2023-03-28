@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -13,6 +15,7 @@ fun DialogBox(
     selectGender: () -> Unit,
     changeGender: (String) -> Unit,
     changeStatus: (String) -> Unit,
+    modifier: Modifier=Modifier
 ) {
     var genderState by remember {
         mutableStateOf("null")
@@ -54,7 +57,7 @@ fun DialogBox(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Button(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().semantics { contentDescription="applyFilter" },
                         onClick = {
                             selectGender()
                             showDialog.value = false

@@ -51,7 +51,7 @@ fun Search(
                 onClick = onShowCharacters,
                 Modifier
                     .weight(1.0f)
-                    .semantics { contentDescription = "Characters" },
+                    .semantics { contentDescription = "characters" },
                 colors = if (showCharacters) {
                     ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 } else {

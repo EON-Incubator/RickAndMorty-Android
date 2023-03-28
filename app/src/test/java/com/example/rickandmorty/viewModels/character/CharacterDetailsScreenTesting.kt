@@ -28,7 +28,6 @@ class CharacterDetailsScreenTesting() {
             )
         )
     }
-
     @Test
     fun `when getting a character,checking data type is of detailedcharacterScreen`() {
         assert(viewModel.character.value is DetailedCharacterViewModel.detailedcharacterState)

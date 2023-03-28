@@ -18,12 +18,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
@@ -34,6 +34,7 @@ fun EpisodeDetails(
     state: EpisodeDetailViewModel.DetailEpisodesState,
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
+    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
     Scaffold(topBar = {
         if (state.isLoading) {
@@ -43,12 +44,16 @@ fun EpisodeDetails(
                 navigateUp = navigateUp
             )
             Column(
-                modifier = Modifier.fillMaxSize().semantics { contentDescription = "Episode Detail Load" },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics { contentDescription = "Episode Detail Load" },
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.CenterHorizontally).semantics { contentDescription = "Fetching Detail" }
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .semantics { contentDescription = "Fetching Detail" }
                 )
 
                 Column() {
@@ -124,78 +129,213 @@ fun EpisodeDetails(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Column(modifier = Modifier.fillMaxSize().semantics { contentDescription = "EP Detail" }) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics { contentDescription = "EP Detail" }
+            ) {
                 if (state.isLoading) {
                 } else if (state.selectedEpisode != null) {
-                    Column() {
-                        Spacer(modifier = Modifier.height(15.dp))
-                        Text(
-                            text = stringResource(R.string.info),
-                            style = MaterialTheme.typography.body1,
-                            color = MaterialTheme.colors.onBackground,
-                            fontWeight = FontWeight.Normal,
-                            modifier = Modifier
-                                .padding(start = 10.dp)
-                        )
-
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Divider(
-                            Modifier.height(1.dp),
-                            color = MaterialTheme.colors.onBackground
-                        )
-
-                        GetInfoInLine(
-                            icons = ImageVector.vectorResource(id = R.drawable.episode),
-                            topic = stringResource(id = R.string.episode),
-                            topicAnswer = state.selectedEpisode?.episode.toString()
-                        )
-
-                        Row() {
-                            GetInfoInLine(
-                                icons = ImageVector.vectorResource(id = R.drawable.date),
-                                topic = stringResource(id = R.string.air_date),
-                                topicAnswer = state.selectedEpisode?.air_date.toString()
+                    if (deviceType == ScreenType.PORTRAIT_PHONE) {
+                        Column() {
+                            Spacer(modifier = Modifier.height(15.dp))
+                            Text(
+                                text = stringResource(R.string.info),
+                                fontSize = 12.sp,
+                                modifier = Modifier
+                                    .padding(start = 10.dp)
                             )
-                        }
-                        Divider(
-                            Modifier.height(1.dp),
-                            color = MaterialTheme.colors.onBackground
-                        )
 
-                        Spacer(modifier = Modifier.height(40.dp))
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Divider(
+                                Modifier.height(1.dp),
+                                color = MaterialTheme.colors.onBackground
+                            )
 
-                        Text(
-                            text = stringResource(R.string.characters),
-                            style = MaterialTheme.typography.body1,
-                            color = MaterialTheme.colors.onBackground,
-                            fontWeight = FontWeight.Normal,
-                            modifier = Modifier
-                                .padding(start = 10.dp)
-                        )
+                            GetInfoInLine(
+                                icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                topic = stringResource(id = R.string.episode),
+                                topicAnswer = state.selectedEpisode?.episode.toString()
+                            )
 
-                        if (state.selectedEpisode.characters.isNotEmpty()) {
-                            Log.v("character", state.characters.toString())
-                            LazyColumn() {
-                                items(state.selectedEpisode.characters) { episode ->
-                                    GetRowWithOneImage(
-                                        imageUrlLink = episode.image.toString(),
-                                        titleName = episode.name.toString(),
-                                        property1 = episode.gender.toString(),
-                                        property2 = episode.species.toString(),
-                                        status = episode.status.toString(),
-                                        id = episode.ID.toString(),
-                                        onClickable = {
-                                            onCharacterClick(it)
-                                        },
-                                        icons = listOf(
-                                            ImageVector.vectorResource(id = R.drawable.man_fill0_wght400_grad0_opsz48),
-                                            ImageVector.vectorResource(id = R.drawable.category_fill0_wght400_grad0_opsz48)
+                            Row() {
+                                GetInfoInLine(
+                                    icons = ImageVector.vectorResource(id = R.drawable.date),
+                                    topic = stringResource(id = R.string.air_date),
+                                    topicAnswer = state.selectedEpisode?.air_date.toString()
+                                )
+                            }
+                            Divider(
+                                Modifier.height(1.dp),
+                                color = MaterialTheme.colors.onBackground
+                            )
+
+                            Spacer(modifier = Modifier.height(40.dp))
+
+                            Text(
+                                text = stringResource(R.string.characters),
+                                fontSize = 12.sp,
+                                modifier = Modifier
+                                    .padding(start = 10.dp)
+                            )
+
+                            if (state.selectedEpisode.characters.isNotEmpty()) {
+                                Log.v("character", state.characters.toString())
+                                LazyColumn() {
+                                    items(state.selectedEpisode.characters) { episode ->
+                                        GetRowWithOneImage(
+                                            imageUrlLink = episode.image.toString(),
+                                            titleName = episode.name.toString(),
+                                            property1 = episode.gender.toString(),
+                                            property2 = episode.species.toString(),
+                                            status = episode.status.toString(),
+                                            id = episode.ID.toString(),
+                                            onClickable = {
+                                                onCharacterClick(it)
+                                            }
                                         )
+                                    }
+                                }
+                            } else {
+                                ImageVector.vectorResource(id = R.drawable.ic_broken_image)
+                            }
+                        }
+                    } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(it)
+                        ) {
+                            Column(modifier = Modifier.weight(2F)) {
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Text(
+                                    text = stringResource(R.string.info),
+                                    fontSize = 12.sp,
+                                    modifier = Modifier
+                                        .padding(start = 10.dp)
+                                )
+
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Divider(
+                                    Modifier.height(1.dp),
+                                    color = MaterialTheme.colors.onBackground
+                                )
+
+                                GetInfoInLine(
+                                    icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                    topic = stringResource(id = R.string.episode),
+                                    topicAnswer = state.selectedEpisode?.episode.toString()
+                                )
+
+                                Row() {
+                                    GetInfoInLine(
+                                        icons = ImageVector.vectorResource(id = R.drawable.date),
+                                        topic = stringResource(id = R.string.air_date),
+                                        topicAnswer = state.selectedEpisode?.air_date.toString()
+
                                     )
                                 }
+                                Divider(
+                                    Modifier.height(1.dp),
+                                    color = MaterialTheme.colors.onBackground
+                                )
+
+                                Spacer(modifier = Modifier.height(40.dp))
                             }
-                        } else {
-                            ImageVector.vectorResource(id = R.drawable.ic_broken_image)
+
+                            Column(modifier = Modifier.weight(5F)) {
+                                Text(
+                                    text = stringResource(R.string.characters),
+                                    fontSize = 12.sp,
+                                    modifier = Modifier
+                                        .padding(start = 10.dp)
+                                )
+
+                                if (state.selectedEpisode.characters.isNotEmpty()) {
+                                    Log.v("character", state.characters.toString())
+                                    LazyColumn() {
+                                        items(state.selectedEpisode.characters) { episode ->
+                                            GetRowWithOneImage(
+                                                imageUrlLink = episode.image.toString(),
+                                                titleName = episode.name.toString(),
+                                                property1 = episode.gender.toString(),
+                                                property2 = episode.species.toString(),
+                                                status = episode.status.toString(),
+                                                id = episode.ID.toString(),
+                                                onClickable = {
+                                                    onCharacterClick(it)
+                                                }
+                                            )
+                                        }
+                                    }
+                                } else {
+                                    ImageVector.vectorResource(id = R.drawable.ic_broken_image)
+                                }
+                            }
+                        }
+                    } else {
+                        Column() {
+                            Spacer(modifier = Modifier.height(15.dp))
+                            Text(
+                                text = stringResource(R.string.info),
+                                fontSize = 12.sp,
+                                modifier = Modifier
+                                    .padding(start = 10.dp)
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Divider(
+                                Modifier.height(1.dp),
+                                color = MaterialTheme.colors.onBackground
+                            )
+
+                            GetInfoInLine(
+                                icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                topic = stringResource(id = R.string.episode),
+                                topicAnswer = state.selectedEpisode?.episode.toString()
+                            )
+
+                            Row() {
+                                GetInfoInLine(
+                                    icons = ImageVector.vectorResource(id = R.drawable.date),
+                                    topic = stringResource(id = R.string.air_date),
+                                    topicAnswer = state.selectedEpisode?.air_date.toString()
+                                )
+                            }
+                            Divider(
+                                Modifier.height(1.dp),
+                                color = MaterialTheme.colors.onBackground
+                            )
+
+                            Spacer(modifier = Modifier.height(40.dp))
+
+                            Text(
+                                text = stringResource(R.string.characters),
+                                fontSize = 12.sp,
+                                modifier = Modifier
+                                    .padding(start = 10.dp)
+                            )
+
+                            if (state.selectedEpisode.characters.isNotEmpty()) {
+                                Log.v("character", state.characters.toString())
+                                LazyColumn() {
+                                    items(state.selectedEpisode.characters) { episode ->
+                                        GetRowWithOneImage(
+                                            imageUrlLink = episode.image.toString(),
+                                            titleName = episode.name.toString(),
+                                            property1 = episode.gender.toString(),
+                                            property2 = episode.species.toString(),
+                                            status = episode.status.toString(),
+                                            id = episode.ID.toString(),
+                                            onClickable = {
+                                                onCharacterClick(it)
+                                            }
+                                        )
+                                    }
+                                }
+                            } else {
+                                ImageVector.vectorResource(id = R.drawable.ic_broken_image)
+                            }
                         }
                     }
                 } else {

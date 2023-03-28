@@ -402,9 +402,10 @@ fun GetData(
                                 (lineHeight * 2).toDp()
                             }
                         ),
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.body2,
-                    maxLines = 2,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     color = MaterialTheme.colors.onBackground
                 )
             }
@@ -432,9 +433,10 @@ fun GetData(
                                 (lineHeight * 2).toDp()
                             }
                         ),
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Start,
                     text = property2,
-                    maxLines = 2,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.body2,
                     color = MaterialTheme.colors.onBackground
                 )
@@ -450,3 +452,7 @@ fun getErrorImage() =
     } else {
         R.drawable.person_image
     }
+
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.FUNCTION)
+annotation class ExcludeFromJacocoGeneratedReport

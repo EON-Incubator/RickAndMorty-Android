@@ -68,7 +68,7 @@ project.afterEvaluate {
                             '**/*Extensions*.*',
                             // sealed and data classes
                             '**/*$Result.*',
-                            '**/*$Result$*.*'
+                            '**/*$Result$*.*',
                     ]
 
                     def javaClasses = fileTree(dir: variant.javaCompileProvider.get().destinationDir,

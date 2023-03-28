@@ -2,7 +2,6 @@ package com.example.rickandmorty.ui.screens.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,8 +16,8 @@ import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
 @Composable
 fun SearchLoader() {
-    LazyColumn {
-        item {
+    Column {
+        Column() {
             Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = "Characters",
@@ -30,7 +29,7 @@ fun SearchLoader() {
             )
         }
         repeat(2) {
-            item {
+            Column() {
                 GetRowWithOneImage(
                     imageUrlLink = "",
                     titleName = "",
@@ -45,7 +44,7 @@ fun SearchLoader() {
             }
         }
 
-        item {
+        Column() {
             Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = "Locations",
@@ -58,7 +57,7 @@ fun SearchLoader() {
         }
 
         repeat(2) {
-            item {
+            Column() {
                 GetRowWithFourImages(
                     imageUrlLink = emptyList(),
                     titleName = "",

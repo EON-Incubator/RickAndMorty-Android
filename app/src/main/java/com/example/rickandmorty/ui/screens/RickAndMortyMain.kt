@@ -44,10 +44,6 @@ fun RickAndMortyMainApp(
         }
     }
 
-//    Log.v("Window Width", windowSize.widthSizeClass.toString())
-//
-//    Log.v("Window Height", windowSize.heightSizeClass.toString())
-
     Scaffold(
         topBar = {
             if (!invisible) {
@@ -108,8 +104,5 @@ fun RickAndMortyMainApp(
 }
 
 enum class ScreenType {
-    PORTRAIT_PHONE,
-    LANDSCAPE_PHONE,
-    PORTRAIT_TABLET,
-    LANDSCAPE_TABLET,
+    PORTRAIT_PHONE, LANDSCAPE_PHONE, PORTRAIT_TABLET, LANDSCAPE_TABLET,
 }

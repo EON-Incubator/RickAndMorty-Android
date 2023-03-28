@@ -3,7 +3,6 @@ package com.example.rickandmorty.ui.screens.character
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -27,6 +26,7 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.example.rickandmorty.domain.character.Character
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.location.LocationViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -43,7 +43,9 @@ fun Characters(
     selectGender: () -> Unit,
     changeGender: (String) -> Unit,
     changeStatus: (String) -> Unit,
-) {  val viewModel: CharacterViewModel= hiltViewModel()
+
+    ) {
+    val viewModel: CharacterViewModel = hiltViewModel()
     val isRefreshing by viewModel.isRefreshing.collectAsState()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
 
@@ -63,7 +65,11 @@ fun Characters(
                 .fillMaxSize()
                 .semantics { contentDescription = "characters" }
         ) {
-            ScreenNameBar(name = "Characters", onFilterClick = { showFilter = !showFilter }, putIcon = true)
+            ScreenNameBar(
+                name = "Characters",
+                onFilterClick = { showFilter = !showFilter },
+                putIcon = true
+            )
             SwipeRefresh(
                 state = swipeRefreshState,
                 onRefresh = { viewModel.refresh() },
@@ -78,16 +84,6 @@ fun Characters(
             )
             {
                 if (state.isLoading) {
-//            Column(
-//                modifier = Modifier.fillMaxSize(),
-//                verticalArrangement = Arrangement.Bottom,
-//                horizontalAlignment = Alignment.CenterHorizontally
-//            ) {
-//                CircularProgressIndicator(
-//                    modifier = Modifier.align(Alignment.CenterHorizontally)
-//                        .semantics { contentDescription = "Fetching Characters" }
-//                )
-//            }
                     CharacterLoader()
                 } else {
                     LazyVerticalGrid(

@@ -83,7 +83,6 @@ fun CharacterDetails(
     }
 }
 
-
 @Composable
 fun DetailedScreen(
     modifier: Modifier = Modifier,
@@ -121,7 +120,6 @@ fun DetailedScreen(
                         )
                         Divider(color = Color.Black, thickness = 2.dp)
                         Column {
-
                             infoPart1(charInfo = charInfo)
 
                             Text(
@@ -163,8 +161,6 @@ fun DetailedScreen(
                                 horizontalArrangement = Arrangement.Center,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-
-
                                 Column(modifier = Modifier.weight(2f)) {
                                     Text(
                                         text = "INFO",
@@ -195,22 +191,16 @@ fun DetailedScreen(
                                     }
                                 }
                             }
-
-
                         }
                         item {
-
                             Text(
                                 text = "EPISODES",
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(top = 14.dp),
-                                textAlign = TextAlign.Center,
-
-
-                                )
-
+                                textAlign = TextAlign.Center
+                            )
                         }
 
                         charInfo?.let {
@@ -228,93 +218,79 @@ fun DetailedScreen(
                                 )
                             }
                         }
-
-
                     }
                 }
             }
-
-
         } else {
-
-                Row() {
-                    Column(modifier = Modifier.weight(1f).padding(end = 13.dp)) {
-                        topInfo(charInfo = charInfo, deviceType = deviceType)
-                        Column(modifier = Modifier.weight(3f)) {
+            Row() {
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 13.dp)
+                ) {
+                    topInfo(charInfo = charInfo, deviceType = deviceType)
+                    Column(modifier = Modifier.weight(3f)) {
+                        Text(
+                            text = "INFO",
+                            style = MaterialTheme.typography.body2,
+                            modifier = Modifier
+                                //  .fillMaxWidth()
+                                .padding(start = 12.dp, bottom = 12.dp),
+                            textAlign = TextAlign.Start
+                        )
+                        //  Divider(color = Color.Black, thickness = 2.dp)
+                        Column {
+                            infoPart1(charInfo = charInfo)
                             Text(
-                                text = "INFO",
+                                text = "LOCATION",
                                 style = MaterialTheme.typography.body2,
                                 modifier = Modifier
-                                    //  .fillMaxWidth()
-                                    .padding(start = 12.dp, bottom = 12.dp),
+                                    .fillMaxWidth()
+                                    .height(50.dp)
+                                    .padding(start = 12.dp, top = 12.dp),
                                 textAlign = TextAlign.Start
                             )
-                            //  Divider(color = Color.Black, thickness = 2.dp)
-                            Column {
-                                infoPart1(charInfo = charInfo)
-                                Text(
-                                    text = "LOCATION",
-                                    style = MaterialTheme.typography.body2,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(50.dp)
-                                        .padding(start = 12.dp, top = 12.dp),
-                                    textAlign = TextAlign.Start
-                                )
-                                Divider(thickness = 2.dp)
+                            Divider(thickness = 2.dp)
 
-                                infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
-                            }
+                            infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
                         }
                     }
-                    Column(
-                        modifier = modifier.weight(2f)
+                }
+                Column(
+                    modifier = modifier.weight(2f)
 
-                    ) {
-
-                        LazyColumn() {item {
-
+                ) {
+                    LazyColumn() {
+                        item {
                             Text(
                                 text = "EPISODES",
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(top = 14.dp),
-                                textAlign = TextAlign.Center,
-
-
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                        charInfo?.let {
+                            items(it.episode) { eachEpisode ->
+                                GetRowWithFourImages(
+                                    imageUrlLink = eachEpisode.images,
+                                    titleName = eachEpisode.name.toString(),
+                                    property1 = eachEpisode.episode.toString(),
+                                    property2 = eachEpisode.air_date.toString(),
+                                    onClickable = {
+                                        onEpisodeClick(eachEpisode.id.toString())
+                                    },
+                                    id = eachEpisode.id.toString()
                                 )
-
-                        }
-                            charInfo?.let {
-                                items(it.episode) { eachEpisode ->
-
-                                    GetRowWithFourImages(
-                                        imageUrlLink = eachEpisode.images,
-                                        titleName = eachEpisode.name.toString(),
-                                        property1 = eachEpisode.episode.toString(),
-                                        property2 = eachEpisode.air_date.toString(),
-                                        onClickable = {
-                                            onEpisodeClick(eachEpisode.id.toString())
-                                        },
-                                        id = eachEpisode.id.toString()
-                                    )
-                                }
                             }
-
                         }
-
                     }
-
-
                 }
-
-
-
+            }
         }
     }
 }
-
 
 @Composable
 fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
@@ -379,7 +355,7 @@ fun infoPart1(charInfo: DetailedCharacter?) {
 fun infoPart2(
     charInfo: DetailedCharacter?,
     onOriginClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text = "LOCATION",
@@ -406,28 +382,27 @@ fun infoPart2(
                 onOriginClick(charInfo?.originId.toString())
             }
         },
-        iconArrow = if (charInfo?.originId != "null")
-            Icons.Outlined.KeyboardArrowRight else null
-
+        iconArrow = if (charInfo?.originId != "null") {
+            Icons.Outlined.KeyboardArrowRight
+        } else {
+            null
+        }
     )
     GetInfoInLine(
         icons = ImageVector
             .vectorResource(R.drawable.explore_fill0_wght400_grad0_opsz48),
         topic = "Last Seen",
         topicAnswer = charInfo?.lastseen.toString(),
-//                            action = {
-//                                onOriginClick(charInfo?.originId.toString()
-//                            },
         showIt = charInfo?.lastseenId,
         modifier = modifier.clickable {
             if (charInfo?.lastseenId != "null") {
                 onOriginClick(charInfo?.lastseenId.toString())
             }
         },
-        iconArrow = if (charInfo?.lastseenId != "null") Icons.Outlined.KeyboardArrowRight else null
+        iconArrow = if (charInfo?.lastseenId != "null") {
+            Icons.Outlined.KeyboardArrowRight
+        } else {
+            null
+        }
     )
 }
-
-
-
-

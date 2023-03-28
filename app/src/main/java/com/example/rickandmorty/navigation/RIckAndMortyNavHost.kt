@@ -176,7 +176,8 @@ fun RickAndMortyNavHost(
                 showLocations = showLocations,
                 updateCharacterList = { viewModel.updateCharacterList() },
                 updateLocationList = { viewModel.updateLocationList() },
-                searchListState = searchListState
+                searchListState = searchListState,
+                deviceType = deviceType
             )
         }
     }

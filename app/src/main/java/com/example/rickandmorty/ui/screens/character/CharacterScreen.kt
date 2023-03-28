@@ -26,8 +26,6 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.example.rickandmorty.domain.character.Character
-import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.location.LocationViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -44,7 +42,7 @@ fun Characters(
     changeGender: (String) -> Unit,
     changeStatus: (String) -> Unit,
 
-    ) {
+) {
     val viewModel: CharacterViewModel = hiltViewModel()
     val isRefreshing by viewModel.isRefreshing.collectAsState()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
@@ -81,8 +79,7 @@ fun Characters(
                         contentColor = MaterialTheme.colors.onPrimary
                     )
                 }
-            )
-            {
+            ) {
                 if (state.isLoading) {
                     CharacterLoader()
                 } else {

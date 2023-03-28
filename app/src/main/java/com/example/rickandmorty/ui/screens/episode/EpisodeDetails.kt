@@ -131,7 +131,7 @@ fun EpisodeDetails(
                 modifier = Modifier
                     .fillMaxSize()
                     .semantics { contentDescription = "EP Detail" }
-                ,) {
+            ) {
                 if (state.isLoading) {
                 } else if (state.selectedEpisode != null) {
                     Column() {

@@ -40,7 +40,8 @@ fun DialogBox(
                         options = genderList,
                         tag = "Gender",
                         selectedValue = genderVal,
-                        setup = changeGender
+                        setup = changeGender,
+
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     aliveState = DropdownDemo(

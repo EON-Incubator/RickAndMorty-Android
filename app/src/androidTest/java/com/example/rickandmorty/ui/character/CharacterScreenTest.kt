@@ -4,7 +4,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.ui.screens.character.CharacterViewModel
@@ -107,5 +109,26 @@ class CharacterScreenTest() {
         composeTestRule.onNodeWithText("Ann").assertIsDisplayed()
         composeTestRule.onNodeWithText("Morty").assertIsDisplayed()
         Thread.sleep(6000)
+    }
+
+    @Test
+    fun character_screen_filter_displayed_after_click() {
+        composeTestRule.setContent {
+            RickAndMortyTheme() {
+                Characters(
+                    state = teststate,
+                    genderVal = "",
+                    statusVal = "",
+                    onClick = {},
+                    onCharacterClick = {},
+                    listState = LazyGridState(),
+                    selectGender = {},
+                    changeGender = {},
+                    changeStatus = {}
+                )
+            }
+        }
+        composeTestRule.onNodeWithContentDescription("Filter").performClick()
+        composeTestRule.onNodeWithText("Filter for Characters").assertIsDisplayed()
     }
 }

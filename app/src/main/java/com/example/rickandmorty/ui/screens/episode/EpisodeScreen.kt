@@ -42,7 +42,8 @@ fun EpisodesScreen(
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
     isRefreshing: Boolean = false,
     onRefresh: () -> Unit = {},
-) { val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
+) {
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
     Surface(
         modifier = Modifier
             .fillMaxSize(),

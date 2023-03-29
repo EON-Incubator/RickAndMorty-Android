@@ -5,6 +5,7 @@ import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import com.example.rickandmorty.ui.screens.episode.EpisodeViewModel
 import junit.framework.TestCase.assertEquals
+import org.junit.Assert
 // import kotlinx.coroutines.ExperimentalCoroutinesApi
 // import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
@@ -44,5 +45,12 @@ class EpisodeViewModelTest {
         assert(!viewModel.state.value.isLoading)
         assertEquals(viewModel.state.value.episodes.get(0).id, "id")
         assertNotEquals(viewModel.state.value.episodes.get(0).name, "name2")
+    }
+
+    @Test
+    fun `check update episode list is working`() {
+        viewModel.updateEpisodeList()
+        Assert.assertNull(viewModel.state.value.pages?.next)
+        Assert.assertNull(viewModel.state.value.pages?.prev)
     }
 }

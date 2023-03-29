@@ -137,11 +137,17 @@ fun DetailedScreen(
                         Column {
                             infoPart1(charInfo = charInfo)
 
+                            infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
+                            Divider(thickness = 2.dp)
                             Text(
                                 text = "EPISODES",
-                                style = MaterialTheme.typography.body2
+                                style = MaterialTheme.typography.body2,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(50.dp)
+                                    .padding(start = 12.dp, top = 12.dp),
+                                textAlign = TextAlign.Start
                             )
-                            infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
                         }
                     }
                 }
@@ -188,21 +194,13 @@ fun DetailedScreen(
                                     //  Divider(color = Color.Black, thickness = 2.dp)
                                     Column {
                                         infoPart1(charInfo = charInfo)
-                                        Text(
-                                            text = "LOCATION",
-                                            style = MaterialTheme.typography.body2,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .height(50.dp)
-                                                .padding(start = 12.dp, top = 12.dp),
-                                            textAlign = TextAlign.Start
-                                        )
-                                        Divider(thickness = 2.dp)
 
+                                        Divider(thickness = 2.dp)
                                         infoPart2(
                                             charInfo = charInfo,
                                             onOriginClick = onOriginClick
                                         )
+                                        Divider(thickness = 2.dp)
                                     }
                                 }
                             }
@@ -253,21 +251,11 @@ fun DetailedScreen(
                                 .padding(start = 12.dp, bottom = 12.dp),
                             textAlign = TextAlign.Start
                         )
-                        //  Divider(color = Color.Black, thickness = 2.dp)
                         Column {
                             infoPart1(charInfo = charInfo)
-                            Text(
-                                text = "LOCATION",
-                                style = MaterialTheme.typography.body2,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(50.dp)
-                                    .padding(start = 12.dp, top = 12.dp),
-                                textAlign = TextAlign.Start
-                            )
                             Divider(thickness = 2.dp)
-
                             infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
+                            Divider(thickness = 2.dp)
                         }
                     }
                 }
@@ -387,9 +375,6 @@ fun infoPart2(
             .vectorResource(R.drawable.trip_origin_fill0_wght400_grad0_opsz48),
         topic = "Origin",
         topicAnswer = charInfo?.origin.toString(),
-//                            action = {
-//                                onOriginClick(charInfo?.originId.toString())
-//                            },
         showIt = charInfo?.originId,
         modifier = modifier.clickable {
             if (charInfo?.originId != "null") {

@@ -20,7 +20,6 @@ class NavigationTesting {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun naviagateToAllScreens() = runTest {
-
         composeTestRule.onNodeWithContentDescription("Characters").performClick()
         composeTestRule.waitForIdle()
         composeTestRule.waitUntil(10000) {
@@ -59,6 +58,7 @@ class NavigationTesting {
                 .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
+
 //        composeTestRule.onNodeWithContentDescription("Characters").performClick()
 //        composeTestRule.waitForIdle()
 //

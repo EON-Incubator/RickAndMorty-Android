@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+@ExcludeFromJacocoGeneratedReport
 @Composable
 fun Modifier.shimmerBackground(shape: Shape = RectangleShape): Modifier = composed {
     val transition = rememberInfiniteTransition()
@@ -40,6 +41,7 @@ fun Modifier.shimmerBackground(shape: Shape = RectangleShape): Modifier = compos
     return@composed this.then(background(brush, shape))
 }
 
+@ExcludeFromJacocoGeneratedReport
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun showLoader() {

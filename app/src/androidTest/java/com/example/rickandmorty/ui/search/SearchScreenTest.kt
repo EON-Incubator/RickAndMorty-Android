@@ -151,7 +151,7 @@ class SearchScreenTest {
     }
 
     @Test
-    fun location_screen_onClick_check() {
+    fun search_screen_onClick_check() {
         composeTestRule.setContent {
             RickAndMortyTheme() {
                 Search(
@@ -175,7 +175,7 @@ class SearchScreenTest {
         Assert.assertEquals(onCharacterClick, "1")
         composeTestRule.onNodeWithText("Earth").performClick()
         Assert.assertEquals(onLocationClick, "1")
-        composeTestRule.onNodeWithContentDescription("characters").performClick()
+        composeTestRule.onNodeWithContentDescription("Characters").performClick()
         Assert.assertEquals(onShowCharacters, "true")
         composeTestRule.onNodeWithContentDescription("Locations").performClick()
         Assert.assertEquals(onShowLocations, "true")

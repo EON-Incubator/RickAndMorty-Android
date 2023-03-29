@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.character
 
-import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -11,7 +10,6 @@ import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.character.CharacterDetails
 import com.example.rickandmorty.ui.screens.character.DetailedCharacterViewModel
-import com.example.rickandmorty.ui.screens.location.LocationScreen
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import org.junit.Before
 import org.junit.Rule
@@ -120,6 +118,7 @@ class CharacterDetailsScreenTest() {
 
         composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
     }
+
     @Test
     fun screen_data_check_potrait() {
         composeTestRule.setContent {
@@ -137,6 +136,7 @@ class CharacterDetailsScreenTest() {
 
         composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
     }
+
     @Test
     fun screen_data_check_landscape_tablet() {
         composeTestRule.setContent {

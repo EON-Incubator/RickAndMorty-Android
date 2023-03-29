@@ -24,11 +24,13 @@ class SearchViewModelTest {
     @Before
     fun setup() {
         fakeRepo = FakeRepo()
+
         viewModel = SearchViewModel(
             GetSearchResultUseCase(fakeRepo),
             GetAllLocationUseCase(fakeRepo),
             GetCharacterUseCase(fakeRepo)
         )
+
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

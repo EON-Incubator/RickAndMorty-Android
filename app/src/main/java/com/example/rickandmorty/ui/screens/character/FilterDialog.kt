@@ -30,12 +30,12 @@ fun DialogBox(
                 showDialog.value = false
             },
             title = {
-                Text(text = "Filter for Characters", Modifier.padding())
+                Text(text = "Filter for Characters", Modifier.padding(bottom=12.dp))
             },
             text = {
                 val statusList = listOf<String>("All", "Alive", "dead", "unknown")
                 val genderList = listOf<String>("All", "Male", "Female", "Genderless", "unknown")
-                Column() {
+                Column(modifier = Modifier.padding(top = 14.dp)) {
                     genderState = DropdownDemo(
                         options = genderList,
                         tag = "Gender",

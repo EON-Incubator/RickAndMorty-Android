@@ -32,6 +32,7 @@ class DetailedCharacterViewModel @Inject constructor(
     }
 
     fun refresh() {
+
         viewModelScope.launch {
             _character.update {
                 it.copy(
@@ -52,5 +53,5 @@ class DetailedCharacterViewModel @Inject constructor(
         val character: DetailedCharacter? = null,
         val isLoading: Boolean = false,
 
-    )
+        )
 }

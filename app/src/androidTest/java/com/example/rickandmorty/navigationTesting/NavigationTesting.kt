@@ -59,6 +59,7 @@ class NavigationTesting {
                 .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
+
 //        composeTestRule.onNodeWithContentDescription("Characters").performClick()
 //        composeTestRule.waitForIdle()
 //

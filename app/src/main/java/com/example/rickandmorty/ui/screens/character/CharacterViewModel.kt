@@ -79,14 +79,10 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
 
     fun changeGender(selectedGender: String) {
         gender = selectedGender
-
-//
     }
 
     fun changeStatus(selectedStatus: String) {
         status = selectedStatus
-
-//
     }
 
     open fun selectFilter() {

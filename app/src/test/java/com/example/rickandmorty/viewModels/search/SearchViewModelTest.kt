@@ -43,18 +43,58 @@ class SearchViewModelTest {
         }
 
         Assert.assertEquals(viewModel.searchResult.value.characterData?.characters?.get(0)?.ID, "1")
-        Assert.assertEquals(viewModel.searchResult.value.characterData?.characters?.get(0)?.name, "Rick")
-        Assert.assertEquals(viewModel.searchResult.value.characterData?.characters?.get(0)?.image, "")
-        Assert.assertEquals(viewModel.searchResult.value.characterData?.characters?.get(0)?.status, "Alive")
-        Assert.assertEquals(viewModel.searchResult.value.characterData?.characters?.get(0)?.species, "Human")
-        Assert.assertEquals(viewModel.searchResult.value.characterData?.characters?.get(0)?.gender, "Male")
+        Assert.assertEquals(
+            viewModel.searchResult.value.characterData?.characters?.get(0)?.name,
+            "Rick"
+        )
+        Assert.assertEquals(
+            viewModel.searchResult.value.characterData?.characters?.get(0)?.image,
+            ""
+        )
+        Assert.assertEquals(
+            viewModel.searchResult.value.characterData?.characters?.get(0)?.status,
+            "Alive"
+        )
+        Assert.assertEquals(
+            viewModel.searchResult.value.characterData?.characters?.get(0)?.species,
+            "Human"
+        )
+        Assert.assertEquals(
+            viewModel.searchResult.value.characterData?.characters?.get(0)?.gender,
+            "Male"
+        )
         Assert.assertEquals(viewModel.searchResult.value.locationByName?.locations?.get(0)?.id, "1")
-        Assert.assertEquals(viewModel.searchResult.value.locationByName?.locations?.get(0)?.name, "Earth")
-        Assert.assertEquals(viewModel.searchResult.value.locationByName?.locations?.get(0)?.type, "Planet")
-        Assert.assertEquals(viewModel.searchResult.value.locationByName?.locations?.get(0)?.dimension, "Unknown")
-        Assert.assertEquals(viewModel.searchResult.value.locationByType?.locations?.get(0)?.created, "")
-        Assert.assertEquals(viewModel.searchResult.value.locationByType?.locations?.get(0)?.name, "Earth")
-        Assert.assertEquals(viewModel.searchResult.value.locationByType?.locations?.get(0)?.type, "Planet")
-        Assert.assertEquals(viewModel.searchResult.value.locationByType?.locations?.get(0)?.dimension, "Unknown")
+        Assert.assertEquals(
+            viewModel.searchResult.value.locationByName?.locations?.get(0)?.name,
+            "Earth"
+        )
+        Assert.assertEquals(
+            viewModel.searchResult.value.locationByName?.locations?.get(0)?.type,
+            "Planet"
+        )
+        Assert.assertEquals(
+            viewModel.searchResult.value.locationByName?.locations?.get(0)?.dimension,
+            "Unknown"
+        )
+        Assert.assertEquals(
+            viewModel.searchResult.value.locationByType?.locations?.get(0)?.created,
+            ""
+        )
+        Assert.assertEquals(
+            viewModel.searchResult.value.locationByType?.locations?.get(0)?.name,
+            "Earth"
+        )
+        Assert.assertEquals(
+            viewModel.searchResult.value.locationByType?.locations?.get(0)?.type,
+            "Planet"
+        )
+        Assert.assertEquals(
+            viewModel.searchResult.value.locationByType?.locations?.get(0)?.dimension,
+            "Unknown"
+        )
+        runTest {
+            viewModel.updateCharacterList()
+            viewModel.updateLocationList()
+        }
     }
 }

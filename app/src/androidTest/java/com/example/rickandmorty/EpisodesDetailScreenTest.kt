@@ -1,7 +1,8 @@
-import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.createComposeRule
 // import androidx.compose.ui.test.junit4.onNodeWithText
 // import androidx.compose.ui.test.junit4.onNodeWithTag
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
 import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.ui.screens.ScreenType

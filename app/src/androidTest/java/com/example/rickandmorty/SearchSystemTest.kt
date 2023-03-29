@@ -18,36 +18,42 @@ class SearchSystemTest {
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @Test
-//    fun searchFunctionality() = runTest {
-//        composeTestRule.onNodeWithContentDescription("Search").performClick()
-//        composeTestRule.waitForIdle()
-//        composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Rick")
-//        composeTestRule.onNodeWithContentDescription("Search Bar").assert(hasText("Rick"))
-//        composeTestRule.waitForIdle()
-//        composeTestRule.waitUntil(10000) {
-//            composeTestRule
-//                .onAllNodesWithContentDescription("Fetching Records")
-//                .fetchSemanticsNodes().isEmpty()
-//        }
-//        composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
-//            hasContentDescription("Item Name")
-//        )
-//        composeTestRule.onNodeWithContentDescription("Load More Characters").performClick()
-//        composeTestRule.waitForIdle()
-//        composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Planet")
-//        composeTestRule.onNodeWithContentDescription("Search Bar").assert(hasText("Planet"))
-//        composeTestRule.waitForIdle()
-//        composeTestRule.waitUntil(10000) {
-//            composeTestRule
-//                .onAllNodesWithContentDescription("Fetching Records")
-//                .fetchSemanticsNodes().isEmpty()
-//        }
-//        composeTestRule.onNodeWithContentDescription("Load More Locations").performClick()
-//        composeTestRule.waitForIdle()
-//        composeTestRule.onNodeWithText("Rick Sanchez").performClick()
-//    }
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun searchFunctionality() = runTest {
+        composeTestRule.onNodeWithContentDescription("Search").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Rick")
+        composeTestRule.onNodeWithContentDescription("Search Bar").assert(hasText("Rick"))
+        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
+            hasContentDescription("Item Name")
+        )
+        composeTestRule.onNodeWithTag("search_lazy_column")
+            .performScrollToNode(hasContentDescription("Load More Characters"))
+        composeTestRule.onNodeWithContentDescription("Load More Characters").performScrollTo()
+            .performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Planet")
+        composeTestRule.onNodeWithContentDescription("Search Bar").assert(hasText("Planet"))
+        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithTag("search_lazy_column")
+            .performScrollToNode(hasContentDescription("Load More Locations"))
+        composeTestRule.onNodeWithContentDescription("Load More Locations").performScrollTo()
+            .performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("Planetina").performClick()
+    }
 
     /**
      * BDD testing for character screen

@@ -12,6 +12,7 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -51,7 +52,8 @@ fun Search(
             )
         }
         LazyColumn(
-            state = searchListState
+            state = searchListState,
+            modifier = Modifier.testTag("search_lazy_column")
         ) {
             if (deviceType != ScreenType.PORTRAIT_PHONE) {
                 item {
@@ -76,7 +78,7 @@ fun Search(
                         item {
                             Spacer(modifier = Modifier.height(5.dp))
                             Text(
-                                text = "Characters",
+                                text = "characters",
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()

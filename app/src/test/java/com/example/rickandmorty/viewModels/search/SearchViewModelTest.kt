@@ -24,6 +24,7 @@ class SearchViewModelTest {
     @Before
     fun setup() {
         fakeRepo = FakeRepo()
+
         viewModel = SearchViewModel(
             GetSearchResultUseCase(fakeRepo),
             GetAllLocationUseCase(fakeRepo),

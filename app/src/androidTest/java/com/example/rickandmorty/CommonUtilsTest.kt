@@ -2,7 +2,6 @@ package com.example.rickandmorty
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.test.*
@@ -12,7 +11,6 @@ import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
-import junit.framework.TestCase.assertEquals
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -71,7 +69,7 @@ class CommonUtilsTest {
     }
 
     @Test
-    fun getRowWithOneImage_should_colour_depending_Status() {
+    fun getRowWithOneImage_should_name_depending_Status() {
         composeTestRule.setContent {
             RickAndMortyTheme() {
                 Column() {
@@ -97,11 +95,9 @@ class CommonUtilsTest {
                 }
             }
         }
-        composeTestRule.onNodeWithText("Dead")
-            .assertBackgroundColor(Color.Red)
+        composeTestRule.onNodeWithText("Dead").assertIsDisplayed()
 
-        composeTestRule.onNodeWithText("Alive")
-            .assertBackgroundColor(Color.Green)
+        composeTestRule.onNodeWithText("Alive").assertIsDisplayed()
     }
 
     @Test
@@ -171,10 +167,4 @@ class CommonUtilsTest {
         composeTestRule.onNodeWithText("Topic").assertIsDisplayed()
         composeTestRule.onNodeWithText("TopicAnswer").assertIsDisplayed()
     }
-}
-
-// to test the color of the background of any text
-fun SemanticsNodeInteraction.assertBackgroundColor(expectedBackground: Color) {
-    val capturedName = captureToImage().colorSpace.name
-    assertEquals(expectedBackground.colorSpace.name, capturedName)
 }

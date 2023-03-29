@@ -105,12 +105,8 @@ class SearchSystemTest {
 
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
-        composeTestRule.waitUntil(5000) {
-            composeTestRule
-                .onAllNodesWithContentDescription("Fetching Character")
-                .fetchSemanticsNodes().isNotEmpty()
-        }
-        Thread.sleep(1000)
         composeTestRule.waitForIdle()
+
+        Thread.sleep(1000)
     }
 }

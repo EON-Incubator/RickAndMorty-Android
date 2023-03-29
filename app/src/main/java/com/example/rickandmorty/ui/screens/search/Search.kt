@@ -53,6 +53,7 @@ fun Search(
         LazyColumn(
             state = searchListState
         ) {
+
             if (deviceType != ScreenType.PORTRAIT_PHONE) {
                 item {
                     SearchBar(
@@ -62,6 +63,7 @@ fun Search(
                         onShowLocations = onShowLocations,
                         showCharacters = showCharacters,
                         onShowCharacters = onShowCharacters
+
                     )
                 }
             }

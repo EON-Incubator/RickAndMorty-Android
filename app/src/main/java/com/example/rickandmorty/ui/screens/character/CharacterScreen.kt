@@ -55,7 +55,7 @@ fun Characters(
             .semantics { contentDescription = "characters" }
     ) {
         if (showFilter) {
-            DialogBox(genderVal, statusVal, selectGender, changeGender, changeStatus)
+            DialogBox(genderVal, statusVal, selectGender, changeGender, changeStatus,modifier=Modifier.semantics { contentDescription = "filter" })
         }
         Column(
             modifier = Modifier

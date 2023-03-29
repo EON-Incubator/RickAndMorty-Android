@@ -11,6 +11,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,6 +23,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
@@ -29,6 +32,9 @@ import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 object CharacterDetailsDestination : NavigationDestination {
     override val route = "character_detail"
@@ -45,7 +51,10 @@ fun CharacterDetails(
     onLastSeenClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
-    Log.v("id", "$state")
+    val viewModel: DetailedCharacterViewModel = hiltViewModel()
+    val isRefreshing by viewModel.isRefreshing.collectAsState()
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
+
     if (state.isLoading) {
         Scaffold(topBar = {
             RickAndMortyTopAppBar(
@@ -54,12 +63,8 @@ fun CharacterDetails(
                 navigateUp = navigateUp
             )
         }) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-                    .semantics { contentDescription = "Fetching Character" }
-            )
+
+            DetailedCharacterLoader(modifier=Modifier.padding(it))
         }
     } else {
         Scaffold(topBar = {
@@ -68,17 +73,34 @@ fun CharacterDetails(
                 canNavigateBack = true,
                 navigateUp = navigateUp
             )
+
         }) {
-            DetailedScreen(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(it),
-                charInfo = state.character,
-                onEpisodeClick = onEpisodeClick,
-                onOriginClick = onOriginClick,
-                onLastSeenClick = onLastSeenClick,
-                deviceType = deviceType
+            SwipeRefresh(
+                state = swipeRefreshState,
+                onRefresh = { viewModel.refresh() },
+                indicator = { state, refreshTrigger ->
+                    SwipeRefreshIndicator(
+                        state = state,
+                        refreshTriggerDistance = refreshTrigger,
+                        backgroundColor = MaterialTheme.colors.primary,
+                        contentColor = MaterialTheme.colors.onPrimary
+                    )
+                }
             )
+
+            {
+                DetailedScreen(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(it),
+                    charInfo = state.character,
+                    onEpisodeClick = onEpisodeClick,
+                    onOriginClick = onOriginClick,
+                    onLastSeenClick = onLastSeenClick,
+                    deviceType = deviceType
+                )
+
+            }
         }
     }
 }
@@ -92,6 +114,7 @@ fun DetailedScreen(
     onLastSeenClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
+
     Column(
         modifier = modifier
             .fillMaxSize(),
@@ -258,7 +281,6 @@ fun DetailedScreen(
                 }
                 Column(
                     modifier = modifier.weight(2f)
-
                 ) {
                     LazyColumn() {
                         item {

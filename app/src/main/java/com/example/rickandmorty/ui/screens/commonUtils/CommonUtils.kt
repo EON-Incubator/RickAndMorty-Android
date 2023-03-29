@@ -57,7 +57,7 @@ fun ScreenNameBar(
         ) {
             if (putIcon) {
                 IconButton(
-                    onClick = onFilterClick
+                    onClick = {onFilterClick()}
                 ) {
                     Icon(
                         modifier = Modifier.size(27.dp),

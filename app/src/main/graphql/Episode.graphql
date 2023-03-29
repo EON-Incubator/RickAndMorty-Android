@@ -1,4 +1,4 @@
-query GetEpisode($episodeId: ID!) {
+query GetEpisodeById($episodeId: ID!) {
     episode(id: $episodeId) {
         id
         name

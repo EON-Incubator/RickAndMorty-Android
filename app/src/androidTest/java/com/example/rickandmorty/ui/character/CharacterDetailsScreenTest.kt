@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.character.DetailedCharacter
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.character.CharacterDetails
 import com.example.rickandmorty.ui.screens.character.DetailedCharacterViewModel
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
@@ -98,5 +99,59 @@ class CharacterDetailsScreenTest() {
         composeTestRule.onNodeWithContentDescription("Back Button").performClick()
         assert(navstate)
         Thread.sleep(5000)
+    }
+
+    @Test
+    fun screen_data_check_landscape() {
+        composeTestRule.setContent {
+            RickAndMortyTheme() {
+                CharacterDetails(
+                    state = testState,
+                    navigateUp = { },
+                    onEpisodeClick = {},
+                    onOriginClick = {},
+                    onLastSeenClick = {},
+                    deviceType = ScreenType.LANDSCAPE_PHONE
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
+    }
+
+    @Test
+    fun screen_data_check_potrait() {
+        composeTestRule.setContent {
+            RickAndMortyTheme() {
+                CharacterDetails(
+                    state = testState,
+                    navigateUp = { },
+                    onEpisodeClick = {},
+                    onOriginClick = {},
+                    onLastSeenClick = {},
+                    deviceType = ScreenType.PORTRAIT_PHONE
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
+    }
+
+    @Test
+    fun screen_data_check_landscape_tablet() {
+        composeTestRule.setContent {
+            RickAndMortyTheme() {
+                CharacterDetails(
+                    state = testState,
+                    navigateUp = { },
+                    onEpisodeClick = {},
+                    onOriginClick = {},
+                    onLastSeenClick = {},
+                    deviceType = ScreenType.LANDSCAPE_TABLET
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
     }
 }

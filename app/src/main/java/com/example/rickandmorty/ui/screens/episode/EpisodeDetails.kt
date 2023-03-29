@@ -232,6 +232,7 @@ fun EpisodeDetails(
                                         icons = ImageVector.vectorResource(id = R.drawable.date),
                                         topic = stringResource(id = R.string.air_date),
                                         topicAnswer = state.selectedEpisode?.air_date.toString()
+
                                     )
                                 }
                                 Divider(

@@ -11,11 +11,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
@@ -39,11 +40,10 @@ fun EpisodesScreen(
     onSelectEpisode: (id: String?) -> Unit,
     listState: LazyGridState,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+    isRefreshing: Boolean = false,
+    onRefresh: () -> Unit = {},
 ) {
-    val viewModel: EpisodeViewModel = hiltViewModel()
-    val isRefreshing by viewModel.isRefreshing.collectAsState()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
-
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -62,7 +62,7 @@ fun EpisodesScreen(
             }
             SwipeRefresh(
                 state = swipeRefreshState,
-                onRefresh = { viewModel.updateEpisodeList() },
+                onRefresh = onRefresh,
                 indicator = { state, refreshTrigger ->
                     SwipeRefreshIndicator(
                         state = state,
@@ -88,6 +88,7 @@ fun EpisodesScreen(
                         state = listState
                     ) {
                         items(state.episodes) { episode ->
+
                             if (deviceType == ScreenType.LANDSCAPE_PHONE) {
                                 GetRowWithOneImage(
                                     imageUrlLink =
@@ -102,7 +103,11 @@ fun EpisodesScreen(
                                     property2 = episode.air_date.toString(),
                                     status = "",
                                     id = episode.id.toString(),
-                                    onClickable = onSelectEpisode
+                                    onClickable = onSelectEpisode,
+                                    icons = listOf(
+                                        ImageVector.vectorResource(id = R.drawable.episode),
+                                        ImageVector.vectorResource(id = R.drawable.date)
+                                    )
                                 )
                             } else {
                                 GetRowWithFourImages(
@@ -112,7 +117,11 @@ fun EpisodesScreen(
                                     property2 = episode.air_date.toString(),
                                     onClickable =
                                     onSelectEpisode,
-                                    id = episode.id.toString()
+                                    id = episode.id.toString(),
+                                    icons = listOf(
+                                        ImageVector.vectorResource(id = R.drawable.episode),
+                                        ImageVector.vectorResource(id = R.drawable.date)
+                                    )
                                 )
                             }
                         }

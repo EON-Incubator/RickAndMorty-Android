@@ -6,7 +6,6 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.ui.screens.ScreenType
@@ -50,6 +49,40 @@ class LocationScreenTest {
                     onClick = {},
                     listState = LazyGridState(),
                     deviceType = ScreenType.PORTRAIT_PHONE
+
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText("Location").assertIsDisplayed()
+    }
+
+    @Test
+    fun screen_name_bar_result_check_landscape() {
+        composeTestRule.setContent {
+            RickAndMortyTheme() {
+                LocationScreen(
+                    locationsUiState = viewModel,
+                    onClick = {},
+                    listState = LazyGridState(),
+                    deviceType = ScreenType.LANDSCAPE_PHONE
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText("name1").assertIsDisplayed()
+    }
+
+    @Test
+    fun screen_name_bar_result_check_tablet() {
+        composeTestRule.setContent {
+            RickAndMortyTheme() {
+                LocationScreen(
+                    locationsUiState = viewModel,
+                    onClick = {},
+                    listState = LazyGridState(),
+                    deviceType = ScreenType.LANDSCAPE_TABLET
+
                 )
             }
         }
@@ -66,6 +99,7 @@ class LocationScreenTest {
                     onClick = {},
                     listState = LazyGridState(),
                     deviceType = ScreenType.PORTRAIT_PHONE
+
                 )
             }
         }
@@ -87,6 +121,7 @@ class LocationScreenTest {
                     onClick = { id = it },
                     listState = LazyGridState(),
                     deviceType = ScreenType.PORTRAIT_PHONE
+
                 )
             }
         }

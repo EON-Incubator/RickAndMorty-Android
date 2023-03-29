@@ -14,14 +14,14 @@ val creepster_regular = FontFamily(Font(R.font.creepster_regular))
 // Set of Material typography styles to start with
 val Typography = Typography(
     h1 = TextStyle(
-        fontFamily = creepster_regular,
-        fontWeight = FontWeight.Normal,
+        fontFamily = get_schwifty,
+        fontWeight = FontWeight.ExtraBold,
         fontSize = 25.sp
     ),
 
     h2 = TextStyle(
-        fontFamily = get_schwifty,
-        fontWeight = FontWeight.Normal,
+        fontFamily = creepster_regular,
+        fontWeight = FontWeight.ExtraLight,
         fontSize = 21.sp
     ),
 

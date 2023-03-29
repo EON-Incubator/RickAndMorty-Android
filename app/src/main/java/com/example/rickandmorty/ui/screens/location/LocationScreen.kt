@@ -5,26 +5,23 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rickandmorty.ui.screens.ScreenType
+import com.example.rickandmorty.ui.screens.commonUtils.ExcludeFromJacocoGeneratedReport
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -45,12 +42,12 @@ object LocationDestination : NavigationDestination {
 @Composable
 fun LocationScreen(
     locationsUiState: LocationViewModel.LocationUiState,
+    onRefresh: () -> Unit = {},
     onClick: (String) -> Unit,
     listState: LazyGridState,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+    isRefreshing: Boolean = false,
 ) {
-    val viewModel: LocationViewModel = hiltViewModel()
-    val isRefreshing by viewModel.isRefreshing.collectAsState()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
 
     Surface(
@@ -72,7 +69,7 @@ fun LocationScreen(
 
             SwipeRefresh(
                 state = swipeRefreshState,
-                onRefresh = { viewModel.refresh() },
+                onRefresh = onRefresh,
                 indicator = { state, refreshTrigger ->
                     SwipeRefreshIndicator(
                         state = state,
@@ -102,20 +99,17 @@ fun LocationScreen(
                             // Method in CommonUtils that draws the Card with 4 Images
 
                             if (deviceType == ScreenType.LANDSCAPE_PHONE) {
-                                GetRowWithOneImage(
-                                    imageUrlLink =
-                                    if (location.images?.isEmpty() == true) {
-                                        ""
-                                    } else {
-                                        location.images?.get(0)
-                                    }
-                                        .toString(),
+                                GetRowWithFourImages(
+                                    imageUrlLink = location.images,
                                     titleName = location.name.toString(),
                                     property1 = location.type.toString(),
                                     property2 = location.dimension.toString(),
-                                    status = "",
                                     id = location.id.toString(),
-                                    onClickable = onClick
+                                    onClickable = onClick,
+                                    icons = listOf(
+                                        ImageVector.vectorResource(id = R.drawable.type),
+                                        ImageVector.vectorResource(id = R.drawable.dimension)
+                                    )
                                 )
                             } else {
                                 GetRowWithFourImages(
@@ -125,7 +119,11 @@ fun LocationScreen(
                                     property2 = location.dimension.toString(),
                                     onClickable =
                                     onClick,
-                                    id = location.id.toString()
+                                    id = location.id.toString(),
+                                    icons = listOf(
+                                        ImageVector.vectorResource(id = R.drawable.type),
+                                        ImageVector.vectorResource(id = R.drawable.dimension)
+                                    )
                                 )
                             }
                         }
@@ -139,6 +137,7 @@ fun LocationScreen(
 /**
  * View Location Screen In Light Mode
  */
+@ExcludeFromJacocoGeneratedReport
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
 fun LocationScreenPreviewLightMode() {
@@ -159,6 +158,7 @@ fun LocationScreenPreviewLightMode() {
 /**
  * View Location Screen In Dark Mode
  */
+@ExcludeFromJacocoGeneratedReport
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
 fun LocationScreenPreviewDarkMode() {

@@ -51,7 +51,11 @@ class SearchSystemTest {
             .performScrollToNode(hasContentDescription("Load More Locations"))
         composeTestRule.onNodeWithContentDescription("Load More Locations").performScrollTo()
             .performClick()
-        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Character")
+                .fetchSemanticsNodes().isEmpty()
+        }
         composeTestRule.onNodeWithText("Planetina").performClick()
     }
 

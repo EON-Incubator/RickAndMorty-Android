@@ -60,6 +60,6 @@ class NavigationTesting {
         }
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithContentDescription("applyFilter").performClick()
-        // Thread.sleep(2000)
+         //Thread.sleep(2000)
     }
 }

@@ -76,7 +76,7 @@ fun Search(
                         item {
                             Spacer(modifier = Modifier.height(5.dp))
                             Text(
-                                text = "Characters",
+                                text = "characters",
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()

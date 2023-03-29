@@ -70,7 +70,7 @@ class SearchSystemTest {
         }
         composeTestRule.onNodeWithText("Abadango").performClick()
         composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithText("Female").performClick()
+        composeTestRule.onNodeWithText("INFO").assertIsDisplayed()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

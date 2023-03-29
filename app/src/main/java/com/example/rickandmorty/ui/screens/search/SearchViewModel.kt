@@ -1,23 +1,23 @@
 package com.example.rickandmorty.ui.screens.search
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.Optional
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
-import com.example.rickandmorty.domain.search.GetSearchResultUseCase
 import com.example.rickandmorty.domain.location.LocationData
+import com.example.rickandmorty.domain.search.GetSearchResultUseCase
 import com.example.type.FilterCharacter
 import com.example.type.FilterLocation
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(

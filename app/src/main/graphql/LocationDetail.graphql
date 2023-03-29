@@ -1,4 +1,4 @@
-query LocationDetail($locationId: ID!) {
+query GetLocationById($locationId: ID!) {
     location(id: $locationId) {
         dimension
         name

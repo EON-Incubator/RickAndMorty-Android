@@ -1,4 +1,4 @@
-query SearchQuery($queryString:String!, $page:Int!) {
+query Search($queryString:String!, $page:Int!) {
     characters(filter:{name: $queryString},page: $page) {
         info {
             ...pageInfo

@@ -63,4 +63,5 @@ class EpisodesScreenTest {
         composeTestRule.onNodeWithText("S01E02").assertIsDisplayed()
         composeTestRule.onNodeWithText("2021-01-02").assertIsDisplayed()
     }
+
 }

@@ -20,7 +20,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
@@ -41,10 +40,10 @@ fun Characters(
     selectGender: () -> Unit,
     changeGender: (String) -> Unit,
     changeStatus: (String) -> Unit,
+    onRefresh: () -> Unit = {},
+    isRefreshing: Boolean = false,
 
 ) {
-    val viewModel: CharacterViewModel = hiltViewModel()
-    val isRefreshing by viewModel.isRefreshing.collectAsState()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
 
     var showFilter by remember {
@@ -70,7 +69,7 @@ fun Characters(
             )
             SwipeRefresh(
                 state = swipeRefreshState,
-                onRefresh = { viewModel.refresh() },
+                onRefresh = onRefresh,
                 indicator = { state, refreshTrigger ->
                     SwipeRefreshIndicator(
                         state = state,

@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -9,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
 @Composable
@@ -20,8 +20,16 @@ fun RickAndMortyTopAppBar(
 ) {
     if (canNavigateBack) {
         TopAppBar(
-            modifier = modifier,
-            title = { TopBar(title = title) },
+            backgroundColor = MaterialTheme.colors.primary,
+            title = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) { TopBar(title = title) }
+            },
             navigationIcon = {
                 IconButton(onClick = navigateUp) {
                     Icon(
@@ -32,24 +40,28 @@ fun RickAndMortyTopAppBar(
             }
         )
     } else {
-        TopAppBar(title = { TopBar(title = title) }, modifier = modifier)
+        TopAppBar(
+            backgroundColor = MaterialTheme.colors.primary,
+            title = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    TopBar(title = title)
+                }
+            }
+        )
     }
 }
 
 @Composable
 fun TopBar(title: String) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colors.primary),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            maxLines = 2,
-            text = title,
-            style = MaterialTheme.typography.h1,
-            color = MaterialTheme.colors.onPrimary
-        )
-    }
+    Text(
+        maxLines = 2,
+        text = title,
+        style = if (title.equals("Rick And Morty")) MaterialTheme.typography.h1 else MaterialTheme.typography.h2,
+        color = MaterialTheme.colors.onPrimary
+    )
 }

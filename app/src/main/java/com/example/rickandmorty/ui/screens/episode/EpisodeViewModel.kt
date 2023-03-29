@@ -72,5 +72,3 @@ class EpisodeViewModel @Inject constructor(
         var pages: Paginate? = null,
     )
 }
-
-

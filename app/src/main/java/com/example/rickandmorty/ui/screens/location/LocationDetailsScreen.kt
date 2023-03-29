@@ -127,7 +127,12 @@ fun GetResidents(
                         id = resident.ID.toString(),
                         onClickable = {
                             onCharacterClick(it)
-                        }
+                        },
+                        icons = listOf(
+                            ImageVector.vectorResource(id = R.drawable.man_fill0_wght400_grad0_opsz48),
+                            ImageVector.vectorResource(id = R.drawable.category_fill0_wght400_grad0_opsz48)
+                        )
+
                     )
                 }
             }

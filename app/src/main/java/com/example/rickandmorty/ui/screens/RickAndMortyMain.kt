@@ -1,6 +1,8 @@
 package com.example.rickandmorty.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -42,10 +44,6 @@ fun RickAndMortyMainApp(
         }
     }
 
-//    Log.v("Window Width", windowSize.widthSizeClass.toString())
-//
-//    Log.v("Window Height", windowSize.heightSizeClass.toString())
-
     Scaffold(
         topBar = {
             if (!invisible) {
@@ -56,6 +54,8 @@ fun RickAndMortyMainApp(
                 )
             }
         },
+        backgroundColor = MaterialTheme.colors.background,
+
         bottomBar = {
             BottomNavigationBar(
 

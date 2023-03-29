@@ -1,4 +1,4 @@
-import androidx.compose.foundation.lazy.LazyListState
+
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule

@@ -21,17 +21,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
-import com.example.rickandmorty.domain.character.DetailedCharacter
-import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
-import com.example.rickandmorty.ui.screens.location.GetInfo
-import com.example.rickandmorty.ui.screens.location.GetResidents
-import com.example.rickandmorty.ui.screens.location.LocationDetailViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -39,9 +34,8 @@ fun EpisodeDetails(
     state: EpisodeDetailViewModel.DetailEpisodesState,
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
-    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE
+    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
-
     Scaffold(topBar = {
         if (state.isLoading) {
             RickAndMortyTopAppBar(
@@ -142,7 +136,7 @@ fun EpisodeDetails(
             ) {
                 if (state.isLoading) {
                 } else if (state.selectedEpisode != null) {
-                    if (deviceType == ScreenType.PORTRAIT_PHONE){
+                    if (deviceType == ScreenType.PORTRAIT_PHONE) {
                         Column() {
                             Spacer(modifier = Modifier.height(15.dp))
                             Text(
@@ -206,10 +200,11 @@ fun EpisodeDetails(
                                 ImageVector.vectorResource(id = R.drawable.ic_broken_image)
                             }
                         }
-                    } else if (deviceType == ScreenType.LANDSCAPE_PHONE){
-                        Row(modifier = Modifier
-                            .fillMaxSize()
-                            .padding(it)
+                    } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(it)
                         ) {
                             Column(modifier = Modifier.weight(2F)) {
                                 Spacer(modifier = Modifier.height(15.dp))
@@ -237,6 +232,7 @@ fun EpisodeDetails(
                                         icons = ImageVector.vectorResource(id = R.drawable.date),
                                         topic = stringResource(id = R.string.air_date),
                                         topicAnswer = state.selectedEpisode?.air_date.toString()
+
                                     )
                                 }
                                 Divider(
@@ -247,7 +243,7 @@ fun EpisodeDetails(
                                 Spacer(modifier = Modifier.height(40.dp))
                             }
 
-                            Column (modifier = Modifier.weight(5F)) {
+                            Column(modifier = Modifier.weight(5F)) {
                                 Text(
                                     text = stringResource(R.string.characters),
                                     fontSize = 12.sp,
@@ -341,8 +337,6 @@ fun EpisodeDetails(
                                 ImageVector.vectorResource(id = R.drawable.ic_broken_image)
                             }
                         }
-
-
                     }
                 } else {
                     Image(
@@ -354,7 +348,6 @@ fun EpisodeDetails(
         }
     }
 }
-
 
 object EpisodeDetailsDestination : NavigationDestination {
     override val route = "episode_detail"

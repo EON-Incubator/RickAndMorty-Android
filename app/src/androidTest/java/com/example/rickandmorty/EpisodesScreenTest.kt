@@ -1,6 +1,3 @@
-
-// import androidx.compose.ui.test.junit4.onNodeWithText
-// import androidx.compose.ui.test.junit4.onNodeWithTag
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -20,103 +17,41 @@ class EpisodesScreenTest {
 
     @Test
     fun episodesScreenTest() {
-        // Set up the viewmodel with some test data.
-        val viewModel = EpisodeViewModel.EpisodesState(
-            episodes = listOf(
-                Episodes(
-                    "1",
-                    "Episode 1",
-                    "S01E01",
-                    "2021-01-01",
-                    listOf("image_url_1", "image_url_2")
-                ),
-                Episodes(
-                    "2",
-                    "Episode 2",
-                    "S01E02",
-                    "2021-01-02",
-                    listOf("image_url_3", "image_url_4")
-                )
-            ),
-            isLoading = false,
-            pages = Paginate(1, 2, 0, 20)
-        )
-
-        // Set up the composable with the viewmodel.
-        composeTestRule.setContent {
-            EpisodesScreen(
-                state = viewModel,
-                onSelectEpisode = { },
-                listState = LazyGridState(),
-                deviceType = ScreenType.PORTRAIT_PHONE
-            )
-        }
+        val viewModel = testDataSetup()
+        screen(viewModel, ScreenType.PORTRAIT_PHONE)
 
         // Delays the screen for 5 seconds to show the data passed.
         Thread.sleep(5000)
 
-        // Verify that the screen title is displayed.
-        composeTestRule.onNodeWithText("Episodes").assertIsDisplayed()
-
-        // Verify that the list of items are displayed.
-        composeTestRule.onNodeWithText("Episode 1").assertIsDisplayed()
-        composeTestRule.onNodeWithText("S01E01").assertIsDisplayed()
-        composeTestRule.onNodeWithText("2021-01-01").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Episode 2").assertIsDisplayed()
-        composeTestRule.onNodeWithText("S01E02").assertIsDisplayed()
-        composeTestRule.onNodeWithText("2021-01-02").assertIsDisplayed()
+        asserts()
     }
 
     @Test
     fun episodesScreenTestLandscape() {
-        // Set up the viewmodel with some test data.
-        val viewModel = EpisodeViewModel.EpisodesState(
-            episodes = listOf(
-                Episodes(
-                    "1",
-                    "Episode 1",
-                    "S01E01",
-                    "2021-01-01",
-                    listOf("image_url_1", "image_url_2")
-                ),
-                Episodes(
-                    "2",
-                    "Episode 2",
-                    "S01E02",
-                    "2021-01-02",
-                    listOf("image_url_3", "image_url_4")
-                )
-            ),
-            isLoading = false,
-            pages = Paginate(1, 2, 0, 20)
-        )
+        val viewModel = testDataSetup()
+        screen(viewModel, ScreenType.LANDSCAPE_PHONE)
 
-        // Set up the composable with the viewmodel.
-        composeTestRule.setContent {
-            EpisodesScreen(
-                state = viewModel,
-                onSelectEpisode = { },
-                listState = LazyGridState(),
-                deviceType = ScreenType.LANDSCAPE_PHONE
-            )
-        }
+        // Delays the screen for 5 seconds to show the data passed.
+        Thread.sleep(5000)
+
+        asserts(isEpisodesDisplayed = false)
+    }
+
+    @Test
+    fun episodesScreenTestTablet() {
+        val viewModel = testDataSetup()
+        screen(viewModel, ScreenType.LANDSCAPE_TABLET)
 
         // Delays the screen for 5 seconds to show the data passed.
         Thread.sleep(5000)
 
         // Verify that the list of items are displayed.
-        composeTestRule.onNodeWithText("Episode 1").assertIsDisplayed()
-        composeTestRule.onNodeWithText("S01E01").assertIsDisplayed()
-        composeTestRule.onNodeWithText("2021-01-01").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Episode 2").assertIsDisplayed()
-        composeTestRule.onNodeWithText("S01E02").assertIsDisplayed()
-        composeTestRule.onNodeWithText("2021-01-02").assertIsDisplayed()
+        asserts(isEpisodesDisplayed = false)
     }
 
-    @Test
-    fun episodesScreenTestTablet() {
-        // Set up the viewmodel with some test data.
-        val viewModel = EpisodeViewModel.EpisodesState(
+    // Set up the viewmodel with some test data.
+    private fun testDataSetup(): EpisodeViewModel.EpisodesState {
+        return EpisodeViewModel.EpisodesState(
             episodes = listOf(
                 Episodes(
                     "1",
@@ -136,19 +71,28 @@ class EpisodesScreenTest {
             isLoading = false,
             pages = Paginate(1, 2, 0, 20)
         )
+    }
 
-        // Set up the composable with the viewmodel.
+    // Set up the composable with the viewmodel and indicate screen type.
+    private fun screen(
+        viewModel: EpisodeViewModel.EpisodesState,
+        screenType: ScreenType,
+    ) {
         composeTestRule.setContent {
             EpisodesScreen(
                 state = viewModel,
                 onSelectEpisode = { },
                 listState = LazyGridState(),
-                deviceType = ScreenType.LANDSCAPE_TABLET
+                deviceType = screenType
             )
         }
+    }
 
-        // Delays the screen for 5 seconds to show the data passed.
-        Thread.sleep(5000)
+    private fun asserts(isEpisodesDisplayed: Boolean = true) {
+        // Verify that the screen title is displayed.
+        if (isEpisodesDisplayed) {
+            composeTestRule.onNodeWithText("Episodes").assertIsDisplayed()
+        }
 
         // Verify that the list of items are displayed.
         composeTestRule.onNodeWithText("Episode 1").assertIsDisplayed()

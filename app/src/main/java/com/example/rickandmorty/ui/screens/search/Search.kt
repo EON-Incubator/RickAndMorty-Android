@@ -62,6 +62,7 @@ fun Search(
                         onShowLocations = onShowLocations,
                         showCharacters = showCharacters,
                         onShowCharacters = onShowCharacters
+
                     )
                 }
             }
@@ -123,7 +124,10 @@ fun Search(
                                 ) {
                                     Text(
                                         text =
-                                        "Load More"
+                                        "Load More",
+                                        modifier = Modifier.semantics {
+                                            contentDescription = "Load More Characters"
+                                        }
                                     )
                                 }
                             }
@@ -192,7 +196,10 @@ fun Search(
                                 ) {
                                     Text(
                                         text =
-                                        "Load More"
+                                        "Load More",
+                                        modifier = Modifier.semantics {
+                                            contentDescription = "Load More Locations"
+                                        }
                                     )
                                 }
                             }

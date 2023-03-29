@@ -82,13 +82,12 @@ class FakeRepo : CharacterClient {
     }
 
     override suspend fun getSearchResult(queryString: String, page: Int): SearchResult? {
-//        if(queryString.equals( "Rick")){
         return SearchResult(
             CharacterData(
                 pages = Paginate(
-                    next = null,
+                    next = 1,
                     prev = 1,
-                    pages = 1,
+                    pages = 2,
                     count = 1
                 ),
                 characters = listOf(
@@ -106,7 +105,7 @@ class FakeRepo : CharacterClient {
                 pages = Paginate(
                     next = null,
                     prev = 1,
-                    pages = 1,
+                    pages = 2,
                     count = 1
                 ),
                 locations = listOf(
@@ -122,9 +121,9 @@ class FakeRepo : CharacterClient {
             ),
             LocationData(
                 pages = Paginate(
-                    next = null,
+                    next = 1,
                     prev = 1,
-                    pages = 1,
+                    pages = 2,
                     count = 1
                 ),
                 locations = listOf(

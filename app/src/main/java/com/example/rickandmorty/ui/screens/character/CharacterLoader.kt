@@ -15,15 +15,18 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
 @Composable
-fun CharacterLoader() {
+fun CharacterLoader(modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.padding(8.dp)
+        modifier = Modifier
+            .padding(8.dp)
             .semantics { contentDescription = "Fetching Characters" }
     ) {
         repeat(8) {
@@ -52,6 +55,85 @@ fun CharacterLoader() {
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun DetailedCharacterLoader(modifier: Modifier = Modifier) {
+//    LazyVerticalGrid(
+//        columns = GridCells.Fixed(2),
+//        verticalArrangement = Arrangement.spacedBy(8.dp),
+//        horizontalArrangement = Arrangement.Center,
+//        modifier = Modifier
+//            .padding(8.dp)
+//            .semantics { contentDescription = "Fetching Characters" }
+//    ) {
+    repeat(8) {
+//            item {
+//
+//                Card(
+//                    modifier = Modifier
+//                        .padding(12.dp)
+//                        .fillMaxSize()
+//                        .clip(RoundedCornerShape(12.dp))
+//                        .clickable { },
+//                    elevation = 12.dp
+//                ) {
+//                    Box(contentAlignment = Alignment.BottomCenter) {
+//                        AsyncImage(
+//                            model = "",
+//                            contentDescription = null,
+//                            modifier = Modifier
+//                                .fillMaxSize()
+//                                .clip(
+//                                    RoundedCornerShape(8.dp)
+//                                )
+//                                .shimmerBackground(RoundedCornerShape(40.dp))
+//                                .size(150.dp),
+//                            contentScale = ContentScale.Crop
+//                        )
+//                    }
+        Column() {
+//   AsyncImage(
+//                model = "",
+//                contentDescription = null,
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .clip(
+//                        RoundedCornerShape(8.dp)
+//                    )
+//                    .shimmerBackground(RoundedCornerShape(40.dp))
+//                    .size(150.dp),
+//                contentScale = ContentScale.Crop
+//   )
+
+            CharacterDetails(
+                state = DetailedCharacterViewModel.detailedcharacterState(
+                    DetailedCharacter(
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        listOf<Episodes>(),
+                        "",
+                        "",
+                        "",
+                        ""
+
+                    ),
+                    isLoading = false
+
+                ),
+                navigateUp = { /*TODO*/ },
+                onEpisodeClick = {},
+                onOriginClick = {},
+                onLastSeenClick = {},
+
+                modifier = Modifier.shimmerBackground()
+            )
         }
     }
 }

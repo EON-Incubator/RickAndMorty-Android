@@ -39,5 +39,27 @@ class NavigationTesting {
             composeTestRule.onAllNodesWithContentDescription("Fetching Episodes").fetchSemanticsNodes().isEmpty()
         }
         composeTestRule.onNodeWithContentDescription("Search").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithContentDescription("Characters").performClick()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Characters")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithContentDescription("Filter").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("filter")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithContentDescription("applyFilter").performClick()
+        // Thread.sleep(2000)
     }
 }

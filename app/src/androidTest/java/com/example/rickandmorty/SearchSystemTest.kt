@@ -79,7 +79,7 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Character")
                 .fetchSemanticsNodes().isEmpty()
         }
-        composeTestRule.onNodeWithText("Pilot").performClick()
+        composeTestRule.onNodeWithText("Male").assertIsDisplayed()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

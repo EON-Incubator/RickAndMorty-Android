@@ -61,7 +61,6 @@ fun CharacterDetails(
                 navigateUp = navigateUp
             )
         }) {
-
             DetailedCharacterLoader(modifier = Modifier.padding(it))
         }
     } else {
@@ -137,7 +136,6 @@ fun DetailedScreen(
                         Divider(color = Color.Black, thickness = 2.dp)
                         Column {
                             infoPart1(charInfo = charInfo)
-
 
                             infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
                             Divider(thickness = 2.dp)

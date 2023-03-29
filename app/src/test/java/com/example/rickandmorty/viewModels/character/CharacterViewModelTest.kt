@@ -5,6 +5,7 @@ import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.character.CharacterViewModel
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -46,6 +47,7 @@ class CharacterViewModelTest() {
 
         assertEquals("Female", viewModel.gender)
         assertEquals("Alive", viewModel.status)
+        assertNotEquals("Dead", viewModel.status)
 
     }
 }

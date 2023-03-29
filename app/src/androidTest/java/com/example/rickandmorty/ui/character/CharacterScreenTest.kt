@@ -9,8 +9,10 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.character.CharacterViewModel
 import com.example.rickandmorty.ui.screens.character.Characters
+import com.example.rickandmorty.ui.screens.location.LocationScreen
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import org.junit.Before
 import org.junit.Rule
@@ -132,4 +134,7 @@ class CharacterScreenTest() {
         composeTestRule.onNodeWithText("Filter for Characters").assertIsDisplayed()
         composeTestRule.onNodeWithText("Click to Apply").assertIsDisplayed()
     }
+
+
+
 }

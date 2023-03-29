@@ -49,9 +49,6 @@ fun CharacterDetails(
     onLastSeenClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
-    val viewModel: DetailedCharacterViewModel = hiltViewModel()
-    val isRefreshing by viewModel.isRefreshing.collectAsState()
-    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
 
     if (state.isLoading) {
         Scaffold(topBar = {
@@ -72,18 +69,7 @@ fun CharacterDetails(
                 navigateUp = navigateUp
             )
         }) {
-            SwipeRefresh(
-                state = swipeRefreshState,
-                onRefresh = { viewModel.refresh() },
-                indicator = { state, refreshTrigger ->
-                    SwipeRefreshIndicator(
-                        state = state,
-                        refreshTriggerDistance = refreshTrigger,
-                        backgroundColor = MaterialTheme.colors.primary,
-                        contentColor = MaterialTheme.colors.onPrimary
-                    )
-                }
-            ) {
+
                 DetailedScreen(
                     modifier = modifier
                         .fillMaxSize()
@@ -94,7 +80,7 @@ fun CharacterDetails(
                     onLastSeenClick = onLastSeenClick,
                     deviceType = deviceType
                 )
-            }
+
         }
     }
 }

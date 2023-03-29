@@ -1,7 +1,5 @@
 package com.example.rickandmorty.viewModels.location
 
-// import kotlinx.coroutines.ExperimentalCoroutinesApi
-// import kotlinx.coroutines.test.runTest
 import androidx.lifecycle.SavedStateHandle
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
@@ -27,7 +25,6 @@ class LocationDetailViewModelTest {
         viewModel = LocationDetailViewModel(
             GetLocationDetailUseCase(fakeRepo),
 
-            //  savedStateHandle = SavedStateHandle()
             savedStateHandle = SavedStateHandle(
                 mapOf("id" to "1")
             )
@@ -37,10 +34,6 @@ class LocationDetailViewModelTest {
 
     @Test
     fun `When  getting a locations, state is shown`() {
-//        runTest {
-//            viewModel.getLocationDetail("1")
-//        }
-
         assert(viewModel.locationDetail.value is LocationDetailViewModel.LocationDetailUiState)
     }
 

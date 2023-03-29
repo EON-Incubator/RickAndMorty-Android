@@ -199,7 +199,6 @@ fun EpisodeDetails(
                                 .padding(it)
                         ) {
                             Column(modifier = Modifier.weight(2F)) {
-//                                Spacer(modifier = Modifier.height(15.dp))
                                 Text(
                                     text = stringResource(R.string.info),
                                     fontSize = 12.sp,
@@ -266,72 +265,6 @@ fun EpisodeDetails(
                             }
                         }
                     }
-//                    else
-//                    {
-//                        Column() {
-//                            Spacer(modifier = Modifier.height(15.dp))
-//                            Text(
-//                                text = stringResource(R.string.info),
-//                                fontSize = 12.sp,
-//                                modifier = Modifier
-//                                    .padding(start = 10.dp)
-//                            )
-//
-//                            Spacer(modifier = Modifier.height(8.dp))
-//                            Divider(
-//                                Modifier.height(1.dp),
-//                                color = MaterialTheme.colors.onBackground
-//                            )
-//
-//                            GetInfoInLine(
-//                                icons = ImageVector.vectorResource(id = R.drawable.episode),
-//                                topic = stringResource(id = R.string.episode),
-//                                topicAnswer = state.selectedEpisode?.episode.toString()
-//                            )
-//
-//                            Row() {
-//                                GetInfoInLine(
-//                                    icons = ImageVector.vectorResource(id = R.drawable.date),
-//                                    topic = stringResource(id = R.string.air_date),
-//                                    topicAnswer = state.selectedEpisode?.air_date.toString()
-//                                )
-//                            }
-//                            Divider(
-//                                Modifier.height(1.dp),
-//                                color = MaterialTheme.colors.onBackground
-//                            )
-//
-//                            Spacer(modifier = Modifier.height(40.dp))
-//
-//                            Text(
-//                                text = stringResource(R.string.characters),
-//                                fontSize = 12.sp,
-//                                modifier = Modifier
-//                                    .padding(start = 10.dp)
-//                            )
-//
-//                            if (state.selectedEpisode.characters.isNotEmpty()) {
-//                                Log.v("character", state.characters.toString())
-//                                LazyColumn() {
-//                                    items(state.selectedEpisode.characters) { episode ->
-//                                        GetRowWithOneImage(
-//                                            imageUrlLink = episode.image.toString(),
-//                                            titleName = episode.name.toString(),
-//                                            property1 = episode.gender.toString(),
-//                                            property2 = episode.species.toString(),
-//                                            status = episode.status.toString(),
-//                                            id = episode.ID.toString(),
-//                                            onClickable = {
-//                                                onCharacterClick(it)
-//                                            }
-//                                        )
-//                                    }
-//                                }
-//                            } else {
-//                                ImageVector.vectorResource(id = R.drawable.ic_broken_image)
-//                            }
-//                        }
-//                    }
                 } else {
                     Image(
                         painter = painterResource(id = R.drawable.ic_broken_image),

@@ -35,10 +35,6 @@ class SearchViewModelTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `when getting all results, confirmaing the data in state`() {
-//        assert(!viewModel.searchResult.value.isLoading)
-//        runTest {
-//            viewModel.onSearch("Rick")
-//        }
         runTest {
             viewModel.onSearch("Rick")
         }

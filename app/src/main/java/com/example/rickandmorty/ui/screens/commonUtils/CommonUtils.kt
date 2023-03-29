@@ -86,11 +86,6 @@ fun GetInfoInLine(
     icons: ImageVector,
     topic: String,
     topicAnswer: String,
-//    modifier: Modifier = Modifier.clickable {
-//        if (showIt != "null") {
-//            action()
-//        }
-//    },
     modifier: Modifier = Modifier,
     showIt: String? = null,
     action: () -> Unit = {},
@@ -127,13 +122,6 @@ fun GetInfoInLine(
             fontWeight = FontWeight.Normal,
             maxLines = 2
         )
-
-//        if (showIt != null  ) {
-//            Icon(
-//                imageVector = Icons.Outlined.KeyboardArrowRight,
-//                contentDescription = "to go on next location screen"
-//            )
-//        }
 
         iconArrow?.let {
             Icon(

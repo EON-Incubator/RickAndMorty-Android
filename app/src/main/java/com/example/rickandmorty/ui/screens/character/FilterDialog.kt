@@ -83,7 +83,6 @@ fun DropdownDemo(
 ): String {
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf(options[0]) }
-    // selectGender(selectedOptionText)
 
     ExposedDropdownMenuBox(
         expanded = expanded,

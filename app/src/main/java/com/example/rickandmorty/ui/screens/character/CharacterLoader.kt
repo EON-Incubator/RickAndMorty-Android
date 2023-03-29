@@ -61,53 +61,8 @@ fun CharacterLoader(modifier: Modifier = Modifier) {
 
 @Composable
 fun DetailedCharacterLoader(modifier: Modifier = Modifier) {
-//    LazyVerticalGrid(
-//        columns = GridCells.Fixed(2),
-//        verticalArrangement = Arrangement.spacedBy(8.dp),
-//        horizontalArrangement = Arrangement.Center,
-//        modifier = Modifier
-//            .padding(8.dp)
-//            .semantics { contentDescription = "Fetching Characters" }
-//    ) {
     repeat(8) {
-//            item {
-//
-//                Card(
-//                    modifier = Modifier
-//                        .padding(12.dp)
-//                        .fillMaxSize()
-//                        .clip(RoundedCornerShape(12.dp))
-//                        .clickable { },
-//                    elevation = 12.dp
-//                ) {
-//                    Box(contentAlignment = Alignment.BottomCenter) {
-//                        AsyncImage(
-//                            model = "",
-//                            contentDescription = null,
-//                            modifier = Modifier
-//                                .fillMaxSize()
-//                                .clip(
-//                                    RoundedCornerShape(8.dp)
-//                                )
-//                                .shimmerBackground(RoundedCornerShape(40.dp))
-//                                .size(150.dp),
-//                            contentScale = ContentScale.Crop
-//                        )
-//                    }
         Column() {
-//   AsyncImage(
-//                model = "",
-//                contentDescription = null,
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .clip(
-//                        RoundedCornerShape(8.dp)
-//                    )
-//                    .shimmerBackground(RoundedCornerShape(40.dp))
-//                    .size(150.dp),
-//                contentScale = ContentScale.Crop
-//   )
-
             CharacterDetails(
                 state = DetailedCharacterViewModel.detailedcharacterState(
                     DetailedCharacter(
@@ -125,13 +80,11 @@ fun DetailedCharacterLoader(modifier: Modifier = Modifier) {
 
                     ),
                     isLoading = false
-
                 ),
                 navigateUp = { /*TODO*/ },
                 onEpisodeClick = {},
                 onOriginClick = {},
                 onLastSeenClick = {},
-
                 modifier = Modifier.shimmerBackground()
             )
         }

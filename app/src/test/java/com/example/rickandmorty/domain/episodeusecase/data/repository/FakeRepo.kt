@@ -186,9 +186,4 @@ class FakeRepo : CharacterClient {
 
         )
     }
-
-//        else{
-//            return null
-//        }
-//    }
 }

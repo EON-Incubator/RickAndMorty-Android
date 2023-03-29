@@ -1,5 +1,3 @@
-// import androidx.compose.ui.test.junit4.onNodeWithText
-// import androidx.compose.ui.test.junit4.onNodeWithTag
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -160,26 +158,4 @@ class EpisodesDetailScreenTest {
         composeTestRule.onNodeWithText("Female").assertIsDisplayed()
         composeTestRule.onNodeWithText("Vampire").assertIsDisplayed()
     }
-
-//    fun asserts(
-//        screenTitle:
-//
-//
-//    ){
-//        composeTestRule.onNodeWithText("Pilot").assertIsDisplayed()
-//
-//        // Verify that the episode info is displayed.
-//        composeTestRule.onNodeWithText("S01E01").assertIsDisplayed()
-//        composeTestRule.onNodeWithText("2021-01-01").assertIsDisplayed()
-//
-//        // Verify that the list of characters are displayed.
-//        composeTestRule.onNodeWithText("Alive").assertIsDisplayed()
-//        composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
-//        composeTestRule.onNodeWithText("Male").assertIsDisplayed()
-//        composeTestRule.onNodeWithText("Human").assertIsDisplayed()
-//        composeTestRule.onNodeWithText("Dead").assertIsDisplayed()
-//        composeTestRule.onNodeWithText("Minty").assertIsDisplayed()
-//        composeTestRule.onNodeWithText("Female").assertIsDisplayed()
-//        composeTestRule.onNodeWithText("Vampire").assertIsDisplayed()
-//    }
 }

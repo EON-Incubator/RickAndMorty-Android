@@ -1,7 +1,5 @@
 package com.example.rickandmorty.viewModels.episode
 
-// import kotlinx.coroutines.ExperimentalCoroutinesApi
-// import kotlinx.coroutines.test.runTest
 import com.example.rickandmorty.domain.episodeusecase.GetAllEpisodeUseCase
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import com.example.rickandmorty.rules.TestDispatcherRule
@@ -29,19 +27,11 @@ class EpisodeViewModelTest {
 
     @Test
     fun `When getting all episodes, state is shown`() {
-//        runTest {
-//            viewModel.getAllLocations()
-//        }
-
         assert(viewModel.state.value is EpisodeViewModel.EpisodesState)
     }
 
     @Test
     fun `when getting all episodes, confirming the data in state`() {
-//        runTest {
-//            viewModel.getAllLocations()
-//        }
-
         assert(!viewModel.state.value.isLoading)
         assertEquals(viewModel.state.value.episodes.get(0).id, "id")
         assertNotEquals(viewModel.state.value.episodes.get(0).name, "name2")

@@ -2,7 +2,10 @@ package com.example.rickandmorty.ui.screens.commonUtils
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,6 +16,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+@ExcludeFromJacocoGeneratedReport
 @Composable
 fun Modifier.shimmerBackground(shape: Shape = RectangleShape): Modifier = composed {
     val transition = rememberInfiniteTransition()
@@ -37,6 +41,7 @@ fun Modifier.shimmerBackground(shape: Shape = RectangleShape): Modifier = compos
     return@composed this.then(background(brush, shape))
 }
 
+@ExcludeFromJacocoGeneratedReport
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun showLoader() {

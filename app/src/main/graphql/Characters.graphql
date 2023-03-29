@@ -1,4 +1,4 @@
-query CharactersQuery($filter:FilterCharacter!, $page:Int!) {
+query GetAllCharacters($filter:FilterCharacter!, $page:Int!) {
     characters(filter:$filter,page: $page) {
             info {
                 ...pageInfo

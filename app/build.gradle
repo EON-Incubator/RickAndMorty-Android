@@ -132,7 +132,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test:core-ktx:1.4.0'
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:4.9.1"
-//    androidTestImplementation "io.mockk:mockk-android:1.10.5"
     androidTestImplementation 'androidx.test:runner:1.4.0'
 
     // Testing dependencies
@@ -149,9 +148,6 @@ dependencies {
     implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
 
     //Pull to Refresh
-//    implementation "androidx.compose.material:material:1.3.0-beta03"
-//    implementation 'androidx.compose.material:material:1.4.0-alpha02'
-//    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation "com.google.accompanist:accompanist-swiperefresh:0.27.0"
 
 }

@@ -5,16 +5,15 @@ import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.EpisodesData
 import com.example.rickandmorty.domain.Paginate
-import com.example.rickandmorty.domain.location.Location
-import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
-import com.example.rickandmorty.domain.episodes.Episode
+import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationData
+import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.domain.search.SearchResult
 
-fun CharactersQuery.Characters.toCharacter(): CharacterData {
+fun GetAllCharactersQuery.Characters.toCharacter(): CharacterData {
     return CharacterData(
         pages = Paginate(
             next = info?.pageInfo?.next,
@@ -57,7 +56,7 @@ fun AllLocationsQuery.Locations.toAllLocations(): com.example.rickandmorty.domai
     )
 }
 
-fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
+fun GetLocationByIdQuery.Location.toLocationDetail(): LocationDetail {
     return LocationDetail(
         dimension = dimension,
         name = name,
@@ -80,7 +79,7 @@ fun LocationDetailQuery.Location.toLocationDetail(): LocationDetail {
     )
 }
 
-fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
+fun GetCharacterByIdQuery.Character.toSpecificChar(): DetailedCharacter {
     return DetailedCharacter(
         ID = id,
         name = name,
@@ -105,7 +104,7 @@ fun SpecificCharacterQuery.Character.toSpecificChar(): DetailedCharacter {
     )
 }
 
-fun GetEpisodeQuery.Episode.toDetailedEpisode(): DetailedEpisode {
+fun GetEpisodeByIdQuery.Episode.toDetailedEpisode(): DetailedEpisode {
     return DetailedEpisode(
         id = id,
         name = name,

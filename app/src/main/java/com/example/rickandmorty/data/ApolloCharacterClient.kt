@@ -2,13 +2,13 @@ package com.example.rickandmorty.data
 
 import com.apollographql.apollo3.ApolloClient
 import com.example.*
-import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.DetailedEpisode
-import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.EpisodesData
 import com.example.rickandmorty.domain.character.CharacterData
+import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.LocationData
+import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.domain.search.SearchResult
 import com.example.type.FilterCharacter
 import com.example.type.FilterEpisode
@@ -19,7 +19,7 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) :
     override suspend fun getCharacters(filterCharacter: FilterCharacter, page: Int):
         CharacterData? {
         return apolloClient
-            .query(CharactersQuery(filterCharacter, page))
+            .query(GetAllCharactersQuery(filterCharacter, page))
             .execute()
             .data
             ?.characters
@@ -37,7 +37,7 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) :
 
     override suspend fun getLocationDetail(id: String): LocationDetail? {
         return apolloClient
-            .query(LocationDetailQuery(id))
+            .query(GetLocationByIdQuery(id))
             .execute()
             .data
             ?.location
@@ -45,7 +45,7 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) :
     }
 
     override suspend fun getSingleCharacter(code: String): DetailedCharacter? {
-        return apolloClient.query(SpecificCharacterQuery(code))
+        return apolloClient.query(GetCharacterByIdQuery(code))
             .execute().data?.character?.toSpecificChar()
     }
 
@@ -64,7 +64,7 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) :
 
     override suspend fun getEpisode(id: String): DetailedEpisode? {
         return apolloClient
-            .query(GetEpisodeQuery(id))
+            .query(GetEpisodeByIdQuery(id))
             .execute()
             .data
             ?.episode

@@ -30,7 +30,7 @@ fun DialogBox(
                 showDialog.value = false
             },
             title = {
-                Text(text = "Filter for Characters", Modifier.padding(bottom=12.dp))
+                Text(text = "Filter for Characters", Modifier.padding(bottom = 12.dp))
             },
             text = {
                 val statusList = listOf<String>("All", "Alive", "dead", "unknown")

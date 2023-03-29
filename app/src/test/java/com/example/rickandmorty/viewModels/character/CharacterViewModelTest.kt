@@ -30,27 +30,26 @@ class CharacterViewModelTest() {
 
     @Test
     fun `When getting all characters, checking correct data is getting here`() {
-        assertEquals("ID",viewModel.characters.value.characters.get(0).ID)
-        assertEquals(3,viewModel.characters.value.pages?.next)
+        assertEquals("ID", viewModel.characters.value.characters.get(0).ID)
+        assertEquals(3, viewModel.characters.value.pages?.next)
     }
+
     @Test
-    fun `When getting all characters, gender state and alive status changing with bussiness logic or not `(){
+    fun `When getting all characters, gender state and alive status changing with bussiness logic or not `() {
         viewModel.changeGender("")
         assertEquals("", viewModel.gender)
         viewModel.changeStatus("")
-        assertEquals("",viewModel.status)
-
+        assertEquals("", viewModel.status)
     }
 
     @Test
-    fun `checking selectFilter method is running or not `(){
-        viewModel.gender="Female"
-        viewModel.status="Alive"
+    fun `checking selectFilter method is running or not `() {
+        viewModel.gender = "Female"
+        viewModel.status = "Alive"
         viewModel.selectFilter()
 
         assertEquals("Female", viewModel.gender)
         assertEquals("Alive", viewModel.status)
         assertNotEquals("Dead", viewModel.status)
-
     }
 }

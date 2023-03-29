@@ -1,10 +1,8 @@
 package com.example.rickandmorty.domain.episodeusecase
 
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
-import kotlinx.coroutines.runBlocking
 
 import org.junit.Before
-import org.junit.Test
 
 class GetAllEpisodeUseCaseTest {
 
@@ -32,11 +30,6 @@ class GetAllEpisodeUseCaseTest {
 //        runBlocking {
 //            episodeToInsert.forEach { fakeRepo.getEpisodes() }
 //        }
-    }
-
-    @Test
-    fun `Order episode by name ascending, correct order`() = runBlocking {
-        val allEpisode = getAllEpisodeUseCase.execute()
     }
 
 //    @Test

@@ -30,7 +30,6 @@ class SearchViewModelTest {
             GetAllLocationUseCase(fakeRepo),
             GetCharacterUseCase(fakeRepo)
         )
-
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -34,11 +34,29 @@ class SearchSystemTest {
         composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
             hasContentDescription("Item Name")
         )
-        composeTestRule.onNodeWithContentDescription("Load More Characters").performClick()
+        composeTestRule.onNodeWithTag("search_lazy_column")
+            .performScrollToNode(hasContentDescription("Load More Characters"))
+        composeTestRule.onNodeWithContentDescription("Load More Characters").performScrollTo()
+            .performClick()
         composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithContentDescription("Load More Locations").performClick()
+        composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Planet")
+        composeTestRule.onNodeWithContentDescription("Search Bar").assert(hasText("Planet"))
         composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithText("Rick Sanchez").performClick()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithTag("search_lazy_column")
+            .performScrollToNode(hasContentDescription("Load More Locations"))
+        composeTestRule.onNodeWithContentDescription("Load More Locations").performScrollTo()
+            .performClick()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Character")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithText("Planetina").performClick()
     }
 
     /**
@@ -75,7 +93,7 @@ class SearchSystemTest {
         }
         composeTestRule.onNodeWithText("Abadango").performClick()
         composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithText("Female").performClick()
+        composeTestRule.onNodeWithText("INFO").assertIsDisplayed()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

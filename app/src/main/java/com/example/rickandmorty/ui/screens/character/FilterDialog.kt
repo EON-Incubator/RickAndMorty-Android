@@ -15,7 +15,7 @@ fun DialogBox(
     selectGender: () -> Unit,
     changeGender: (String) -> Unit,
     changeStatus: (String) -> Unit,
-    modifier: Modifier=Modifier
+    modifier: Modifier = Modifier,
 ) {
     var genderState by remember {
         mutableStateOf("null")
@@ -40,7 +40,7 @@ fun DialogBox(
                         options = genderList,
                         tag = "Gender",
                         selectedValue = genderVal,
-                        setup = changeGender,
+                        setup = changeGender
 
                     )
                     Spacer(modifier = Modifier.height(12.dp))
@@ -58,7 +58,7 @@ fun DialogBox(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Button(
-                        modifier = Modifier.fillMaxWidth().semantics { contentDescription="applyFilter" },
+                        modifier = Modifier.fillMaxWidth().semantics { contentDescription = "applyFilter" },
                         onClick = {
                             selectGender()
                             showDialog.value = false

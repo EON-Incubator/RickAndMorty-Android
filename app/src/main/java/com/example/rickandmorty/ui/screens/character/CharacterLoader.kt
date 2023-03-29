@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens.character
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -18,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.character.DetailedCharacter
-import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
 @Composable
@@ -97,8 +95,6 @@ fun DetailedCharacterLoader(modifier: Modifier = Modifier) {
 //                        )
 //                    }
         Column() {
-
-
 //   AsyncImage(
 //                model = "",
 //                contentDescription = null,
@@ -127,7 +123,6 @@ fun DetailedCharacterLoader(modifier: Modifier = Modifier) {
                         "",
                         ""
 
-
                     ),
                     isLoading = false
 
@@ -139,19 +134,6 @@ fun DetailedCharacterLoader(modifier: Modifier = Modifier) {
 
                 modifier = Modifier.shimmerBackground()
             )
-
         }
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-

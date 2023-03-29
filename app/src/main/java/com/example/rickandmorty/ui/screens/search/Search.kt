@@ -53,7 +53,6 @@ fun Search(
         LazyColumn(
             state = searchListState
         ) {
-
             if (deviceType != ScreenType.PORTRAIT_PHONE) {
                 item {
                     SearchBar(
@@ -125,7 +124,10 @@ fun Search(
                                 ) {
                                     Text(
                                         text =
-                                        "Load More"
+                                        "Load More",
+                                        modifier = Modifier.semantics {
+                                            contentDescription = "Load More Characters"
+                                        }
                                     )
                                 }
                             }
@@ -194,7 +196,10 @@ fun Search(
                                 ) {
                                     Text(
                                         text =
-                                        "Load More"
+                                        "Load More",
+                                        modifier = Modifier.semantics {
+                                            contentDescription = "Load More Locations"
+                                        }
                                     )
                                 }
                             }

@@ -1,10 +1,6 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
-import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,6 +23,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
+import com.example.rickandmorty.ui.theme.LessGreen
+import com.example.rickandmorty.ui.theme.LessRed
 
 /**
  * Composable function that shows the screen bar with the
@@ -59,7 +57,7 @@ fun ScreenNameBar(
         ) {
             if (putIcon) {
                 IconButton(
-                    onClick = {onFilterClick()}
+                    onClick = { onFilterClick() }
                 ) {
                     Icon(
                         modifier = Modifier.size(27.dp),
@@ -105,7 +103,6 @@ fun GetInfoInLine(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        Log.v(topic + 2, showIt.toString())
         Icon(
             modifier = Modifier
                 .padding(end = 7.dp)
@@ -127,7 +124,8 @@ fun GetInfoInLine(
             text = topicAnswer,
             style = MaterialTheme.typography.body2,
             color = MaterialTheme.colors.onBackground,
-            fontWeight = FontWeight.Normal
+            fontWeight = FontWeight.Normal,
+            maxLines = 2
         )
 
 //        if (showIt != null  ) {
@@ -163,6 +161,7 @@ fun GetRowWithFourImages(
     property2: String,
     onClickable: (String) -> Unit,
     id: String,
+    icons: List<ImageVector> = emptyList(),
     modifier: Modifier = Modifier,
 ) {
     var mutableImageLink = imageUrlLink!!.toMutableList()
@@ -181,7 +180,9 @@ fun GetRowWithFourImages(
             .semantics { contentDescription = "Four Image Row" }
             .clickable {
                 onClickable(id)
-            }
+            },
+        backgroundColor = MaterialTheme.colors.background,
+        border = BorderStroke(1.dp, Color.White)
 
     ) {
         Row(
@@ -197,7 +198,8 @@ fun GetRowWithFourImages(
                 GetData(
                     titleName,
                     property1,
-                    property2
+                    property2,
+                    icons
                 )
             }
         }
@@ -219,6 +221,8 @@ fun GetRowWithOneImage(
     id: String,
     onClickable: (String) -> Unit,
     modifier: Modifier = Modifier,
+    icons: List<ImageVector> = emptyList(),
+
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
@@ -244,8 +248,8 @@ fun GetRowWithOneImage(
                         .semantics { contentDescription = "Item Name" }
                         .background(
                             when (status) {
-                                "Dead" -> Color.Red
-                                "Alive" -> Color.Green
+                                "Dead" -> LessRed
+                                "Alive" -> LessGreen
                                 else -> Color.Gray
                             }
                         ),
@@ -267,7 +271,7 @@ fun GetRowWithOneImage(
 
                     alignment = Alignment.Center,
                     model = imageUrlLink,
-                    error = painterResource(R.drawable.person_image),
+                    error = painterResource(id = getErrorImage()),
                     placeholder = painterResource(R.drawable.loading_img),
                     contentDescription = "Icon of Location Characters"
                 )
@@ -277,7 +281,8 @@ fun GetRowWithOneImage(
                 GetData(
                     titleName,
                     property1,
-                    property2
+                    property2,
+                    icons
                 )
             }
         }
@@ -300,7 +305,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                     .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
                 model = imageUrlLink[0],
-                error = painterResource(R.drawable.person_image),
+                error = painterResource(id = getErrorImage()),
                 placeholder = painterResource(R.drawable.loading_img),
                 contentDescription = "Icon of Location Characters"
             )
@@ -311,7 +316,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                     .weight(1f)
                     .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
-                error = painterResource(R.drawable.person_image),
+                error = painterResource(id = getErrorImage()),
                 placeholder = painterResource(R.drawable.loading_img),
                 model = imageUrlLink[1],
                 contentDescription = "Icon of Location Characters"
@@ -325,7 +330,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                     .weight(1f)
                     .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
-                error = painterResource(R.drawable.person_image),
+                error = painterResource(id = getErrorImage()),
                 placeholder = painterResource(R.drawable.loading_img),
                 model = imageUrlLink[2],
                 contentDescription = "Icon of Location Characters"
@@ -337,7 +342,7 @@ fun GetImages(imageUrlLink: MutableList<String>) {
                     .weight(1f)
                     .size(70.dp)
                     .clip(RoundedCornerShape(5.dp)),
-                error = painterResource(R.drawable.person_image),
+                error = painterResource(id = getErrorImage()),
                 placeholder = painterResource(R.drawable.loading_img),
                 model = imageUrlLink[3],
                 contentDescription = "Icon of Location Characters"
@@ -356,10 +361,12 @@ fun GetData(
     titleName: String,
     property1: String,
     property2: String,
+    icons: List<ImageVector> = emptyList(),
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = titleName,
@@ -372,39 +379,80 @@ fun GetData(
         )
         var lineHeight = MaterialTheme.typography.body2.fontSize * 4 / 3
         Row() {
-            Text(
-                text = property1,
+            Row(
                 modifier = Modifier
-                    .padding(15.dp)
-                    .weight(1f)
-                    .background(Color.LightGray)
-                    .sizeIn(
-                        minHeight = with(LocalDensity.current) {
-                            (lineHeight * 2).toDp()
-                        }
-                    ),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2,
-                maxLines = 2,
-                color = MaterialTheme.colors.onBackground
-            )
+                    .padding(start = 15.dp, end = 7.dp, bottom = 7.dp)
+                    .weight(1f),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                if (icons.isNotEmpty()) {
+                    Icon(
+                        modifier = Modifier
+                            .padding(end = 7.dp)
+                            .size(23.dp),
+                        imageVector = icons[0],
+                        contentDescription = "Icon"
+                    )
+                }
+                Text(
+                    text = property1,
+                    modifier = Modifier
+                        .sizeIn(
+                            minHeight = with(LocalDensity.current) {
+                                (lineHeight * 2).toDp()
+                            }
+                        ),
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.body2,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colors.onBackground
+                )
+            }
 
-            Text(
+            Row(
                 modifier = Modifier
-                    .padding(15.dp)
-                    .weight(1f)
-                    .background(Color.LightGray)
-                    .sizeIn(
-                        minHeight = with(LocalDensity.current) {
-                            (lineHeight * 2).toDp()
-                        }
-                    ),
-                textAlign = TextAlign.Center,
-                text = property2,
-                maxLines = 2,
-                style = MaterialTheme.typography.body2,
-                color = MaterialTheme.colors.onBackground
-            )
+                    .padding(end = 15.dp, bottom = 7.dp)
+                    .weight(1f),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                if (icons.isNotEmpty()) {
+                    Icon(
+                        modifier = Modifier
+                            .padding(end = 7.dp)
+                            .size(23.dp),
+                        imageVector = icons[1],
+                        contentDescription = "Icon"
+                    )
+                }
+
+                Text(
+                    modifier = Modifier
+                        .sizeIn(
+                            minHeight = with(LocalDensity.current) {
+                                (lineHeight * 2).toDp()
+                            }
+                        ),
+                    textAlign = TextAlign.Start,
+                    text = property2,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.body2,
+                    color = MaterialTheme.colors.onBackground
+                )
+            }
         }
     }
 }
+
+@Composable
+fun getErrorImage() =
+    if (isSystemInDarkTheme()) {
+        R.drawable.person_image_in_dark
+    } else {
+        R.drawable.person_image
+    }
+
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.FUNCTION)
+annotation class ExcludeFromJacocoGeneratedReport

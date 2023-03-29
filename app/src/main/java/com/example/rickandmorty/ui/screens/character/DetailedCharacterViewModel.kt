@@ -47,7 +47,6 @@ class DetailedCharacterViewModel @Inject constructor(
             }
             _isRefreshing.emit(false)
         }
-
     }
 
     data class detailedcharacterState(

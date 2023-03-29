@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens.character
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -73,7 +71,6 @@ fun CharacterDetails(
                 canNavigateBack = true,
                 navigateUp = navigateUp
             )
-
         }) {
             SwipeRefresh(
                 state = swipeRefreshState,
@@ -86,9 +83,7 @@ fun CharacterDetails(
                         contentColor = MaterialTheme.colors.onPrimary
                     )
                 }
-            )
-
-            {
+            ) {
                 DetailedScreen(
                     modifier = modifier
                         .fillMaxSize()
@@ -99,7 +94,6 @@ fun CharacterDetails(
                     onLastSeenClick = onLastSeenClick,
                     deviceType = deviceType
                 )
-
             }
         }
     }
@@ -114,7 +108,6 @@ fun DetailedScreen(
     onLastSeenClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
-
     Column(
         modifier = modifier
             .fillMaxSize(),

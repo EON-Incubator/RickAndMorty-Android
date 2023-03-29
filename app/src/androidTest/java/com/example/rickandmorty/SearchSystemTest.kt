@@ -34,6 +34,11 @@ class SearchSystemTest {
         composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
             hasContentDescription("Item Name")
         )
+        composeTestRule.onNodeWithContentDescription("Load More Characters").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithContentDescription("Load More Locations").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("Rick Sanchez").performClick()
     }
 
     /**

@@ -56,10 +56,6 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) :
             .data
             ?.episodes
             ?.toEpisodes()
-
-//            ?.results
-//            ?.mapNotNull { it?.toEpisodes() }
-//            ?: emptyList()
     }
 
     override suspend fun getEpisode(id: String): DetailedEpisode? {

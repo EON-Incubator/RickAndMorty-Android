@@ -1,6 +1,5 @@
 package com.example.rickandmorty.api
 
-// import com.example.rickandmorty.data.ApolloEpisodeClient
 import com.apollographql.apollo3.ApolloClient
 import com.example.rickandmorty.data.ApolloCharacterClient
 import com.example.rickandmorty.domain.CharacterClient

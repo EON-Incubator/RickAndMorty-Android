@@ -1,13 +1,13 @@
 package com.example.rickandmorty.viewModels.location
 
-import com.example.rickandmorty.rules.TestDispatcherRule
+// import kotlinx.coroutines.ExperimentalCoroutinesApi
+// import kotlinx.coroutines.test.runTest
 import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
+import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.location.LocationViewModel
 import junit.framework.TestCase.assertEquals
 import org.junit.Assert
-// import kotlinx.coroutines.ExperimentalCoroutinesApi
-// import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule

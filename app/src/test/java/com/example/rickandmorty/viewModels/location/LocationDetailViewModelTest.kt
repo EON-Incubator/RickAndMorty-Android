@@ -1,13 +1,13 @@
 package com.example.rickandmorty.viewModels.location
 
-import androidx.lifecycle.SavedStateHandle
-import com.example.rickandmorty.rules.TestDispatcherRule
-import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
-import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
-import com.example.rickandmorty.ui.screens.location.LocationDetailViewModel
-import junit.framework.TestCase.assertEquals
 // import kotlinx.coroutines.ExperimentalCoroutinesApi
 // import kotlinx.coroutines.test.runTest
+import androidx.lifecycle.SavedStateHandle
+import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
+import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
+import com.example.rickandmorty.rules.TestDispatcherRule
+import com.example.rickandmorty.ui.screens.location.LocationDetailViewModel
+import junit.framework.TestCase.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule

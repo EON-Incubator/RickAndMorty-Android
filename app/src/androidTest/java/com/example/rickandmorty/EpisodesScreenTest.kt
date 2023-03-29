@@ -1,14 +1,15 @@
 
-import androidx.compose.foundation.lazy.grid.LazyGridState
-import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.createComposeRule
 // import androidx.compose.ui.test.junit4.onNodeWithText
 // import androidx.compose.ui.test.junit4.onNodeWithTag
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
 import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.episode.EpisodesScreen
 import com.example.rickandmorty.ui.screens.episode.EpisodeViewModel
+import com.example.rickandmorty.ui.screens.episode.EpisodesScreen
 import org.junit.Rule
 import org.junit.Test
 

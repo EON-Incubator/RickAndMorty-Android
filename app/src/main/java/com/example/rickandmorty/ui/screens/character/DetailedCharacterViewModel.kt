@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlinx.coroutines.flow.StateFlow
 
 @HiltViewModel
 class DetailedCharacterViewModel @Inject constructor(
@@ -22,9 +21,6 @@ class DetailedCharacterViewModel @Inject constructor(
     val id = savedStateHandle.get<String>("id")
     private val _character = MutableStateFlow(detailedcharacterState())
     val character = _character.asStateFlow()
-    private val _isRefreshing = MutableStateFlow(false)
-    val isRefreshing: StateFlow<Boolean>
-        get() = _isRefreshing.asStateFlow()
 
     init {
 
@@ -44,7 +40,6 @@ class DetailedCharacterViewModel @Inject constructor(
                     isLoading = false
                 )
             }
-            _isRefreshing.emit(false)
         }
     }
 

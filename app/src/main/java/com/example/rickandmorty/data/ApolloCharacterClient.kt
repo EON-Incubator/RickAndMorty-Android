@@ -3,8 +3,8 @@ package com.example.rickandmorty.data
 import com.apollographql.apollo3.ApolloClient
 import com.example.*
 import com.example.rickandmorty.domain.CharacterClient
-import com.example.rickandmorty.domain.DetailedEpisode
-import com.example.rickandmorty.domain.EpisodesData
+import com.example.rickandmorty.domain.episodes.DetailedEpisode
+import com.example.rickandmorty.domain.episodes.EpisodesData
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.LocationData

@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
+import ExcludeFromJacocoGeneratedReport
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

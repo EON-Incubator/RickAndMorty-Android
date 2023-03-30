@@ -84,7 +84,6 @@ class CharacterScreenTest() {
             }
         }
         composeTestRule.onNodeWithText("Characters").assertIsDisplayed()
-
     }
 
     @Test

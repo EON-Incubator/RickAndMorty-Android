@@ -1,9 +1,9 @@
 package com.example.rickandmorty.data
 
 import com.example.*
-import com.example.rickandmorty.domain.DetailedEpisode
-import com.example.rickandmorty.domain.Episodes
-import com.example.rickandmorty.domain.EpisodesData
+import com.example.rickandmorty.domain.episodes.DetailedEpisode
+import com.example.rickandmorty.domain.episodes.Episodes
+import com.example.rickandmorty.domain.episodes.EpisodesData
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.CharacterData

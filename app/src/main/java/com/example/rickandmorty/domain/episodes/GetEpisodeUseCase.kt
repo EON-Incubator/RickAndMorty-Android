@@ -1,7 +1,6 @@
-package com.example.rickandmorty.domain.episodeusecase
+package com.example.rickandmorty.domain.episodes
 
 import com.example.rickandmorty.domain.CharacterClient
-import com.example.rickandmorty.domain.DetailedEpisode
 
 class GetEpisodeUseCase(
     private val characterClient: CharacterClient,

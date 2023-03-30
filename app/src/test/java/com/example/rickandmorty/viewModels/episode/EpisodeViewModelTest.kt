@@ -1,6 +1,6 @@
 package com.example.rickandmorty.viewModels.episode
 
-import com.example.rickandmorty.domain.episodeusecase.GetAllEpisodeUseCase
+import com.example.rickandmorty.domain.episodes.GetAllEpisodeUseCase
 import com.example.rickandmorty.fakeRepo.FakeRepo
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.episode.EpisodeViewModel

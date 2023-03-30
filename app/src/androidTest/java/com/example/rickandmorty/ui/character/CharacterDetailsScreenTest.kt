@@ -5,7 +5,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.episodes.Episodes
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.character.CharacterDetails
@@ -77,7 +77,6 @@ class CharacterDetailsScreenTest() {
         composeTestRule.onNodeWithText("ludhiana").assertIsDisplayed()
         composeTestRule.onNodeWithText("Earth").assertIsDisplayed()
         composeTestRule.onNodeWithText("Gender").assertIsDisplayed()
-
     }
 
     @Test

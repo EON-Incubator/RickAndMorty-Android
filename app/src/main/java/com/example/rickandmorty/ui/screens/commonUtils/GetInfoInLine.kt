@@ -1,13 +1,17 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
 
 /**
  * Composable function that draws row with an icon
@@ -24,8 +28,13 @@ fun GetInfoInLine(
     showIt: String? = null,
     action: () -> Unit = {},
     iconArrow: ImageVector? = null,
+    Color: Int = R.color.white,
 ) {
-    Card() {
+    Card(
+        shape = RoundedCornerShape(CornerSize(4.dp)),
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp).height(54.dp),
+        backgroundColor = colorResource(id = Color)
+    ) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -42,7 +51,7 @@ fun GetInfoInLine(
             )
 
             Text(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(4f),
                 text = topic,
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground,
@@ -65,9 +74,9 @@ fun GetInfoInLine(
                 )
             }
         }
-        Divider(
-            Modifier.height(1.dp),
-            color = MaterialTheme.colors.onBackground
-        )
+//        Divider(
+//            Modifier.height(1.dp),
+//            color = MaterialTheme.colors.onBackground
+//        )
     }
 }

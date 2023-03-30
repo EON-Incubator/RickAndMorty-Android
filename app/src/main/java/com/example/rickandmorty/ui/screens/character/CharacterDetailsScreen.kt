@@ -85,12 +85,11 @@ fun DetailedScreen(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(top = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.height(12.dp))
-
         if (deviceType == ScreenType.PORTRAIT_PHONE) {
             LazyColumn() {
                 item {
@@ -106,22 +105,23 @@ fun DetailedScreen(
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 12.dp, bottom = 12.dp),
+                                .padding(start = 16.dp),
                             textAlign = TextAlign.Start
                         )
-                        Divider(color = Color.Black, thickness = 2.dp)
+
                         Column {
                             infoPart1(charInfo = charInfo)
+                            Spacer(modifier = Modifier.height(12.dp))
 
                             infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
-                            Divider(thickness = 2.dp)
+                            Spacer(modifier = Modifier.height(22.dp))
                             Text(
                                 text = "EPISODES",
                                 style = MaterialTheme.typography.body2,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(50.dp)
-                                    .padding(start = 12.dp, top = 12.dp),
+                                    .padding(start = 16.dp, top = 12.dp),
                                 textAlign = TextAlign.Start
                             )
                         }
@@ -138,7 +138,8 @@ fun DetailedScreen(
                             onClickable = {
                                 onEpisodeClick(eachEpisode.id.toString())
                             },
-                            id = eachEpisode.id.toString()
+                            id = eachEpisode.id.toString(),
+                            color = R.color.episodes_on_charater_color
                         )
                     }
                 }
@@ -163,18 +164,16 @@ fun DetailedScreen(
                                         text = "INFO",
                                         style = MaterialTheme.typography.body2,
                                         modifier = Modifier
-                                            .padding(start = 12.dp, bottom = 12.dp),
+                                            .padding(start = 16.dp, bottom = 12.dp),
                                         textAlign = TextAlign.Start
                                     )
                                     Column {
                                         infoPart1(charInfo = charInfo)
 
-                                        Divider(thickness = 2.dp)
                                         infoPart2(
                                             charInfo = charInfo,
                                             onOriginClick = onOriginClick
                                         )
-                                        Divider(thickness = 2.dp)
                                     }
                                 }
                             }
@@ -185,7 +184,7 @@ fun DetailedScreen(
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 14.dp),
+                                    .padding(top = 16.dp, start = 24.dp),
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -201,7 +200,8 @@ fun DetailedScreen(
                                     onClickable = {
                                         onEpisodeClick(eachEpisode.id.toString())
                                     },
-                                    id = eachEpisode.id.toString()
+                                    id = eachEpisode.id.toString(),
+                                    color = R.color.episodes_on_charater_color
                                 )
                             }
                         }
@@ -221,7 +221,7 @@ fun DetailedScreen(
                             text = "INFO",
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
-                                .padding(start = 12.dp, bottom = 12.dp),
+                                .padding(start = 16.dp, bottom = 12.dp),
                             textAlign = TextAlign.Start
                         )
                         Column {
@@ -242,7 +242,7 @@ fun DetailedScreen(
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 14.dp),
+                                    .padding(top = 14.dp, start = 16.dp),
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -256,7 +256,8 @@ fun DetailedScreen(
                                     onClickable = {
                                         onEpisodeClick(eachEpisode.id.toString())
                                     },
-                                    id = eachEpisode.id.toString()
+                                    id = eachEpisode.id.toString(),
+                                    color = R.color.episodes_on_charater_color
                                 )
                             }
                         }
@@ -275,7 +276,7 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
             style = MaterialTheme.typography.body2,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 12.dp),
+                .padding(start = 16.dp),
             textAlign = TextAlign.Start
         )
         Card(shape = RoundedCornerShape(CornerSize(100.dp))) {
@@ -306,19 +307,22 @@ fun infoPart1(charInfo: DetailedCharacter?) {
         icons = ImageVector
             .vectorResource(R.drawable.man_fill0_wght400_grad0_opsz48),
         topic = "Gender",
-        topicAnswer = charInfo?.gender.toString()
+        topicAnswer = charInfo?.gender.toString(),
+        Color = R.color.character_bar_color
     )
     GetInfoInLine(
         icons = ImageVector
             .vectorResource(R.drawable.category_fill0_wght400_grad0_opsz48),
         topic = "Species",
-        topicAnswer = charInfo?.species.toString()
+        topicAnswer = charInfo?.species.toString(),
+        Color = R.color.character_bar_color
     )
     GetInfoInLine(
         icons = ImageVector
             .vectorResource(R.drawable.deceased_fill0_wght400_grad0_opsz48),
         topic = "Status",
-        topicAnswer = charInfo?.status.toString()
+        topicAnswer = charInfo?.status.toString(),
+        Color = R.color.character_bar_color
     )
 }
 
@@ -334,10 +338,9 @@ fun infoPart2(
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
-            .padding(start = 12.dp, top = 12.dp),
+            .padding(start = 16.dp, top = 24.dp, bottom = 2.dp),
         textAlign = TextAlign.Start
     )
-    Divider(thickness = 2.dp)
 
     GetInfoInLine(
         icons = ImageVector
@@ -354,7 +357,8 @@ fun infoPart2(
             Icons.Outlined.KeyboardArrowRight
         } else {
             null
-        }
+        },
+        Color = R.color.character_bar_color
     )
     GetInfoInLine(
         icons = ImageVector
@@ -371,6 +375,7 @@ fun infoPart2(
             Icons.Outlined.KeyboardArrowRight
         } else {
             null
-        }
+        },
+        Color = R.color.character_bar_color
     )
 }

@@ -7,13 +7,6 @@ import com.example.type.FilterEpisode
 class GetAllEpisodeUseCase(
     private val characterClient: CharacterClient,
 ) {
-//    suspend fun execute(): List<Episodes> {
-//        return characterClient
-//            .getEpisodes()
-//            ?.episodesData
-//            ?.sortedBy { it.name } ?: emptyList()
-//    }
-
     suspend fun sortEpisodeById(
         filterEpisode: FilterEpisode = FilterEpisode(),
         page: Int = 1,

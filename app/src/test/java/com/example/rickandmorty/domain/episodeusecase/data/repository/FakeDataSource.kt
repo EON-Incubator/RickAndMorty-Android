@@ -47,21 +47,4 @@ object FakeDataSource {
             images = imageList
         )
     )
-
-//    val episodeDetail = listOf(
-//        DetailedEpisode(
-//            id = idOne,
-//            name = nameOne,
-//            episode = firstPropertyOne,
-//            air_date = secondPropertyOne,
-//            characters = characterList
-//        ),
-//        DetailedEpisode(
-//            id = idTwo,
-//            name = nameTwo,
-//            episode = firstPropertyTwo,
-//            air_date = secondPropertyTwo,
-//            characters = characterList
-//        )
-//    )
 }

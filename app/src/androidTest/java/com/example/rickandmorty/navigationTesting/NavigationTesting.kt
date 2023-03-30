@@ -58,16 +58,5 @@ class NavigationTesting {
                 .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
-
-//        composeTestRule.onNodeWithContentDescription("Characters").performClick()
-//        composeTestRule.waitForIdle()
-//
-//        composeTestRule.waitUntil(10000) {
-//            composeTestRule
-//                .onAllNodesWithContentDescription("Fetching Characters")
-//                .fetchSemanticsNodes().isEmpty()
-//        }
-
-        // Thread.sleep(2000)
     }
 }

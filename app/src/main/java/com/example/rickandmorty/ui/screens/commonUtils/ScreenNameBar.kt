@@ -43,11 +43,18 @@ fun ScreenNameBar(
                 IconButton(
                     onClick = { onFilterClick() }
                 ) {
-                    Icon(
-                        modifier = Modifier.size(27.dp),
-                        imageVector = ImageVector.vectorResource(id = R.drawable.sort),
-                        contentDescription = "Filter"
-                    )
+                    Row() {
+                        Icon(
+                            modifier = Modifier.size(27.dp),
+                            imageVector = ImageVector.vectorResource(id = R.drawable.baseline_filter_alt_24),
+                            contentDescription = "Filter"
+                        )
+                        Text(
+                            text = "Filter",
+                            modifier = Modifier.padding(start = 8.dp),
+                            style = MaterialTheme.typography.body1
+                        )
+                    }
                 }
             }
         }

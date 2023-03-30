@@ -5,4 +5,5 @@ data class Paginate(
     val pages: Int?,
     val prev: Int?,
     val count: Int?,
+
 )

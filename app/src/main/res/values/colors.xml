@@ -7,5 +7,45 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    //additional colors
     <color name="rick_color">#FF22BDCE</color>
+
+    //character light
+    <color name="character_card_background">#FFF0DADA</color>
+    <color name="character_property1">#FFE4EAE8</color>
+    <color name="character_property2">#FFF4EACD</color>
+
+    //location light
+    <color name="location_background">#FFfef8ef</color>
+    <color name="location_card_background">#FFfdebd0</color>
+    <color name="location_property1">#FFfedac0</color>
+    <color name="location_property2">#FFf1f2e1</color>
+
+    //locationDetail light
+    <color name="locationDetail_background">#FFfef8ef</color>
+    <color name="locationDetail_info_card">#FFf2f2f7</color>
+    <color name="locationDetail_resident_card_background">#FFf3ddda</color>
+    <color name="locationDetail_resident_property1">#FFe6ebe8</color>
+    <color name="locationDetail_resident_property2">#FFf6ecce</color>
+
+    //episode light
+    <color name="episode_background">#FFf8fbf3</color>
+    <color name="episode_card_background">#FFe8f3d6</color>
+    <color name="episode_property1">#FFf1dfc3</color>
+    <color name="episode_property2">#FFf1f0c8</color>
+
+    //locationDetail light
+    <color name="episodeDetail_background">#FFF7FAF2</color>
+    <color name="episodeDetail_info_card">#FFF1F1F6</color>
+    <color name="episodeDetail_resident_card_background">#FFF0DDDB</color>
+    <color name="episodeDetail_resident_property1">#FFE4EBE8</color>
+    <color name="episodeDetail_resident_property2">#FFDCD5BF</color>
+
+    //search light
+    <color name="search_background">#FFF7FAF2</color>
+
+    //status
+
+
 </resources>

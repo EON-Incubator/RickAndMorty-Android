@@ -1,7 +1,7 @@
 package com.example.rickandmorty.viewModels.location
 
 import androidx.lifecycle.SavedStateHandle
-import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
+import com.example.rickandmorty.fakeRepo.FakeRepo
 import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.location.LocationDetailViewModel

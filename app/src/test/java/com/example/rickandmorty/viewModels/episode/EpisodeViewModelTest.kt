@@ -1,7 +1,7 @@
 package com.example.rickandmorty.viewModels.episode
 
 import com.example.rickandmorty.domain.episodeusecase.GetAllEpisodeUseCase
-import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
+import com.example.rickandmorty.fakeRepo.FakeRepo
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.episode.EpisodeViewModel
 import junit.framework.TestCase.assertEquals

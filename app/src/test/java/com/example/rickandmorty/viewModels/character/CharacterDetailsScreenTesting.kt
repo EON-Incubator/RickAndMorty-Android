@@ -2,7 +2,7 @@ package com.example.rickandmorty.viewModels.character
 
 import androidx.lifecycle.SavedStateHandle
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
-import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
+import com.example.rickandmorty.fakeRepo.FakeRepo
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.character.DetailedCharacterViewModel
 import org.junit.Assert.*

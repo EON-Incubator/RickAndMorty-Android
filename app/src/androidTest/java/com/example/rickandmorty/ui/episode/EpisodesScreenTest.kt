@@ -1,3 +1,5 @@
+package com.example.rickandmorty.ui.episode
+
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule

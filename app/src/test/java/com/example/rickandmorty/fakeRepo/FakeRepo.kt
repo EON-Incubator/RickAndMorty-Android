@@ -1,4 +1,4 @@
-package com.example.rickandmorty.domain.episodeusecase.data.repository
+package com.example.rickandmorty.fakeRepo
 
 import com.example.rickandmorty.domain.*
 import com.example.rickandmorty.domain.character.Character

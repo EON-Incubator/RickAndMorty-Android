@@ -1,3 +1,5 @@
+package com.example.rickandmorty.ui.episode
+
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText

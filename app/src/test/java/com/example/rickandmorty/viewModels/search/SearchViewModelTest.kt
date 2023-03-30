@@ -1,7 +1,7 @@
 package com.example.rickandmorty.viewModels.search
 
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
-import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
+import com.example.rickandmorty.fakeRepo.FakeRepo
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.search.GetSearchResultUseCase
 import com.example.rickandmorty.rules.TestDispatcherRule

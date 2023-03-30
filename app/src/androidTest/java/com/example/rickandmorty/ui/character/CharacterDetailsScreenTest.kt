@@ -78,7 +78,6 @@ class CharacterDetailsScreenTest() {
         composeTestRule.onNodeWithText("Earth").assertIsDisplayed()
         composeTestRule.onNodeWithText("Gender").assertIsDisplayed()
 
-        Thread.sleep(6000)
     }
 
     @Test
@@ -98,7 +97,6 @@ class CharacterDetailsScreenTest() {
 
         composeTestRule.onNodeWithContentDescription("Back Button").performClick()
         assert(navstate)
-        Thread.sleep(5000)
     }
 
     @Test

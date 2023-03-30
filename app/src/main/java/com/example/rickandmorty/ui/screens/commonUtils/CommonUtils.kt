@@ -3,6 +3,7 @@ package com.example.rickandmorty.ui.screens.commonUtils
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -56,14 +57,27 @@ fun ScreenNameBar(
             horizontalArrangement = Arrangement.End
         ) {
             if (putIcon) {
-                IconButton(
-                    onClick = { onFilterClick() }
-                ) {
-                    Icon(
-                        modifier = Modifier.size(27.dp),
-                        imageVector = ImageVector.vectorResource(id = R.drawable.sort),
-                        contentDescription = "Filter"
-                    )
+                Card(shape = RoundedCornerShape(CornerSize(22.dp)), modifier = Modifier.width(125.dp)) {
+                    IconButton(
+                        onClick = { onFilterClick() },
+                        modifier = Modifier.background(
+                            Color.LightGray
+                        )
+
+                    ) {
+                        Row() {
+                            Icon(
+                                modifier = Modifier.size(27.dp),
+                                imageVector = ImageVector.vectorResource(id = R.drawable.baseline_filter_alt_24),
+                                contentDescription = "Filter"
+                            )
+                            Text(
+                                text = "Filter",
+                                modifier = Modifier.padding(start = 8.dp),
+                                style = MaterialTheme.typography.body1
+                            )
+                        }
+                    }
                 }
             }
         }

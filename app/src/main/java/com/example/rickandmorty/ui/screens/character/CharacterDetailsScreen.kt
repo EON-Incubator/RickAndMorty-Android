@@ -1,20 +1,18 @@
 package com.example.rickandmorty.ui.screens.character
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -280,29 +278,25 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
                 .padding(start = 12.dp),
             textAlign = TextAlign.Start
         )
-        AsyncImage(
-            model = charInfo?.image.toString(),
-            contentDescription = null,
-            modifier = Modifier
-                .clip(
-                    RoundedCornerShape(140.dp)
-                )
-                .size(200.dp)
-                .padding(15.dp),
-            alignment = Alignment.Center
-        )
+        Card(shape = RoundedCornerShape(CornerSize(100.dp))) {
+            AsyncImage(
+                model = charInfo?.image.toString(),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(200.dp),
+                alignment = Alignment.Center
+            )
+        }
     } else {
-        AsyncImage(
-            model = charInfo?.image.toString(),
-            contentDescription = null,
-            modifier = Modifier
-                .clip(
-                    RoundedCornerShape(140.dp)
-                )
-                .size(200.dp)
-                .padding(15.dp),
-            alignment = Alignment.Center
-        )
+        Card(shape = RoundedCornerShape(CornerSize(100.dp)), border = BorderStroke(12.dp, Color.Black)) {
+            AsyncImage(
+                model = charInfo?.image.toString(),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(200.dp),
+                alignment = Alignment.Center
+            )
+        }
     }
 }
 

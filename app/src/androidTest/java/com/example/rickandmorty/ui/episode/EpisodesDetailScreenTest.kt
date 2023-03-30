@@ -1,8 +1,10 @@
+package com.example.rickandmorty.ui.episode
+
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import com.example.rickandmorty.domain.DetailedEpisode
 import com.example.rickandmorty.domain.character.Character
+import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.episode.EpisodeDetailViewModel
 import com.example.rickandmorty.ui.screens.episode.EpisodeDetails

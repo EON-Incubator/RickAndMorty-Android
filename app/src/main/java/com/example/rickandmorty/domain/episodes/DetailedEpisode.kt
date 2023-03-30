@@ -1,4 +1,4 @@
-package com.example.rickandmorty.domain
+package com.example.rickandmorty.domain.episodes
 
 import com.example.rickandmorty.domain.character.Character
 

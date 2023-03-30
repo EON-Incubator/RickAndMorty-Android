@@ -17,6 +17,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.rickandmorty.navigation.RickAndMortyNavHost
 import com.example.rickandmorty.ui.screens.character.CharacterDestination
+import com.example.rickandmorty.ui.screens.commonUtils.BottomNavItem
+import com.example.rickandmorty.ui.screens.commonUtils.BottomNavigationBar
 
 @Composable
 fun RickAndMortyMainApp(

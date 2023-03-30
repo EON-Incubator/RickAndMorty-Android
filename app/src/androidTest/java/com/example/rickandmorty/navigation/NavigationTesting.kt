@@ -1,4 +1,4 @@
-package com.example.rickandmorty.navigationTesting
+package com.example.rickandmorty.navigation
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.example.rickandmorty.MainActivity

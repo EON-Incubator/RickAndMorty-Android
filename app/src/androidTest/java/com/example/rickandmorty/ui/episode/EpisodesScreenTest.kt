@@ -1,9 +1,11 @@
+package com.example.rickandmorty.ui.episode
+
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.Paginate
+import com.example.rickandmorty.domain.episodes.Episodes
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.episode.EpisodeViewModel
 import com.example.rickandmorty.ui.screens.episode.EpisodesScreen

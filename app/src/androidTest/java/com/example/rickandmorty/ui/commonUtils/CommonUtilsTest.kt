@@ -1,4 +1,4 @@
-package com.example.rickandmorty
+package com.example.rickandmorty.ui.commonUtils
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.example.rickandmorty.R
 import com.example.rickandmorty.ui.screens.TopBar
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages

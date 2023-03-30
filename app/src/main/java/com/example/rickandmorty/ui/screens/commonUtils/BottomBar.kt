@@ -1,4 +1,4 @@
-package com.example.rickandmorty.ui.screens
+package com.example.rickandmorty.ui.screens.commonUtils
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*

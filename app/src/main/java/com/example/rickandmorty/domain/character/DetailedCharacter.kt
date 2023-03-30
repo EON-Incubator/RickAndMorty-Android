@@ -1,6 +1,6 @@
 package com.example.rickandmorty.domain.character
 
-import com.example.rickandmorty.domain.Episodes
+import com.example.rickandmorty.domain.episodes.Episodes
 
 data class DetailedCharacter(
     val ID: String?,

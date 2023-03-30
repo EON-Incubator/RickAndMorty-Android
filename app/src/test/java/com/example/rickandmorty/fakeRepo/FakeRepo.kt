@@ -1,6 +1,7 @@
 package com.example.rickandmorty.fakeRepo
 
-import com.example.rickandmorty.domain.*
+import com.example.rickandmorty.domain.CharacterClient
+import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter

@@ -1,9 +1,9 @@
 package com.example.rickandmorty.viewModels.search
 
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
-import com.example.rickandmorty.fakeRepo.FakeRepo
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.search.GetSearchResultUseCase
+import com.example.rickandmorty.fakeRepo.FakeRepo
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.search.SearchViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi

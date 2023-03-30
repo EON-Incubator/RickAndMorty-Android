@@ -1,13 +1,13 @@
 package com.example.rickandmorty.data
 
 import com.example.*
-import com.example.rickandmorty.domain.episodes.DetailedEpisode
-import com.example.rickandmorty.domain.episodes.Episodes
-import com.example.rickandmorty.domain.episodes.EpisodesData
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
+import com.example.rickandmorty.domain.episodes.DetailedEpisode
+import com.example.rickandmorty.domain.episodes.Episodes
+import com.example.rickandmorty.domain.episodes.EpisodesData
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationData
 import com.example.rickandmorty.domain.location.LocationDetail

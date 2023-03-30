@@ -2,9 +2,9 @@ package com.example.rickandmorty.ui.screens.episode
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.domain.episodes.Episodes
-import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.episodes.GetAllEpisodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

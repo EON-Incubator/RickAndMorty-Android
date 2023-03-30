@@ -3,8 +3,8 @@ package com.example.rickandmorty.ui.screens.episode
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmorty.domain.DetailedEpisode
-import com.example.rickandmorty.domain.episodeusecase.GetEpisodeUseCase
+import com.example.rickandmorty.domain.episodes.DetailedEpisode
+import com.example.rickandmorty.domain.episodes.GetEpisodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

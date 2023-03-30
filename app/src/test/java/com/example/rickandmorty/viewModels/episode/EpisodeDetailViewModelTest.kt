@@ -1,8 +1,8 @@
 package com.example.rickandmorty.viewModels.episode
 
 import androidx.lifecycle.SavedStateHandle
-import com.example.rickandmorty.domain.episodeusecase.GetEpisodeUseCase
-import com.example.rickandmorty.domain.episodeusecase.data.repository.FakeRepo
+import com.example.rickandmorty.domain.episodes.GetEpisodeUseCase
+import com.example.rickandmorty.fakeRepo.FakeRepo
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.episode.EpisodeDetailViewModel
 import junit.framework.TestCase.assertEquals

@@ -15,8 +15,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.rickandmorty.domain.Episodes
 import com.example.rickandmorty.domain.character.DetailedCharacter
+import com.example.rickandmorty.domain.episodes.Episodes
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
 @Composable

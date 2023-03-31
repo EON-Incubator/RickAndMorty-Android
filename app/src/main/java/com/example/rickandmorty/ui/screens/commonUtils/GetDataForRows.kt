@@ -44,7 +44,7 @@ fun GetData(
         Row() {
             Row(
                 modifier = Modifier
-                    .padding(start = 15.dp, end = 7.dp, bottom = 7.dp)
+                    .padding(start = 35.dp, end = 5.dp, bottom = 7.dp)
                     .weight(1f),
                 horizontalArrangement = Arrangement.Start
             ) {

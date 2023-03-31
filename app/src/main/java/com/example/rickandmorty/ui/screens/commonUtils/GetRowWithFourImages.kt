@@ -32,6 +32,8 @@ fun GetRowWithFourImages(
     icons: List<ImageVector> = emptyList(),
     modifier: Modifier = Modifier,
     color: Int = R.color.white,
+    property1_color: Int= R.color.white,
+    property2_color: Int= R.color.white,
 ) {
     var mutableImageLink = imageUrlLink!!.toMutableList()
 
@@ -68,7 +70,9 @@ fun GetRowWithFourImages(
                     titleName,
                     property1,
                     property2,
-                    icons
+                    icons,
+                    property1_color,
+                    property2_color
                 )
             }
         }

@@ -139,7 +139,9 @@ fun DetailedScreen(
                                 onEpisodeClick(eachEpisode.id.toString())
                             },
                             id = eachEpisode.id.toString(),
-                            color = R.color.episodes_on_charater_color
+                            color = R.color.character_card_background,
+                            property1_color = R.color.character_property1,
+                            property2_color = R.color.character_property2
                         )
                     }
                 }

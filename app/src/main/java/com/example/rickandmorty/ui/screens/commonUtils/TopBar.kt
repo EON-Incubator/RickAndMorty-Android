@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
+@ExperimentalMaterialApi
 @Composable
 fun RickAndMortyTopAppBar(
     title: String,
@@ -45,15 +46,19 @@ fun RickAndMortyTopAppBar(
         TopAppBar(
             backgroundColor = MaterialTheme.colors.primary,
             title = {
-                Column(
+                Row(
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.Center
+                        .fillMaxWidth()
+                        .padding(10.dp),
+
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.rick_and_morty),
                         contentDescription = "rick and morty image",
-                        modifier = Modifier.size(120.dp).padding(start = 10.dp)
+                        modifier = Modifier
+                            .size(90.dp)
+                            .weight(1f)
                     )
                     // TopBar(title = title)
                 }

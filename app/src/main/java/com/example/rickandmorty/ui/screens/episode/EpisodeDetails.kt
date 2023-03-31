@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -52,7 +53,7 @@ fun EpisodeDetails(
     }) {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
+            color = colorResource(id = R.color.episodeDetail_background)
         ) {
             Column(
                 modifier = Modifier
@@ -77,7 +78,6 @@ fun EpisodeDetails(
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
-
 
                             GetInfoInLine(
                                 icons = ImageVector.vectorResource(id = R.drawable.episode),
@@ -147,7 +147,6 @@ fun EpisodeDetails(
                                 )
                             }
 
-
                             Spacer(modifier = Modifier.height(40.dp))
 
                             Text(
@@ -194,7 +193,6 @@ fun EpisodeDetails(
 
                                 Spacer(modifier = Modifier.height(6.dp))
 
-
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.episode),
                                     topic = stringResource(id = R.string.episode),
@@ -209,7 +207,6 @@ fun EpisodeDetails(
 
                                     )
                                 }
-
 
                                 Spacer(modifier = Modifier.height(40.dp))
                             }

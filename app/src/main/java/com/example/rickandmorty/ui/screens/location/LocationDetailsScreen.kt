@@ -4,13 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -47,7 +47,8 @@ fun LocationDetailScreen(
             canNavigateBack = true,
             navigateUp = navigateUp
         )
-    }) {
+    },
+    backgroundColor = colorResource(id = R.color.locationDetail_background)) {
         if (locationsDetailUiState.isLoading) {
             LocationDetailLoader(deviceType = deviceType)
         } else {
@@ -152,7 +153,6 @@ fun GetInfo(
             color = MaterialTheme.colors.onBackground,
             fontWeight = FontWeight.Normal
         )
-
 
         locationsDetailUiState.locationDetail.type?.let {
             GetInfoInLine(

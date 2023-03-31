@@ -64,12 +64,14 @@ fun ScreenNameBar(
                             Icon(
                                 modifier = Modifier.size(27.dp),
                                 imageVector = ImageVector.vectorResource(id = R.drawable.baseline_filter_alt_24),
-                                contentDescription = "Filter"
+                                contentDescription = "Filter",
+                                tint = Color.Black
                             )
                             Text(
                                 text = "Filter",
                                 modifier = Modifier.padding(start = 8.dp),
-                                style = MaterialTheme.typography.body1
+                                style = MaterialTheme.typography.body1,
+                                color = Color.Black
                             )
                         }
                     }

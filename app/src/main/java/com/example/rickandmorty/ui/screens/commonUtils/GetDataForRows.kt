@@ -57,7 +57,6 @@ fun GetData(
                     .border(
                         shape = RoundedCornerShape(25),
                         border = BorderStroke(1.dp, color = Color.LightGray)
-
                     )
                     .background(
                         color = colorResource(

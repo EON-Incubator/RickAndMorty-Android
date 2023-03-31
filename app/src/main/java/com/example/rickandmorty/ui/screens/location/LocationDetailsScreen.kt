@@ -153,10 +153,6 @@ fun GetInfo(
             fontWeight = FontWeight.Normal
         )
 
-        Divider(
-            Modifier.height(1.dp),
-            color = MaterialTheme.colors.onBackground
-        )
 
         locationsDetailUiState.locationDetail.type?.let {
             GetInfoInLine(

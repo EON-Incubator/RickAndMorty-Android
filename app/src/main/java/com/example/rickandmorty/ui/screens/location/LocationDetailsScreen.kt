@@ -153,16 +153,13 @@ fun GetInfo(
             fontWeight = FontWeight.Normal
         )
 
-        Divider(
-            Modifier.height(1.dp),
-            color = MaterialTheme.colors.onBackground
-        )
 
         locationsDetailUiState.locationDetail.type?.let {
             GetInfoInLine(
                 ImageVector.vectorResource(id = R.drawable.type),
                 "Type",
-                it
+                it,
+                location = true
             )
         }
 
@@ -170,7 +167,8 @@ fun GetInfo(
             GetInfoInLine(
                 ImageVector.vectorResource(id = R.drawable.dimension),
                 "Dimension",
-                it
+                it,
+                location = true
             )
         }
     }

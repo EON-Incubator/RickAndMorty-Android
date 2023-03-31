@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -58,7 +59,11 @@ fun GetRowWithOneImage(
             .clickable {
                 onClickable(id)
             }
-
+            ,
+        backgroundColor =
+              colorResource(id = GetColor (location = true)
+                    .detail_resident_card_background
+            )
     ) {
         Box() {
             Row(

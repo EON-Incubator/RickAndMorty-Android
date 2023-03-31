@@ -77,10 +77,7 @@ fun EpisodeDetails(
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
+
 
                             GetInfoInLine(
                                 icons = ImageVector.vectorResource(id = R.drawable.episode),
@@ -95,10 +92,6 @@ fun EpisodeDetails(
                                     topicAnswer = stringResource(R.string.loading)
                                 )
                             }
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
 
                             Spacer(modifier = Modifier.height(40.dp))
 
@@ -139,10 +132,6 @@ fun EpisodeDetails(
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
 
                             GetInfoInLine(
                                 icons = ImageVector.vectorResource(id = R.drawable.episode),
@@ -157,10 +146,7 @@ fun EpisodeDetails(
                                     topicAnswer = state.selectedEpisode?.air_date.toString()
                                 )
                             }
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
+
 
                             Spacer(modifier = Modifier.height(40.dp))
 
@@ -207,10 +193,7 @@ fun EpisodeDetails(
                                 )
 
                                 Spacer(modifier = Modifier.height(6.dp))
-                                Divider(
-                                    Modifier.height(1.dp),
-                                    color = MaterialTheme.colors.onBackground
-                                )
+
 
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.episode),
@@ -226,10 +209,7 @@ fun EpisodeDetails(
 
                                     )
                                 }
-                                Divider(
-                                    Modifier.height(1.dp),
-                                    color = MaterialTheme.colors.onBackground
-                                )
+
 
                                 Spacer(modifier = Modifier.height(40.dp))
                             }

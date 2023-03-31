@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.rickandmorty.R
 
 /**
  * Composable function that draws row with an icon
@@ -28,17 +28,17 @@ fun GetInfoInLine(
     showIt: String? = null,
     action: () -> Unit = {},
     iconArrow: ImageVector? = null,
-    Color: Int = R.color.white,
+    location: Boolean = false,
 ) {
     Card(
         shape = RoundedCornerShape(CornerSize(4.dp)),
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp).height(54.dp),
-        backgroundColor = colorResource(id = Color)
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp),
+        backgroundColor = colorResource(id = GetColor(location = location).detail_info_card)
     ) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(start = 20.dp, bottom = 5.dp, top = 5.dp),
+                .padding(start = 20.dp, bottom = 7.dp, top = 7.dp, end = 7.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -51,7 +51,7 @@ fun GetInfoInLine(
             )
 
             Text(
-                modifier = Modifier.weight(4f),
+                modifier = Modifier.weight(1f),
                 text = topic,
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground,
@@ -59,12 +59,13 @@ fun GetInfoInLine(
             )
 
             Text(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(3f),
                 text = topicAnswer,
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = FontWeight.Normal,
-                maxLines = 2
+                maxLines = 2,
+                textAlign = TextAlign.End
             )
 
             iconArrow?.let {

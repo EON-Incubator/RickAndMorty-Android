@@ -138,8 +138,7 @@ fun DetailedScreen(
                             onClickable = {
                                 onEpisodeClick(eachEpisode.id.toString())
                             },
-                            id = eachEpisode.id.toString(),
-                            color = R.color.episodes_on_charater_color
+                            id = eachEpisode.id.toString()
                         )
                     }
                 }
@@ -200,8 +199,7 @@ fun DetailedScreen(
                                     onClickable = {
                                         onEpisodeClick(eachEpisode.id.toString())
                                     },
-                                    id = eachEpisode.id.toString(),
-                                    color = R.color.episodes_on_charater_color
+                                    id = eachEpisode.id.toString()
                                 )
                             }
                         }
@@ -256,8 +254,7 @@ fun DetailedScreen(
                                     onClickable = {
                                         onEpisodeClick(eachEpisode.id.toString())
                                     },
-                                    id = eachEpisode.id.toString(),
-                                    color = R.color.episodes_on_charater_color
+                                    id = eachEpisode.id.toString()
                                 )
                             }
                         }
@@ -307,22 +304,19 @@ fun infoPart1(charInfo: DetailedCharacter?) {
         icons = ImageVector
             .vectorResource(R.drawable.man_fill0_wght400_grad0_opsz48),
         topic = "Gender",
-        topicAnswer = charInfo?.gender.toString(),
-        Color = R.color.character_bar_color
+        topicAnswer = charInfo?.gender.toString()
     )
     GetInfoInLine(
         icons = ImageVector
             .vectorResource(R.drawable.category_fill0_wght400_grad0_opsz48),
         topic = "Species",
-        topicAnswer = charInfo?.species.toString(),
-        Color = R.color.character_bar_color
+        topicAnswer = charInfo?.species.toString()
     )
     GetInfoInLine(
         icons = ImageVector
             .vectorResource(R.drawable.deceased_fill0_wght400_grad0_opsz48),
         topic = "Status",
-        topicAnswer = charInfo?.status.toString(),
-        Color = R.color.character_bar_color
+        topicAnswer = charInfo?.status.toString()
     )
 }
 
@@ -357,8 +351,7 @@ fun infoPart2(
             Icons.Outlined.KeyboardArrowRight
         } else {
             null
-        },
-        Color = R.color.character_bar_color
+        }
     )
     GetInfoInLine(
         icons = ImageVector
@@ -375,7 +368,6 @@ fun infoPart2(
             Icons.Outlined.KeyboardArrowRight
         } else {
             null
-        },
-        Color = R.color.character_bar_color
+        }
     )
 }

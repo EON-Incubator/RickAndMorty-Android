@@ -45,9 +45,4 @@
     //search light
     <color name="search_background">#FFF7FAF2</color>
 
-    //status
-
-
-    <color name="character_bar_color">#FFf2f2f6</color>
-    <color name="episodes_on_charater_color">#FFE8F3D6</color>
 </resources>

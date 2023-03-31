@@ -1,10 +1,14 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -26,35 +30,51 @@ fun ScreenNameBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(3.dp)
+            .padding(3.dp, bottom = 6.dp)
             .height(45.dp)
             .padding(5.dp)
     ) {
         Text(
             text = name,
             style = MaterialTheme.typography.h2,
-            color = MaterialTheme.colors.onBackground
+            color = MaterialTheme.colors.onBackground,
+            modifier = Modifier.padding(start = 16.dp)
         )
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 16.dp),
             horizontalArrangement = Arrangement.End
         ) {
             if (putIcon) {
                 IconButton(
                     onClick = { onFilterClick() }
                 ) {
-                    Icon(
-                        modifier = Modifier.size(27.dp),
-                        imageVector = ImageVector.vectorResource(id = R.drawable.sort),
-                        contentDescription = "Filter"
-                    )
+                    Card(
+                        shape = RoundedCornerShape(CornerSize(100.dp)),
+                        modifier = Modifier.width(100.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.background(
+                                Color.LightGray
+                            ),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                modifier = Modifier.size(27.dp),
+                                imageVector = ImageVector.vectorResource(id = R.drawable.baseline_filter_alt_24),
+                                contentDescription = "Filter"
+                            )
+                            Text(
+                                text = "Filter",
+                                modifier = Modifier.padding(start = 8.dp),
+                                style = MaterialTheme.typography.body1
+                            )
+                        }
+                    }
                 }
             }
         }
     }
-
-    Divider(
-        modifier = Modifier.height(1.dp),
-        color = MaterialTheme.colors.onBackground
-    )
 }

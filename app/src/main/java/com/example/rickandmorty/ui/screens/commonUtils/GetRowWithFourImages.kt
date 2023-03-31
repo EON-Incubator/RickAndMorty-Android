@@ -1,21 +1,20 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
 
 /**
  * Composable function that draws a card with 4 images
@@ -32,6 +31,7 @@ fun GetRowWithFourImages(
     id: String,
     icons: List<ImageVector> = emptyList(),
     modifier: Modifier = Modifier,
+    color: Int = R.color.white,
 ) {
     var mutableImageLink = imageUrlLink!!.toMutableList()
 
@@ -45,13 +45,13 @@ fun GetRowWithFourImages(
         shape = RoundedCornerShape(10.dp),
         elevation = 7.dp,
         modifier = Modifier
-            .padding(5.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 12.dp)
             .semantics { contentDescription = "Four Image Row" }
             .clickable {
                 onClickable(id)
             },
-        backgroundColor = MaterialTheme.colors.background,
-        border = BorderStroke(1.dp, Color.White)
+        backgroundColor = colorResource(id = color)
+        // border = BorderStroke(1.dp, Color.White)
 
     ) {
         Row(

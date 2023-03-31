@@ -109,7 +109,8 @@ fun LocationScreen(
                                     icons = listOf(
                                         ImageVector.vectorResource(id = R.drawable.type),
                                         ImageVector.vectorResource(id = R.drawable.dimension)
-                                    )
+                                    ),
+                                    location = true
                                 )
                             } else {
                                 GetRowWithFourImages(
@@ -123,7 +124,8 @@ fun LocationScreen(
                                     icons = listOf(
                                         ImageVector.vectorResource(id = R.drawable.type),
                                         ImageVector.vectorResource(id = R.drawable.dimension)
-                                    )
+                                    ),
+                                    location = true
                                 )
                             }
                         }

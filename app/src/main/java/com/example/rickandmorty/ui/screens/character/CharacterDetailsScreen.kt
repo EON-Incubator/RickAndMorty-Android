@@ -138,8 +138,7 @@ fun DetailedScreen(
                             onClickable = {
                                 onEpisodeClick(eachEpisode.id.toString())
                             },
-                            id = eachEpisode.id.toString(),
-                            color = R.color.episodes_on_charater_color
+                            id = eachEpisode.id.toString()
                         )
                     }
                 }
@@ -200,8 +199,7 @@ fun DetailedScreen(
                                     onClickable = {
                                         onEpisodeClick(eachEpisode.id.toString())
                                     },
-                                    id = eachEpisode.id.toString(),
-                                    color = R.color.episodes_on_charater_color
+                                    id = eachEpisode.id.toString()
                                 )
                             }
                         }
@@ -256,8 +254,7 @@ fun DetailedScreen(
                                     onClickable = {
                                         onEpisodeClick(eachEpisode.id.toString())
                                     },
-                                    id = eachEpisode.id.toString(),
-                                    color = R.color.episodes_on_charater_color
+                                    id = eachEpisode.id.toString()
                                 )
                             }
                         }

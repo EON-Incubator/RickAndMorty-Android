@@ -58,12 +58,12 @@ fun GetRowWithOneImage(
             .semantics { contentDescription = "Single Image Row" }
             .clickable {
                 onClickable(id)
-            }
-            ,
+            },
         backgroundColor =
-              colorResource(id = GetColor (location = true)
-                    .detail_resident_card_background
-            )
+        colorResource(
+            id = GetColor(location = true)
+                .detail_resident_card_background
+        )
     ) {
         Box() {
             Row(

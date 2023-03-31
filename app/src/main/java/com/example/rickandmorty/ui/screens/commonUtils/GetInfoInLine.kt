@@ -30,54 +30,56 @@ fun GetInfoInLine(
     iconArrow: ImageVector? = null,
     location: Boolean = false,
 ) {
-    Card(
-        shape = RoundedCornerShape(CornerSize(4.dp)),
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp),
-        backgroundColor = colorResource(id = GetColor(location = location).detail_info_card)
-    ) {
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(start = 20.dp, bottom = 7.dp, top = 7.dp, end = 7.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+    if (topicAnswer.isNotEmpty()) {
+        Card(
+            shape = RoundedCornerShape(CornerSize(4.dp)),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp),
+            backgroundColor = colorResource(id = GetColor(location = location).detail_info_card)
         ) {
-            Icon(
-                modifier = Modifier
-                    .padding(end = 7.dp)
-                    .size(23.dp),
-                imageVector = icons,
-                contentDescription = "Icon"
-            )
-
-            Text(
-                modifier = Modifier.weight(1f),
-                text = topic,
-                style = MaterialTheme.typography.body2,
-                color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                modifier = Modifier.weight(3f),
-                text = topicAnswer,
-                style = MaterialTheme.typography.body2,
-                color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.Normal,
-                maxLines = 2,
-                textAlign = TextAlign.End
-            )
-
-            iconArrow?.let {
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, bottom = 7.dp, top = 7.dp, end = 7.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
                 Icon(
-                    imageVector = it,
-                    contentDescription = "to go on next location screen"
+                    modifier = Modifier
+                        .padding(end = 7.dp)
+                        .size(23.dp),
+                    imageVector = icons,
+                    contentDescription = "Icon"
                 )
+
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = topic,
+                    style = MaterialTheme.typography.body2,
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text(
+                    modifier = Modifier.weight(3f),
+                    text = topicAnswer,
+                    style = MaterialTheme.typography.body2,
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 2,
+                    textAlign = TextAlign.End
+                )
+
+                iconArrow?.let {
+                    Icon(
+                        imageVector = it,
+                        contentDescription = "to go on next location screen"
+                    )
+                }
             }
-        }
 //        Divider(
 //            Modifier.height(1.dp),
 //            color = MaterialTheme.colors.onBackground
 //        )
+        }
     }
 }

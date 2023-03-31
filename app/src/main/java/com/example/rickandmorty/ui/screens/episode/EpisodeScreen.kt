@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens.episode
 
-// import androidx.compose.foundation.layout.ColumnScopeInstance.align
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState

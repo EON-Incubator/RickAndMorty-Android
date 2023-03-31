@@ -284,8 +284,6 @@ fun SearchBar(
                 )
             }
             Text(
-//                    text =
-//                    "Characters (${searchResultState.characterData?.characters?.size ?: 0})"
                 text =
                 "Characters"
             )
@@ -320,7 +318,6 @@ fun SearchBar(
                     Modifier.padding(horizontal = 5.dp)
                 )
             }
-//                Text(text = "Locations (${searchResultState.locationByName?.locations?.size ?: 0})")
             Text(text = "Locations")
         }
     }

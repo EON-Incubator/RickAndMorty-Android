@@ -53,12 +53,13 @@ Mobile app that consume the public RickyAndMorty GraphQL
 
 ## How to Run Tests
 1. Make sure your device is turned on(Emulator or Physical).
-2. Get `Pixel 4 API 26` in Emulator to run test using the command below. 
+2. Get `Pixel 4 API 24` in Emulator to run test using the command below. 
 3. Run command `./gradlew createDebugCoverageReport` in Android Studio `terminal` which is located on the bottom bar.
 4. It will run all UI behaviour tests and system tests.
 5. Once it is done, it will generate a test coverage report in `build/reports/coverage` or you can copy/paste the link `terminal` provides to any browser to see the coverage.
 6. To run UI tests locate `app/src/test [unitTes]`, right click and `run test with coverage`
-7. You can also check `ManualTestsCoverage` excel file in the project directory to see the coverage of the overall project. 
+7. You can also check `ManualTestsCoverage` excel file in the project directory to see the coverage of the overall project.  
+8. You can check the history of JacocoTestCoverage in `app/build/reports/coverage/androidTest/debug/connected/index.html`
 
 **Ground Rules**
 * You must use Kotlin

@@ -165,11 +165,9 @@ fun DetailedScreen(
                                         text = "INFO",
                                         style = MaterialTheme.typography.body2,
                                         modifier = Modifier
-                                            //  .fillMaxWidth()
                                             .padding(start = 12.dp, bottom = 12.dp),
                                         textAlign = TextAlign.Start
                                     )
-                                    //  Divider(color = Color.Black, thickness = 2.dp)
                                     Column {
                                         infoPart1(charInfo = charInfo)
 
@@ -225,7 +223,6 @@ fun DetailedScreen(
                             text = "INFO",
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
-                                //  .fillMaxWidth()
                                 .padding(start = 12.dp, bottom = 12.dp),
                             textAlign = TextAlign.Start
                         )

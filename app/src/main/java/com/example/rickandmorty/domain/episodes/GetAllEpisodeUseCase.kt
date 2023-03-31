@@ -1,19 +1,11 @@
-package com.example.rickandmorty.domain.episodeusecase
+package com.example.rickandmorty.domain.episodes
 
 import com.example.rickandmorty.domain.CharacterClient
-import com.example.rickandmorty.domain.EpisodesData
 import com.example.type.FilterEpisode
 
 class GetAllEpisodeUseCase(
     private val characterClient: CharacterClient,
 ) {
-//    suspend fun execute(): List<Episodes> {
-//        return characterClient
-//            .getEpisodes()
-//            ?.episodesData
-//            ?.sortedBy { it.name } ?: emptyList()
-//    }
-
     suspend fun sortEpisodeById(
         filterEpisode: FilterEpisode = FilterEpisode(),
         page: Int = 1,

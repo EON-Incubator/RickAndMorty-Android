@@ -60,7 +60,7 @@ fun RickAndMortyNavHost(
                 onClick = {
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
                 },
-                onCharacterClick = { }, // viewModel.selectCountry(it) },
+                onCharacterClick = { },
                 listState = listState,
                 selectGender = { viewModel.selectFilter() },
                 changeGender = { viewModel.changeGender(it) },

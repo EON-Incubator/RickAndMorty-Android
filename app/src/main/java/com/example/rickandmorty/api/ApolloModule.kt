@@ -4,8 +4,8 @@ import com.apollographql.apollo3.ApolloClient
 import com.example.rickandmorty.data.ApolloCharacterClient
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
-import com.example.rickandmorty.domain.episodeusecase.GetAllEpisodeUseCase
-import com.example.rickandmorty.domain.episodeusecase.GetEpisodeUseCase
+import com.example.rickandmorty.domain.episodes.GetAllEpisodeUseCase
+import com.example.rickandmorty.domain.episodes.GetEpisodeUseCase
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
 import com.example.rickandmorty.domain.search.GetSearchResultUseCase

@@ -1,8 +1,9 @@
-package com.example.rickandmorty
+package com.example.rickandmorty.system
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import com.example.rickandmorty.MainActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -51,12 +52,13 @@ class SearchSystemTest {
             .performScrollToNode(hasContentDescription("Load More Locations"))
         composeTestRule.onNodeWithContentDescription("Load More Locations").performScrollTo()
             .performClick()
+        composeTestRule.waitForIdle()
         composeTestRule.waitUntil(10000) {
             composeTestRule
                 .onAllNodesWithContentDescription("Fetching Character")
                 .fetchSemanticsNodes().isEmpty()
         }
-        composeTestRule.onNodeWithText("Planetina").performClick()
+        composeTestRule.onNodeWithText("Alien").performClick()
     }
 
     /**
@@ -79,7 +81,8 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Character")
                 .fetchSemanticsNodes().isEmpty()
         }
-        composeTestRule.onNodeWithText("Male").assertIsDisplayed()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("Pilot").performClick()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

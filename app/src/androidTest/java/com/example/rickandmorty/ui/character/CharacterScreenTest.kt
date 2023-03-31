@@ -84,8 +84,6 @@ class CharacterScreenTest() {
             }
         }
         composeTestRule.onNodeWithText("Characters").assertIsDisplayed()
-
-        Thread.sleep(4000)
     }
 
     @Test
@@ -108,7 +106,6 @@ class CharacterScreenTest() {
         composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
         composeTestRule.onNodeWithText("Ann").assertIsDisplayed()
         composeTestRule.onNodeWithText("Morty").assertIsDisplayed()
-        Thread.sleep(6000)
     }
 
     @Test

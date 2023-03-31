@@ -54,7 +54,6 @@ class SearchViewModel @Inject constructor(
                     )
                 }
                 val characterData = getSearchResultUseCase.execute(name)
-//                Log.v("Search test: View Model", characterData.toString())
 
                 _searchResult.update {
                     it.copy(

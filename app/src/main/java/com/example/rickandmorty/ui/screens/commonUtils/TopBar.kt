@@ -1,15 +1,14 @@
 package com.example.rickandmorty.ui.screens
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
@@ -49,10 +48,14 @@ fun RickAndMortyTopAppBar(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    TopBar(title = title)
+                    Image(
+                        painter = painterResource(id = R.drawable.rick_and_morty),
+                        contentDescription = "rick and morty image",
+                        modifier = Modifier.size(120.dp).padding(start = 10.dp)
+                    )
+                    // TopBar(title = title)
                 }
             }
         )

@@ -41,14 +41,16 @@ fun LocationDetailScreen(
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
     // Scaffold to have a seperate Top Bar for this screen
-    Scaffold(topBar = {
-        RickAndMortyTopAppBar(
-            title = locationsDetailUiState.locationDetail.name.toString(),
-            canNavigateBack = true,
-            navigateUp = navigateUp
-        )
-    },
-    backgroundColor = colorResource(id = R.color.locationDetail_background)) {
+    Scaffold(
+        topBar = {
+            RickAndMortyTopAppBar(
+                title = locationsDetailUiState.locationDetail.name.toString(),
+                canNavigateBack = true,
+                navigateUp = navigateUp
+            )
+        },
+        backgroundColor = colorResource(id = R.color.locationDetail_background)
+    ) {
         if (locationsDetailUiState.isLoading) {
             LocationDetailLoader(deviceType = deviceType)
         } else {

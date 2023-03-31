@@ -162,7 +162,8 @@ fun GetInfo(
             GetInfoInLine(
                 ImageVector.vectorResource(id = R.drawable.type),
                 "Type",
-                it
+                it,
+                location = true
             )
         }
 
@@ -170,7 +171,8 @@ fun GetInfo(
             GetInfoInLine(
                 ImageVector.vectorResource(id = R.drawable.dimension),
                 "Dimension",
-                it
+                it,
+                location = true
             )
         }
     }

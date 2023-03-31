@@ -64,7 +64,7 @@ fun GetData(
                             id = GetColor(
                                 location =
                                 location
-                            ).detail_resident_property1
+                            ).property1
                         ),
                         shape = RoundedCornerShape(25)
                     ),
@@ -101,7 +101,7 @@ fun GetData(
                             id = GetColor(
                                 location =
                                 location
-                            ).detail_resident_property2
+                            ).property2
                         ),
                         shape = RoundedCornerShape(25)
                     ),

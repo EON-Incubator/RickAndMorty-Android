@@ -79,6 +79,7 @@ fun GetRowWithFourImages(
                     modifier = Modifier.size(20.dp),
                     imageVector = ImageVector.vectorResource(R.drawable.baseline_arrow_forward_ios_24),
                     contentDescription = "Click to go to Detail Screen"
+
                 )
             }
         }

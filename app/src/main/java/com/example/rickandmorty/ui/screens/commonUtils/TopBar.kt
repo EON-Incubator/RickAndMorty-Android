@@ -23,6 +23,7 @@ fun RickAndMortyTopAppBar(
     if (canNavigateBack) {
         TopAppBar(
             backgroundColor = MaterialTheme.colors.primary,
+            elevation = 0.dp,
             title = {
                 Column(
                     modifier = Modifier
@@ -43,17 +44,23 @@ fun RickAndMortyTopAppBar(
         )
     } else {
         TopAppBar(
+            elevation = 0.dp,
+
             backgroundColor = MaterialTheme.colors.primary,
             title = {
-                Column(
+                Row(
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.Center
+                        .fillMaxWidth()
+                        .padding(10.dp),
+
+                    horizontalArrangement = Arrangement.Start
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.rick_and_morty),
                         contentDescription = "rick and morty image",
-                        modifier = Modifier.size(120.dp).padding(start = 10.dp)
+                        modifier = Modifier
+                            .size(120.dp)
+//                            .weight(1f)
                     )
                     // TopBar(title = title)
                 }

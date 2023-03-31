@@ -8,8 +8,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +25,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.ui.theme.LessGreen
@@ -56,16 +60,53 @@ fun GetRowWithOneImage(
             }
 
     ) {
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        Box() {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(modifier = Modifier.weight(1f)) {
+                    AsyncImage(
+                        modifier = modifier
+                            .padding(start = 15.dp, end = 7.dp, bottom = 7.dp, top = 7.dp)
+                            .clip(CircleShape)
+                            .size(70.dp)
+                            .border(
+                                BorderStroke(1.dp, color = MaterialTheme.colors.onBackground),
+                                shape = CircleShape
+                            ),
+
+                        alignment = Alignment.Center,
+                        model = imageUrlLink,
+                        error = painterResource(id = getErrorImage()),
+                        placeholder = painterResource(R.drawable.loading_img),
+                        contentDescription = "Icon of Location Characters"
+                    )
+                }
+
+                Row(modifier = modifier.weight(3f)) {
+                    GetData(
+                        titleName,
+                        property1,
+                        property2,
+                        icons
+                    )
+                }
+
+                Icon(
+                    imageVector = Icons.Outlined.KeyboardArrowRight,
+                    contentDescription = "Go to next screen"
+                )
+            }
+
             if (status != "") {
                 Text(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .width(80.dp)
-                        .rotate(-90f)
+                        .offset(x = -30.dp)
+                        .padding(top = 10.dp)
+                        .width(100.dp)
+                        .rotate(-38f)
                         .semantics { contentDescription = "Item Name" }
                         .background(
                             when (status) {
@@ -75,35 +116,8 @@ fun GetRowWithOneImage(
                             }
                         ),
                     softWrap = false,
-                    text = status
-                )
-            }
-
-            Row(modifier = Modifier.weight(1f)) {
-                AsyncImage(
-                    modifier = modifier
-                        .padding(start = 15.dp, end = 7.dp, bottom = 7.dp, top = 7.dp)
-                        .clip(CircleShape)
-                        .size(70.dp)
-                        .border(
-                            BorderStroke(1.dp, color = MaterialTheme.colors.onBackground),
-                            shape = CircleShape
-                        ),
-
-                    alignment = Alignment.Center,
-                    model = imageUrlLink,
-                    error = painterResource(id = getErrorImage()),
-                    placeholder = painterResource(R.drawable.loading_img),
-                    contentDescription = "Icon of Location Characters"
-                )
-            }
-
-            Row(modifier = modifier.weight(2f)) {
-                GetData(
-                    titleName,
-                    property1,
-                    property2,
-                    icons
+                    text = status,
+                    fontSize = 10.sp
                 )
             }
         }

@@ -4,17 +4,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.RickAndMortyNavHost
 import com.example.rickandmorty.ui.screens.character.CharacterDestination
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavItem
@@ -65,17 +65,17 @@ fun RickAndMortyMainApp(
                     BottomNavItem(
                         name = "Characters",
                         route = "characters",
-                        icon = Icons.Default.Person
-                    ),
-                    BottomNavItem(
-                        name = "Episodes",
-                        route = "episodes",
-                        icon = Icons.Default.PlayArrow
+                        icon = ImageVector.vectorResource(id = R.drawable.person_text_rectangle)
                     ),
                     BottomNavItem(
                         name = "Locations",
                         route = "locations",
-                        icon = Icons.Default.LocationOn
+                        icon = ImageVector.vectorResource(id = R.drawable.maplocation)
+                    ),
+                    BottomNavItem(
+                        name = "Episodes",
+                        route = "episodes",
+                        icon = ImageVector.vectorResource(id = R.drawable.tvepisode)
                     ),
                     BottomNavItem(
                         name = "Search",

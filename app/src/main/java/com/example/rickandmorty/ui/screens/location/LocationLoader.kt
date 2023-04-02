@@ -19,6 +19,33 @@ import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
 @ExcludeFromJacocoGeneratedReport
 @Composable
+fun LocationLoader2(deviceType: ScreenType) {
+    Column() {
+        GetRowWithFourImages(
+            imageUrlLink = emptyList(),
+            titleName = "",
+            property1 = "",
+            property2 = "",
+            onClickable = {},
+            id = "",
+            modifier = Modifier
+                .shimmerBackground(RoundedCornerShape(40.dp))
+        )
+        GetRowWithFourImages(
+            imageUrlLink = emptyList(),
+            titleName = "",
+            property1 = "",
+            property2 = "",
+            onClickable = {},
+            id = "",
+            modifier = Modifier
+                .shimmerBackground(RoundedCornerShape(40.dp))
+        )
+    }
+}
+
+@ExcludeFromJacocoGeneratedReport
+@Composable
 fun LocationLoader(deviceType: ScreenType) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(
@@ -29,7 +56,8 @@ fun LocationLoader(deviceType: ScreenType) {
         ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.padding(8.dp)
+        modifier = Modifier
+            .padding(8.dp)
             .semantics { contentDescription = "Fetching Records" }
     ) {
         repeat(

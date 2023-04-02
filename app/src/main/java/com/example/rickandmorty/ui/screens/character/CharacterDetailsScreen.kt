@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +33,7 @@ object CharacterDetailsDestination : NavigationDestination {
     override val screenTitleRes = R.string.character_detail_screen_title
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterDetails(
     modifier: Modifier = Modifier,

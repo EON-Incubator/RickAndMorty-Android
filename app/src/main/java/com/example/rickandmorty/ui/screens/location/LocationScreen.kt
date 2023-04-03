@@ -80,7 +80,7 @@ fun LocationScreen(
                     )
                 }
             ) {
-                if (locationsUiState.isLoading) {
+                if (locationsUiState.isLoadingPage) {
                     LocationLoader(deviceType)
                 } else {
                     LazyVerticalGrid(
@@ -128,6 +128,11 @@ fun LocationScreen(
                                     ),
                                     location = true
                                 )
+                            }
+                        }
+                        item {
+                            if (locationsUiState.isLoading) {
+                                LocationLoader2(deviceType)
                             }
                         }
                     }

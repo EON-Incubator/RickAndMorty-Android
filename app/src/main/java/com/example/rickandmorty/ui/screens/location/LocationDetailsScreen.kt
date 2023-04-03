@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
@@ -66,7 +66,7 @@ fun LocationDetailScreen(
                     Spacer(modifier = Modifier.height(30.dp))
                     GetResidents(locationsDetailUiState, onCharacterClick)
                 }
-            } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+            } else {
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
@@ -80,21 +80,6 @@ fun LocationDetailScreen(
                         locationsDetailUiState,
                         onCharacterClick,
                         modifier = Modifier.weight(5f)
-                    )
-                }
-            } else {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(it)
-                ) {
-                    GetInfo(
-                        locationsDetailUiState
-                    )
-                    GetResidents(
-                        locationsDetailUiState,
-                        onCharacterClick,
-                        fixedElement = 2
                     )
                 }
             }

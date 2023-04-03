@@ -23,6 +23,7 @@ import com.example.rickandmorty.navigation.RickAndMortyNavHost
 import com.example.rickandmorty.ui.screens.character.CharacterDestination
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavItem
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavigationBar
+import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

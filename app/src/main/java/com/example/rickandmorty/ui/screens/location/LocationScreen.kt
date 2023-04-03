@@ -130,40 +130,23 @@ fun LocationScreen(
 
                                 // Method in CommonUtils that draws the Card with 4 Images
 
-                                if (deviceType == ScreenType.LANDSCAPE_PHONE) {
-                                    GetRowWithFourImages(
-                                        imageUrlLink = location.images,
-                                        titleName = location.name.toString(),
-                                        property1 = location.type.toString(),
-                                        property2 = location.dimension.toString(),
-                                        id = location.id.toString(),
-                                        onClickable = onClick,
-                                        icons = listOf(
-                                            ImageVector.vectorResource(id = R.drawable.type),
-                                            ImageVector.vectorResource(id = R.drawable.dimension)
-                                        ),
-                                        location = true
-                                    )
-                                } else {
-                                    GetRowWithFourImages(
-                                        imageUrlLink = location.images,
-                                        titleName = location.name.toString(),
-                                        property1 = location.type.toString(),
-                                        property2 = location.dimension.toString(),
-                                        onClickable =
-                                        onClick,
-                                        id = location.id.toString(),
-                                        icons = listOf(
-                                            ImageVector.vectorResource(id = R.drawable.type),
-                                            ImageVector.vectorResource(id = R.drawable.dimension)
-                                        ),
-                                        location = true
-                                    )
-                                }
+                                GetRowWithFourImages(
+                                    imageUrlLink = location.images,
+                                    titleName = location.name.toString(),
+                                    property1 = location.type.toString(),
+                                    property2 = location.dimension.toString(),
+                                    id = location.id.toString(),
+                                    onClickable = onClick,
+                                    icons = listOf(
+                                        ImageVector.vectorResource(id = R.drawable.type),
+                                        ImageVector.vectorResource(id = R.drawable.dimension)
+                                    ),
+                                    location = true
+                                )
                             }
                             item {
                                 if (locationsUiState.isLoading) {
-                                    LocationLoader2(deviceType)
+                                    LocationLoaderCells(deviceType)
                                 }
                             }
                         }

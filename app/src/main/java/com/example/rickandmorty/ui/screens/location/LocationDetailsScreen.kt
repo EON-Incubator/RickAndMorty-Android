@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -32,6 +33,7 @@ object LocationDetailsDestination : NavigationDestination {
  * Composable function that draws Location Detail Screen which
  * is generated after clicking 1 location on Location Screen
  */
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun LocationDetailScreen(
     locationsDetailUiState: LocationDetailViewModel.LocationDetailUiState,
@@ -60,7 +62,7 @@ fun LocationDetailScreen(
                     Spacer(modifier = Modifier.height(30.dp))
                     GetResidents(locationsDetailUiState, onCharacterClick)
                 }
-            } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+            } else {
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
@@ -74,21 +76,6 @@ fun LocationDetailScreen(
                         locationsDetailUiState,
                         onCharacterClick,
                         modifier = Modifier.weight(5f)
-                    )
-                }
-            } else {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(it)
-                ) {
-                    GetInfo(
-                        locationsDetailUiState
-                    )
-                    GetResidents(
-                        locationsDetailUiState,
-                        onCharacterClick,
-                        fixedElement = 2
                     )
                 }
             }

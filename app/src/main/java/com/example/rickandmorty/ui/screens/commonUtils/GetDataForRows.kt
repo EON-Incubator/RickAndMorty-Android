@@ -50,72 +50,76 @@ fun GetData(
 //        Spacer(modifier = Modifier.height(10.dp))
         // var lineHeight = MaterialTheme.typography.body2.fontSize * 4 / 3
         Row(verticalAlignment = Alignment.Bottom) {
-            Row(
-                modifier = Modifier
-                    .padding(end = 7.dp, bottom = 7.dp)
-                    .weight(1f)
-                    .border(
-                        shape = RoundedCornerShape(25),
-                        border = BorderStroke(1.dp, color = Color.LightGray)
-                    )
-                    .background(
-                        color = colorResource(
-                            id = GetColor(
-                                location =
-                                location
-                            ).property1
-                        ),
-                        shape = RoundedCornerShape(25)
-                    ),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = property1,
+            if (property1.isNotEmpty()) {
+                Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 5.dp, end = 5.dp, top = 2.dp, bottom = 2.dp),
+                        .padding(end = 7.dp, bottom = 7.dp)
+                        .weight(1f)
+                        .border(
+                            shape = RoundedCornerShape(25),
+                            border = BorderStroke(1.dp, color = Color.LightGray)
+                        )
+                        .background(
+                            color = colorResource(
+                                id = GetColor(
+                                    location =
+                                    location
+                                ).property1
+                            ),
+                            shape = RoundedCornerShape(25)
+                        ),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = property1,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 5.dp, end = 5.dp, top = 2.dp, bottom = 2.dp),
 //                        .sizeIn(
 //                            minHeight = with(LocalDensity.current) {
 //                                (lineHeight * 2).toDp()
 //                            }
 //                        ),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.body2,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colors.onBackground
-                )
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.body2,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colors.onBackground
+                    )
+                }
             }
 
-            Row(
-                modifier = Modifier
-                    .padding(end = 5.dp, bottom = 7.dp)
-                    .weight(1f)
-                    .border(
-                        border = BorderStroke(1.dp, color = Color.LightGray),
-                        shape = RoundedCornerShape(25)
-                    )
-                    .background(
-                        color = colorResource(
-                            id = GetColor(
-                                location =
-                                location
-                            ).property2
-                        ),
-                        shape = RoundedCornerShape(25)
-                    ),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
+            if (property2.isNotEmpty()) {
+                Row(
                     modifier = Modifier
-                        .padding(start = 5.dp, end = 5.dp, top = 2.dp, bottom = 2.dp),
-                    textAlign = TextAlign.Center,
-                    text = property2,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.body2,
-                    color = MaterialTheme.colors.onBackground
-                )
+                        .padding(end = 5.dp, bottom = 7.dp)
+                        .weight(1f)
+                        .border(
+                            border = BorderStroke(1.dp, color = Color.LightGray),
+                            shape = RoundedCornerShape(25)
+                        )
+                        .background(
+                            color = colorResource(
+                                id = GetColor(
+                                    location =
+                                    location
+                                ).property2
+                            ),
+                            shape = RoundedCornerShape(25)
+                        ),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(start = 5.dp, end = 5.dp, top = 2.dp, bottom = 2.dp),
+                        textAlign = TextAlign.Center,
+                        text = property2,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.body2,
+                        color = MaterialTheme.colors.onBackground
+                    )
+                }
             }
         }
     }

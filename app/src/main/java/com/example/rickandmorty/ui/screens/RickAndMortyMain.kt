@@ -1,11 +1,13 @@
 package com.example.rickandmorty.ui.screens
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+//import androidx.compose.material3.ExperimentalMaterial3Api
+//import androidx.compose.material3.TopAppBarDefaults
+//import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -22,7 +24,7 @@ import com.example.rickandmorty.ui.screens.character.CharacterDestination
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavItem
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavigationBar
 
-@OptIn(ExperimentalMaterialApi::class)
+//@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RickAndMortyMainApp(
     navController: NavHostController = rememberNavController(),
@@ -30,6 +32,7 @@ fun RickAndMortyMainApp(
 ) {
     var invisible by remember { mutableStateOf(false) }
     var deviceType = ScreenType.PORTRAIT_PHONE
+//    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     when (windowSize.widthSizeClass) {
         WindowWidthSizeClass.Compact -> {
@@ -50,16 +53,17 @@ fun RickAndMortyMainApp(
     }
 
     Scaffold(
-        topBar = {
-            if (!invisible) {
-                RickAndMortyTopAppBar(
-                    title = stringResource(id = R.string.rick_and_morty),
-                    canNavigateBack = false,
-                    navigateUp = { navController.popBackStack() }
-                )
-            }
-        },
+//        topBar = {
+//            RickAndMortyTopAppBar(
+//                title = "Rick And Morty",
+//                canNavigateBack = false,
+//                navigateUp = { navController.popBackStack() },
+//                scrollBehavior = scrollBehavior,
+//                invisible = invisible
+//            )
+//        },
         backgroundColor = MaterialTheme.colors.background,
+//        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 
         bottomBar = {
             BottomNavigationBar(
@@ -81,8 +85,8 @@ fun RickAndMortyMainApp(
                         icon = ImageVector.vectorResource(id = R.drawable.tvepisode)
                     ),
                     BottomNavItem(
-                        name = stringResource(id = R.string.search_screen_title),
-                        route = stringResource(R.string.search_small_case),
+                        name = "Search",
+                        route = "search",
                         icon = Icons.Default.Search
                     )
                 ),

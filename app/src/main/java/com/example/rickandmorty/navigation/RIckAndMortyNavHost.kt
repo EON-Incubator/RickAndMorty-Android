@@ -94,7 +94,7 @@ fun RickAndMortyNavHost(
             )
         }
         composable(EpisodeDestination.route) {
-            onDetailScreen(false)
+            onDetailScreen(true)
             val viewModel = hiltViewModel<EpisodeViewModel>()
             val state by viewModel.state.collectAsState()
             val listState = rememberLazyGridState()
@@ -132,7 +132,7 @@ fun RickAndMortyNavHost(
             )
         }
         composable(LocationDestination.route) {
-            onDetailScreen(false)
+            onDetailScreen(true)
             val viewModel = hiltViewModel<LocationViewModel>()
             val locationsState by viewModel.location.collectAsState()
             val refreshState by viewModel.isRefreshing.collectAsState()

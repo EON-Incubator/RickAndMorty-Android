@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +24,7 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
@@ -33,7 +34,7 @@ object CharacterDetailsDestination : NavigationDestination {
     override val screenTitleRes = R.string.character_detail_screen_title
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterDetails(
     modifier: Modifier = Modifier,

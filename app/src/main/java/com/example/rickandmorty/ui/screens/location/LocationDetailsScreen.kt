@@ -4,20 +4,21 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
@@ -34,7 +35,7 @@ object LocationDetailsDestination : NavigationDestination {
  * Composable function that draws Location Detail Screen which
  * is generated after clicking 1 location on Location Screen
  */
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationDetailScreen(
     locationsDetailUiState: LocationDetailViewModel.LocationDetailUiState,
@@ -43,13 +44,17 @@ fun LocationDetailScreen(
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
     // Scaffold to have a seperate Top Bar for this screen
-    Scaffold(topBar = {
-        RickAndMortyTopAppBar(
-            title = locationsDetailUiState.locationDetail.name.toString(),
-            canNavigateBack = true,
-            navigateUp = navigateUp
-        )
-    }) {
+    Scaffold(
+        topBar = {
+            RickAndMortyTopAppBar(
+                title = locationsDetailUiState.locationDetail.name.toString(),
+                canNavigateBack = true,
+                navigateUp = navigateUp,
+                backgroundColor = colorResource(id = R.color.locationDetail_background)
+            )
+        },
+        backgroundColor = colorResource(id = R.color.locationDetail_background)
+    ) {
         if (locationsDetailUiState.isLoading) {
             LocationDetailLoader(deviceType = deviceType)
         } else {
@@ -133,7 +138,7 @@ fun GetInfo(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = stringResource(R.string.info),
+            text = "INFO",
             modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,
@@ -142,8 +147,8 @@ fun GetInfo(
 
         locationsDetailUiState.locationDetail.type?.let {
             GetInfoInLine(
-                ImageVector.vectorResource(id = R.drawable.locationtype),
-                stringResource(R.string.type),
+                ImageVector.vectorResource(id = R.drawable.type),
+                "Type",
                 it,
                 location = true
             )
@@ -151,8 +156,8 @@ fun GetInfo(
 
         locationsDetailUiState.locationDetail.dimension?.let {
             GetInfoInLine(
-                ImageVector.vectorResource(id = R.drawable.locationdimension),
-                stringResource(R.string.dimension),
+                ImageVector.vectorResource(id = R.drawable.dimension),
+                "Dimension",
                 it,
                 location = true
             )

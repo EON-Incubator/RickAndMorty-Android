@@ -21,6 +21,7 @@ import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.example.rickandmorty.ui.screens.location.LocationLoader
+import com.example.rickandmorty.ui.screens.location.LocationLoader2
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -69,7 +70,7 @@ fun EpisodesScreen(
                     )
                 }
             ) {
-                if (state.isLoading) {
+                if (state.isLoadingPage) {
                     LocationLoader(deviceType)
                 } else {
                     LazyVerticalGrid(
@@ -119,6 +120,11 @@ fun EpisodesScreen(
                                         ImageVector.vectorResource(id = R.drawable.date)
                                     )
                                 )
+                            }
+                        }
+                        item {
+                            if (state.isLoading) {
+                                LocationLoader2(deviceType)
                             }
                         }
                     }

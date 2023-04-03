@@ -38,9 +38,9 @@ fun GetImages(imageUrlLink: MutableList<String>) {
 @Composable
 fun getErrorImage() =
     if (isSystemInDarkTheme()) {
-        R.drawable.person_image_in_dark
+        R.drawable.personcircle__1_
     } else {
-        R.drawable.person_image
+        R.drawable.personcircle__1_
     }
 
 @Composable

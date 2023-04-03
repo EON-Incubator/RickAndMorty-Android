@@ -1,6 +1,7 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.Icon
@@ -12,6 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -24,12 +26,16 @@ fun RickAndMortyTopAppBar(
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
     navigateUp: () -> Unit = {},
-    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState()),
+    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+        rememberTopAppBarState()
+    ),
     invisible: Boolean = true,
+    backgroundColor: Color = MaterialTheme.colors.background,
+
 ) {
     if (canNavigateBack) {
         TopAppBar(
-            backgroundColor = MaterialTheme.colors.primary,
+            backgroundColor = backgroundColor,
             elevation = 0.dp,
             title = {
                 Column(
@@ -54,6 +60,8 @@ fun RickAndMortyTopAppBar(
         TopAppBar(
             //            elevation = 0.dp,
             //            backgroundColor = MaterialTheme.colors.primary,
+            modifier = Modifier.background(Color.Yellow),
+            colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = backgroundColor),
             title = {
                 Row(
                     modifier = Modifier
@@ -71,14 +79,17 @@ fun RickAndMortyTopAppBar(
                             //                            .weight(1f)
                         )
                     } else {
-                        Row(modifier = Modifier.fillMaxWidth().height(120.dp)) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(120.dp)
+                        ) {
                         }
                     }
-                    // TopBar(title = title)
                 }
-//                Text(text = "Rick And Morty")
             },
             scrollBehavior = scrollBehavior
+
         )
     }
 }

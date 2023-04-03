@@ -14,7 +14,6 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -23,7 +22,6 @@ import com.example.rickandmorty.navigation.RickAndMortyNavHost
 import com.example.rickandmorty.ui.screens.character.CharacterDestination
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavItem
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavigationBar
-import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,17 +52,17 @@ fun RickAndMortyMainApp(
     }
 
     Scaffold(
-        topBar = {
-            RickAndMortyTopAppBar(
-                title = "Rick And Morty",
-                canNavigateBack = false,
-                navigateUp = { navController.popBackStack() },
-                scrollBehavior = scrollBehavior,
-                invisible = invisible
-            )
-        },
+//        topBar = {
+//            RickAndMortyTopAppBar(
+//                title = "Rick And Morty",
+//                canNavigateBack = false,
+//                navigateUp = { navController.popBackStack() },
+//                scrollBehavior = scrollBehavior,
+//                invisible = invisible
+//            )
+//        },
         backgroundColor = MaterialTheme.colors.background,
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+//        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 
         bottomBar = {
             BottomNavigationBar(

@@ -27,7 +27,6 @@ import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EpisodeDetails(
     state: EpisodeDetailViewModel.DetailEpisodesState,
@@ -79,14 +78,14 @@ fun EpisodeDetails(
                             Spacer(modifier = Modifier.height(8.dp))
 
                             GetInfoInLine(
-                                icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                 topic = stringResource(id = R.string.episode),
                                 topicAnswer = stringResource(R.string.loading)
                             )
 
                             Row() {
                                 GetInfoInLine(
-                                    icons = ImageVector.vectorResource(id = R.drawable.date),
+                                    icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
                                     topicAnswer = stringResource(R.string.loading)
                                 )
@@ -133,14 +132,14 @@ fun EpisodeDetails(
                             Spacer(modifier = Modifier.height(8.dp))
 
                             GetInfoInLine(
-                                icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                 topic = stringResource(id = R.string.episode),
                                 topicAnswer = state.selectedEpisode?.episode.toString()
                             )
 
                             Row() {
                                 GetInfoInLine(
-                                    icons = ImageVector.vectorResource(id = R.drawable.date),
+                                    icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
                                     topicAnswer = state.selectedEpisode?.air_date.toString()
                                 )
@@ -193,7 +192,7 @@ fun EpisodeDetails(
                                 Spacer(modifier = Modifier.height(6.dp))
 
                                 GetInfoInLine(
-                                    icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                    icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                     topic = stringResource(id = R.string.episode),
                                     topicAnswer = state.selectedEpisode?.episode.toString()
                                 )

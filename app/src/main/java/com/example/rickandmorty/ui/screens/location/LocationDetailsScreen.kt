@@ -156,7 +156,7 @@ fun GetInfo(
 
         locationsDetailUiState.locationDetail.type?.let {
             GetInfoInLine(
-                ImageVector.vectorResource(id = R.drawable.type),
+                ImageVector.vectorResource(id = R.drawable.locationtype),
                 "Type",
                 it,
                 location = true
@@ -165,7 +165,7 @@ fun GetInfo(
 
         locationsDetailUiState.locationDetail.dimension?.let {
             GetInfoInLine(
-                ImageVector.vectorResource(id = R.drawable.dimension),
+                ImageVector.vectorResource(id = R.drawable.locationdimension),
                 "Dimension",
                 it,
                 location = true

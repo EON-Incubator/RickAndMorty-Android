@@ -8,8 +8,10 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
@@ -36,7 +38,7 @@ fun RickAndMortyTopAppBar(
             navigationIcon = {
                 IconButton(onClick = navigateUp) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowBack,
+                        imageVector = ImageVector.vectorResource(id = R.drawable.arrow_backward_circle),
                         contentDescription = stringResource(R.string.back_button)
                     )
                 }

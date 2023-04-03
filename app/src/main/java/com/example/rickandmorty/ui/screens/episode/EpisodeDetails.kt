@@ -203,7 +203,7 @@ fun EpisodeDetails(
 
                                 Row() {
                                     GetInfoInLine(
-                                        icons = ImageVector.vectorResource(id = R.drawable.date),
+                                        icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                         topic = stringResource(id = R.string.air_date),
                                         topicAnswer = state.selectedEpisode?.air_date.toString()
 

@@ -302,19 +302,19 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
 fun infoPart1(charInfo: DetailedCharacter?) {
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.man_fill0_wght400_grad0_opsz48),
+            .vectorResource(R.drawable.gender),
         topic = "Gender",
         topicAnswer = charInfo?.gender.toString()
     )
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.category_fill0_wght400_grad0_opsz48),
+            .vectorResource(R.drawable.species),
         topic = "Species",
         topicAnswer = charInfo?.species.toString()
     )
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.deceased_fill0_wght400_grad0_opsz48),
+            .vectorResource(R.drawable.status),
         topic = "Status",
         topicAnswer = charInfo?.status.toString()
     )
@@ -338,7 +338,7 @@ fun infoPart2(
 
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.trip_origin_fill0_wght400_grad0_opsz48),
+            .vectorResource(R.drawable.origin),
         topic = "Origin",
         topicAnswer = charInfo?.origin.toString(),
         showIt = charInfo?.originId,
@@ -355,7 +355,7 @@ fun infoPart2(
     )
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.explore_fill0_wght400_grad0_opsz48),
+            .vectorResource(R.drawable.lastseen),
         topic = "Last Seen",
         topicAnswer = charInfo?.lastseen.toString(),
         showIt = charInfo?.lastseenId,

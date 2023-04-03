@@ -85,7 +85,6 @@ fun EpisodesScreen(
                         state = listState
                     ) {
                         items(state.episodes) { episode ->
-
                             if (deviceType == ScreenType.LANDSCAPE_PHONE) {
                                 GetRowWithOneImage(
                                     imageUrlLink =

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //padding
+    <dimen name="padding_xsmall">2.dp</dimen>
+    <dimen name="padding_small">4.dp</dimen>
+    <dimen name="padding_medium">6.dp</dimen>
+    <dimen name="padding_large">8.dp</dimen>
+    <dimen name="padding_xlarge">10.dp</dimen>
+</resources>

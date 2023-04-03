@@ -33,6 +33,7 @@ fun GetEmptyRow() {
         property2 = "",
         onClickable = {},
         id = "",
+        location = true,
         modifier = Modifier
             .shimmerBackground(RoundedCornerShape(40.dp))
     )

@@ -220,7 +220,7 @@ fun EpisodeDetails(
                                 )
 
                                 if (state.selectedEpisode.characters.isNotEmpty()) {
-                                    Log.v("character", state.characters.toString())
+                                    Log.v(stringResource(R.string.character), state.characters.toString())
                                     LazyColumn() {
                                         items(state.selectedEpisode.characters) { episode ->
                                             GetRowWithOneImage(
@@ -245,7 +245,7 @@ fun EpisodeDetails(
                 } else {
                     Image(
                         painter = painterResource(id = R.drawable.ic_broken_image),
-                        contentDescription = "Broken"
+                        contentDescription = stringResource(R.string.broken)
                     )
                 }
             }

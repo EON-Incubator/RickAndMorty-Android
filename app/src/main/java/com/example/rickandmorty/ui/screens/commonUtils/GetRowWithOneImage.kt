@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -85,7 +86,7 @@ fun GetRowWithOneImage(
                         model = imageUrlLink,
                         error = painterResource(id = getErrorImage()),
                         placeholder = painterResource(R.drawable.loading_img),
-                        contentDescription = "Icon of Location Characters"
+                        contentDescription = stringResource(R.string.episodes_all_caps)
                     )
                 }
 
@@ -100,7 +101,7 @@ fun GetRowWithOneImage(
 
                 Icon(
                     imageVector = Icons.Outlined.KeyboardArrowRight,
-                    contentDescription = "Go to next screen"
+                    contentDescription = stringResource(R.string.go_to_next_screen)
                 )
             }
 

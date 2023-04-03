@@ -9,9 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
 
 /**
  * Composable function that draws row with an icon
@@ -72,7 +74,7 @@ fun GetInfoInLine(
                 iconArrow?.let {
                     Icon(
                         imageVector = it,
-                        contentDescription = "to go on next location screen"
+                        contentDescription = stringResource(R.string.next_location_screen)
                     )
                 }
             }

@@ -58,7 +58,7 @@ fun RickAndMortyTopAppBar(
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.rick_and_morty),
-                        contentDescription = "rick and morty image",
+                        contentDescription = stringResource(R.string.rick_morty_image),
                         modifier = Modifier
                             .size(120.dp)
 //                            .weight(1f)
@@ -75,7 +75,7 @@ fun TopBar(title: String) {
     Text(
         maxLines = 2,
         text = title,
-        style = if (title.equals("Rick And Morty")) MaterialTheme.typography.h1 else MaterialTheme.typography.h2,
+        style = if (title.equals(stringResource(R.string.rick_and_morty))) MaterialTheme.typography.h1 else MaterialTheme.typography.h2,
         color = MaterialTheme.colors.onPrimary
     )
 }

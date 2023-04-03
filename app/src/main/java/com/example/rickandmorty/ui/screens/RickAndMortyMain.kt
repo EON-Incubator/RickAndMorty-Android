@@ -12,6 +12,7 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -52,7 +53,7 @@ fun RickAndMortyMainApp(
         topBar = {
             if (!invisible) {
                 RickAndMortyTopAppBar(
-                    title = "Rick And Morty",
+                    title = stringResource(id = R.string.rick_and_morty),
                     canNavigateBack = false,
                     navigateUp = { navController.popBackStack() }
                 )
@@ -65,23 +66,23 @@ fun RickAndMortyMainApp(
 
                 items = listOf(
                     BottomNavItem(
-                        name = "Characters",
-                        route = "characters",
+                        name = stringResource(id = R.string.characters_screen_title),
+                        route = stringResource(R.string.characters_small_case),
                         icon = ImageVector.vectorResource(id = R.drawable.person_text_rectangle)
                     ),
                     BottomNavItem(
-                        name = "Locations",
-                        route = "locations",
+                        name = stringResource(id = R.string.locations_screen_title),
+                        route = stringResource(R.string.locations_small_case),
                         icon = ImageVector.vectorResource(id = R.drawable.maplocation)
                     ),
                     BottomNavItem(
-                        name = "Episodes",
-                        route = "episodes",
+                        name = stringResource(id = R.string.episodes_screen_title),
+                        route = stringResource(R.string.episodes_small_case),
                         icon = ImageVector.vectorResource(id = R.drawable.tvepisode)
                     ),
                     BottomNavItem(
-                        name = "Search",
-                        route = "search",
+                        name = stringResource(id = R.string.search_screen_title),
+                        route = stringResource(R.string.search_small_case),
                         icon = Icons.Default.Search
                     )
                 ),

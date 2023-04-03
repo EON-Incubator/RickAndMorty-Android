@@ -78,7 +78,6 @@ fun EpisodeDetails(
 
                             Spacer(modifier = Modifier.height(8.dp))
 
-
                             GetInfoInLine(
                                 icons = ImageVector.vectorResource(id = R.drawable.episode),
                                 topic = stringResource(id = R.string.episode),
@@ -147,7 +146,6 @@ fun EpisodeDetails(
                                 )
                             }
 
-
                             Spacer(modifier = Modifier.height(40.dp))
 
                             Text(
@@ -194,7 +192,6 @@ fun EpisodeDetails(
 
                                 Spacer(modifier = Modifier.height(6.dp))
 
-
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.episode),
                                     topic = stringResource(id = R.string.episode),
@@ -209,7 +206,6 @@ fun EpisodeDetails(
 
                                     )
                                 }
-
 
                                 Spacer(modifier = Modifier.height(40.dp))
                             }

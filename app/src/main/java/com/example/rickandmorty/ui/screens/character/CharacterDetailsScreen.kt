@@ -32,6 +32,7 @@ object CharacterDetailsDestination : NavigationDestination {
     override val screenTitleRes = R.string.character_detail_screen_title
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CharacterDetails(
     modifier: Modifier = Modifier,

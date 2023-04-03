@@ -54,15 +54,24 @@ fun EpisodesScreen(
 
     Scaffold(
         topBar = {
-            RickAndMortyTopAppBar(
-                title = "Rick And Morty",
-                canNavigateBack = false,
-                navigateUp = { },
-                scrollBehavior = scrollBehavior,
-                backgroundColor = colorResource(id = R.color.episode_background)
-            )
+            if (deviceType != ScreenType.LANDSCAPE_PHONE) {
+                RickAndMortyTopAppBar(
+                    title = "Rick And Morty",
+                    canNavigateBack = false,
+                    navigateUp = { },
+                    scrollBehavior = scrollBehavior,
+                    backgroundColor = colorResource(id = R.color.episode_background)
+                )
+            }
         },
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+
+        modifier = if (deviceType != ScreenType.LANDSCAPE_PHONE) {
+            Modifier.nestedScroll(
+                scrollBehavior.nestedScrollConnection
+            )
+        } else {
+            Modifier
+        }
     ) {
         Surface(
             modifier = Modifier
@@ -74,12 +83,10 @@ fun EpisodesScreen(
                     .fillMaxSize()
                     .semantics { contentDescription = "Fetching Episodes" }
             ) {
-                if (deviceType != ScreenType.LANDSCAPE_PHONE) {
-                    ScreenNameBar(
-                        name = stringResource(R.string.episodes_screen_title),
-                        onFilterClick = {}
-                    )
-                }
+                ScreenNameBar(
+                    name = stringResource(R.string.episodes_screen_title),
+                    onFilterClick = {}
+                )
                 SwipeRefresh(
                     state = swipeRefreshState,
                     onRefresh = onRefresh,

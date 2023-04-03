@@ -61,18 +61,27 @@ fun LocationScreen(
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     Scaffold(
-        topBar = {
-            RickAndMortyTopAppBar(
 
-                title = "Rick And Morty",
-                canNavigateBack = false,
-                navigateUp = { },
-                scrollBehavior = scrollBehavior,
-                backgroundColor = colorResource(id = R.color.location_background)
-            )
+        topBar = {
+            if (deviceType != ScreenType.LANDSCAPE_PHONE) {
+                RickAndMortyTopAppBar(
+
+                    title = "Rick And Morty",
+                    canNavigateBack = false,
+                    navigateUp = { },
+                    scrollBehavior = scrollBehavior,
+                    backgroundColor = colorResource(id = R.color.location_background)
+                )
+            }
         },
 
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+        modifier = if (deviceType != ScreenType.LANDSCAPE_PHONE) {
+            Modifier.nestedScroll(
+                scrollBehavior.nestedScrollConnection
+            )
+        } else {
+            Modifier
+        }
     ) {
         Surface(
             modifier = Modifier
@@ -85,12 +94,10 @@ fun LocationScreen(
                     .fillMaxSize()
                     .semantics { contentDescription = "Locations" }
             ) {
-                if (deviceType != ScreenType.LANDSCAPE_PHONE) {
-                    ScreenNameBar(
-                        name = stringResource(R.string.location),
-                        onFilterClick = {}
-                    )
-                }
+                ScreenNameBar(
+                    name = stringResource(R.string.location),
+                    onFilterClick = {}
+                )
 
                 SwipeRefresh(
                     state = swipeRefreshState,

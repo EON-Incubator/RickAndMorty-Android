@@ -48,7 +48,8 @@ fun LocationDetailScreen(
             RickAndMortyTopAppBar(
                 title = locationsDetailUiState.locationDetail.name.toString(),
                 canNavigateBack = true,
-                navigateUp = navigateUp
+                navigateUp = navigateUp,
+                backgroundColor = colorResource(id = R.color.locationDetail_background)
             )
         },
         backgroundColor = colorResource(id = R.color.locationDetail_background)

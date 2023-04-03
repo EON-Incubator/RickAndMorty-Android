@@ -7,15 +7,15 @@ import androidx.compose.material.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
@@ -48,18 +48,23 @@ fun RickAndMortyTopAppBar(
             },
             navigationIcon = {
                 IconButton(onClick = navigateUp) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back_button)
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            modifier = Modifier.weight(1f),
+                            imageVector = ImageVector.vectorResource(id = R.drawable.left_arrow),
+                            contentDescription = stringResource(R.string.back_button)
+                        )
+                        Text(modifier = Modifier.weight(2f).padding(bottom = 3.dp), text = "Back")
+                    }
                 }
             }
 
         )
     } else {
         TopAppBar(
-            //            elevation = 0.dp,
-            //            backgroundColor = MaterialTheme.colors.primary,
             modifier = Modifier.background(Color.Yellow),
             colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = backgroundColor),
             title = {
@@ -76,7 +81,6 @@ fun RickAndMortyTopAppBar(
                             contentDescription = "rick and morty image",
                             modifier = Modifier
                                 .size(120.dp)
-                            //                            .weight(1f)
                         )
                     } else {
                         Row(

@@ -49,7 +49,8 @@ fun EpisodeDetails(
             RickAndMortyTopAppBar(
                 title = state.selectedEpisode?.name.toString(),
                 canNavigateBack = true,
-                navigateUp = navigateUp
+                navigateUp = navigateUp,
+                backgroundColor = colorResource(id = R.color.episodeDetail_background)
             )
         }
     }) {

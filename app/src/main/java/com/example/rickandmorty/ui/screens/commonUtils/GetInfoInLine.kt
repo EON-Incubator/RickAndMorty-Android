@@ -54,6 +54,7 @@ fun GetInfoInLine(
                 Text(
                     modifier = Modifier.weight(1f),
                     text = topic,
+                    maxLines = 1,
                     style = MaterialTheme.typography.body2,
                     color = MaterialTheme.colors.onBackground,
                     fontWeight = FontWeight.Bold

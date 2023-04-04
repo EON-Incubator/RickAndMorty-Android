@@ -48,7 +48,7 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
-        composeTestRule.onNodeWithTag("search_lazy_column")
+        composeTestRule.onNodeWithContentDescription("search_lazy_column")
             .performScrollToNode(hasTestTag("Load More Locations"))
         composeTestRule.onNodeWithTag("Load More Locations").performScrollTo()
             .performClick()

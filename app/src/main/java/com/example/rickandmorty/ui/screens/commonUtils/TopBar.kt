@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,13 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RickAndMortyTopAppBar(
     title: String,
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
-    navigateUp: () -> Unit = {},
+    navigateUp: () -> Unit = {}
 ) {
     if (canNavigateBack) {
         TopAppBar(
@@ -44,7 +45,8 @@ fun RickAndMortyTopAppBar(
         )
     } else {
         TopAppBar(
-            backgroundColor = MaterialTheme.colors.primary,
+            // colors = {},
+            //  backgroundColor = MaterialTheme.colors.primary,
             title = {
                 Row(
                     modifier = Modifier

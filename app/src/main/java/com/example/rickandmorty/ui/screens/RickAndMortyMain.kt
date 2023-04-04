@@ -1,6 +1,7 @@
 package com.example.rickandmorty.ui.screens
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
@@ -8,6 +9,7 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -20,6 +22,7 @@ import com.example.rickandmorty.ui.screens.character.CharacterDestination
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavItem
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavigationBar
 
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun RickAndMortyMainApp(
     navController: NavHostController = rememberNavController(),
@@ -47,15 +50,17 @@ fun RickAndMortyMainApp(
     }
 
     Scaffold(
+
         topBar = {
-            if (!invisible) {
-                RickAndMortyTopAppBar(
-                    title = "Rick And Morty",
-                    canNavigateBack = false,
-                    navigateUp = { navController.popBackStack() }
-                )
-            }
+//            if (!invisible) {
+            RickAndMortyTopAppBar(
+                title = "Rick And Morty",
+                canNavigateBack = false,
+                navigateUp = { navController.popBackStack() }
+            )
+//            }
         },
+
         backgroundColor = MaterialTheme.colors.background,
 
         bottomBar = {

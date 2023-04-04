@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,8 +20,11 @@ import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episodes
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CharacterLoader(modifier: Modifier = Modifier) {
+fun CharacterLoader(
+    modifier: Modifier = Modifier,
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -59,6 +63,7 @@ fun CharacterLoader(modifier: Modifier = Modifier) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailedCharacterLoader(modifier: Modifier = Modifier) {
     repeat(8) {
@@ -86,6 +91,7 @@ fun DetailedCharacterLoader(modifier: Modifier = Modifier) {
                 onOriginClick = {},
                 onLastSeenClick = {},
                 modifier = Modifier.shimmerBackground()
+
             )
         }
     }

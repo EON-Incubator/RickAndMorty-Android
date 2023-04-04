@@ -8,6 +8,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -33,19 +34,22 @@ object LocationDetailsDestination : NavigationDestination {
  * Composable function that draws Location Detail Screen which
  * is generated after clicking 1 location on Location Screen
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationDetailScreen(
     locationsDetailUiState: LocationDetailViewModel.LocationDetailUiState,
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+
 ) {
     // Scaffold to have a seperate Top Bar for this screen
     Scaffold(topBar = {
         RickAndMortyTopAppBar(
             title = locationsDetailUiState.locationDetail.name.toString(),
             canNavigateBack = true,
-            navigateUp = navigateUp
+            navigateUp = navigateUp,
+
         )
     }) {
         if (locationsDetailUiState.isLoading) {

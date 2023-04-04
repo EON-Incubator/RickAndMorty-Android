@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +28,7 @@ import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EpisodeDetails(
@@ -34,6 +36,7 @@ fun EpisodeDetails(
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+
 ) {
     Scaffold(topBar = {
         if (state.isLoading) {
@@ -41,12 +44,14 @@ fun EpisodeDetails(
                 title = stringResource(R.string.loading),
                 canNavigateBack = true,
                 navigateUp = navigateUp
+
             )
         } else {
             RickAndMortyTopAppBar(
                 title = state.selectedEpisode?.name.toString(),
                 canNavigateBack = true,
                 navigateUp = navigateUp
+
             )
         }
     }) {
@@ -120,7 +125,11 @@ fun EpisodeDetails(
                                             status = "",
                                             id = "",
                                             onClickable = {},
-                                            modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp))
+                                            modifier = Modifier.shimmerBackground(
+                                                RoundedCornerShape(
+                                                    40.dp
+                                                )
+                                            )
                                         )
                                     }
                                 }

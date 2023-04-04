@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +33,7 @@ object CharacterDetailsDestination : NavigationDestination {
     override val screenTitleRes = R.string.character_detail_screen_title
 }
 
+@ExperimentalMaterial3Api
 @Composable
 fun CharacterDetails(
     modifier: Modifier = Modifier,
@@ -41,6 +43,7 @@ fun CharacterDetails(
     onOriginClick: (String) -> Unit,
     onLastSeenClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+
 ) {
     if (state.isLoading) {
         Scaffold(topBar = {
@@ -48,6 +51,7 @@ fun CharacterDetails(
                 title = "loading",
                 canNavigateBack = true,
                 navigateUp = navigateUp
+
             )
         }) {
             DetailedCharacterLoader(modifier = Modifier.padding(it))
@@ -58,6 +62,7 @@ fun CharacterDetails(
                 title = state.character?.name.toString(),
                 canNavigateBack = true,
                 navigateUp = navigateUp
+
             )
         }) {
             DetailedScreen(

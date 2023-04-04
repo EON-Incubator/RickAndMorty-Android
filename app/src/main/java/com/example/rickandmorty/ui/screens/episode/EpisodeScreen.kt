@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -30,6 +31,7 @@ object EpisodeDestination : NavigationDestination {
     override val screenTitleRes = R.string.episodes_screen_title
 }
 
+@ExperimentalMaterial3Api
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun EpisodesScreen(

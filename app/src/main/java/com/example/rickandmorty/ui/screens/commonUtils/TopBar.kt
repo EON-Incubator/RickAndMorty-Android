@@ -41,7 +41,7 @@ fun RickAndMortyTopAppBar(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(end = 20.dp),
+                        .padding(end = GetDimensions().xLargePadding),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) { TopBar(title = title) }

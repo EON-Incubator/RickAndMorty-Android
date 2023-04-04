@@ -109,7 +109,7 @@ fun GetRowWithOneImage(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .offset(x = -30.dp)
-                        .padding(top = 10.dp)
+                        .padding(top = GetDimensions().mediumPadding)
                         .width(100.dp)
                         .rotate(-38f)
                         .semantics { contentDescription = "Item Name" }

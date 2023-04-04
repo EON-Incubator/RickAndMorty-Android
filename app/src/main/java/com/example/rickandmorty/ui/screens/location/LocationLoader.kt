@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.ui.screens.ScreenType
+import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
@@ -52,7 +53,7 @@ fun LocationLoader(deviceType: ScreenType) {
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
-            .padding(8.dp)
+            .padding(GetDimensions().smallPadding)
             .semantics { contentDescription = "Fetching Records" }
     ) {
         repeat(
@@ -90,7 +91,8 @@ fun LocationDetailLoader(deviceType: ScreenType) {
     if (deviceType == ScreenType.PORTRAIT_PHONE) {
         Column(
             modifier = Modifier
-                .fillMaxSize().shimmerBackground()
+                .fillMaxSize()
+                .shimmerBackground()
         ) {
             GetInfo(
                 LocationDetailViewModel.LocationDetailUiState()

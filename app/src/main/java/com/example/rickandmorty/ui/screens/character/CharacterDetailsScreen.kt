@@ -25,6 +25,7 @@ import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
+import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 
@@ -88,7 +89,7 @@ fun DetailedScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(top = 8.dp),
+            .padding(top = GetDimensions().smallPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -107,7 +108,7 @@ fun DetailedScreen(
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 16.dp),
+                                .padding(start = GetDimensions().xxxMediumPadding),
                             textAlign = TextAlign.Start
                         )
 
@@ -123,7 +124,7 @@ fun DetailedScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(50.dp)
-                                    .padding(start = 16.dp, top = 12.dp),
+                                    .padding(start = GetDimensions().xxxMediumPadding, top = GetDimensions().xMediumPadding),
                                 textAlign = TextAlign.Start
                             )
                         }
@@ -165,7 +166,7 @@ fun DetailedScreen(
                                         text = "INFO",
                                         style = MaterialTheme.typography.body2,
                                         modifier = Modifier
-                                            .padding(start = 16.dp, bottom = 12.dp),
+                                            .padding(start = GetDimensions().xxxMediumPadding, bottom = GetDimensions().xMediumPadding),
                                         textAlign = TextAlign.Start
                                     )
                                     Column {
@@ -185,7 +186,7 @@ fun DetailedScreen(
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 16.dp, start = 24.dp),
+                                    .padding(top = GetDimensions().xxxMediumPadding, start = GetDimensions().xxxLargePadding),
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -221,7 +222,7 @@ fun DetailedScreen(
                             text = "INFO",
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
-                                .padding(start = 16.dp, bottom = 12.dp),
+                                .padding(start = GetDimensions().xxxMediumPadding, bottom = GetDimensions().xMediumPadding),
                             textAlign = TextAlign.Start
                         )
                         Column {
@@ -242,7 +243,7 @@ fun DetailedScreen(
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 14.dp, start = 16.dp),
+                                    .padding(top = GetDimensions().xxMediumPadding, start = GetDimensions().xxxMediumPadding),
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -275,7 +276,7 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
             style = MaterialTheme.typography.body2,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp),
+                .padding(start = GetDimensions().xxxMediumPadding),
             textAlign = TextAlign.Start
         )
         Card(shape = RoundedCornerShape(CornerSize(100.dp))) {
@@ -334,7 +335,7 @@ fun infoPart2(
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
-            .padding(start = 16.dp, top = 24.dp, bottom = 2.dp),
+            .padding(start = GetDimensions().xxxMediumPadding, top = GetDimensions().xxxLargePadding, bottom = GetDimensions().xxxSmallPadding),
         textAlign = TextAlign.Start
     )
 

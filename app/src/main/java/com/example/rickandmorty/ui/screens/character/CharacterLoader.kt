@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episodes
+import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
 @Composable
@@ -26,14 +27,14 @@ fun CharacterLoader(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
-            .padding(8.dp)
+            .padding(GetDimensions().smallPadding)
             .semantics { contentDescription = "Fetching Characters" }
     ) {
         repeat(8) {
             item {
                 Card(
                     modifier = Modifier
-                        .padding(12.dp)
+                        .padding(GetDimensions().xMediumPadding)
                         .fillMaxSize()
                         .clip(RoundedCornerShape(12.dp))
                         .clickable { },

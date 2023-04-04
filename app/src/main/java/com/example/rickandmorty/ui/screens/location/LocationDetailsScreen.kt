@@ -19,6 +19,7 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
+import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 
@@ -98,7 +99,11 @@ fun GetResidents(
     Column(modifier = modifier) {
         Text(
             text = "RESIDENTS",
-            modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),
+            modifier = Modifier.padding(
+                start = GetDimensions().xLargePadding,
+                top = GetDimensions().xxxLargePadding,
+                bottom = GetDimensions().largePadding
+            ),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,
             fontWeight = FontWeight.Normal
@@ -138,7 +143,11 @@ fun GetInfo(
     Column(modifier = modifier) {
         Text(
             text = "INFO",
-            modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),
+            modifier = Modifier.padding(
+                start = GetDimensions().xLargePadding,
+                top = GetDimensions().xxxLargePadding,
+                bottom = GetDimensions().largePadding
+            ),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,
             fontWeight = FontWeight.Normal

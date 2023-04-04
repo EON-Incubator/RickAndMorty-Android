@@ -30,7 +30,7 @@ fun ScreenNameBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(3.dp, bottom = 6.dp)
+            .padding(3.dp, bottom = GetDimensions().xSmallPadding)
             .height(45.dp)
             .padding(5.dp)
     ) {
@@ -38,12 +38,12 @@ fun ScreenNameBar(
             text = name,
             style = MaterialTheme.typography.h2,
             color = MaterialTheme.colors.onBackground,
-            modifier = Modifier.padding(start = 16.dp)
+            modifier = Modifier.padding(start = GetDimensions().xxxMediumPadding)
         )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(end = 16.dp),
+                .padding(end = GetDimensions().xxxMediumPadding),
             horizontalArrangement = Arrangement.End
         ) {
             if (putIcon) {
@@ -69,7 +69,7 @@ fun ScreenNameBar(
                             )
                             Text(
                                 text = "Filter",
-                                modifier = Modifier.padding(start = 8.dp),
+                                modifier = Modifier.padding(start = GetDimensions().smallPadding),
                                 style = MaterialTheme.typography.body1,
                                 color = Color.Black
                             )

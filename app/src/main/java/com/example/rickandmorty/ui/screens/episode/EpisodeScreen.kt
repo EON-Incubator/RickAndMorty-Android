@@ -19,14 +19,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
-import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
-import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
+import com.example.rickandmorty.ui.screens.commonUtils.*
 import com.example.rickandmorty.ui.screens.location.LocationLoader
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -54,7 +50,7 @@ fun EpisodesScreen(
 
     Scaffold(
         topBar = {
-            if (deviceType != ScreenType.LANDSCAPE_PHONE) {
+            if (deviceType == ScreenType.PORTRAIT_PHONE) {
                 RickAndMortyTopAppBar(
                     title = "Rick And Morty",
                     canNavigateBack = false,
@@ -109,9 +105,9 @@ fun EpisodesScreen(
                                     else -> 2
                                 }
                             ),
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(GetDimensions().largePadding),
                             horizontalArrangement = Arrangement.Center,
-                            modifier = Modifier.padding(8.dp),
+                            modifier = Modifier.padding(GetDimensions().smallPadding),
                             state = listState
                         ) {
                             items(state.episodes) { episode ->

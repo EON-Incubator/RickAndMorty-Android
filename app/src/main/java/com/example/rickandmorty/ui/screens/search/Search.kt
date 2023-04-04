@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
+import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 
@@ -82,7 +83,7 @@ fun Search(
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
-                                    .padding(2.dp)
+                                    .padding(GetDimensions().xxxSmallPadding)
                             )
                         }
                         Log.v(
@@ -96,7 +97,7 @@ fun Search(
                                     text = "No characters found matching the input: ${query.value.text}",
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(2.dp)
+                                        .padding(GetDimensions().xxxSmallPadding)
                                 )
                             }
                         } else {
@@ -122,7 +123,7 @@ fun Search(
                                     onClick = updateCharacterList,
                                     Modifier
                                         .fillMaxWidth()
-                                        .padding(10.dp)
+                                        .padding(GetDimensions().mediumPadding)
                                 ) {
                                     Text(
                                         text =
@@ -142,14 +143,14 @@ fun Search(
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
-                                    .padding(2.dp)
+                                    .padding(GetDimensions().xxxSmallPadding)
                             )
                             Spacer(modifier = Modifier.height(5.dp))
                             Text(
                                 text = "Type to search character by name",
                                 Modifier
                                     .fillMaxWidth()
-                                    .padding(2.dp)
+                                    .padding(GetDimensions().xxxSmallPadding)
                             )
                         }
                     }
@@ -163,7 +164,7 @@ fun Search(
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
-                                    .padding(2.dp)
+                                    .padding(GetDimensions().xxxSmallPadding)
                             )
                         }
                         if (searchResultState.locationByName.locations.isEmpty()) {
@@ -173,7 +174,7 @@ fun Search(
                                     text = "No locations found matching the input: ${query.value.text}",
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(2.dp)
+                                        .padding(GetDimensions().xxxSmallPadding)
                                 )
                             }
                         } else {
@@ -194,7 +195,7 @@ fun Search(
                                     onClick = updateLocationList,
                                     Modifier
                                         .fillMaxWidth()
-                                        .padding(10.dp)
+                                        .padding(GetDimensions().mediumPadding)
                                 ) {
                                     Text(
                                         text =
@@ -214,7 +215,7 @@ fun Search(
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
-                                    .padding(2.dp)
+                                    .padding(GetDimensions().xxxSmallPadding)
                             )
                         }
                         item {
@@ -223,7 +224,7 @@ fun Search(
                                 text = "Type to search location by name or type",
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(2.dp)
+                                    .padding(GetDimensions().xxxSmallPadding)
                             )
                         }
                     }

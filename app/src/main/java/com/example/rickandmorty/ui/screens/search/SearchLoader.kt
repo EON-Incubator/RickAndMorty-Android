@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
@@ -23,7 +24,7 @@ fun SearchLoader() {
                 text = "Characters",
                 Modifier
                     .fillMaxWidth()
-                    .padding(2.dp)
+                    .padding(GetDimensions().xxxSmallPadding)
                     .shimmerBackground(RoundedCornerShape(40.dp))
                     .semantics { contentDescription = "Fetching Records" }
             )
@@ -51,7 +52,7 @@ fun SearchLoader() {
                 Modifier
                     .background(Color.LightGray)
                     .fillMaxWidth()
-                    .padding(2.dp)
+                    .padding(GetDimensions().xxxSmallPadding)
                     .shimmerBackground(RoundedCornerShape(40.dp))
             )
         }

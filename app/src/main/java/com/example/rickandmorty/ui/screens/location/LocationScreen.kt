@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
+import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
@@ -63,7 +64,7 @@ fun LocationScreen(
     Scaffold(
 
         topBar = {
-            if (deviceType != ScreenType.LANDSCAPE_PHONE) {
+            if (deviceType == ScreenType.PORTRAIT_PHONE) {
                 RickAndMortyTopAppBar(
 
                     title = "Rick And Morty",
@@ -123,7 +124,7 @@ fun LocationScreen(
                             ),
                             verticalArrangement = Arrangement.spacedBy(8.dp),
                             horizontalArrangement = Arrangement.Center,
-                            modifier = Modifier.padding(8.dp),
+                            modifier = Modifier.padding(GetDimensions().smallPadding),
                             state = listState
                         ) {
                             items(locationsUiState.locations) { location ->

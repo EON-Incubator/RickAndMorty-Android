@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
 
 @Composable
 fun DialogBox(
@@ -30,12 +31,12 @@ fun DialogBox(
                 showDialog.value = false
             },
             title = {
-                Text(text = "Filter for Characters", Modifier.padding(bottom = 12.dp))
+                Text(text = "Filter for Characters", Modifier.padding(bottom = GetDimensions().xMediumPadding))
             },
             text = {
                 val statusList = listOf<String>("All", "Alive", "dead", "unknown")
                 val genderList = listOf<String>("All", "Male", "Female", "Genderless", "unknown")
-                Column(modifier = Modifier.padding(top = 14.dp)) {
+                Column(modifier = Modifier.padding(top = GetDimensions().xxMediumPadding)) {
                     genderState = DropdownDemo(
                         options = genderList,
                         tag = "Gender",
@@ -54,7 +55,7 @@ fun DialogBox(
             },
             buttons = {
                 Row(
-                    modifier = Modifier.padding(all = 8.dp),
+                    modifier = Modifier.padding(all = GetDimensions().smallPadding),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Button(

@@ -33,13 +33,13 @@ fun GetInfoInLine(
     if (topicAnswer.isNotEmpty()) {
         Card(
             shape = RoundedCornerShape(CornerSize(4.dp)),
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp),
+            modifier = Modifier.padding(start = GetDimensions().xxxMediumPadding, end = GetDimensions().xxxMediumPadding, top = GetDimensions().mediumPadding),
             backgroundColor = colorResource(id = GetColor(location = location).detail_info_card)
         ) {
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, bottom = 7.dp, top = 7.dp, end = 7.dp),
+                    .padding(start = GetDimensions().xLargePadding, bottom = 7.dp, top = 7.dp, end = 7.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {

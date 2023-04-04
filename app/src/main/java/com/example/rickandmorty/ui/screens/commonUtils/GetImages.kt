@@ -47,7 +47,7 @@ fun getErrorImage() =
 fun GetSingleImage(imageUrlLink: String) {
     AsyncImage(
         modifier = Modifier
-            .padding(2.dp)
+            .padding(GetDimensions().xxxSmallPadding)
             .size(35.dp)
             .clip(RoundedCornerShape(15)),
         model = imageUrlLink,

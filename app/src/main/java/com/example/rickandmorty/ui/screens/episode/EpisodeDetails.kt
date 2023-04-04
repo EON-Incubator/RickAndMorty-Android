@@ -23,11 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
-import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
+import com.example.rickandmorty.ui.screens.commonUtils.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -77,7 +74,7 @@ fun EpisodeDetails(
                                 text = stringResource(R.string.info),
                                 fontSize = 12.sp,
                                 modifier = Modifier
-                                    .padding(start = 10.dp)
+                                    .padding(start = GetDimensions().mediumPadding)
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
@@ -102,7 +99,7 @@ fun EpisodeDetails(
                                 text = stringResource(R.string.characters),
                                 fontSize = 12.sp,
                                 modifier = Modifier
-                                    .padding(start = 10.dp)
+                                    .padding(start = GetDimensions().mediumPadding)
                             )
 
                             LazyColumn() {
@@ -131,7 +128,7 @@ fun EpisodeDetails(
                                 text = stringResource(R.string.info),
                                 fontSize = 12.sp,
                                 modifier = Modifier
-                                    .padding(start = 10.dp)
+                                    .padding(start = GetDimensions().mediumPadding)
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
@@ -156,7 +153,7 @@ fun EpisodeDetails(
                                 text = stringResource(R.string.characters),
                                 fontSize = 12.sp,
                                 modifier = Modifier
-                                    .padding(start = 10.dp)
+                                    .padding(start = GetDimensions().mediumPadding)
                             )
 
                             if (state.selectedEpisode.characters.isNotEmpty()) {
@@ -191,7 +188,7 @@ fun EpisodeDetails(
                                     text = stringResource(R.string.info),
                                     fontSize = 12.sp,
                                     modifier = Modifier
-                                        .padding(start = 10.dp)
+                                        .padding(start = GetDimensions().mediumPadding)
                                 )
 
                                 Spacer(modifier = Modifier.height(6.dp))
@@ -219,7 +216,7 @@ fun EpisodeDetails(
                                     text = stringResource(R.string.characters),
                                     fontSize = 12.sp,
                                     modifier = Modifier
-                                        .padding(start = 10.dp)
+                                        .padding(start = GetDimensions().mediumPadding)
                                 )
 
                                 if (state.selectedEpisode.characters.isNotEmpty()) {

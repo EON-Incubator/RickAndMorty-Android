@@ -48,7 +48,7 @@ fun GetRowWithFourImages(
         shape = RoundedCornerShape(10),
         elevation = 7.dp,
         modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, bottom = 12.dp)
+            .padding(start = GetDimensions().xxxMediumPadding, end = GetDimensions().xxxMediumPadding, bottom = GetDimensions().xMediumPadding)
             .semantics { contentDescription = "Four Image Row" }
             .clickable {
                 onClickable(id)

@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     //padding
-    <dimen name="padding_xsmall">2.dp</dimen>
-    <dimen name="padding_small">4.dp</dimen>
-    <dimen name="padding_medium">6.dp</dimen>
-    <dimen name="padding_large">8.dp</dimen>
-    <dimen name="padding_xlarge">10.dp</dimen>
+    //small
+    <dimen name="padding_xxxsmall">2.dp</dimen>
+    <dimen name="padding_xxsmall">4.dp</dimen>
+    <dimen name="padding_xsmall">6.dp</dimen>
+    <dimen name="padding_small">8.dp</dimen>
+
+    //medium
+    <dimen name="padding_medium">10.dp</dimen>
+    <dimen name="padding_xmedium">12.dp</dimen>
+    <dimen name="padding_xxmedium">14.dp</dimen>
+    <dimen name="padding_xxxmedium">16.dp</dimen>
+
+    //large
+    <dimen name="padding_large">18.dp</dimen>
+    <dimen name="padding_xlarge">20.dp</dimen>
+    <dimen name="padding_xxlarge">22.dp</dimen>
+    <dimen name="padding_xxxlarge">24.dp</dimen>
 </resources>

@@ -30,6 +30,7 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
 import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -117,7 +118,7 @@ fun Characters(
                             columns = GridCells.Fixed(2),
                             verticalArrangement = Arrangement.spacedBy(8.dp),
                             horizontalArrangement = Arrangement.Center,
-                            modifier = Modifier.padding(8.dp),
+                            modifier = Modifier.padding(GetDimensions().smallPadding),
                             state = listState
                         ) {
                             items(state.characters) { character ->
@@ -147,7 +148,7 @@ private fun characterItem(
 ) {
     Card(
         modifier = Modifier
-            .padding(12.dp)
+            .padding(GetDimensions().xMediumPadding)
             .fillMaxSize()
             .clip(RoundedCornerShape(12.dp))
             .clickable {

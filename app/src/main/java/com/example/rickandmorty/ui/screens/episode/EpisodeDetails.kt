@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -22,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
@@ -50,14 +51,16 @@ fun EpisodeDetails(
             RickAndMortyTopAppBar(
                 title = state.selectedEpisode?.name.toString(),
                 canNavigateBack = true,
-                navigateUp = navigateUp
+
+                navigateUp = navigateUp,
+                backgroundColor = colorResource(id = R.color.episodeDetail_background)
 
             )
         }
     }) {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
+            color = colorResource(id = R.color.episodeDetail_background)
         ) {
             Column(
                 modifier = Modifier
@@ -82,10 +85,6 @@ fun EpisodeDetails(
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
 
                             GetInfoInLine(
                                 icons = ImageVector.vectorResource(id = R.drawable.episode),
@@ -100,10 +99,6 @@ fun EpisodeDetails(
                                     topicAnswer = stringResource(R.string.loading)
                                 )
                             }
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
 
                             Spacer(modifier = Modifier.height(40.dp))
 
@@ -148,10 +143,6 @@ fun EpisodeDetails(
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
 
                             GetInfoInLine(
                                 icons = ImageVector.vectorResource(id = R.drawable.episode),
@@ -166,10 +157,6 @@ fun EpisodeDetails(
                                     topicAnswer = state.selectedEpisode?.air_date.toString()
                                 )
                             }
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
 
                             Spacer(modifier = Modifier.height(40.dp))
 
@@ -216,10 +203,6 @@ fun EpisodeDetails(
                                 )
 
                                 Spacer(modifier = Modifier.height(6.dp))
-                                Divider(
-                                    Modifier.height(1.dp),
-                                    color = MaterialTheme.colors.onBackground
-                                )
 
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.episode),
@@ -235,10 +218,6 @@ fun EpisodeDetails(
 
                                     )
                                 }
-                                Divider(
-                                    Modifier.height(1.dp),
-                                    color = MaterialTheme.colors.onBackground
-                                )
 
                                 Spacer(modifier = Modifier.height(40.dp))
                             }

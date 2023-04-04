@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episodes
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,36 +64,127 @@ fun CharacterLoader(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailedCharacterLoader(modifier: Modifier = Modifier) {
-    repeat(8) {
-        Column() {
-            CharacterDetails(
-                state = DetailedCharacterViewModel.detailedcharacterState(
-                    DetailedCharacter(
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        listOf<Episodes>(),
-                        "",
-                        "",
-                        "",
-                        ""
+fun DetailedCharacterLoader(
+    modifier: Modifier = Modifier,
+    deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+) {
+    if (deviceType == ScreenType.PORTRAIT_PHONE) {
+        repeat(8) {
+            Column() {
+                CharacterDetails(
+                    state = DetailedCharacterViewModel.detailedcharacterState(
+                        DetailedCharacter(
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            listOf<Episodes>(
+                                Episodes(
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    emptyList()
+                                )
+                            ),
+                            "",
+                            "",
+                            "",
+                            ""
 
+                        ),
+                        isLoading = false
                     ),
-                    isLoading = false
-                ),
-                navigateUp = { /*TODO*/ },
-                onEpisodeClick = {},
-                onOriginClick = {},
-                onLastSeenClick = {},
-                modifier = Modifier.shimmerBackground()
+                    navigateUp = { },
+                    onEpisodeClick = {},
+                    onOriginClick = {},
+                    onLastSeenClick = {},
+                    modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp)),
+                    deviceType = deviceType
 
-            )
+                )
+            }
+        }
+    } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+        repeat(8) {
+            Column() {
+                CharacterDetails(
+                    state = DetailedCharacterViewModel.detailedcharacterState(
+                        DetailedCharacter(
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            listOf<Episodes>(
+                                Episodes(
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    emptyList()
+                                )
+                            ),
+                            "",
+                            "",
+                            "",
+                            ""
+
+                        ),
+                        isLoading = false
+                    ),
+                    navigateUp = { },
+                    onEpisodeClick = {},
+                    onOriginClick = {},
+                    onLastSeenClick = {},
+                    modifier = Modifier.shimmerBackground(),
+                    deviceType = deviceType
+
+                )
+            }
+        }
+    } else {
+        repeat(8) {
+            Column() {
+                CharacterDetails(
+                    state = DetailedCharacterViewModel.detailedcharacterState(
+                        DetailedCharacter(
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            listOf<Episodes>(
+                                Episodes(
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    emptyList()
+                                )
+                            ),
+                            "",
+                            "",
+                            "",
+                            ""
+
+                        ),
+                        isLoading = false
+                    ),
+                    navigateUp = { },
+                    onEpisodeClick = {},
+                    onOriginClick = {},
+                    onLastSeenClick = {},
+                    modifier = Modifier.shimmerBackground(),
+                    deviceType = deviceType
+
+                )
+            }
         }
     }
 }

@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -12,12 +11,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
@@ -44,13 +44,17 @@ fun LocationDetailScreen(
 
 ) {
     // Scaffold to have a seperate Top Bar for this screen
-    Scaffold(topBar = {
-        RickAndMortyTopAppBar(
-            title = locationsDetailUiState.locationDetail.name.toString(),
-            canNavigateBack = true,
-            navigateUp = navigateUp
-        )
-    }) {
+    Scaffold(
+        topBar = {
+            RickAndMortyTopAppBar(
+                title = locationsDetailUiState.locationDetail.name.toString(),
+                canNavigateBack = true,
+                navigateUp = navigateUp,
+                backgroundColor = colorResource(id = R.color.locationDetail_background)
+            )
+        },
+        backgroundColor = colorResource(id = R.color.locationDetail_background)
+    ) {
         if (locationsDetailUiState.isLoading) {
             LocationDetailLoader(deviceType = deviceType)
         } else {
@@ -64,7 +68,7 @@ fun LocationDetailScreen(
                     Spacer(modifier = Modifier.height(30.dp))
                     GetResidents(locationsDetailUiState, onCharacterClick)
                 }
-            } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+            } else {
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
@@ -78,21 +82,6 @@ fun LocationDetailScreen(
                         locationsDetailUiState,
                         onCharacterClick,
                         modifier = Modifier.weight(5f)
-                    )
-                }
-            } else {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(it)
-                ) {
-                    GetInfo(
-                        locationsDetailUiState
-                    )
-                    GetResidents(
-                        locationsDetailUiState,
-                        onCharacterClick,
-                        fixedElement = 2
                     )
                 }
             }
@@ -156,16 +145,12 @@ fun GetInfo(
             fontWeight = FontWeight.Normal
         )
 
-        Divider(
-            Modifier.height(1.dp),
-            color = MaterialTheme.colors.onBackground
-        )
-
         locationsDetailUiState.locationDetail.type?.let {
             GetInfoInLine(
                 ImageVector.vectorResource(id = R.drawable.type),
                 "Type",
-                it
+                it,
+                location = true
             )
         }
 
@@ -173,7 +158,8 @@ fun GetInfo(
             GetInfoInLine(
                 ImageVector.vectorResource(id = R.drawable.dimension),
                 "Dimension",
-                it
+                it,
+                location = true
             )
         }
     }

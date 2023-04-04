@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens.character
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,8 +13,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -23,7 +22,7 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
@@ -33,7 +32,7 @@ object CharacterDetailsDestination : NavigationDestination {
     override val screenTitleRes = R.string.character_detail_screen_title
 }
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterDetails(
     modifier: Modifier = Modifier,
@@ -43,19 +42,9 @@ fun CharacterDetails(
     onOriginClick: (String) -> Unit,
     onLastSeenClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
-
 ) {
     if (state.isLoading) {
-        Scaffold(topBar = {
-            RickAndMortyTopAppBar(
-                title = "loading",
-                canNavigateBack = true,
-                navigateUp = navigateUp
-
-            )
-        }) {
-            DetailedCharacterLoader(modifier = Modifier.padding(it))
-        }
+        DetailedCharacterLoader(deviceType = deviceType)
     } else {
         Scaffold(topBar = {
             RickAndMortyTopAppBar(
@@ -143,10 +132,7 @@ fun DetailedScreen(
                             onClickable = {
                                 onEpisodeClick(eachEpisode.id.toString())
                             },
-                            id = eachEpisode.id.toString(),
-                            color = R.color.episode_card_background,
-                            property1_color = R.color.character_property1,
-                            property2_color = R.color.character_property2
+                            id = eachEpisode.id.toString()
                         )
                     }
                 }
@@ -207,8 +193,7 @@ fun DetailedScreen(
                                     onClickable = {
                                         onEpisodeClick(eachEpisode.id.toString())
                                     },
-                                    id = eachEpisode.id.toString(),
-                                    color = R.color.episodes_on_charater_color
+                                    id = eachEpisode.id.toString()
                                 )
                             }
                         }
@@ -263,8 +248,7 @@ fun DetailedScreen(
                                     onClickable = {
                                         onEpisodeClick(eachEpisode.id.toString())
                                     },
-                                    id = eachEpisode.id.toString(),
-                                    color = R.color.episodes_on_charater_color
+                                    id = eachEpisode.id.toString()
                                 )
                             }
                         }
@@ -296,12 +280,13 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
             )
         }
     } else {
-        Card(shape = RoundedCornerShape(CornerSize(100.dp)), border = BorderStroke(12.dp, Color.Black)) {
+        Card(shape = RoundedCornerShape(CornerSize(100.dp)), modifier = Modifier.padding(8.dp)) {
             AsyncImage(
                 model = charInfo?.image.toString(),
                 contentDescription = null,
                 modifier = Modifier
                     .size(200.dp),
+                contentScale = ContentScale.Crop,
                 alignment = Alignment.Center
             )
         }
@@ -314,22 +299,19 @@ fun infoPart1(charInfo: DetailedCharacter?) {
         icons = ImageVector
             .vectorResource(R.drawable.man_fill0_wght400_grad0_opsz48),
         topic = "Gender",
-        topicAnswer = charInfo?.gender.toString(),
-        Color = R.color.character_bar_color
+        topicAnswer = charInfo?.gender.toString()
     )
     GetInfoInLine(
         icons = ImageVector
             .vectorResource(R.drawable.category_fill0_wght400_grad0_opsz48),
         topic = "Species",
-        topicAnswer = charInfo?.species.toString(),
-        Color = R.color.character_bar_color
+        topicAnswer = charInfo?.species.toString()
     )
     GetInfoInLine(
         icons = ImageVector
             .vectorResource(R.drawable.deceased_fill0_wght400_grad0_opsz48),
         topic = "Status",
-        topicAnswer = charInfo?.status.toString(),
-        Color = R.color.character_bar_color
+        topicAnswer = charInfo?.status.toString()
     )
 }
 
@@ -364,8 +346,7 @@ fun infoPart2(
             Icons.Outlined.KeyboardArrowRight
         } else {
             null
-        },
-        Color = R.color.character_bar_color
+        }
     )
     GetInfoInLine(
         icons = ImageVector
@@ -382,7 +363,6 @@ fun infoPart2(
             Icons.Outlined.KeyboardArrowRight
         } else {
             null
-        },
-        Color = R.color.character_bar_color
+        }
     )
 }

@@ -1,24 +1,22 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.rickandmorty.R
 
 /**
  * Helper composable function that draws the data on
@@ -31,56 +29,59 @@ fun GetData(
     property1: String,
     property2: String,
     icons: List<ImageVector> = emptyList(),
-    property1_color: Int = R.color.white,
-    property2_color: Int = R.color.white,
+    location: Boolean = false,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.CenterHorizontally
+//        verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = titleName,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(start = 10.dp, bottom = 10.dp),
-            style = MaterialTheme.typography.body1,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.onBackground
-        )
-        var lineHeight = MaterialTheme.typography.body2.fontSize * 4 / 3
-        Row() {
-            Row(
-                modifier = Modifier
-                    .padding(start = 15.dp, end = 7.dp, bottom = 7.dp)
-                    .weight(1f),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (icons.isNotEmpty()) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 7.dp)
-                            .size(23.dp),
-                        imageVector = icons[0],
-                        contentDescription = "Icon"
-                    )
-                }
-                Card(
-                    shape = RoundedCornerShape(CornerSize(12.dp)),
-                    modifier = Modifier.width(170.dp)
+        Row(verticalAlignment = Alignment.Top) {
+            Text(
+                text = titleName,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = 10.dp, bottom = 10.dp),
+                style = MaterialTheme.typography.body1,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colors.onBackground
+            )
+        }
+//        Spacer(modifier = Modifier.height(10.dp))
+        // var lineHeight = MaterialTheme.typography.body2.fontSize * 4 / 3
+        Row(verticalAlignment = Alignment.Bottom) {
+            if (property1.isNotEmpty()) {
+                Row(
+                    modifier = Modifier
+                        .padding(end = 7.dp, bottom = 7.dp)
+                        .weight(1f)
+                        .border(
+                            shape = RoundedCornerShape(25),
+                            border = BorderStroke(1.dp, color = Color.LightGray)
+                        )
+                        .background(
+                            color = colorResource(
+                                id = GetColor(
+                                    location =
+                                    location
+                                ).property1
+                            ),
+                            shape = RoundedCornerShape(25)
+                        ),
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = property1,
                         modifier = Modifier
-                            .sizeIn(
-                                minHeight = with(LocalDensity.current) {
-                                    (lineHeight * 2).toDp()
-                                }
-                            )
-                            .background(colorResource(id = property1_color)),
-                        style = MaterialTheme.typography.body2,
+                            .fillMaxWidth()
+                            .padding(start = 5.dp, end = 5.dp, top = 2.dp, bottom = 2.dp),
+//                        .sizeIn(
+//                            minHeight = with(LocalDensity.current) {
+//                                (lineHeight * 2).toDp()
+//                            }
+//                        ),
                         textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.body2,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         color = MaterialTheme.colors.onBackground
@@ -88,34 +89,29 @@ fun GetData(
                 }
             }
 
-            Row(
-                modifier = Modifier
-                    .padding(end = 15.dp, bottom = 7.dp)
-                    .weight(1f),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (icons.isNotEmpty()) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 7.dp)
-                            .size(23.dp),
-                        imageVector = icons[1],
-                        contentDescription = "Icon"
-                    )
-                }
-                Card(
-                    shape = RoundedCornerShape(CornerSize(12.dp)),
-                    modifier = Modifier.width(170.dp)
+            if (property2.isNotEmpty()) {
+                Row(
+                    modifier = Modifier
+                        .padding(end = 5.dp, bottom = 7.dp)
+                        .weight(1f)
+                        .border(
+                            border = BorderStroke(1.dp, color = Color.LightGray),
+                            shape = RoundedCornerShape(25)
+                        )
+                        .background(
+                            color = colorResource(
+                                id = GetColor(
+                                    location =
+                                    location
+                                ).property2
+                            ),
+                            shape = RoundedCornerShape(25)
+                        ),
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
                         modifier = Modifier
-                            .sizeIn(
-                                minHeight = with(LocalDensity.current) {
-                                    (lineHeight * 2).toDp()
-                                }
-                            )
-                            .background(colorResource(id = property2_color)),
+                            .padding(start = 5.dp, end = 5.dp, top = 2.dp, bottom = 2.dp),
                         textAlign = TextAlign.Center,
                         text = property2,
                         maxLines = 1,

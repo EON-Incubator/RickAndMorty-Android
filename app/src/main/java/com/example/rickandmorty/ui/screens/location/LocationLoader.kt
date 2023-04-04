@@ -14,8 +14,29 @@ import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
+
+@ExcludeFromJacocoGeneratedReport
+@Composable
+fun LocationLoaderCells(deviceType: ScreenType) {
+    GetEmptyRow()
+    GetEmptyRow()
+}
+
+@ExcludeFromJacocoGeneratedReport
+@Composable
+fun GetEmptyRow() {
+    GetRowWithFourImages(
+        imageUrlLink = emptyList(),
+        titleName = "",
+        property1 = "",
+        property2 = "",
+        onClickable = {},
+        id = "",
+        modifier = Modifier
+            .shimmerBackground(RoundedCornerShape(40.dp))
+    )
+}
 
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -29,7 +50,8 @@ fun LocationLoader(deviceType: ScreenType) {
         ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.padding(8.dp)
+        modifier = Modifier
+            .padding(8.dp)
             .semantics { contentDescription = "Fetching Records" }
     ) {
         repeat(
@@ -40,30 +62,7 @@ fun LocationLoader(deviceType: ScreenType) {
             }
         ) {
             item {
-                if (deviceType == ScreenType.LANDSCAPE_PHONE) {
-                    GetRowWithOneImage(
-                        imageUrlLink = "",
-                        titleName = "",
-                        property1 = "",
-                        property2 = "",
-                        status = "",
-                        id = "",
-                        onClickable = {},
-                        modifier = Modifier
-                            .shimmerBackground(RoundedCornerShape(40.dp))
-                    )
-                } else {
-                    GetRowWithFourImages(
-                        imageUrlLink = emptyList(),
-                        titleName = "",
-                        property1 = "",
-                        property2 = "",
-                        onClickable = {},
-                        id = "",
-                        modifier = Modifier
-                            .shimmerBackground(RoundedCornerShape(40.dp))
-                    )
-                }
+                GetEmptyRow()
             }
         }
     }
@@ -90,11 +89,10 @@ fun LocationDetailLoader(deviceType: ScreenType) {
     if (deviceType == ScreenType.PORTRAIT_PHONE) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize().shimmerBackground()
         ) {
             GetInfo(
-                LocationDetailViewModel.LocationDetailUiState(),
-                modifier = Modifier.shimmerBackground()
+                LocationDetailViewModel.LocationDetailUiState()
             )
             Spacer(modifier = Modifier.height(30.dp))
 

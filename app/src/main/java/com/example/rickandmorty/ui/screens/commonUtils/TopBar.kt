@@ -17,7 +17,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,9 +57,12 @@ fun RickAndMortyTopAppBar(
                             imageVector = ImageVector.vectorResource(id = R.drawable.left_arrow),
                             contentDescription = stringResource(R.string.back_button)
                         )
-                        Text(modifier = Modifier
-                            .weight(2f)
-                            .padding(bottom = GetPadding().xxSmallPadding), text = "Back")
+                        Text(
+                            modifier = Modifier
+                                .weight(2f)
+                                .padding(bottom = GetPadding().xxSmallPadding),
+                            text = "Back"
+                        )
                     }
                 }
             }

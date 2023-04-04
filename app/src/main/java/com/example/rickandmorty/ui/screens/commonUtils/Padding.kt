@@ -27,7 +27,7 @@ fun GetPadding(): Padding {
 }
 
 @Composable
-fun GetElevation(): Depth{
+fun GetElevation(): Depth {
     return Depth(
         no = dimensionResource(id = R.dimen.elevation_no),
         xxSmall = dimensionResource(id = R.dimen.elevation_xxsmall),
@@ -41,7 +41,7 @@ fun GetElevation(): Depth{
 }
 
 @Composable
-fun GetThickness(): Depth{
+fun GetThickness(): Depth {
     return Depth(
         no = dimensionResource(id = R.dimen.thickness_no),
         xxSmall = dimensionResource(id = R.dimen.thickness_xxsmall),
@@ -52,7 +52,6 @@ fun GetThickness(): Depth{
         large = dimensionResource(id = R.dimen.thickness_large),
         xLarge = dimensionResource(id = R.dimen.thickness_xlarge)
     )
-
 }
 
 data class Padding(

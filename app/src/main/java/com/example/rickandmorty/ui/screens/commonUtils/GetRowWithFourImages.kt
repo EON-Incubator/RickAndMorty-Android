@@ -1,21 +1,23 @@
 package com.example.rickandmorty.ui.screens.commonUtils
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
 
 /**
  * Composable function that draws a card with 4 images
@@ -32,6 +34,7 @@ fun GetRowWithFourImages(
     id: String,
     icons: List<ImageVector> = emptyList(),
     modifier: Modifier = Modifier,
+    location: Boolean = false,
 ) {
     var mutableImageLink = imageUrlLink!!.toMutableList()
 
@@ -42,16 +45,15 @@ fun GetRowWithFourImages(
     }
 
     Card(
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(10),
         elevation = 7.dp,
         modifier = Modifier
-            .padding(5.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 12.dp)
             .semantics { contentDescription = "Four Image Row" }
             .clickable {
                 onClickable(id)
             },
-        backgroundColor = MaterialTheme.colors.background,
-        border = BorderStroke(1.dp, Color.White)
+        backgroundColor = colorResource(id = GetColor(location = location).card_background)
 
     ) {
         Row(
@@ -59,16 +61,25 @@ fun GetRowWithFourImages(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(modifier = modifier.weight(1f)) {
+            Row(modifier = modifier.weight(5f)) {
                 GetImages(mutableImageLink)
             }
 
-            Row(modifier = modifier.weight(2f)) {
+            Row(modifier = modifier.weight(14f)) {
                 GetData(
                     titleName,
                     property1,
                     property2,
-                    icons
+                    icons,
+                    location
+                )
+            }
+            Row(modifier = modifier.weight(1f)) {
+                Icon(
+                    modifier = Modifier.size(20.dp),
+                    imageVector = ImageVector.vectorResource(R.drawable.baseline_arrow_forward_ios_24),
+                    contentDescription = "Click to go to Detail Screen"
+
                 )
             }
         }

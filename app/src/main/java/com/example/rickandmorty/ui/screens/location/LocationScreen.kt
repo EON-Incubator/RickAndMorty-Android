@@ -1,6 +1,7 @@
 package com.example.rickandmorty.ui.screens.location
 
 import ExcludeFromJacocoGeneratedReport
+import android.annotation.SuppressLint
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.*
@@ -9,9 +10,14 @@ import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
@@ -22,6 +28,7 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
+import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -38,7 +45,8 @@ object LocationDestination : NavigationDestination {
 /**
  * Function that displays all the components on the LocationScreen Tab
  */
-@OptIn(ExperimentalMaterialApi::class)
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun LocationScreen(
     locationsUiState: LocationViewModel.LocationUiState,
@@ -50,55 +58,78 @@ fun LocationScreen(
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
 
-    Surface(
-        modifier = Modifier
-            .fillMaxSize(),
-        color = MaterialTheme.colors.background
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .semantics { contentDescription = "Locations" }
-        ) {
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+    Scaffold(
+
+        topBar = {
             if (deviceType != ScreenType.LANDSCAPE_PHONE) {
+                RickAndMortyTopAppBar(
+
+                    title = "Rick And Morty",
+                    canNavigateBack = false,
+                    navigateUp = { },
+                    scrollBehavior = scrollBehavior,
+                    backgroundColor = colorResource(id = R.color.location_background)
+                )
+            }
+        },
+
+        modifier = if (deviceType != ScreenType.LANDSCAPE_PHONE) {
+            Modifier.nestedScroll(
+                scrollBehavior.nestedScrollConnection
+            )
+        } else {
+            Modifier
+        }
+    ) {
+        Surface(
+            modifier = Modifier
+                .fillMaxSize(),
+            //  .nestedScroll(scrollBehavior.nestedScrollConnection),
+            color = colorResource(id = R.color.location_background)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics { contentDescription = "Locations" }
+            ) {
                 ScreenNameBar(
                     name = stringResource(R.string.location),
                     onFilterClick = {}
                 )
-            }
 
-            SwipeRefresh(
-                state = swipeRefreshState,
-                onRefresh = onRefresh,
-                indicator = { state, refreshTrigger ->
-                    SwipeRefreshIndicator(
-                        state = state,
-                        refreshTriggerDistance = refreshTrigger,
-                        backgroundColor = MaterialTheme.colors.primary,
-                        contentColor = MaterialTheme.colors.onPrimary
-                    )
-                }
-            ) {
-                if (locationsUiState.isLoading) {
-                    LocationLoader(deviceType)
-                } else {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(
-                            when (deviceType) {
-                                ScreenType.PORTRAIT_PHONE -> 1
-                                else -> 2
-                            }
-                        ),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        horizontalArrangement = Arrangement.Center,
-                        modifier = Modifier.padding(8.dp),
-                        state = listState
-                    ) {
-                        items(locationsUiState.locations) { location ->
+                SwipeRefresh(
+                    state = swipeRefreshState,
+                    onRefresh = onRefresh,
+                    indicator = { state, refreshTrigger ->
+                        SwipeRefreshIndicator(
+                            state = state,
+                            refreshTriggerDistance = refreshTrigger,
+                            backgroundColor = MaterialTheme.colors.primary,
+                            contentColor = MaterialTheme.colors.onPrimary
+                        )
+                    }
+                ) {
+                    if (locationsUiState.isLoadingPage) {
+                        LocationLoader(deviceType)
+                    } else {
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(
+                                when (deviceType) {
+                                    ScreenType.PORTRAIT_PHONE -> 1
+                                    else -> 2
+                                }
+                            ),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            modifier = Modifier.padding(8.dp),
+                            state = listState
+                        ) {
+                            items(locationsUiState.locations) { location ->
 
-                            // Method in CommonUtils that draws the Card with 4 Images
+                                // Method in CommonUtils that draws the Card with 4 Images
 
-                            if (deviceType == ScreenType.LANDSCAPE_PHONE) {
                                 GetRowWithFourImages(
                                     imageUrlLink = location.images,
                                     titleName = location.name.toString(),
@@ -109,22 +140,14 @@ fun LocationScreen(
                                     icons = listOf(
                                         ImageVector.vectorResource(id = R.drawable.type),
                                         ImageVector.vectorResource(id = R.drawable.dimension)
-                                    )
+                                    ),
+                                    location = true
                                 )
-                            } else {
-                                GetRowWithFourImages(
-                                    imageUrlLink = location.images,
-                                    titleName = location.name.toString(),
-                                    property1 = location.type.toString(),
-                                    property2 = location.dimension.toString(),
-                                    onClickable =
-                                    onClick,
-                                    id = location.id.toString(),
-                                    icons = listOf(
-                                        ImageVector.vectorResource(id = R.drawable.type),
-                                        ImageVector.vectorResource(id = R.drawable.dimension)
-                                    )
-                                )
+                            }
+                            item {
+                                if (locationsUiState.isLoading) {
+                                    LocationLoaderCells(deviceType)
+                                }
                             }
                         }
                     }

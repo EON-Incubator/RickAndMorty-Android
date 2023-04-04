@@ -37,7 +37,7 @@ class LocationViewModel @Inject constructor(
 
     fun refresh() {
         _locations.update {
-            it.copy(isLoading = true)
+            it.copy(isLoadingPage = true)
         }
 
         viewModelScope.launch {
@@ -45,7 +45,7 @@ class LocationViewModel @Inject constructor(
             _locations.update {
                 it.copy(
                     locations = locationData.locations ?: emptyList(),
-                    isLoading = false,
+                    isLoadingPage = false,
                     pages = locationData.pages
                 )
             }
@@ -79,5 +79,6 @@ class LocationViewModel @Inject constructor(
         val locations: List<Location> = emptyList(),
         val isLoading: Boolean = false,
         var pages: Paginate? = null,
+        val isLoadingPage: Boolean = false,
     )
 }

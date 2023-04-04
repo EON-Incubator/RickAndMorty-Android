@@ -23,13 +23,13 @@ import com.example.rickandmorty.R
  **/
 @Composable
 fun GetImages(imageUrlLink: MutableList<String>) {
-    Column() {
-        Row() {
+    Column {
+        Row {
             GetSingleImage(imageUrlLink[0])
             GetSingleImage(imageUrlLink[1])
         }
 
-        Row() {
+        Row {
             GetSingleImage(imageUrlLink[2])
             GetSingleImage(imageUrlLink[3])
         }

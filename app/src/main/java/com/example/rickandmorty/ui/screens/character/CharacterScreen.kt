@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -64,7 +65,7 @@ fun Characters(
     Scaffold(
         topBar = {
             RickAndMortyTopAppBar(
-                title = "Rick And Morty",
+                title = stringResource(id = R.string.rick_and_morty),
                 canNavigateBack = false,
                 navigateUp = {},
                 scrollBehavior = scrollBehavior,
@@ -76,7 +77,7 @@ fun Characters(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .semantics { contentDescription = "characters" }
+                .semantics { contentDescription = R.string.characters_small_case.toString() }
         ) {
             if (showFilter) {
                 DialogBox(
@@ -85,16 +86,16 @@ fun Characters(
                     selectGender,
                     changeGender,
                     changeStatus,
-                    modifier = Modifier.semantics { contentDescription = "filter" }
+                    modifier = Modifier.semantics { contentDescription = R.string.filter_small_case.toString() }
                 )
             }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .semantics { contentDescription = "characters" }
+                    .semantics { contentDescription = R.string.characters_small_case.toString() }
             ) {
                 ScreenNameBar(
-                    name = "Characters",
+                    name = stringResource(id = R.string.locations_screen_title),
                     onFilterClick = { showFilter = !showFilter },
                     putIcon = true
                 )
@@ -172,7 +173,7 @@ private fun characterItem(
                 modifier = Modifier
                     .background(MaterialTheme.colors.primaryVariant)
                     .fillMaxWidth()
-                    .semantics { contentDescription = "Row" },
+                    .semantics { contentDescription = R.string.row.toString() },
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colors.onPrimary,
                 style = MaterialTheme.typography.body1

@@ -56,7 +56,7 @@ fun GetRowWithOneImage(
         elevation = 7.dp,
         modifier = modifier
             .padding(5.dp)
-            .semantics { contentDescription = "Single Image Row" }
+            .semantics { contentDescription = R.string.single_image_row.toString() }
             .clickable {
                 onClickable(id)
             },
@@ -66,7 +66,7 @@ fun GetRowWithOneImage(
                 .detail_resident_card_background
         )
     ) {
-        Box() {
+        Box {
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -109,15 +109,15 @@ fun GetRowWithOneImage(
                 Text(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .offset(x = -30.dp)
+                        .offset(x = (-30).dp)
                         .padding(top = 10.dp)
                         .width(100.dp)
                         .rotate(-38f)
-                        .semantics { contentDescription = "Item Name" }
+                        .semantics { contentDescription = R.string.item_name.toString() }
                         .background(
                             when (status) {
-                                "Dead" -> LessRed
-                                "Alive" -> LessGreen
+                                stringResource(R.string.dead_leading_caps) -> LessRed
+                                stringResource(R.string.alive_leading_caps) -> LessGreen
                                 else -> Color.Gray
                             }
                         ),

@@ -50,7 +50,7 @@ fun GetRowWithFourImages(
         elevation = 7.dp,
         modifier = Modifier
             .padding(start = 16.dp, end = 16.dp, bottom = 12.dp)
-            .semantics { contentDescription = "Four Image Row" }
+            .semantics { contentDescription = R.string.four_image_row.toString() }
             .clickable {
                 onClickable(id)
             },

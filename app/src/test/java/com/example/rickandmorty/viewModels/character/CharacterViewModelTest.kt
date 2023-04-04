@@ -10,7 +10,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class CharacterViewModelTest() {
+class CharacterViewModelTest {
     private lateinit var viewModel: CharacterViewModel
     private lateinit var fakeRepo: FakeRepo
 
@@ -35,7 +35,7 @@ class CharacterViewModelTest() {
     }
 
     @Test
-    fun `When getting all characters, gender state and alive status changing with bussiness logic or not `() {
+    fun `When getting all characters, gender state and alive status changing with business logic or not `() {
         viewModel.changeGender("")
         assertEquals("", viewModel.gender)
         viewModel.changeStatus("")

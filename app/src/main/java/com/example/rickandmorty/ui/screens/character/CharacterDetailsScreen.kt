@@ -48,7 +48,7 @@ fun CharacterDetails(
     if (state.isLoading) {
         Scaffold(topBar = {
             RickAndMortyTopAppBar(
-                title = "loading",
+                title = stringResource(R.string.loading_small_case),
                 canNavigateBack = true,
                 navigateUp = navigateUp
             )

@@ -61,13 +61,13 @@ fun EpisodeDetails(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .semantics { contentDescription = "EP Detail" }
+                    .semantics { contentDescription = R.string.ep_detail.toString() }
             ) {
                 if (state.isLoading) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .semantics { contentDescription = "Episode Detail Load" },
+                            .semantics { contentDescription = R.string.episode_detail_load.toString() },
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -160,7 +160,7 @@ fun EpisodeDetails(
                             )
 
                             if (state.selectedEpisode.characters.isNotEmpty()) {
-                                Log.v("character", state.characters.toString())
+                                Log.v(R.string.character.toString(), state.characters.toString())
                                 LazyColumn() {
                                     items(state.selectedEpisode.characters) { episode ->
                                         GetRowWithOneImage(
@@ -257,6 +257,6 @@ fun EpisodeDetails(
 }
 
 object EpisodeDetailsDestination : NavigationDestination {
-    override val route = "episode_detail"
+    override val route = "location_details"
     override val screenTitleRes = R.string.episode_detail_screen_title
 }

@@ -57,7 +57,7 @@ fun EpisodesScreen(
         topBar = {
             if (deviceType != ScreenType.LANDSCAPE_PHONE) {
                 RickAndMortyTopAppBar(
-                    title = "Rick And Morty",
+                    title = stringResource(id = R.string.rick_and_morty),
                     canNavigateBack = false,
                     navigateUp = { },
                     scrollBehavior = scrollBehavior,
@@ -82,7 +82,7 @@ fun EpisodesScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .semantics { contentDescription = "Fetching Episodes" }
+                    .semantics { contentDescription = R.string.fetching_episodes.toString() }
             ) {
                 ScreenNameBar(
                     name = stringResource(R.string.episodes_screen_title),

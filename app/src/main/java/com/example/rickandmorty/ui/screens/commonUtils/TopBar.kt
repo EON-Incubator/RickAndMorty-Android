@@ -57,7 +57,12 @@ fun RickAndMortyTopAppBar(
                             imageVector = ImageVector.vectorResource(id = R.drawable.left_arrow),
                             contentDescription = stringResource(R.string.back_button)
                         )
-                        Text(modifier = Modifier.weight(2f).padding(bottom = 3.dp), text = "Back")
+                        Text(
+                            modifier = Modifier.weight(2f).padding(bottom = 3.dp),
+                            text = stringResource(
+                                R.string.back
+                            )
+                        )
                     }
                 }
             }

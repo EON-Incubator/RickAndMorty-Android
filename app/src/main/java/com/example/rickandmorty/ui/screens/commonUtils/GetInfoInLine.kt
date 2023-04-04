@@ -50,7 +50,7 @@ fun GetInfoInLine(
                         .padding(end = 7.dp)
                         .size(23.dp),
                     imageVector = icons,
-                    contentDescription = "Icon"
+                    contentDescription = stringResource(R.string.icon)
                 )
 
                 Text(

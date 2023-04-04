@@ -85,8 +85,8 @@ fun RickAndMortyMainApp(
                         icon = ImageVector.vectorResource(id = R.drawable.tvepisode)
                     ),
                     BottomNavItem(
-                        name = "Search",
-                        route = "search",
+                        name = stringResource(id = R.string.search_screen_title),
+                        route = stringResource(id = R.string.search_small_case),
                         icon = Icons.Default.Search
                     )
                 ),

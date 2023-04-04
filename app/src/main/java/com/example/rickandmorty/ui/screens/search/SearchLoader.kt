@@ -19,7 +19,7 @@ import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 @Composable
 fun SearchLoader() {
     Column {
-        Column() {
+        Column {
             Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = stringResource(R.string.characters_screen_title),
@@ -27,11 +27,11 @@ fun SearchLoader() {
                     .fillMaxWidth()
                     .padding(2.dp)
                     .shimmerBackground(RoundedCornerShape(40.dp))
-                    .semantics { contentDescription = "Fetching Records" }
+                    .semantics { contentDescription = R.string.fetching_records.toString() }
             )
         }
         repeat(2) {
-            Column() {
+            Column {
                 GetRowWithOneImage(
                     imageUrlLink = "",
                     titleName = "",
@@ -46,7 +46,7 @@ fun SearchLoader() {
             }
         }
 
-        Column() {
+        Column {
             Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = stringResource(R.string.locations_screen_title),
@@ -59,7 +59,7 @@ fun SearchLoader() {
         }
 
         repeat(2) {
-            Column() {
+            Column {
                 GetRowWithFourImages(
                     imageUrlLink = emptyList(),
                     titleName = "",

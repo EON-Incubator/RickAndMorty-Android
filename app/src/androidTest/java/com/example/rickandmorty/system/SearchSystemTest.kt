@@ -128,7 +128,6 @@ class SearchSystemTest {
 //            hasContentDescription("Item Name")
 //        )
 
-
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
         composeTestRule.waitForIdle()

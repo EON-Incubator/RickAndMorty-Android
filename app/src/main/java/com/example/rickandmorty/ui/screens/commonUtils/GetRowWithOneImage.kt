@@ -56,7 +56,7 @@ fun GetRowWithOneImage(
         elevation = GetElevation().medium,
         modifier = modifier
             .padding(GetPadding().xSmallPadding)
-           .semantics { contentDescription = R.string.single_image_row.toString() }
+            .semantics { contentDescription = R.string.single_image_row.toString() }
             .clickable {
                 onClickable(id)
             },

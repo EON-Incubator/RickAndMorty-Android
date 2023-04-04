@@ -8,7 +8,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

@@ -105,7 +105,7 @@ class SearchSystemTest {
         composeTestRule.onNodeWithContentDescription("Episodes").performClick()
         composeTestRule.waitUntil(2000) {
             composeTestRule
-                .onAllNodesWithContentDescription("Fetching Records")
+                .onAllNodesWithContentDescription("Fetching Episodes")
                 .fetchSemanticsNodes().isEmpty()
         }
         Thread.sleep(1000)

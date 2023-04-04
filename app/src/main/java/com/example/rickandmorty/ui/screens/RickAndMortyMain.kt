@@ -1,10 +1,12 @@
 package com.example.rickandmorty.ui.screens
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
 // import androidx.compose.material3.ExperimentalMaterial3Api
 // import androidx.compose.material3.TopAppBarDefaults
 // import androidx.compose.material3.rememberTopAppBarState
@@ -24,7 +26,7 @@ import com.example.rickandmorty.ui.screens.character.CharacterDestination
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavItem
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavigationBar
 
-// @OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun RickAndMortyMainApp(
     navController: NavHostController = rememberNavController(),
@@ -53,6 +55,7 @@ fun RickAndMortyMainApp(
     }
 
     Scaffold(
+
 //        topBar = {
 //            RickAndMortyTopAppBar(
 //                title = "Rick And Morty",
@@ -62,6 +65,7 @@ fun RickAndMortyMainApp(
 //                invisible = invisible
 //            )
 //        },
+
         backgroundColor = MaterialTheme.colors.background,
 //        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 

@@ -144,10 +144,13 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4"
     debugImplementation "androidx.compose.ui:ui-test-manifest"
 
-    //Material Themes
+    //Material Theme
+    implementation "androidx.compose.material3:material3:1.0.1"
     implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
+
     //For large TopBar
     implementation "androidx.compose.material3:material3:1.0.1"
+
 
     //Pull to Refresh
     implementation "com.google.accompanist:accompanist-swiperefresh:0.27.0"

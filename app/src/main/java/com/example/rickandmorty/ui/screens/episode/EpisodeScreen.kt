@@ -107,7 +107,7 @@ fun EpisodesScreen(
                                     else -> 2
                                 }
                             ),
-                            verticalArrangement = Arrangement.spacedBy(GetPadding().largePadding),
+                            verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
                             horizontalArrangement = Arrangement.Center,
                             modifier = Modifier.padding(GetPadding().smallPadding),
                             state = listState

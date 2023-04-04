@@ -16,13 +16,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
@@ -262,8 +262,8 @@ fun SearchBar(
                     Icons.Default.Search,
                     contentDescription = "",
                     modifier = Modifier
-                        .padding(15.dp)
-                        .size(24.dp)
+                        .padding(GetPadding().xxxMediumPadding)
+                        .size(dimensionResource(id = R.dimen.icon_size))
                 )
             },
             trailingIcon = {
@@ -275,8 +275,8 @@ fun SearchBar(
                             Icons.Default.Close,
                             contentDescription = "",
                             modifier = Modifier
-                                .padding(15.dp)
-                                .size(24.dp),
+                                .padding(GetPadding().xxxMediumPadding)
+                                .size(dimensionResource(id = R.dimen.icon_size)),
                             tint = MaterialTheme.colors.onBackground
                         )
                     }

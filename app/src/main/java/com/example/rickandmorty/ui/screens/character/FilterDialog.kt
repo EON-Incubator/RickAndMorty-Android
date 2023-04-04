@@ -6,7 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -35,7 +35,7 @@ fun FilterData(
         val genderList = listOf<String>("All", "Male", "Female", "Genderless", "unknown")
         Column(
             modifier = Modifier
-                .padding(top = 14.dp)
+                .padding(top = GetPadding().xxMediumPadding)
                 .fillMaxWidth()
         ) {
             genderState = DropdownDemo(
@@ -44,7 +44,7 @@ fun FilterData(
                 selectedValue = genderVal,
                 setup = changeGender
             )
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
             aliveState = DropdownDemo(
                 options = statusList,
                 tag = "Status",
@@ -54,7 +54,7 @@ fun FilterData(
         }
 
         Row(
-            modifier = Modifier.padding(all = 8.dp),
+            modifier = Modifier.padding(all = GetPadding().smallPadding),
             horizontalArrangement = Arrangement.Center
         ) {
             Button(
@@ -102,7 +102,7 @@ fun DropdownDemo(
             },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier
-                .padding(14.dp)
+                .padding(GetPadding().xxxMediumPadding)
                 .fillMaxWidth()
         )
         ExposedDropdownMenu(
@@ -111,7 +111,7 @@ fun DropdownDemo(
                 expanded = false
             },
             modifier = Modifier
-                .padding(14.dp)
+                .padding(GetPadding().xxxMediumPadding)
                 .fillMaxWidth()
 
         ) {
@@ -128,7 +128,7 @@ fun DropdownDemo(
                     Text(
                         text = selectionOption,
                         modifier = Modifier
-                            .padding(14.dp)
+                            .padding(GetPadding().xxxMediumPadding)
                             .fillMaxWidth()
                     )
                 }

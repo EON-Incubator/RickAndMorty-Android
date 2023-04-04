@@ -15,15 +15,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episodes
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetElevation
 import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetThickness
-import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -105,7 +104,7 @@ fun DetailedCharacterLoader(
                     onEpisodeClick = {},
                     onOriginClick = {},
                     onLastSeenClick = {},
-                    modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp)),
+                    modifier = Modifier.shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40))),
                     deviceType = deviceType
 
                 )

@@ -21,12 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.Character
@@ -53,7 +52,7 @@ fun Characters(
     isRefreshing: Boolean = false,
     applyFilter: () -> Unit,
 
-) {
+    ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -86,7 +85,8 @@ fun Characters(
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .semantics { contentDescription = "characters" }.padding(it)
+                .semantics { contentDescription = "characters" }
+                .padding(it)
         ) {
             ModalBottomSheetLayout(
                 sheetContent = {
@@ -100,7 +100,12 @@ fun Characters(
                     )
                 },
                 sheetState = stateB,
-                sheetShape = RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp)
+                sheetShape = RoundedCornerShape(
+                    GetThickness().xLarge,
+                    GetThickness().xLarge,
+                    GetThickness().xLarge,
+                    GetThickness().xLarge
+                )
             ) {
                 Column(
                     modifier = Modifier
@@ -134,9 +139,9 @@ fun Characters(
                         } else {
                             LazyVerticalGrid(
                                 columns = GridCells.Fixed(2),
-                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
                                 horizontalArrangement = Arrangement.Center,
-                                modifier = Modifier.padding(8.dp),
+                                modifier = Modifier.padding(GetPadding().smallPadding),
                                 state = listState
                             ) {
                                 items(state.characters) { character ->

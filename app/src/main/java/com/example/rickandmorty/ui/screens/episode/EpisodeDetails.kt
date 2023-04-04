@@ -257,6 +257,6 @@ fun EpisodeDetails(
 }
 
 object EpisodeDetailsDestination : NavigationDestination {
-    override val route = "location_details"
+    override val route = "episode_details"
     override val screenTitleRes = R.string.episode_detail_screen_title
 }

@@ -66,7 +66,7 @@ fun LocationScreen(
             if (deviceType != ScreenType.LANDSCAPE_PHONE) {
                 RickAndMortyTopAppBar(
 
-                    title = "Rick And Morty",
+                    title = stringResource(id = R.string.rick_and_morty),
                     canNavigateBack = false,
                     navigateUp = { },
                     scrollBehavior = scrollBehavior,
@@ -92,7 +92,7 @@ fun LocationScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .semantics { contentDescription = "Locations" }
+                    .semantics { contentDescription = R.string.locations_screen_title.toString() }
             ) {
                 ScreenNameBar(
                     name = stringResource(R.string.location),
@@ -170,11 +170,11 @@ fun LocationScreenPreviewLightMode() {
                 "rickandmortyapi.com/api/character/avatar/10.jpeg",
             "https://rickandmortyapi.com/api/character/avatar/10.jpeg"
         ),
-        "Anatomy Park With B",
-        "Mount",
-        "Evil Dimention",
+        stringResource(R.string.anatomy_park_b),
+        stringResource(R.string.mount),
+        stringResource(R.string.evil_dimention),
         {},
-        "1"
+        stringResource(R.string.one)
     )
 }
 
@@ -190,10 +190,10 @@ fun LocationScreenPreviewDarkMode() {
             "https://rickandmortyapi.com/api/character/avatar/10.jpeg",
             "https://rickandmortyapi.com/api/character/avatar/10.jpeg"
         ),
-        "Anatomy Park With B",
-        "Mount",
-        "Evil Dimention",
+        stringResource(R.string.anatomy_park_b),
+        stringResource(R.string.mount),
+        stringResource(R.string.evil_dimention),
         {},
-        "1"
+        stringResource(R.string.one)
     )
 }

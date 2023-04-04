@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -49,7 +50,7 @@ fun GetRowWithFourImages(
         elevation = 7.dp,
         modifier = Modifier
             .padding(start = 16.dp, end = 16.dp, bottom = 12.dp)
-            .semantics { contentDescription = "Four Image Row" }
+            .semantics { contentDescription = R.string.four_image_row.toString() }
             .clickable {
                 onClickable(id)
             },
@@ -78,7 +79,7 @@ fun GetRowWithFourImages(
                 Icon(
                     modifier = Modifier.size(20.dp),
                     imageVector = ImageVector.vectorResource(R.drawable.baseline_arrow_forward_ios_24),
-                    contentDescription = "Click to go to Detail Screen"
+                    contentDescription = stringResource(R.string.go_to_detail_screen)
 
                 )
             }

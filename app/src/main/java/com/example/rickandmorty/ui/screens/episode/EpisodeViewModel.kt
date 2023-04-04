@@ -30,13 +30,13 @@ class EpisodeViewModel @Inject constructor(
     }
 
     fun refresh() {
-        _episode.update { it.copy(isLoading = true) }
+        _episode.update { it.copy(isLoadingPage = true) }
         viewModelScope.launch {
             val episodeDataById = getAllEpisodeUseCase.sortEpisodeById()
             _episode.update {
                 it.copy(
                     episodes = episodeDataById.episodesData ?: emptyList(),
-                    isLoading = false,
+                    isLoadingPage = false,
                     pages = episodeDataById.pages
                 )
             }
@@ -70,5 +70,6 @@ class EpisodeViewModel @Inject constructor(
         val isLoading: Boolean = false,
         val selectedEpisode: DetailedEpisode? = null,
         var pages: Paginate? = null,
+        val isLoadingPage: Boolean = false,
     )
 }

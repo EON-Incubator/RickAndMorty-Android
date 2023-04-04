@@ -1,19 +1,22 @@
 package com.example.rickandmorty.ui.screens
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
+// import androidx.compose.material3.ExperimentalMaterial3Api
+// import androidx.compose.material3.TopAppBarDefaults
+// import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -23,7 +26,7 @@ import com.example.rickandmorty.ui.screens.character.CharacterDestination
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavItem
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavigationBar
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun RickAndMortyMainApp(
     navController: NavHostController = rememberNavController(),
@@ -31,7 +34,7 @@ fun RickAndMortyMainApp(
 ) {
     var invisible by remember { mutableStateOf(false) }
     var deviceType = ScreenType.PORTRAIT_PHONE
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+//    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     when (windowSize.widthSizeClass) {
         WindowWidthSizeClass.Compact -> {
@@ -52,6 +55,7 @@ fun RickAndMortyMainApp(
     }
 
     Scaffold(
+
 //        topBar = {
 //            RickAndMortyTopAppBar(
 //                title = "Rick And Morty",
@@ -61,6 +65,7 @@ fun RickAndMortyMainApp(
 //                invisible = invisible
 //            )
 //        },
+
         backgroundColor = MaterialTheme.colors.background,
 //        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 
@@ -69,23 +74,23 @@ fun RickAndMortyMainApp(
 
                 items = listOf(
                     BottomNavItem(
-                        name = "Characters",
-                        route = "characters",
+                        name = stringResource(id = R.string.characters_screen_title),
+                        route = stringResource(R.string.characters_small_case),
                         icon = ImageVector.vectorResource(id = R.drawable.person_text_rectangle)
                     ),
                     BottomNavItem(
-                        name = "Locations",
-                        route = "locations",
+                        name = stringResource(id = R.string.locations_screen_title),
+                        route = stringResource(R.string.locations_small_case),
                         icon = ImageVector.vectorResource(id = R.drawable.maplocation)
                     ),
                     BottomNavItem(
-                        name = "Episodes",
-                        route = "episodes",
+                        name = stringResource(id = R.string.episodes_screen_title),
+                        route = stringResource(R.string.episodes_small_case),
                         icon = ImageVector.vectorResource(id = R.drawable.tvepisode)
                     ),
                     BottomNavItem(
-                        name = "Search",
-                        route = "search",
+                        name = stringResource(id = R.string.search_screen_title),
+                        route = stringResource(id = R.string.search_small_case),
                         icon = Icons.Default.Search
                     )
                 ),

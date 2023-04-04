@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -41,6 +42,7 @@ fun LocationDetailScreen(
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+
 ) {
     // Scaffold to have a seperate Top Bar for this screen
     Scaffold(
@@ -97,7 +99,7 @@ fun GetResidents(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "RESIDENTS",
+            text = stringResource(R.string.residents_all_caps),
             modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,
@@ -137,7 +139,7 @@ fun GetInfo(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "INFO",
+            text = stringResource(R.string.info),
             modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,
@@ -147,7 +149,7 @@ fun GetInfo(
         locationsDetailUiState.locationDetail.type?.let {
             GetInfoInLine(
                 ImageVector.vectorResource(id = R.drawable.type),
-                "Type",
+                stringResource(R.string.type),
                 it,
                 location = true
             )
@@ -156,7 +158,7 @@ fun GetInfo(
         locationsDetailUiState.locationDetail.dimension?.let {
             GetInfoInLine(
                 ImageVector.vectorResource(id = R.drawable.dimension),
-                "Dimension",
+                stringResource(R.string.dimension),
                 it,
                 location = true
             )

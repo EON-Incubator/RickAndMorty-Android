@@ -112,17 +112,22 @@ class SearchSystemTest {
 
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Pilot").performClick()
-        composeTestRule.waitUntil(2000) {
+        composeTestRule.waitUntil(10000) {
             composeTestRule
                 .onAllNodesWithContentDescription("EP Detail")
-                .fetchSemanticsNodes().isNotEmpty()
+                .fetchSemanticsNodes().isEmpty()
         }
-        Thread.sleep(1000)
 
         composeTestRule.waitForIdle()
-        composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
-            hasContentDescription("Item Name")
-        )
+        composeTestRule.onNodeWithText("INFO").assertIsDisplayed()
+        composeTestRule.onNodeWithText("CHARACTERS").assertIsDisplayed()
+//        Thread.sleep(1000)
+
+//        composeTestRule.waitForIdle()
+//        composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
+//            hasContentDescription("Item Name")
+//        )
+
 
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()

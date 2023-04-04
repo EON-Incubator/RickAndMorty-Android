@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -79,7 +80,7 @@ fun Characters(
     Scaffold(
         topBar = {
             RickAndMortyTopAppBar(
-                title = "Rick And Morty",
+                title = stringResource(id = R.string.rick_and_morty),
                 canNavigateBack = false,
                 navigateUp = {},
                 scrollBehavior = scrollBehavior,
@@ -111,6 +112,7 @@ fun Characters(
                     modifier = Modifier
                         .fillMaxSize()
                         .semantics { contentDescription = "characters" }
+
                 ) {
                     ScreenNameBar(
                         name = "Characters",
@@ -196,7 +198,7 @@ private fun characterItem(
                 modifier = Modifier
                     .background(MaterialTheme.colors.primaryVariant)
                     .fillMaxWidth()
-                    .semantics { contentDescription = "Row" },
+                    .semantics { contentDescription = R.string.row.toString() },
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colors.onPrimary,
                 style = MaterialTheme.typography.body1

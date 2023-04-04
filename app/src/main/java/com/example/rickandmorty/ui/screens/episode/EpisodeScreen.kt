@@ -29,6 +29,7 @@ import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.example.rickandmorty.ui.screens.location.LocationLoader
+import com.example.rickandmorty.ui.screens.location.LocationLoaderCells
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -57,7 +58,7 @@ fun EpisodesScreen(
         topBar = {
             if (deviceType != ScreenType.LANDSCAPE_PHONE) {
                 RickAndMortyTopAppBar(
-                    title = "Rick And Morty",
+                    title = stringResource(id = R.string.rick_and_morty),
                     canNavigateBack = false,
                     navigateUp = { },
                     scrollBehavior = scrollBehavior,
@@ -82,7 +83,7 @@ fun EpisodesScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .semantics { contentDescription = "Fetching Episodes" }
+                    .semantics { contentDescription = R.string.fetching_episodes.toString() }
             ) {
                 ScreenNameBar(
                     name = stringResource(R.string.episodes_screen_title),
@@ -151,6 +152,11 @@ fun EpisodesScreen(
                                             ImageVector.vectorResource(id = R.drawable.date)
                                         )
                                     )
+                                }
+                            }
+                            item {
+                                if (state.isLoading) {
+                                    LocationLoaderCells(deviceType)
                                 }
                             }
                         }

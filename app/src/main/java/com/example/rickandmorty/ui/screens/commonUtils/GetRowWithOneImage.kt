@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -55,7 +56,7 @@ fun GetRowWithOneImage(
         elevation = 7.dp,
         modifier = modifier
             .padding(5.dp)
-            .semantics { contentDescription = "Single Image Row" }
+            .semantics { contentDescription = R.string.single_image_row.toString() }
             .clickable {
                 onClickable(id)
             },
@@ -65,7 +66,7 @@ fun GetRowWithOneImage(
                 .detail_resident_card_background
         )
     ) {
-        Box() {
+        Box {
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -85,7 +86,7 @@ fun GetRowWithOneImage(
                         model = imageUrlLink,
                         error = painterResource(id = getErrorImage()),
                         placeholder = painterResource(R.drawable.loading_img),
-                        contentDescription = "Icon of Location Characters"
+                        contentDescription = stringResource(R.string.episodes_all_caps)
                     )
                 }
 
@@ -100,7 +101,7 @@ fun GetRowWithOneImage(
 
                 Icon(
                     imageVector = Icons.Outlined.KeyboardArrowRight,
-                    contentDescription = "Go to next screen"
+                    contentDescription = stringResource(R.string.go_to_next_screen)
                 )
             }
 
@@ -108,15 +109,15 @@ fun GetRowWithOneImage(
                 Text(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .offset(x = -30.dp)
+                        .offset(x = (-30).dp)
                         .padding(top = 10.dp)
                         .width(100.dp)
                         .rotate(-38f)
-                        .semantics { contentDescription = "Item Name" }
+                        .semantics { contentDescription = R.string.item_name.toString() }
                         .background(
                             when (status) {
-                                "Dead" -> LessRed
-                                "Alive" -> LessGreen
+                                stringResource(R.string.dead_leading_caps) -> LessRed
+                                stringResource(R.string.alive_leading_caps) -> LessGreen
                                 else -> Color.Gray
                             }
                         ),

@@ -14,7 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -95,7 +97,7 @@ fun DetailedScreen(
                     ) {
                         topInfo(charInfo = charInfo, deviceType = deviceType)
                         Text(
-                            text = "INFO",
+                            text = stringResource(R.string.info),
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -110,7 +112,7 @@ fun DetailedScreen(
                             infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
                             Spacer(modifier = Modifier.height(22.dp))
                             Text(
-                                text = "EPISODES",
+                                text = stringResource(R.string.episodes_all_caps),
                                 style = MaterialTheme.typography.body2,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -154,7 +156,7 @@ fun DetailedScreen(
                             ) {
                                 Column(modifier = Modifier.weight(2f)) {
                                     Text(
-                                        text = "INFO",
+                                        text = stringResource(R.string.info),
                                         style = MaterialTheme.typography.body2,
                                         modifier = Modifier
                                             .padding(start = 16.dp, bottom = 12.dp),
@@ -173,7 +175,7 @@ fun DetailedScreen(
                         }
                         item {
                             Text(
-                                text = "EPISODES",
+                                text = stringResource(R.string.episodes_all_caps),
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -210,7 +212,7 @@ fun DetailedScreen(
                     topInfo(charInfo = charInfo, deviceType = deviceType)
                     Column(modifier = Modifier.weight(3f)) {
                         Text(
-                            text = "INFO",
+                            text = stringResource(R.string.info),
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
                                 .padding(start = 16.dp, bottom = 12.dp),
@@ -230,7 +232,7 @@ fun DetailedScreen(
                     LazyColumn() {
                         item {
                             Text(
-                                text = "EPISODES",
+                                text = stringResource(R.string.episodes_all_caps),
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -263,7 +265,7 @@ fun DetailedScreen(
 fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
     if (deviceType == ScreenType.PORTRAIT_PHONE) {
         Text(
-            text = "APPEARANCE",
+            text = stringResource(R.string.appearance),
             style = MaterialTheme.typography.body2,
             modifier = Modifier
                 .fillMaxWidth()
@@ -297,20 +299,20 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
 fun infoPart1(charInfo: DetailedCharacter?) {
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.man_fill0_wght400_grad0_opsz48),
-        topic = "Gender",
+            .vectorResource(R.drawable.gender),
+        topic = stringResource(R.string.gender),
         topicAnswer = charInfo?.gender.toString()
     )
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.category_fill0_wght400_grad0_opsz48),
-        topic = "Species",
+            .vectorResource(R.drawable.species),
+        topic = stringResource(R.string.species),
         topicAnswer = charInfo?.species.toString()
     )
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.deceased_fill0_wght400_grad0_opsz48),
-        topic = "Status",
+            .vectorResource(R.drawable.status),
+        topic = stringResource(R.string.status),
         topicAnswer = charInfo?.status.toString()
     )
 }
@@ -322,7 +324,7 @@ fun infoPart2(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = "LOCATION",
+        text = stringResource(R.string.location_all_caps),
         style = MaterialTheme.typography.body2,
         modifier = Modifier
             .fillMaxWidth()
@@ -333,8 +335,8 @@ fun infoPart2(
 
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.trip_origin_fill0_wght400_grad0_opsz48),
-        topic = "Origin",
+            .vectorResource(R.drawable.origin),
+        topic = stringResource(R.string.origin),
         topicAnswer = charInfo?.origin.toString(),
         showIt = charInfo?.originId,
         modifier = modifier.clickable {
@@ -350,8 +352,8 @@ fun infoPart2(
     )
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.explore_fill0_wght400_grad0_opsz48),
-        topic = "Last Seen",
+            .vectorResource(R.drawable.lastseen),
+        topic = stringResource(R.string.last_seen),
         topicAnswer = charInfo?.lastseen.toString(),
         showIt = charInfo?.lastseenId,
         modifier = modifier.clickable {

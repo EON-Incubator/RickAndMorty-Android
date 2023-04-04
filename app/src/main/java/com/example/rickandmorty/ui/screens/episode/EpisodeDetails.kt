@@ -13,21 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.*
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
-import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
+import com.example.rickandmorty.ui.screens.commonUtils.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -37,7 +30,6 @@ fun EpisodeDetails(
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
-
 ) {
     Scaffold(topBar = {
         if (state.isLoading) {
@@ -45,16 +37,13 @@ fun EpisodeDetails(
                 title = stringResource(R.string.loading),
                 canNavigateBack = true,
                 navigateUp = navigateUp
-
             )
         } else {
             RickAndMortyTopAppBar(
                 title = state.selectedEpisode?.name.toString(),
                 canNavigateBack = true,
-
                 navigateUp = navigateUp,
                 backgroundColor = colorResource(id = R.color.episodeDetail_background)
-
             )
         }
     }) {
@@ -75,16 +64,16 @@ fun EpisodeDetails(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Column {
-                            Spacer(modifier = Modifier.height(15.dp))
+                        Column() {
+                            Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
                             Text(
                                 text = stringResource(R.string.info),
                                 fontSize = 12.sp,
                                 modifier = Modifier
-                                    .padding(start = 10.dp)
+                                    .padding(start = GetPadding().mediumPadding)
                             )
 
-                            Spacer(modifier = Modifier.height(8.dp))
+                            Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
                             GetInfoInLine(
                                 icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
@@ -92,7 +81,7 @@ fun EpisodeDetails(
                                 topicAnswer = stringResource(R.string.loading)
                             )
 
-                            Row {
+                            Row() {
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
@@ -100,16 +89,16 @@ fun EpisodeDetails(
                                 )
                             }
 
-                            Spacer(modifier = Modifier.height(40.dp))
+                            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
 
                             Text(
                                 text = stringResource(R.string.characters),
                                 fontSize = 12.sp,
                                 modifier = Modifier
-                                    .padding(start = 10.dp)
+                                    .padding(start = GetPadding().mediumPadding)
                             )
 
-                            LazyColumn {
+                            LazyColumn() {
                                 repeat(4) {
                                     item {
                                         GetRowWithOneImage(
@@ -120,11 +109,7 @@ fun EpisodeDetails(
                                             status = "",
                                             id = "",
                                             onClickable = {},
-                                            modifier = Modifier.shimmerBackground(
-                                                RoundedCornerShape(
-                                                    40.dp
-                                                )
-                                            )
+                                            modifier = Modifier.shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
                                         )
                                     }
                                 }
@@ -133,20 +118,16 @@ fun EpisodeDetails(
                     }
                 } else if (state.selectedEpisode != null) {
                     if (deviceType == ScreenType.PORTRAIT_PHONE) {
-                        Column {
-                            Spacer(
-                                modifier = Modifier
-                                    .height(15.dp)
-                                    .semantics { contentDescription = "detail ep" }
-                            )
+                        Column() {
+                            Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
                             Text(
                                 text = stringResource(R.string.info),
                                 fontSize = 12.sp,
                                 modifier = Modifier
-                                    .padding(start = 10.dp)
+                                    .padding(start = GetPadding().mediumPadding)
                             )
 
-                            Spacer(modifier = Modifier.height(8.dp))
+                            Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
                             GetInfoInLine(
                                 icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
@@ -154,7 +135,7 @@ fun EpisodeDetails(
                                 topicAnswer = state.selectedEpisode?.episode.toString()
                             )
 
-                            Row {
+                            Row() {
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
@@ -162,18 +143,18 @@ fun EpisodeDetails(
                                 )
                             }
 
-                            Spacer(modifier = Modifier.height(40.dp))
+                            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
 
                             Text(
                                 text = stringResource(R.string.characters),
                                 fontSize = 12.sp,
                                 modifier = Modifier
-                                    .padding(start = 10.dp)
+                                    .padding(start = GetPadding().mediumPadding)
                             )
 
                             if (state.selectedEpisode.characters.isNotEmpty()) {
                                 Log.v(R.string.character.toString(), state.characters.toString())
-                                LazyColumn {
+                                LazyColumn() {
                                     items(state.selectedEpisode.characters) { episode ->
                                         GetRowWithOneImage(
                                             imageUrlLink = episode.image.toString(),
@@ -203,10 +184,10 @@ fun EpisodeDetails(
                                     text = stringResource(R.string.info),
                                     fontSize = 12.sp,
                                     modifier = Modifier
-                                        .padding(start = 10.dp)
+                                        .padding(start = GetPadding().mediumPadding)
                                 )
 
-                                Spacer(modifier = Modifier.height(6.dp))
+                                Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
 
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
@@ -214,7 +195,7 @@ fun EpisodeDetails(
                                     topicAnswer = state.selectedEpisode?.episode.toString()
                                 )
 
-                                Row {
+                                Row() {
                                     GetInfoInLine(
                                         icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                         topic = stringResource(id = R.string.air_date),
@@ -223,7 +204,7 @@ fun EpisodeDetails(
                                     )
                                 }
 
-                                Spacer(modifier = Modifier.height(40.dp))
+                                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
                             }
 
                             Column(modifier = Modifier.weight(5F)) {
@@ -231,12 +212,12 @@ fun EpisodeDetails(
                                     text = stringResource(R.string.characters),
                                     fontSize = 12.sp,
                                     modifier = Modifier
-                                        .padding(start = 10.dp)
+                                        .padding(start = GetPadding().mediumPadding)
                                 )
 
                                 if (state.selectedEpisode.characters.isNotEmpty()) {
-                                    Log.v(stringResource(R.string.character), state.characters.toString())
-                                    LazyColumn {
+                                    Log.v("character", state.characters.toString())
+                                    LazyColumn() {
                                         items(state.selectedEpisode.characters) { episode ->
                                             GetRowWithOneImage(
                                                 imageUrlLink = episode.image.toString(),

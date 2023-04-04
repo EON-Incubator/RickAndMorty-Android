@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -12,12 +11,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,12 +36,12 @@ fun RickAndMortyTopAppBar(
     if (canNavigateBack) {
         TopAppBar(
             backgroundColor = backgroundColor,
-            elevation = 0.dp,
+            elevation = GetElevation().no,
             title = {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(end = 20.dp),
+                        .padding(end = GetPadding().xLargePadding),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) { TopBar(title = title) }
@@ -59,7 +58,9 @@ fun RickAndMortyTopAppBar(
                             contentDescription = stringResource(R.string.back_button)
                         )
                         Text(
-                            modifier = Modifier.weight(2f).padding(bottom = 3.dp),
+                            modifier = Modifier
+                                .weight(2f)
+                                .padding(bottom = GetPadding().xxSmallPadding),
                             text = stringResource(
                                 R.string.back
                             )
@@ -67,40 +68,39 @@ fun RickAndMortyTopAppBar(
                     }
                 }
             }
+
         )
     } else {
         TopAppBar(
-
             modifier = Modifier.background(Color.Yellow),
             colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = backgroundColor),
-
             title = {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(5.dp),
+                        .padding(GetPadding().xSmallPadding),
 
                     horizontalArrangement = Arrangement.Start
-
                 ) {
                     if (!invisible) {
                         Image(
                             painter = painterResource(id = R.drawable.rick_and_morty),
                             contentDescription = stringResource(R.string.rick_morty_image),
                             modifier = Modifier
-                                .size(120.dp)
+                                .size(dimensionResource(id = R.dimen.app_title_image_size))
                         )
                     } else {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(120.dp)
+                                .height(dimensionResource(id = R.dimen.app_title_image_size))
                         ) {
                         }
                     }
                 }
             },
             scrollBehavior = scrollBehavior
+
         )
     }
 }

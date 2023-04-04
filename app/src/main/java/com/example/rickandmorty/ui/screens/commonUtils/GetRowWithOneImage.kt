@@ -21,12 +21,12 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
@@ -52,10 +52,10 @@ fun GetRowWithOneImage(
 
 ) {
     Card(
-        shape = RoundedCornerShape(10.dp),
-        elevation = 7.dp,
+        shape = RoundedCornerShape(GetThickness().large),
+        elevation = GetElevation().medium,
         modifier = modifier
-            .padding(5.dp)
+            .padding(GetPadding().xSmallPadding)
             .semantics { contentDescription = R.string.single_image_row.toString() }
             .clickable {
                 onClickable(id)
@@ -66,7 +66,7 @@ fun GetRowWithOneImage(
                 .detail_resident_card_background
         )
     ) {
-        Box {
+        Box() {
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -74,11 +74,19 @@ fun GetRowWithOneImage(
                 Row(modifier = Modifier.weight(1f)) {
                     AsyncImage(
                         modifier = modifier
-                            .padding(start = 15.dp, end = 7.dp, bottom = 7.dp, top = 7.dp)
+                            .padding(
+                                start = GetPadding().xxMediumPadding,
+                                end = GetPadding().smallPadding,
+                                bottom = GetPadding().xSmallPadding,
+                                top = GetPadding().xSmallPadding
+                            )
                             .clip(CircleShape)
-                            .size(70.dp)
+                            .size(dimensionResource(id = R.dimen.row_one_image_size))
                             .border(
-                                BorderStroke(1.dp, color = MaterialTheme.colors.onBackground),
+                                BorderStroke(
+                                    GetThickness().xxSmall,
+                                    color = MaterialTheme.colors.onBackground
+                                ),
                                 shape = CircleShape
                             ),
 
@@ -109,9 +117,9 @@ fun GetRowWithOneImage(
                 Text(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .offset(x = (-30).dp)
-                        .padding(top = 10.dp)
-                        .width(100.dp)
+                        .offset(x = dimensionResource(id = R.dimen.ribbon_offset))
+                        .padding(top = GetPadding().mediumPadding)
+                        .width(dimensionResource(id = R.dimen.row_one_image_width))
                         .rotate(-38f)
                         .semantics { contentDescription = R.string.item_name.toString() }
                         .background(

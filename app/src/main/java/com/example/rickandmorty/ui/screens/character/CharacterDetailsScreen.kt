@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.character
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,21 +14,18 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
+import com.example.rickandmorty.ui.screens.commonUtils.*
 
 object CharacterDetailsDestination : NavigationDestination {
     override val route = "character_detail"
@@ -82,7 +80,7 @@ fun DetailedScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(top = 8.dp),
+            .padding(top = GetPadding().smallPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -101,23 +99,26 @@ fun DetailedScreen(
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 16.dp),
+                                .padding(start = GetPadding().xxxMediumPadding),
                             textAlign = TextAlign.Start
                         )
 
                         Column {
                             infoPart1(charInfo = charInfo)
-                            Spacer(modifier = Modifier.height(12.dp))
+                            Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
 
                             infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
-                            Spacer(modifier = Modifier.height(22.dp))
+                            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.character_info_space_text)))
                             Text(
                                 text = stringResource(R.string.episodes_all_caps),
                                 style = MaterialTheme.typography.body2,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(50.dp)
-                                    .padding(start = 16.dp, top = 12.dp),
+                                    .height(dimensionResource(id = R.dimen.character_text_height))
+                                    .padding(
+                                        start = GetPadding().xxxMediumPadding,
+                                        top = GetPadding().xMediumPadding
+                                    ),
                                 textAlign = TextAlign.Start
                             )
                         }
@@ -159,7 +160,10 @@ fun DetailedScreen(
                                         text = stringResource(R.string.info),
                                         style = MaterialTheme.typography.body2,
                                         modifier = Modifier
-                                            .padding(start = 16.dp, bottom = 12.dp),
+                                            .padding(
+                                                start = GetPadding().xxxMediumPadding,
+                                                bottom = GetPadding().xMediumPadding
+                                            ),
                                         textAlign = TextAlign.Start
                                     )
                                     Column {
@@ -179,7 +183,10 @@ fun DetailedScreen(
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 16.dp, start = 24.dp),
+                                    .padding(
+                                        top = GetPadding().xxxMediumPadding,
+                                        start = GetPadding().xxxLargePadding
+                                    ),
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -207,7 +214,7 @@ fun DetailedScreen(
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .padding(end = 13.dp)
+                        .padding(end = GetPadding().xxMediumPadding)
                 ) {
                     topInfo(charInfo = charInfo, deviceType = deviceType)
                     Column(modifier = Modifier.weight(3f)) {
@@ -215,14 +222,17 @@ fun DetailedScreen(
                             text = stringResource(R.string.info),
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
-                                .padding(start = 16.dp, bottom = 12.dp),
+                                .padding(
+                                    start = GetPadding().xxxMediumPadding,
+                                    bottom = GetPadding().xMediumPadding
+                                ),
                             textAlign = TextAlign.Start
                         )
                         Column {
                             infoPart1(charInfo = charInfo)
-                            Divider(thickness = 2.dp)
+                            Divider(thickness = GetThickness().xSmall)
                             infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
-                            Divider(thickness = 2.dp)
+                            Divider(thickness = GetThickness().xSmall)
                         }
                     }
                 }
@@ -236,7 +246,10 @@ fun DetailedScreen(
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 14.dp, start = 16.dp),
+                                    .padding(
+                                        top = GetPadding().xxMediumPadding,
+                                        start = GetPadding().xxxMediumPadding
+                                    ),
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -269,26 +282,28 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
             style = MaterialTheme.typography.body2,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp),
+                .padding(start = GetPadding().xxxMediumPadding),
             textAlign = TextAlign.Start
         )
-        Card(shape = RoundedCornerShape(CornerSize(100.dp))) {
+        Card(shape = RoundedCornerShape(CornerSize(dimensionResource(id = R.dimen.character_card_corner)))) {
             AsyncImage(
                 model = charInfo?.image.toString(),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(200.dp),
+                    .size(dimensionResource(id = R.dimen.character_card_image_size)),
                 alignment = Alignment.Center
             )
         }
     } else {
-        Card(shape = RoundedCornerShape(CornerSize(100.dp)), modifier = Modifier.padding(8.dp)) {
+        Card(
+            shape = RoundedCornerShape(CornerSize(dimensionResource(id = R.dimen.character_card_corner))),
+            border = BorderStroke(GetThickness().xLarge, color = Color.Black)
+        ) {
             AsyncImage(
                 model = charInfo?.image.toString(),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(200.dp),
-                contentScale = ContentScale.Crop,
+                    .size(dimensionResource(id = R.dimen.character_image_size)),
                 alignment = Alignment.Center
             )
         }
@@ -328,8 +343,12 @@ fun infoPart2(
         style = MaterialTheme.typography.body2,
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp)
-            .padding(start = 16.dp, top = 24.dp, bottom = 2.dp),
+            .height(dimensionResource(id = R.dimen.character_text_height))
+            .padding(
+                start = GetPadding().xxxMediumPadding,
+                top = GetPadding().xxxLargePadding,
+                bottom = GetPadding().xxxSmallPadding
+            ),
         textAlign = TextAlign.Start
     )
 

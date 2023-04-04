@@ -3,16 +3,19 @@ package com.example.rickandmorty.ui.screens.commonUtils
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
 /**
@@ -34,21 +37,30 @@ fun GetInfoInLine(
 ) {
     if (topicAnswer.isNotEmpty()) {
         Card(
-            shape = RoundedCornerShape(CornerSize(4.dp)),
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp),
+            shape = RoundedCornerShape(CornerSize(GetThickness().small)),
+            modifier = Modifier.padding(
+                start = GetPadding().xxxMediumPadding,
+                end = GetPadding().xxxMediumPadding,
+                top = GetPadding().mediumPadding
+            ),
             backgroundColor = colorResource(id = GetColor(location = location).detail_info_card)
         ) {
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, bottom = 7.dp, top = 7.dp, end = 7.dp),
+                    .padding(
+                        start = GetPadding().xLargePadding,
+                        bottom = GetPadding().xSmallPadding,
+                        top = GetPadding().smallPadding,
+                        end = GetPadding().smallPadding
+                    ),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
                 Icon(
                     modifier = Modifier
-                        .padding(end = 7.dp)
-                        .size(23.dp),
+                        .padding(end = GetPadding().xSmallPadding)
+                        .size(dimensionResource(id = R.dimen.icon_size)),
                     imageVector = icons,
                     contentDescription = stringResource(R.string.icon)
                 )

@@ -12,16 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
+import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 
 /**
  * Defining the route for the LocationScreen
@@ -42,7 +43,6 @@ fun LocationDetailScreen(
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
-
 ) {
     // Scaffold to have a seperate Top Bar for this screen
     Scaffold(
@@ -66,7 +66,7 @@ fun LocationDetailScreen(
                         .padding(it)
                 ) {
                     GetInfo(locationsDetailUiState)
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
                     GetResidents(locationsDetailUiState, onCharacterClick)
                 }
             } else {
@@ -100,7 +100,11 @@ fun GetResidents(
     Column(modifier = modifier) {
         Text(
             text = stringResource(R.string.residents_all_caps),
-            modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),
+            modifier = Modifier.padding(
+                start = dimensionResource(id = R.dimen.padding_xlarge),
+                top = GetPadding().xxxLargePadding,
+                bottom = GetPadding().largePadding
+            ),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,
             fontWeight = FontWeight.Normal
@@ -140,7 +144,11 @@ fun GetInfo(
     Column(modifier = modifier) {
         Text(
             text = stringResource(R.string.info),
-            modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),
+            modifier = Modifier.padding(
+                start = GetPadding().xLargePadding,
+                top = GetPadding().xxxLargePadding,
+                bottom = GetPadding().largePadding
+            ),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,
             fontWeight = FontWeight.Normal

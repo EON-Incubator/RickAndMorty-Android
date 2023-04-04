@@ -136,7 +136,8 @@ class SearchScreenTest {
                     updateLocationList = {},
                     updateCharacterList = {},
                     searchListState = LazyListState(),
-                    deviceType = ScreenType.PORTRAIT_PHONE
+                    deviceType = ScreenType.PORTRAIT_PHONE,
+                    onResetQuery = {}
                 )
             }
         }
@@ -167,7 +168,8 @@ class SearchScreenTest {
                     updateLocationList = {},
                     updateCharacterList = {},
                     searchListState = LazyListState(),
-                    deviceType = ScreenType.PORTRAIT_PHONE
+                    deviceType = ScreenType.PORTRAIT_PHONE,
+                    onResetQuery = {}
                 )
             }
         }

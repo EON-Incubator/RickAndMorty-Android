@@ -255,7 +255,8 @@ fun SearchBar(
             onValueChange = onValueChange,
             modifier = Modifier
                 .fillMaxWidth()
-                .semantics { contentDescription = R.string.search_bar.toString() },
+                .semantics { contentDescription = R.string.search_bar.toString() }
+                .testTag(stringResource(id = R.string.search_bar)),
             textStyle = TextStyle(color = MaterialTheme.colors.onBackground, fontSize = 18.sp),
             leadingIcon = {
                 Icon(

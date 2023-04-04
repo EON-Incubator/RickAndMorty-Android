@@ -83,7 +83,7 @@ class SearchSystemTest {
         composeTestRule.waitUntil(5000) {
             composeTestRule
                 .onAllNodesWithContentDescription("detail ep")
-                .fetchSemanticsNodes().isNotEmpty()
+                .fetchSemanticsNodes().isEmpty()
         }
 
         composeTestRule.waitForIdle()

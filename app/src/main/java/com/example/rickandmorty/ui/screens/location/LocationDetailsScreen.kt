@@ -48,8 +48,7 @@ fun LocationDetailScreen(
         RickAndMortyTopAppBar(
             title = locationsDetailUiState.locationDetail.name.toString(),
             canNavigateBack = true,
-            navigateUp = navigateUp,
-
+            navigateUp = navigateUp
         )
     }) {
         if (locationsDetailUiState.isLoading) {

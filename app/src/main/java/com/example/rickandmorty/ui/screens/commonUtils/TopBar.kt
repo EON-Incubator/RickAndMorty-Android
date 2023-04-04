@@ -20,7 +20,7 @@ fun RickAndMortyTopAppBar(
     title: String,
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
-    navigateUp: () -> Unit = {}
+    navigateUp: () -> Unit = {},
 ) {
     if (canNavigateBack) {
         TopAppBar(
@@ -52,7 +52,6 @@ fun RickAndMortyTopAppBar(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(10.dp),
-
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Image(

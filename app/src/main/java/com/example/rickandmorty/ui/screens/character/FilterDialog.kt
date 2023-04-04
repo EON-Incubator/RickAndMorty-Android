@@ -36,7 +36,8 @@ fun DialogBox(
             },
             text = {
                 val statusList = listOf<String>(
-                    stringResource(R.string.all), stringResource(R.string.alive),
+                    stringResource(R.string.all),
+                    stringResource(R.string.alive),
                     stringResource(
                         R.string.dead
                     ),

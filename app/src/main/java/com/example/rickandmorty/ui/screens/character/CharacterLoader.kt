@@ -12,38 +12,39 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episodes
 import com.example.rickandmorty.ui.screens.ScreenType
+import com.example.rickandmorty.ui.screens.commonUtils.GetElevation
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
+import com.example.rickandmorty.ui.screens.commonUtils.GetThickness
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CharacterLoader(
-    modifier: Modifier = Modifier,
-) {
+fun CharacterLoader(modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
-            .padding(8.dp)
+            .padding(GetPadding().smallPadding)
             .semantics { contentDescription = R.string.fetching_characters.toString() }
     ) {
         repeat(8) {
             item {
                 Card(
                     modifier = Modifier
-                        .padding(12.dp)
+                        .padding(GetPadding().xMediumPadding)
                         .fillMaxSize()
-                        .clip(RoundedCornerShape(12.dp))
+                        .clip(RoundedCornerShape(GetThickness().xLarge))
                         .clickable { },
-                    elevation = 12.dp
+                    elevation = GetElevation().xLarge
                 ) {
                     Box(contentAlignment = Alignment.BottomCenter) {
                         AsyncImage(
@@ -52,10 +53,10 @@ fun CharacterLoader(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .clip(
-                                    RoundedCornerShape(8.dp)
+                                    RoundedCornerShape(GetThickness().medium)
                                 )
-                                .shimmerBackground(RoundedCornerShape(40.dp))
-                                .size(150.dp),
+                                .shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
+                                .size(dimensionResource(id = R.dimen.character_image_size)),
                             contentScale = ContentScale.Crop
                         )
                     }
@@ -103,7 +104,7 @@ fun DetailedCharacterLoader(
                     onEpisodeClick = {},
                     onOriginClick = {},
                     onLastSeenClick = {},
-                    modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp)),
+                    modifier = Modifier.shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40))),
                     deviceType = deviceType
 
                 )

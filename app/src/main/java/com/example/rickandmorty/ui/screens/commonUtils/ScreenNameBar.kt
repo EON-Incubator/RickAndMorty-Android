@@ -10,9 +10,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 
 /**
@@ -31,20 +31,20 @@ fun ScreenNameBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(3.dp, bottom = 6.dp)
-            .height(45.dp)
-            .padding(5.dp)
+            .padding(GetPadding().xxSmallPadding, bottom = GetPadding().xSmallPadding)
+            .height(dimensionResource(id = R.dimen.screen_name_bar_height))
+            .padding(GetPadding().xSmallPadding)
     ) {
         Text(
             text = name,
             style = MaterialTheme.typography.h2,
             color = MaterialTheme.colors.onBackground,
-            modifier = Modifier.padding(start = 16.dp)
+            modifier = Modifier.padding(start = GetPadding().xxxMediumPadding)
         )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(end = 16.dp),
+                .padding(end = GetPadding().xxxMediumPadding),
             horizontalArrangement = Arrangement.End
         ) {
             if (putIcon) {
@@ -52,8 +52,8 @@ fun ScreenNameBar(
                     onClick = { onFilterClick() }
                 ) {
                     Card(
-                        shape = RoundedCornerShape(CornerSize(100.dp)),
-                        modifier = Modifier.width(100.dp)
+                        shape = RoundedCornerShape(CornerSize(dimensionResource(id = R.dimen.screen_name_bar_width))),
+                        modifier = Modifier.width(dimensionResource(id = R.dimen.screen_name_bar_width))
                     ) {
                         Row(
                             modifier = Modifier.background(
@@ -63,14 +63,14 @@ fun ScreenNameBar(
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Icon(
-                                modifier = Modifier.size(27.dp),
+                                modifier = Modifier.size(dimensionResource(id = R.dimen.screen_name_bar_icon_size)),
                                 imageVector = ImageVector.vectorResource(id = R.drawable.baseline_filter_alt_24),
                                 contentDescription = stringResource(R.string.filter),
                                 tint = Color.Black
                             )
                             Text(
                                 text = stringResource(R.string.filter),
-                                modifier = Modifier.padding(start = 8.dp),
+                                modifier = Modifier.padding(start = GetPadding().smallPadding),
                                 style = MaterialTheme.typography.body1,
                                 color = Color.Black
                             )

@@ -7,11 +7,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
@@ -19,14 +20,14 @@ import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 @Composable
 fun SearchLoader() {
     Column {
-        Column {
-            Spacer(modifier = Modifier.height(5.dp))
+        Column() {
+            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
             Text(
                 text = stringResource(R.string.characters_screen_title),
                 Modifier
                     .fillMaxWidth()
-                    .padding(2.dp)
-                    .shimmerBackground(RoundedCornerShape(40.dp))
+                    .padding(GetPadding().xxxSmallPadding)
+                    .shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
                     .semantics { contentDescription = R.string.fetching_records.toString() }
             )
         }
@@ -41,20 +42,20 @@ fun SearchLoader() {
                     id = "",
                     onClickable = {},
                     modifier = Modifier
-                        .shimmerBackground(RoundedCornerShape(40.dp))
+                        .shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
                 )
             }
         }
 
-        Column {
-            Spacer(modifier = Modifier.height(5.dp))
+        Column() {
+            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
             Text(
                 text = stringResource(R.string.locations_screen_title),
                 Modifier
                     .background(Color.LightGray)
                     .fillMaxWidth()
-                    .padding(2.dp)
-                    .shimmerBackground(RoundedCornerShape(40.dp))
+                    .padding(GetPadding().xxxSmallPadding)
+                    .shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
             )
         }
 
@@ -68,7 +69,7 @@ fun SearchLoader() {
                     id = "",
                     onClickable = { },
                     modifier = Modifier
-                        .shimmerBackground(RoundedCornerShape(40.dp))
+                        .shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
                 )
             }
         }

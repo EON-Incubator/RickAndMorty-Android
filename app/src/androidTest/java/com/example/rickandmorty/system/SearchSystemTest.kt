@@ -22,10 +22,10 @@ class SearchSystemTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun searchFunctionality() = runTest {
-        composeTestRule.onNodeWithContentDescription("Search").performClick()
+        composeTestRule.onNodeWithTag("Search").performClick()
         composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Rick")
-        composeTestRule.onNodeWithContentDescription("Search Bar").assert(hasText("Rick"))
+        composeTestRule.onNodeWithTag("Search Bar").performTextInput("Rick")
+        composeTestRule.onNodeWithTag("Search Bar").assert(hasText("Rick"))
         composeTestRule.waitForIdle()
         composeTestRule.waitUntil(10000) {
             composeTestRule
@@ -36,12 +36,12 @@ class SearchSystemTest {
             hasContentDescription("Item Name")
         )
         composeTestRule.onNodeWithTag("search_lazy_column")
-            .performScrollToNode(hasContentDescription("Load More Characters"))
-        composeTestRule.onNodeWithContentDescription("Load More Characters").performScrollTo()
+            .performScrollToNode(hasTestTag("Load More Characters"))
+        composeTestRule.onNodeWithTag("Load More Characters").performScrollTo()
             .performClick()
         composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Planet")
-        composeTestRule.onNodeWithContentDescription("Search Bar").assert(hasText("Planet"))
+        composeTestRule.onNodeWithTag("Search Bar").performTextInput("Planet")
+        composeTestRule.onNodeWithTag("Search Bar").assert(hasText("Planet"))
         composeTestRule.waitForIdle()
         composeTestRule.waitUntil(10000) {
             composeTestRule
@@ -49,8 +49,8 @@ class SearchSystemTest {
                 .fetchSemanticsNodes().isEmpty()
         }
         composeTestRule.onNodeWithTag("search_lazy_column")
-            .performScrollToNode(hasContentDescription("Load More Locations"))
-        composeTestRule.onNodeWithContentDescription("Load More Locations").performScrollTo()
+            .performScrollToNode(hasTestTag("Load More Locations"))
+        composeTestRule.onNodeWithTag("Load More Locations").performScrollTo()
             .performClick()
         composeTestRule.waitForIdle()
         composeTestRule.waitUntil(10000) {

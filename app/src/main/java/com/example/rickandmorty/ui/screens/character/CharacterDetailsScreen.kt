@@ -161,7 +161,10 @@ fun DetailedScreen(
                                         text = stringResource(R.string.info),
                                         style = MaterialTheme.typography.body2,
                                         modifier = Modifier
-                                            .padding(start = GetPadding().xxxMediumPadding, bottom = GetPadding().xMediumPadding),
+                                            .padding(
+                                                start = GetPadding().xxxMediumPadding,
+                                                bottom = GetPadding().xMediumPadding
+                                            ),
                                         textAlign = TextAlign.Start
                                     )
                                     Column {
@@ -220,7 +223,10 @@ fun DetailedScreen(
                             text = stringResource(R.string.info),
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
-                                .padding(start = GetPadding().xxxMediumPadding, bottom = GetPadding().xMediumPadding),
+                                .padding(
+                                    start = GetPadding().xxxMediumPadding,
+                                    bottom = GetPadding().xMediumPadding
+                                ),
                             textAlign = TextAlign.Start
                         )
                         Column {
@@ -290,7 +296,10 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
             )
         }
     } else {
-        Card(shape = RoundedCornerShape(CornerSize(dimensionResource(id = R.dimen.character_card_corner))), border = BorderStroke(GetThickness().xLarge, color = Color.Black)) {
+        Card(
+            shape = RoundedCornerShape(CornerSize(dimensionResource(id = R.dimen.character_card_corner))),
+            border = BorderStroke(GetThickness().xLarge, color = Color.Black)
+        ) {
             AsyncImage(
                 model = charInfo?.image.toString(),
                 contentDescription = null,

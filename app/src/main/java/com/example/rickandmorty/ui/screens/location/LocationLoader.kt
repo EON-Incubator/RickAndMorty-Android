@@ -2,7 +2,6 @@ package com.example.rickandmorty.ui.screens.location
 
 import ExcludeFromJacocoGeneratedReport
 
-import com.example.rickandmorty.R
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -12,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.ui.screens.ScreenType
@@ -56,7 +57,7 @@ fun LocationLoader(deviceType: ScreenType) {
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
             .padding(GetPadding().smallPadding)
-            .semantics { contentDescription = "Fetching Records" }
+            .semantics { contentDescription = R.string.fetching_records.toString() }
     ) {
         repeat(
             when (deviceType) {

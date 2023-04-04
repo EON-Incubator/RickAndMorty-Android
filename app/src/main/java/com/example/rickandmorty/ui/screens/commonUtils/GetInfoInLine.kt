@@ -10,10 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.rickandmorty.R
-
 /**
  * Composable function that draws row with an icon
  * which is an image vector and row with
@@ -58,7 +58,7 @@ fun GetInfoInLine(
                         .padding(end = GetPadding().xSmallPadding)
                         .size(dimensionResource(id = R.dimen.icon_size)),
                     imageVector = icons,
-                    contentDescription = "Icon"
+                    contentDescription = stringResource(R.string.icon)
                 )
 
                 Text(
@@ -83,7 +83,7 @@ fun GetInfoInLine(
                 iconArrow?.let {
                     Icon(
                         imageVector = it,
-                        contentDescription = "to go on next location screen"
+                        contentDescription = stringResource(R.string.next_location_screen)
                     )
                 }
             }

@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import com.example.rickandmorty.R
@@ -22,16 +23,16 @@ fun SearchLoader() {
         Column() {
             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
             Text(
-                text = "Characters",
+                text = stringResource(R.string.characters_screen_title),
                 Modifier
                     .fillMaxWidth()
                     .padding(GetPadding().xxxSmallPadding)
                     .shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
-                    .semantics { contentDescription = "Fetching Records" }
+                    .semantics { contentDescription = R.string.fetching_records.toString() }
             )
         }
         repeat(2) {
-            Column() {
+            Column {
                 GetRowWithOneImage(
                     imageUrlLink = "",
                     titleName = "",
@@ -49,7 +50,7 @@ fun SearchLoader() {
         Column() {
             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
             Text(
-                text = "Locations",
+                text = stringResource(R.string.locations_screen_title),
                 Modifier
                     .background(Color.LightGray)
                     .fillMaxWidth()
@@ -59,7 +60,7 @@ fun SearchLoader() {
         }
 
         repeat(2) {
-            Column() {
+            Column {
                 GetRowWithFourImages(
                     imageUrlLink = emptyList(),
                     titleName = "",

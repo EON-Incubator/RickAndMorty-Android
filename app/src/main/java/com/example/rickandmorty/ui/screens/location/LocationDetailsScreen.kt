@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.rickandmorty.R
@@ -98,7 +99,7 @@ fun GetResidents(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "RESIDENTS",
+            text = stringResource(R.string.residents_all_caps),
             modifier = Modifier.padding(
                 start = dimensionResource(id = R.dimen.padding_xlarge),
                 top = GetPadding().xxxLargePadding,
@@ -142,7 +143,7 @@ fun GetInfo(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "INFO",
+            text = stringResource(R.string.info),
             modifier = Modifier.padding(
                 start = GetPadding().xLargePadding,
                 top = GetPadding().xxxLargePadding,
@@ -156,7 +157,7 @@ fun GetInfo(
         locationsDetailUiState.locationDetail.type?.let {
             GetInfoInLine(
                 ImageVector.vectorResource(id = R.drawable.type),
-                "Type",
+                stringResource(R.string.type),
                 it,
                 location = true
             )
@@ -165,7 +166,7 @@ fun GetInfo(
         locationsDetailUiState.locationDetail.dimension?.let {
             GetInfoInLine(
                 ImageVector.vectorResource(id = R.drawable.dimension),
-                "Dimension",
+                stringResource(R.string.dimension),
                 it,
                 location = true
             )

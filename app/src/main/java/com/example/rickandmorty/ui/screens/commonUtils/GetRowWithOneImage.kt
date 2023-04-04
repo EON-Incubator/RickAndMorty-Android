@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -55,7 +56,7 @@ fun GetRowWithOneImage(
         elevation = GetElevation().medium,
         modifier = modifier
             .padding(GetPadding().xSmallPadding)
-            .semantics { contentDescription = "Single Image Row" }
+           .semantics { contentDescription = R.string.single_image_row.toString() }
             .clickable {
                 onClickable(id)
             },
@@ -93,7 +94,7 @@ fun GetRowWithOneImage(
                         model = imageUrlLink,
                         error = painterResource(id = getErrorImage()),
                         placeholder = painterResource(R.drawable.loading_img),
-                        contentDescription = "Icon of Location Characters"
+                        contentDescription = stringResource(R.string.episodes_all_caps)
                     )
                 }
 
@@ -108,7 +109,7 @@ fun GetRowWithOneImage(
 
                 Icon(
                     imageVector = Icons.Outlined.KeyboardArrowRight,
-                    contentDescription = "Go to next screen"
+                    contentDescription = stringResource(R.string.go_to_next_screen)
                 )
             }
 
@@ -120,11 +121,11 @@ fun GetRowWithOneImage(
                         .padding(top = GetPadding().mediumPadding)
                         .width(dimensionResource(id = R.dimen.row_one_image_width))
                         .rotate(-38f)
-                        .semantics { contentDescription = "Item Name" }
+                        .semantics { contentDescription = R.string.item_name.toString() }
                         .background(
                             when (status) {
-                                "Dead" -> LessRed
-                                "Alive" -> LessGreen
+                                stringResource(R.string.dead_leading_caps) -> LessRed
+                                stringResource(R.string.alive_leading_caps) -> LessGreen
                                 else -> Color.Gray
                             }
                         ),

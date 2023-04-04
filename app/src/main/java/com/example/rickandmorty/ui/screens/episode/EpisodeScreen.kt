@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
+
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.*
@@ -24,6 +25,7 @@ import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.*
 import com.example.rickandmorty.ui.screens.location.LocationLoader
+import com.example.rickandmorty.ui.screens.location.LocationLoaderCells
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -52,7 +54,7 @@ fun EpisodesScreen(
         topBar = {
             if (deviceType == ScreenType.PORTRAIT_PHONE) {
                 RickAndMortyTopAppBar(
-                    title = "Rick And Morty",
+                    title = stringResource(id = R.string.rick_and_morty),
                     canNavigateBack = false,
                     navigateUp = { },
                     scrollBehavior = scrollBehavior,
@@ -77,7 +79,7 @@ fun EpisodesScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .semantics { contentDescription = "Fetching Episodes" }
+                    .semantics { contentDescription = R.string.fetching_episodes.toString() }
             ) {
                 ScreenNameBar(
                     name = stringResource(R.string.episodes_screen_title),
@@ -146,6 +148,11 @@ fun EpisodesScreen(
                                             ImageVector.vectorResource(id = R.drawable.date)
                                         )
                                     )
+                                }
+                            }
+                            item {
+                                if (state.isLoading) {
+                                    LocationLoaderCells(deviceType)
                                 }
                             }
                         }

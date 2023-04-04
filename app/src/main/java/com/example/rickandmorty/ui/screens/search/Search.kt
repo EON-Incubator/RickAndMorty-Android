@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -53,7 +54,7 @@ fun Search(
         }
         LazyColumn(
             state = searchListState,
-            modifier = Modifier.testTag("search_lazy_column")
+            modifier = Modifier.testTag(stringResource(R.string.search_lazy_column))
         ) {
             if (deviceType != ScreenType.PORTRAIT_PHONE) {
                 item {
@@ -78,7 +79,7 @@ fun Search(
                         item {
                             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
-                                text = "characters",
+                                text = stringResource(R.string.characters_small_case),
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
@@ -86,14 +87,14 @@ fun Search(
                             )
                         }
                         Log.v(
-                            "Search test: Screen:",
+                            R.string.search_test_screen.toString(),
                             searchResultState.characterData.characters.toString()
                         )
                         if (searchResultState.characterData.characters.isEmpty()) {
                             item {
                                 Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                                 Text(
-                                    text = "No characters found matching the input: ${query.value.text}",
+                                    text = stringResource(R.string.no_characters_found) + " ${query.value.text}",
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(GetPadding().xxxSmallPadding)
@@ -126,9 +127,9 @@ fun Search(
                                 ) {
                                     Text(
                                         text =
-                                        "Load More",
+                                        stringResource(R.string.load_more),
                                         modifier = Modifier.semantics {
-                                            contentDescription = "Load More Characters"
+                                            contentDescription = R.string.load_more_characters.toString()
                                         }
                                     )
                                 }
@@ -138,7 +139,7 @@ fun Search(
                         item {
                             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
-                                text = "Characters",
+                                text = stringResource(R.string.characters_screen_title),
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
@@ -146,7 +147,7 @@ fun Search(
                             )
                             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
-                                text = "Type to search character by name",
+                                text = stringResource(R.string.type_to_search_char),
                                 Modifier
                                     .fillMaxWidth()
                                     .padding(GetPadding().xxxSmallPadding)
@@ -159,7 +160,7 @@ fun Search(
                         item {
                             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
-                                text = "Locations",
+                                text = stringResource(R.string.locations_screen_title),
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
@@ -170,7 +171,7 @@ fun Search(
                             item {
                                 Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                                 Text(
-                                    text = "No locations found matching the input: ${query.value.text}",
+                                    text = stringResource(R.string.no_location_found) + "${query.value.text}",
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(GetPadding().xxxSmallPadding)
@@ -198,9 +199,9 @@ fun Search(
                                 ) {
                                     Text(
                                         text =
-                                        "Load More",
+                                        stringResource(id = R.string.load_more),
                                         modifier = Modifier.semantics {
-                                            contentDescription = "Load More Locations"
+                                            contentDescription = R.string.load_more_locations.toString()
                                         }
                                     )
                                 }
@@ -210,7 +211,7 @@ fun Search(
                         item {
                             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
-                                text = "Locations",
+                                text = stringResource(id = R.string.locations_screen_title),
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
@@ -220,7 +221,7 @@ fun Search(
                         item {
                             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
-                                text = "Type to search location by name or type",
+                                text = stringResource(R.string.type_search_loc_by_name_type),
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(GetPadding().xxxSmallPadding)
@@ -248,7 +249,7 @@ fun SearchBar(
             onValueChange = onValueChange,
             Modifier
                 .fillMaxWidth()
-                .semantics { contentDescription = "Search Bar" }
+                .semantics { contentDescription = R.string.search_bar.toString() }
         )
     }
     Row(
@@ -259,7 +260,7 @@ fun SearchBar(
             onClick = onShowCharacters,
             Modifier
                 .weight(1.0f)
-                .semantics { contentDescription = "Characters" },
+                .semantics { contentDescription = R.string.characters_screen_title.toString() },
             colors = if (showCharacters) {
                 ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
             } else {
@@ -271,7 +272,7 @@ fun SearchBar(
                     imageVector = ImageVector.vectorResource(
                         id = R.drawable.outline_check_box_24
                     ),
-                    contentDescription = "Selected",
+                    contentDescription = stringResource(R.string.selected),
                     Modifier.padding(horizontal = GetPadding().xSmallPadding)
                 )
             } else {
@@ -279,20 +280,20 @@ fun SearchBar(
                     imageVector = ImageVector.vectorResource(
                         id = R.drawable.outline_check_box_outline_blank_24
                     ),
-                    contentDescription = "Selected",
+                    contentDescription = stringResource(R.string.selected),
                     Modifier.padding(horizontal = GetPadding().xSmallPadding)
                 )
             }
             Text(
                 text =
-                "Characters"
+                stringResource(id = R.string.characters_screen_title)
             )
         }
         Button(
             onClick = onShowLocations,
             Modifier
                 .weight(1.0f)
-                .semantics { contentDescription = "Locations" },
+                .semantics { contentDescription = R.string.locations_screen_title.toString() },
             colors = if (showLocations) {
                 ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
             } else {
@@ -305,7 +306,7 @@ fun SearchBar(
                         id =
                         R.drawable.outline_check_box_24
                     ),
-                    contentDescription = "Selected",
+                    contentDescription = stringResource(id = R.string.selected),
                     Modifier.padding(horizontal = GetPadding().xSmallPadding)
                 )
             } else {
@@ -314,11 +315,11 @@ fun SearchBar(
                         id =
                         R.drawable.outline_check_box_outline_blank_24
                     ),
-                    contentDescription = "Selected",
+                    contentDescription = stringResource(id = R.string.selected),
                     Modifier.padding(horizontal = GetPadding().xSmallPadding)
                 )
             }
-            Text(text = "Locations")
+            Text(text = stringResource(id = R.string.locations_screen_title))
         }
     }
 }

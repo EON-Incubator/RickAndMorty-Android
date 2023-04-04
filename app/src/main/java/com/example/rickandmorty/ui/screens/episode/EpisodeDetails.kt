@@ -54,13 +54,13 @@ fun EpisodeDetails(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .semantics { contentDescription = "EP Detail" }
+                    .semantics { contentDescription = R.string.ep_detail.toString() }
             ) {
                 if (state.isLoading) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .semantics { contentDescription = "Episode Detail Load" },
+                            .semantics { contentDescription = R.string.episode_detail_load.toString() },
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -76,14 +76,14 @@ fun EpisodeDetails(
                             Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
                             GetInfoInLine(
-                                icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                 topic = stringResource(id = R.string.episode),
                                 topicAnswer = stringResource(R.string.loading)
                             )
 
                             Row() {
                                 GetInfoInLine(
-                                    icons = ImageVector.vectorResource(id = R.drawable.date),
+                                    icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
                                     topicAnswer = stringResource(R.string.loading)
                                 )
@@ -130,14 +130,14 @@ fun EpisodeDetails(
                             Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
                             GetInfoInLine(
-                                icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                 topic = stringResource(id = R.string.episode),
                                 topicAnswer = state.selectedEpisode?.episode.toString()
                             )
 
                             Row() {
                                 GetInfoInLine(
-                                    icons = ImageVector.vectorResource(id = R.drawable.date),
+                                    icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
                                     topicAnswer = state.selectedEpisode?.air_date.toString()
                                 )
@@ -153,7 +153,7 @@ fun EpisodeDetails(
                             )
 
                             if (state.selectedEpisode.characters.isNotEmpty()) {
-                                Log.v("character", state.characters.toString())
+                                Log.v(R.string.character.toString(), state.characters.toString())
                                 LazyColumn() {
                                     items(state.selectedEpisode.characters) { episode ->
                                         GetRowWithOneImage(
@@ -190,14 +190,14 @@ fun EpisodeDetails(
                                 Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
 
                                 GetInfoInLine(
-                                    icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                    icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                     topic = stringResource(id = R.string.episode),
                                     topicAnswer = state.selectedEpisode?.episode.toString()
                                 )
 
                                 Row() {
                                     GetInfoInLine(
-                                        icons = ImageVector.vectorResource(id = R.drawable.date),
+                                        icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                         topic = stringResource(id = R.string.air_date),
                                         topicAnswer = state.selectedEpisode?.air_date.toString()
 
@@ -241,7 +241,7 @@ fun EpisodeDetails(
                 } else {
                     Image(
                         painter = painterResource(id = R.drawable.ic_broken_image),
-                        contentDescription = "Broken"
+                        contentDescription = stringResource(R.string.broken)
                     )
                 }
             }
@@ -250,6 +250,6 @@ fun EpisodeDetails(
 }
 
 object EpisodeDetailsDestination : NavigationDestination {
-    override val route = "episode_detail"
+    override val route = "episode_details"
     override val screenTitleRes = R.string.episode_detail_screen_title
 }

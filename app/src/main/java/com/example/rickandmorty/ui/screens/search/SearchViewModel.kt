@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.search
 
+import android.util.Log
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,6 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,6 +36,7 @@ class SearchViewModel @Inject constructor(
     val query = _query.asStateFlow()
 
     fun onSearch(name: String) {
+        _query.debounce(500)
         _query.update {
             TextFieldValue(name)
         }
@@ -100,13 +103,14 @@ class SearchViewModel @Inject constructor(
     }
 
     fun updateLocationList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (searchResult.value.locationByName?.pages?.next != null) {
                 _searchResult.update {
                     it.copy(
                         isLoading = true
                     )
                 }
+                Log.v("Debug ME 1", "Running")
                 val locationData =
                     getAllLocationUseCase.execute(
                         filterLocation = FilterLocation(
@@ -128,8 +132,6 @@ class SearchViewModel @Inject constructor(
                     )
                 }
             }
-        }
-        viewModelScope.launch {
             if (searchResult.value.locationByType?.pages?.next != null) {
                 _searchResult.update {
                     it.copy(
@@ -145,6 +147,7 @@ class SearchViewModel @Inject constructor(
                         ),
                         page = searchResult.value.locationByType?.pages?.next ?: 1
                     )
+                Log.v("Debug ME 2", locationData.toString())
                 _searchResult.update {
                     it.copy(
                         locationByType = LocationData(
@@ -157,16 +160,23 @@ class SearchViewModel @Inject constructor(
                     )
                 }
             }
-        }
-        _searchResult.update {
-            it.copy(
-                locationByName = it.locationByName?.copy(
-                    locations = it.locationByName?.locations?.plus(
-                        it.locationByType?.locations
-                            ?: emptyList()
-                    )?.distinct()
+            Log.v("Debug ME", _searchResult.value.locationByName.toString())
+            _searchResult.update {
+                it.copy(
+                    locationByName = it.locationByName?.copy(
+                        locations = it.locationByName?.locations?.plus(
+                            it.locationByType?.locations
+                                ?: emptyList()
+                        )?.distinct()
+                    )
                 )
-            )
+            }
+        }
+    }
+
+    fun onResetQuery() {
+        _query.update {
+            TextFieldValue("")
         }
     }
 

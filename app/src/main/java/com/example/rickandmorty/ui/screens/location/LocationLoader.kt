@@ -1,19 +1,22 @@
 package com.example.rickandmorty.ui.screens.location
 
 import ExcludeFromJacocoGeneratedReport
+
+import com.example.rickandmorty.R
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
 
@@ -36,7 +39,7 @@ fun GetEmptyRow() {
         id = "",
         location = true,
         modifier = Modifier
-            .shimmerBackground(RoundedCornerShape(40.dp))
+            .shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
     )
 }
 
@@ -50,10 +53,10 @@ fun LocationLoader(deviceType: ScreenType) {
                 else -> 2
             }
         ),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
-            .padding(GetDimensions().smallPadding)
+            .padding(GetPadding().smallPadding)
             .semantics { contentDescription = "Fetching Records" }
     ) {
         repeat(
@@ -97,7 +100,7 @@ fun LocationDetailLoader(deviceType: ScreenType) {
             GetInfo(
                 LocationDetailViewModel.LocationDetailUiState()
             )
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
 
             GetResidents(
                 LocationDetailViewModel.LocationDetailUiState(

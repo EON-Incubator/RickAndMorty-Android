@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -51,10 +52,10 @@ fun GetRowWithOneImage(
 
 ) {
     Card(
-        shape = RoundedCornerShape(10.dp),
-        elevation = 7.dp,
+        shape = RoundedCornerShape(GetThickness().large),
+        elevation = GetElevation().medium,
         modifier = modifier
-            .padding(5.dp)
+            .padding(GetPadding().xSmallPadding)
             .semantics { contentDescription = "Single Image Row" }
             .clickable {
                 onClickable(id)
@@ -73,11 +74,19 @@ fun GetRowWithOneImage(
                 Row(modifier = Modifier.weight(1f)) {
                     AsyncImage(
                         modifier = modifier
-                            .padding(start = 15.dp, end = 7.dp, bottom = 7.dp, top = 7.dp)
+                            .padding(
+                                start = GetPadding().xxMediumPadding,
+                                end = GetPadding().smallPadding,
+                                bottom = GetPadding().xSmallPadding,
+                                top = GetPadding().xSmallPadding
+                            )
                             .clip(CircleShape)
-                            .size(70.dp)
+                            .size(dimensionResource(id = R.dimen.row_one_image_size))
                             .border(
-                                BorderStroke(1.dp, color = MaterialTheme.colors.onBackground),
+                                BorderStroke(
+                                    GetThickness().xxSmall,
+                                    color = MaterialTheme.colors.onBackground
+                                ),
                                 shape = CircleShape
                             ),
 
@@ -108,9 +117,9 @@ fun GetRowWithOneImage(
                 Text(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .offset(x = -30.dp)
-                        .padding(top = GetDimensions().mediumPadding)
-                        .width(100.dp)
+                        .offset(x = dimensionResource(id = R.dimen.ribbon_offset))
+                        .padding(top = GetPadding().mediumPadding)
+                        .width(dimensionResource(id = R.dimen.row_one_image_width))
                         .rotate(-38f)
                         .semantics { contentDescription = "Item Name" }
                         .background(

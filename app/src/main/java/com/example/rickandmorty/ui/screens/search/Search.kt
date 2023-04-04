@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 
@@ -77,13 +77,13 @@ fun Search(
                 if (showCharacters) {
                     if (searchResultState.characterData?.characters != null) {
                         item {
-                            Spacer(modifier = Modifier.height(5.dp))
+                            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
                                 text = "characters",
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
-                                    .padding(GetDimensions().xxxSmallPadding)
+                                    .padding(GetPadding().xxxSmallPadding)
                             )
                         }
                         Log.v(
@@ -92,12 +92,12 @@ fun Search(
                         )
                         if (searchResultState.characterData.characters.isEmpty()) {
                             item {
-                                Spacer(modifier = Modifier.height(5.dp))
+                                Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                                 Text(
                                     text = "No characters found matching the input: ${query.value.text}",
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(GetDimensions().xxxSmallPadding)
+                                        .padding(GetPadding().xxxSmallPadding)
                                 )
                             }
                         } else {
@@ -123,7 +123,7 @@ fun Search(
                                     onClick = updateCharacterList,
                                     Modifier
                                         .fillMaxWidth()
-                                        .padding(GetDimensions().mediumPadding)
+                                        .padding(GetPadding().mediumPadding)
                                 ) {
                                     Text(
                                         text =
@@ -137,20 +137,20 @@ fun Search(
                         }
                     } else {
                         item {
-                            Spacer(modifier = Modifier.height(5.dp))
+                            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
                                 text = "Characters",
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
-                                    .padding(GetDimensions().xxxSmallPadding)
+                                    .padding(GetPadding().xxxSmallPadding)
                             )
-                            Spacer(modifier = Modifier.height(5.dp))
+                            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
                                 text = "Type to search character by name",
                                 Modifier
                                     .fillMaxWidth()
-                                    .padding(GetDimensions().xxxSmallPadding)
+                                    .padding(GetPadding().xxxSmallPadding)
                             )
                         }
                     }
@@ -158,23 +158,23 @@ fun Search(
                 if (showLocations) {
                     if (searchResultState.locationByName?.locations != null) {
                         item {
-                            Spacer(modifier = Modifier.height(5.dp))
+                            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
                                 text = "Locations",
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
-                                    .padding(GetDimensions().xxxSmallPadding)
+                                    .padding(GetPadding().xxxSmallPadding)
                             )
                         }
                         if (searchResultState.locationByName.locations.isEmpty()) {
                             item {
-                                Spacer(modifier = Modifier.height(5.dp))
+                                Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                                 Text(
                                     text = "No locations found matching the input: ${query.value.text}",
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(GetDimensions().xxxSmallPadding)
+                                        .padding(GetPadding().xxxSmallPadding)
                                 )
                             }
                         } else {
@@ -195,7 +195,7 @@ fun Search(
                                     onClick = updateLocationList,
                                     Modifier
                                         .fillMaxWidth()
-                                        .padding(GetDimensions().mediumPadding)
+                                        .padding(GetPadding().mediumPadding)
                                 ) {
                                     Text(
                                         text =
@@ -209,22 +209,22 @@ fun Search(
                         }
                     } else {
                         item {
-                            Spacer(modifier = Modifier.height(5.dp))
+                            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
                                 text = "Locations",
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
-                                    .padding(GetDimensions().xxxSmallPadding)
+                                    .padding(GetPadding().xxxSmallPadding)
                             )
                         }
                         item {
-                            Spacer(modifier = Modifier.height(5.dp))
+                            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
                                 text = "Type to search location by name or type",
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(GetDimensions().xxxSmallPadding)
+                                    .padding(GetPadding().xxxSmallPadding)
                             )
                         }
                     }
@@ -243,7 +243,7 @@ fun SearchBar(
     showLocations: Boolean,
     onShowLocations: () -> Unit,
 ) {
-    Row(modifier = Modifier.padding(5.dp)) {
+    Row(modifier = Modifier.padding(GetPadding().xSmallPadding)) {
         OutlinedTextField(
             value = query.value.text,
             onValueChange = onValueChange,
@@ -253,8 +253,8 @@ fun SearchBar(
         )
     }
     Row(
-        horizontalArrangement = Arrangement.spacedBy(5.dp),
-        modifier = Modifier.padding(5.dp)
+        horizontalArrangement = Arrangement.spacedBy(GetPadding().xSmallPadding),
+        modifier = Modifier.padding(GetPadding().xSmallPadding)
     ) {
         Button(
             onClick = onShowCharacters,
@@ -273,7 +273,7 @@ fun SearchBar(
                         id = R.drawable.outline_check_box_24
                     ),
                     contentDescription = "Selected",
-                    Modifier.padding(horizontal = 5.dp)
+                    Modifier.padding(horizontal = GetPadding().xSmallPadding)
                 )
             } else {
                 Icon(
@@ -281,7 +281,7 @@ fun SearchBar(
                         id = R.drawable.outline_check_box_outline_blank_24
                     ),
                     contentDescription = "Selected",
-                    Modifier.padding(horizontal = 5.dp)
+                    Modifier.padding(horizontal = GetPadding().xSmallPadding)
                 )
             }
             Text(
@@ -307,7 +307,7 @@ fun SearchBar(
                         R.drawable.outline_check_box_24
                     ),
                     contentDescription = "Selected",
-                    Modifier.padding(horizontal = 5.dp)
+                    Modifier.padding(horizontal = GetPadding().xSmallPadding)
                 )
             } else {
                 Icon(
@@ -316,7 +316,7 @@ fun SearchBar(
                         R.drawable.outline_check_box_outline_blank_24
                     ),
                     contentDescription = "Selected",
-                    Modifier.padding(horizontal = 5.dp)
+                    Modifier.padding(horizontal = GetPadding().xSmallPadding)
                 )
             }
             Text(text = "Locations")

@@ -41,7 +41,7 @@ fun GetData(
                 text = titleName,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(start = GetDimensions().mediumPadding, bottom = GetDimensions().mediumPadding),
+                modifier = Modifier.padding(start = GetPadding().mediumPadding, bottom = GetPadding().mediumPadding),
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colors.onBackground
@@ -53,11 +53,14 @@ fun GetData(
             if (property1.isNotEmpty()) {
                 Row(
                     modifier = Modifier
-                        .padding(end = 7.dp, bottom = 7.dp)
+                        .padding(
+                            end = GetPadding().smallPadding,
+                            bottom = GetPadding().xSmallPadding
+                        )
                         .weight(1f)
                         .border(
                             shape = RoundedCornerShape(25),
-                            border = BorderStroke(1.dp, color = Color.LightGray)
+                            border = BorderStroke(GetThickness().xxSmall, color = Color.LightGray)
                         )
                         .background(
                             color = colorResource(
@@ -74,7 +77,12 @@ fun GetData(
                         text = property1,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 5.dp, end = 5.dp, top = GetDimensions().xxxSmallPadding, bottom = GetDimensions().xxxSmallPadding),
+                            .padding(
+                                start = GetPadding().xSmallPadding,
+                                end = GetPadding().xxSmallPadding,
+                                top = GetPadding().xxxSmallPadding,
+                                bottom = GetPadding().xxxSmallPadding
+                            ),
 //                        .sizeIn(
 //                            minHeight = with(LocalDensity.current) {
 //                                (lineHeight * 2).toDp()
@@ -92,10 +100,13 @@ fun GetData(
             if (property2.isNotEmpty()) {
                 Row(
                     modifier = Modifier
-                        .padding(end = 5.dp, bottom = 7.dp)
+                        .padding(
+                            end = GetPadding().xxSmallPadding,
+                            bottom = GetPadding().xSmallPadding
+                        )
                         .weight(1f)
                         .border(
-                            border = BorderStroke(1.dp, color = Color.LightGray),
+                            border = BorderStroke(GetThickness().xxSmall, color = Color.LightGray),
                             shape = RoundedCornerShape(25)
                         )
                         .background(
@@ -111,7 +122,7 @@ fun GetData(
                 ) {
                     Text(
                         modifier = Modifier
-                            .padding(start = 5.dp, end = 5.dp, top = GetDimensions().xxxSmallPadding, bottom = GetDimensions().xxxSmallPadding),
+                            .padding(start = GetPadding().xSmallPadding, end = GetPadding().xxSmallPadding, top = GetPadding().xxxSmallPadding, bottom = GetPadding().xxxSmallPadding),
                         textAlign = TextAlign.Center,
                         text = property2,
                         maxLines = 1,

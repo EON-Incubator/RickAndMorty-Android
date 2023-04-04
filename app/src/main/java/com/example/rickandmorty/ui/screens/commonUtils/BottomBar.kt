@@ -23,7 +23,7 @@ fun BottomNavigationBar(
     BottomNavigation(
         modifier = modifier.testTag("bottom-bar"),
         backgroundColor = MaterialTheme.colors.primary,
-        elevation = 5.dp
+        elevation = GetElevation().xMedium
     ) {
         items.forEach { item ->
             val selected = item.route == backStackEntry.value?.destination?.route

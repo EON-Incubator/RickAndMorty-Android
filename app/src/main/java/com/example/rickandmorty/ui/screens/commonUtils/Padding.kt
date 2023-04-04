@@ -6,8 +6,8 @@ import androidx.compose.ui.unit.Dp
 import com.example.rickandmorty.R
 
 @Composable
-fun GetDimensions(): Dimens {
-    return Dimens(
+fun GetPadding(): Padding {
+    return Padding(
         xxxSmallPadding = dimensionResource(id = R.dimen.padding_xxxsmall),
         xxSmallPadding = dimensionResource(id = R.dimen.padding_xxsmall),
         xSmallPadding = dimensionResource(id = R.dimen.padding_xsmall),
@@ -26,9 +26,37 @@ fun GetDimensions(): Dimens {
     )
 }
 
-data class Dimens(
+@Composable
+fun GetElevation(): Depth{
+    return Depth(
+        no = dimensionResource(id = R.dimen.elevation_no),
+        xxSmall = dimensionResource(id = R.dimen.elevation_xxsmall),
+        xSmall = dimensionResource(id = R.dimen.elevation_xsmall),
+        small = dimensionResource(id = R.dimen.elevation_small),
+        xMedium = dimensionResource(id = R.dimen.elevation_xmedium),
+        medium = dimensionResource(id = R.dimen.elevation_medium),
+        large = dimensionResource(id = R.dimen.elevation_large),
+        xLarge = dimensionResource(id = R.dimen.elevation_xlarge)
+    )
+}
 
-    // padding
+@Composable
+fun GetThickness(): Depth{
+    return Depth(
+        no = dimensionResource(id = R.dimen.thickness_no),
+        xxSmall = dimensionResource(id = R.dimen.thickness_xxsmall),
+        xSmall = dimensionResource(id = R.dimen.thickness_xsmall),
+        small = dimensionResource(id = R.dimen.thickness_small),
+        xMedium = dimensionResource(id = R.dimen.thickness_xmedium),
+        medium = dimensionResource(id = R.dimen.thickness_medium),
+        large = dimensionResource(id = R.dimen.thickness_large),
+        xLarge = dimensionResource(id = R.dimen.thickness_xlarge)
+    )
+
+}
+
+data class Padding(
+
     // small
     val xxxSmallPadding: Dp,
     val xxSmallPadding: Dp,
@@ -46,5 +74,17 @@ data class Dimens(
     val xLargePadding: Dp,
     val xxLargePadding: Dp,
     val xxxLargePadding: Dp,
+
+)
+
+data class Depth(
+    val no: Dp,
+    val xxSmall: Dp,
+    val xSmall: Dp,
+    val small: Dp,
+    val xMedium: Dp,
+    val medium: Dp,
+    val large: Dp,
+    val xLarge: Dp,
 
 )

@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -47,8 +48,8 @@ fun getErrorImage() =
 fun GetSingleImage(imageUrlLink: String) {
     AsyncImage(
         modifier = Modifier
-            .padding(GetDimensions().xxxSmallPadding)
-            .size(35.dp)
+            .padding(GetPadding().xxxSmallPadding)
+            .size(dimensionResource(id = R.dimen.four_image_size))
             .clip(RoundedCornerShape(15)),
         model = imageUrlLink,
         contentScale = ContentScale.Crop,

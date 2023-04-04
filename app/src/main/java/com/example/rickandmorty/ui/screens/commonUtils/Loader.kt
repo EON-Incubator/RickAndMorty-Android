@@ -14,8 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
 
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -49,8 +51,8 @@ fun showLoader() {
     Column(Modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
-                .size(64.dp)
-                .shimmerBackground(RoundedCornerShape(4.dp))
+                .size(dimensionResource(id = R.dimen.search_box_loader_size))
+                .shimmerBackground(RoundedCornerShape(GetThickness().small))
         )
     }
 }

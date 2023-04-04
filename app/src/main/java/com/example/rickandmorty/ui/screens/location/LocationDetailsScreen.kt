@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -19,7 +20,7 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 
@@ -65,7 +66,7 @@ fun LocationDetailScreen(
                         .padding(it)
                 ) {
                     GetInfo(locationsDetailUiState)
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
                     GetResidents(locationsDetailUiState, onCharacterClick)
                 }
             } else {
@@ -100,9 +101,9 @@ fun GetResidents(
         Text(
             text = "RESIDENTS",
             modifier = Modifier.padding(
-                start = GetDimensions().xLargePadding,
-                top = GetDimensions().xxxLargePadding,
-                bottom = GetDimensions().largePadding
+                start = dimensionResource(id = R.dimen.padding_xlarge),
+                top = GetPadding().xxxLargePadding,
+                bottom = GetPadding().largePadding
             ),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,
@@ -144,9 +145,9 @@ fun GetInfo(
         Text(
             text = "INFO",
             modifier = Modifier.padding(
-                start = GetDimensions().xLargePadding,
-                top = GetDimensions().xxxLargePadding,
-                bottom = GetDimensions().largePadding
+                start = GetPadding().xLargePadding,
+                top = GetPadding().xxxLargePadding,
+                bottom = GetPadding().largePadding
             ),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,

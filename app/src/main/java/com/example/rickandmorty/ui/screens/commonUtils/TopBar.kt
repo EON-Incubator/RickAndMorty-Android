@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -36,12 +37,12 @@ fun RickAndMortyTopAppBar(
     if (canNavigateBack) {
         TopAppBar(
             backgroundColor = backgroundColor,
-            elevation = 0.dp,
+            elevation = GetElevation().no,
             title = {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(end = GetDimensions().xLargePadding),
+                        .padding(end = GetPadding().xLargePadding),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) { TopBar(title = title) }
@@ -57,7 +58,9 @@ fun RickAndMortyTopAppBar(
                             imageVector = ImageVector.vectorResource(id = R.drawable.left_arrow),
                             contentDescription = stringResource(R.string.back_button)
                         )
-                        Text(modifier = Modifier.weight(2f).padding(bottom = 3.dp), text = "Back")
+                        Text(modifier = Modifier
+                            .weight(2f)
+                            .padding(bottom = GetPadding().xxSmallPadding), text = "Back")
                     }
                 }
             }
@@ -71,7 +74,7 @@ fun RickAndMortyTopAppBar(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(5.dp),
+                        .padding(GetPadding().xSmallPadding),
 
                     horizontalArrangement = Arrangement.Start
                 ) {
@@ -80,13 +83,13 @@ fun RickAndMortyTopAppBar(
                             painter = painterResource(id = R.drawable.rick_and_morty),
                             contentDescription = "rick and morty image",
                             modifier = Modifier
-                                .size(120.dp)
+                                .size(dimensionResource(id = R.dimen.app_title_image_size))
                         )
                     } else {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(120.dp)
+                                .height(dimensionResource(id = R.dimen.app_title_image_size))
                         ) {
                         }
                     }

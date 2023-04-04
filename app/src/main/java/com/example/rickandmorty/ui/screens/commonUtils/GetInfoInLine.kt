@@ -9,9 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
 
 /**
  * Composable function that draws row with an icon
@@ -32,21 +34,30 @@ fun GetInfoInLine(
 ) {
     if (topicAnswer.isNotEmpty()) {
         Card(
-            shape = RoundedCornerShape(CornerSize(4.dp)),
-            modifier = Modifier.padding(start = GetDimensions().xxxMediumPadding, end = GetDimensions().xxxMediumPadding, top = GetDimensions().mediumPadding),
+            shape = RoundedCornerShape(CornerSize(GetThickness().small)),
+            modifier = Modifier.padding(
+                start = GetPadding().xxxMediumPadding,
+                end = GetPadding().xxxMediumPadding,
+                top = GetPadding().mediumPadding
+            ),
             backgroundColor = colorResource(id = GetColor(location = location).detail_info_card)
         ) {
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(start = GetDimensions().xLargePadding, bottom = 7.dp, top = 7.dp, end = 7.dp),
+                    .padding(
+                        start = GetPadding().xLargePadding,
+                        bottom = GetPadding().xSmallPadding,
+                        top = GetPadding().smallPadding,
+                        end = GetPadding().smallPadding
+                    ),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
                 Icon(
                     modifier = Modifier
-                        .padding(end = 7.dp)
-                        .size(23.dp),
+                        .padding(end = GetPadding().xSmallPadding)
+                        .size(dimensionResource(id = R.dimen.icon_size)),
                     imageVector = icons,
                     contentDescription = "Icon"
                 )

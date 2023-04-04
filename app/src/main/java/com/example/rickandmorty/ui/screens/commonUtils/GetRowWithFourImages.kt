@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -46,9 +47,9 @@ fun GetRowWithFourImages(
 
     Card(
         shape = RoundedCornerShape(10),
-        elevation = 7.dp,
+        elevation = GetElevation().medium,
         modifier = Modifier
-            .padding(start = GetDimensions().xxxMediumPadding, end = GetDimensions().xxxMediumPadding, bottom = GetDimensions().xMediumPadding)
+            .padding(start = GetPadding().xxxMediumPadding, end = GetPadding().xxMediumPadding, bottom = GetPadding().xMediumPadding)
             .semantics { contentDescription = "Four Image Row" }
             .clickable {
                 onClickable(id)
@@ -57,7 +58,7 @@ fun GetRowWithFourImages(
 
     ) {
         Row(
-            modifier = Modifier.padding(3.dp),
+            modifier = Modifier.padding(GetPadding().xxSmallPadding),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -76,7 +77,7 @@ fun GetRowWithFourImages(
             }
             Row(modifier = modifier.weight(1f)) {
                 Icon(
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier.size(dimensionResource(id = R.dimen.four_image_size)),
                     imageVector = ImageVector.vectorResource(R.drawable.baseline_arrow_forward_ios_24),
                     contentDescription = "Click to go to Detail Screen"
 

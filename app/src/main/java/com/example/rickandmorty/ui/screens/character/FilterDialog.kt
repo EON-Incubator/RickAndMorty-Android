@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 
 @Composable
 fun DialogBox(
@@ -31,12 +31,12 @@ fun DialogBox(
                 showDialog.value = false
             },
             title = {
-                Text(text = "Filter for Characters", Modifier.padding(bottom = GetDimensions().xMediumPadding))
+                Text(text = "Filter for Characters", Modifier.padding(bottom = GetPadding().xMediumPadding))
             },
             text = {
                 val statusList = listOf<String>("All", "Alive", "dead", "unknown")
                 val genderList = listOf<String>("All", "Male", "Female", "Genderless", "unknown")
-                Column(modifier = Modifier.padding(top = GetDimensions().xxMediumPadding)) {
+                Column(modifier = Modifier.padding(top = GetPadding().xxMediumPadding)) {
                     genderState = DropdownDemo(
                         options = genderList,
                         tag = "Gender",
@@ -44,7 +44,7 @@ fun DialogBox(
                         setup = changeGender
 
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
                     aliveState = DropdownDemo(
                         options = statusList,
                         tag = "Status",
@@ -55,11 +55,13 @@ fun DialogBox(
             },
             buttons = {
                 Row(
-                    modifier = Modifier.padding(all = GetDimensions().smallPadding),
+                    modifier = Modifier.padding(all = GetPadding().smallPadding),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Button(
-                        modifier = Modifier.fillMaxWidth().semantics { contentDescription = "applyFilter" },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .semantics { contentDescription = "applyFilter" },
                         onClick = {
                             selectGender()
                             showDialog.value = false

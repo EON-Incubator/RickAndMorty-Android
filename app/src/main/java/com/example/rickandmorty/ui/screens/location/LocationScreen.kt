@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.commonUtils.GetDimensions
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
@@ -122,9 +122,9 @@ fun LocationScreen(
                                     else -> 2
                                 }
                             ),
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
                             horizontalArrangement = Arrangement.Center,
-                            modifier = Modifier.padding(GetDimensions().smallPadding),
+                            modifier = Modifier.padding(GetPadding().smallPadding),
                             state = listState
                         ) {
                             items(locationsUiState.locations) { location ->

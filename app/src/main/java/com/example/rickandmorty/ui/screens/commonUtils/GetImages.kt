@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
@@ -22,13 +23,13 @@ import com.example.rickandmorty.R
  **/
 @Composable
 fun GetImages(imageUrlLink: MutableList<String>) {
-    Column() {
-        Row() {
+    Column {
+        Row {
             GetSingleImage(imageUrlLink[0])
             GetSingleImage(imageUrlLink[1])
         }
 
-        Row() {
+        Row {
             GetSingleImage(imageUrlLink[2])
             GetSingleImage(imageUrlLink[3])
         }
@@ -38,9 +39,9 @@ fun GetImages(imageUrlLink: MutableList<String>) {
 @Composable
 fun getErrorImage() =
     if (isSystemInDarkTheme()) {
-        R.drawable.person_image_in_dark
+        R.drawable.personcircle__1_
     } else {
-        R.drawable.person_image
+        R.drawable.personcircle__1_
     }
 
 @Composable
@@ -54,6 +55,6 @@ fun GetSingleImage(imageUrlLink: String) {
         contentScale = ContentScale.Crop,
         error = painterResource(id = getErrorImage()),
         placeholder = painterResource(R.drawable.loading_img),
-        contentDescription = "Icon of Location Characters"
+        contentDescription = stringResource(R.string.location_characters)
     )
 }

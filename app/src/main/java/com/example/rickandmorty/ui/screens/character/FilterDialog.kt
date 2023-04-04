@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
 
 @Composable
 fun DialogBox(
@@ -30,15 +32,30 @@ fun DialogBox(
                 showDialog.value = false
             },
             title = {
-                Text(text = "Filter for Characters", Modifier.padding(bottom = 12.dp))
+                Text(text = stringResource(R.string.filter_for_characters), Modifier.padding(bottom = 12.dp))
             },
             text = {
-                val statusList = listOf<String>("All", "Alive", "dead", "unknown")
-                val genderList = listOf<String>("All", "Male", "Female", "Genderless", "unknown")
+                val statusList = listOf<String>(
+                    stringResource(R.string.all),
+                    stringResource(R.string.alive),
+                    stringResource(
+                        R.string.dead
+                    ),
+                    stringResource(R.string.unknown)
+                )
+                val genderList = listOf<String>(
+                    stringResource(R.string.all),
+                    stringResource(R.string.male),
+                    stringResource(
+                        R.string.female
+                    ),
+                    stringResource(R.string.genderless),
+                    stringResource(R.string.unknown)
+                )
                 Column(modifier = Modifier.padding(top = 14.dp)) {
                     genderState = DropdownDemo(
                         options = genderList,
-                        tag = "Gender",
+                        tag = stringResource(R.string.gender),
                         selectedValue = genderVal,
                         setup = changeGender
 
@@ -46,7 +63,7 @@ fun DialogBox(
                     Spacer(modifier = Modifier.height(12.dp))
                     aliveState = DropdownDemo(
                         options = statusList,
-                        tag = "Status",
+                        tag = stringResource(R.string.status),
                         selectedValue = statusVal,
                         setup = changeStatus
                     )
@@ -64,7 +81,7 @@ fun DialogBox(
                             showDialog.value = false
                         }
                     ) {
-                        Text("Click to Apply")
+                        Text(stringResource(R.string.click_to_apply))
                     }
                 }
             },

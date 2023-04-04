@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.Optional
+import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
 
@@ -96,14 +97,14 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                 it.copy(
 
                     status = Optional.presentIfNotNull(
-                        if (status != "All") {
+                        if (status != R.string.all.toString()) {
                             status
                         } else {
                             null
                         }
                     ),
                     gender = Optional.presentIfNotNull(
-                        if (gender != "All") {
+                        if (gender != R.string.all.toString()) {
                             gender
                         } else {
                             null
@@ -117,8 +118,8 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                     filterCharacter.value,
                     page = characters.value.pages?.next ?: 1
                 )
-            Log.v("values", filterCharacter.value.toString())
-            Log.v("values", characters.value.toString())
+            Log.v(R.string.values.toString(), filterCharacter.value.toString())
+            Log.v(R.string.values.toString(), characters.value.toString())
             _characters.update {
                 it.copy(
                     characters = characterData.characters ?: emptyList(),

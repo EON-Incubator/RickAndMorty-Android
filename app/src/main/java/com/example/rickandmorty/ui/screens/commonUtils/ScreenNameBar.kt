@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
@@ -64,11 +65,11 @@ fun ScreenNameBar(
                             Icon(
                                 modifier = Modifier.size(27.dp),
                                 imageVector = ImageVector.vectorResource(id = R.drawable.baseline_filter_alt_24),
-                                contentDescription = "Filter",
+                                contentDescription = stringResource(R.string.filter),
                                 tint = Color.Black
                             )
                             Text(
-                                text = "Filter",
+                                text = stringResource(R.string.filter),
                                 modifier = Modifier.padding(start = 8.dp),
                                 style = MaterialTheme.typography.body1,
                                 color = Color.Black

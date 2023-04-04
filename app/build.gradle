@@ -144,7 +144,7 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4"
     debugImplementation "androidx.compose.ui:ui-test-manifest"
 
-    //Material Theme
+    //Material Themes
     implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
     //For large TopBar
     implementation "androidx.compose.material3:material3:1.0.1"

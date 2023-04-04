@@ -75,7 +75,7 @@ fun EpisodeDetails(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Column() {
+                        Column {
                             Spacer(modifier = Modifier.height(15.dp))
                             Text(
                                 text = stringResource(R.string.info),
@@ -92,7 +92,7 @@ fun EpisodeDetails(
                                 topicAnswer = stringResource(R.string.loading)
                             )
 
-                            Row() {
+                            Row {
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
@@ -109,7 +109,7 @@ fun EpisodeDetails(
                                     .padding(start = 10.dp)
                             )
 
-                            LazyColumn() {
+                            LazyColumn {
                                 repeat(4) {
                                     item {
                                         GetRowWithOneImage(
@@ -133,8 +133,12 @@ fun EpisodeDetails(
                     }
                 } else if (state.selectedEpisode != null) {
                     if (deviceType == ScreenType.PORTRAIT_PHONE) {
-                        Column() {
-                            Spacer(modifier = Modifier.height(15.dp))
+                        Column {
+                            Spacer(
+                                modifier = Modifier
+                                    .height(15.dp)
+                                    .semantics { contentDescription = "detail ep"}
+                            )
                             Text(
                                 text = stringResource(R.string.info),
                                 fontSize = 12.sp,
@@ -150,7 +154,7 @@ fun EpisodeDetails(
                                 topicAnswer = state.selectedEpisode?.episode.toString()
                             )
 
-                            Row() {
+                            Row {
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
@@ -169,7 +173,7 @@ fun EpisodeDetails(
 
                             if (state.selectedEpisode.characters.isNotEmpty()) {
                                 Log.v(R.string.character.toString(), state.characters.toString())
-                                LazyColumn() {
+                                LazyColumn {
                                     items(state.selectedEpisode.characters) { episode ->
                                         GetRowWithOneImage(
                                             imageUrlLink = episode.image.toString(),
@@ -210,7 +214,7 @@ fun EpisodeDetails(
                                     topicAnswer = state.selectedEpisode?.episode.toString()
                                 )
 
-                                Row() {
+                                Row {
                                     GetInfoInLine(
                                         icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                         topic = stringResource(id = R.string.air_date),
@@ -232,7 +236,7 @@ fun EpisodeDetails(
 
                                 if (state.selectedEpisode.characters.isNotEmpty()) {
                                     Log.v(stringResource(R.string.character), state.characters.toString())
-                                    LazyColumn() {
+                                    LazyColumn {
                                         items(state.selectedEpisode.characters) { episode ->
                                             GetRowWithOneImage(
                                                 imageUrlLink = episode.image.toString(),

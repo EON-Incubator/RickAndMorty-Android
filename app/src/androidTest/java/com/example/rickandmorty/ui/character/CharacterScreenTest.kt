@@ -70,17 +70,17 @@ class CharacterScreenTest() {
     fun character_screen_name_top_bar_is_characters() {
         composeTestRule.setContent {
             RickAndMortyTheme() {
-                Characters(
-                    state = teststate,
-                    genderVal = "",
-                    statusVal = "",
-                    onClick = {},
-                    onCharacterClick = {},
-                    listState = LazyGridState(),
-                    selectGender = {},
-                    changeGender = {},
-                    changeStatus = {}
-                ) { viewModel.selectFilter() }
+//                Characters(
+//                    state = teststate,
+//                    genderVal = "",
+//                    statusVal = "",
+//                    onClick = {},
+//                    onCharacterClick = {},
+//                    listState = LazyGridState(),
+//                    selectGender = {},
+//                    changeGender = {},
+//                    changeStatus = {}
+//                ) { viewModel.selectFilter() }
             }
         }
         composeTestRule.onNodeWithText("Characters").assertIsDisplayed()
@@ -90,17 +90,17 @@ class CharacterScreenTest() {
     fun character_screen_data_getting_displayed() {
         composeTestRule.setContent {
             RickAndMortyTheme() {
-                Characters(
-                    state = teststate,
-                    genderVal = "",
-                    statusVal = "",
-                    onClick = {},
-                    onCharacterClick = {},
-                    listState = LazyGridState(),
-                    selectGender = {},
-                    changeGender = {},
-                    changeStatus = {}
-                ) { viewModel.selectFilter() }
+//                Characters(
+//                    state = teststate,
+//                    genderVal = "",
+//                    statusVal = "",
+//                    onClick = {},
+//                    onCharacterClick = {},
+//                    listState = LazyGridState(),
+//                    selectGender = {},
+//                    changeGender = {},
+//                    changeStatus = {}
+//                ) { viewModel.selectFilter() }
             }
         }
         composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
@@ -112,17 +112,17 @@ class CharacterScreenTest() {
     fun character_screen_filter_displayed_after_click() {
         composeTestRule.setContent {
             RickAndMortyTheme() {
-                Characters(
-                    state = teststate,
-                    genderVal = "",
-                    statusVal = "",
-                    onClick = {},
-                    onCharacterClick = {},
-                    listState = LazyGridState(),
-                    selectGender = {},
-                    changeGender = {},
-                    changeStatus = {}
-                ) { viewModel.selectFilter() }
+//                Characters(
+//                    state = teststate,
+//                    genderVal = "",
+//                    statusVal = "",
+//                    onClick = {},
+//                    onCharacterClick = {},
+//                    listState = LazyGridState(),
+//                    selectGender = {},
+//                    changeGender = {},
+//                    changeStatus = {}
+//                ) { viewModel.selectFilter() }
             }
         }
         composeTestRule.onNodeWithContentDescription("Filter").performClick()

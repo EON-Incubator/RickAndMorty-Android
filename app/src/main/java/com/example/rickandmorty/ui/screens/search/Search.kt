@@ -12,6 +12,7 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -24,6 +25,7 @@ import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
+import kotlinx.coroutines.withContext
 
 @Composable
 fun Search(
@@ -129,7 +131,8 @@ fun Search(
                                         text =
                                         stringResource(R.string.load_more),
                                         modifier = Modifier.semantics {
-                                            contentDescription = R.string.load_more_characters.toString()
+                                            contentDescription =
+                                                R.string.load_more_characters.toString()
                                         }
                                     )
                                 }
@@ -201,7 +204,8 @@ fun Search(
                                         text =
                                         stringResource(id = R.string.load_more),
                                         modifier = Modifier.semantics {
-                                            contentDescription = R.string.load_more_locations.toString()
+                                            contentDescription =
+                                                R.string.load_more_locations.toString()
                                         }
                                     )
                                 }
@@ -243,13 +247,19 @@ fun SearchBar(
     showLocations: Boolean,
     onShowLocations: () -> Unit,
 ) {
+    var myString = stringResource(id = R.string.search_bar)
     Row(modifier = Modifier.padding(5.dp)) {
         OutlinedTextField(
             value = query.value.text,
             onValueChange = onValueChange,
             Modifier
                 .fillMaxWidth()
-                .semantics { contentDescription = R.string.search_bar.toString() }
+                .semantics(
+                    properties = {
+                        contentDescription = myString
+                    }
+                )
+                .testTag(stringResource(R.string.search_bar))
         )
     }
     Row(

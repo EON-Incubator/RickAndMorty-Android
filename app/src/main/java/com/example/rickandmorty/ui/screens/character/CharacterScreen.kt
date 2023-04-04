@@ -1,6 +1,8 @@
 package com.example.rickandmorty.ui.screens.character
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,10 +11,7 @@ import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -36,31 +35,47 @@ import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("CoroutineCreationDuringComposition")
+// @ExperimentalMaterialApi
+@ExperimentalMaterial3Api
+// @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun Characters(
     state: CharacterViewModel.CharacterState,
     genderVal: String,
     statusVal: String,
     onClick: (id: String) -> Unit,
-    onCharacterClick: (code: String) -> Unit,
     listState: LazyGridState,
-    selectGender: () -> Unit,
     changeGender: (String) -> Unit,
     changeStatus: (String) -> Unit,
     onRefresh: () -> Unit = {},
     isRefreshing: Boolean = false,
+    applyFilter: () -> Unit,
 
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
-
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+
+    val stateB = rememberModalBottomSheetState(
+        ModalBottomSheetValue.Hidden,
+        animationSpec = tween(
+            durationMillis = 700,
+            easing = FastOutSlowInEasing
+        )
+    )
+    val scope = rememberCoroutineScope()
+
     var showFilter by remember {
         mutableStateOf(false)
     }
+
+//            var showFilter by remember {
+//                mutableStateOf(false)
+//            }
 
     Scaffold(
         topBar = {
@@ -74,59 +89,69 @@ fun Characters(
         },
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
     ) {
-        Column(
+        Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .semantics { contentDescription = R.string.characters_small_case.toString() }
+                .semantics { contentDescription = "characters" }.padding(it)
         ) {
-            if (showFilter) {
-                DialogBox(
-                    genderVal,
-                    statusVal,
-                    selectGender,
-                    changeGender,
-                    changeStatus,
-                    modifier = Modifier.semantics { contentDescription = R.string.filter_small_case.toString() }
-                )
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .semantics { contentDescription = R.string.characters_small_case.toString() }
+            ModalBottomSheetLayout(
+                sheetContent = {
+                    FilterData(
+                        genderVal = genderVal,
+                        statusVal = statusVal,
+                        applyFilter = applyFilter,
+                        changeGender = changeGender,
+                        changeStatus = changeStatus,
+                        close = stateB
+                    )
+                },
+                sheetState = stateB,
+                sheetShape = RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp)
             ) {
-                ScreenNameBar(
-                    name = stringResource(id = R.string.locations_screen_title),
-                    onFilterClick = { showFilter = !showFilter },
-                    putIcon = true
-                )
-                SwipeRefresh(
-                    state = swipeRefreshState,
-                    onRefresh = onRefresh,
-                    indicator = { state, refreshTrigger ->
-                        SwipeRefreshIndicator(
-                            state = state,
-                            refreshTriggerDistance = refreshTrigger,
-                            backgroundColor = MaterialTheme.colors.primary,
-                            contentColor = MaterialTheme.colors.onPrimary
-                        )
-                    }
-                ) {
-                    if (state.isLoading) {
-                        CharacterLoader()
-                    } else {
-                        LazyVerticalGrid(
-                            columns = GridCells.Fixed(2),
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
-                            horizontalArrangement = Arrangement.Center,
-                            modifier = Modifier.padding(8.dp),
-                            state = listState
-                        ) {
-                            items(state.characters) { character ->
-                                characterItem(
-                                    charstate = character,
-                                    onClick = onClick
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .semantics { contentDescription = "characters" }
 
-                                )
+                ) {
+                    ScreenNameBar(
+                        name = "Characters",
+
+                        onFilterClick = {
+                            scope.launch { stateB.show() }
+                        },
+
+                        putIcon = true
+                    )
+                    SwipeRefresh(
+                        state = swipeRefreshState,
+                        onRefresh = onRefresh,
+                        indicator = { state, refreshTrigger ->
+                            SwipeRefreshIndicator(
+                                state = state,
+                                refreshTriggerDistance = refreshTrigger,
+                                backgroundColor = MaterialTheme.colors.primary,
+                                contentColor = MaterialTheme.colors.onPrimary
+                            )
+                        }
+                    ) {
+                        if (state.isLoading) {
+                            CharacterLoader()
+                        } else {
+                            LazyVerticalGrid(
+                                columns = GridCells.Fixed(2),
+                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                                horizontalArrangement = Arrangement.Center,
+                                modifier = Modifier.padding(8.dp),
+                                state = listState
+                            ) {
+                                items(state.characters) { character ->
+                                    characterItem(
+                                        charstate = character,
+                                        onClick = onClick
+
+                                    )
+                                }
                             }
                         }
                     }

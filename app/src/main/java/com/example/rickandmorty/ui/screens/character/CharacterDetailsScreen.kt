@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens.character
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,8 +13,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
@@ -46,21 +46,14 @@ fun CharacterDetails(
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
     if (state.isLoading) {
-        Scaffold(topBar = {
-            RickAndMortyTopAppBar(
-                title = stringResource(R.string.loading_small_case),
-                canNavigateBack = true,
-                navigateUp = navigateUp
-            )
-        }) {
-            DetailedCharacterLoader(modifier = Modifier.padding(it))
-        }
+        DetailedCharacterLoader(deviceType = deviceType)
     } else {
         Scaffold(topBar = {
             RickAndMortyTopAppBar(
                 title = state.character?.name.toString(),
                 canNavigateBack = true,
                 navigateUp = navigateUp
+
             )
         }) {
             DetailedScreen(
@@ -289,12 +282,13 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
             )
         }
     } else {
-        Card(shape = RoundedCornerShape(CornerSize(100.dp)), border = BorderStroke(12.dp, Color.Black)) {
+        Card(shape = RoundedCornerShape(CornerSize(100.dp)), modifier = Modifier.padding(8.dp)) {
             AsyncImage(
                 model = charInfo?.image.toString(),
                 contentDescription = null,
                 modifier = Modifier
                     .size(200.dp),
+                contentScale = ContentScale.Crop,
                 alignment = Alignment.Center
             )
         }

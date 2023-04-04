@@ -37,6 +37,7 @@ fun EpisodeDetails(
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+
 ) {
     Scaffold(topBar = {
         if (state.isLoading) {
@@ -44,13 +45,16 @@ fun EpisodeDetails(
                 title = stringResource(R.string.loading),
                 canNavigateBack = true,
                 navigateUp = navigateUp
+
             )
         } else {
             RickAndMortyTopAppBar(
                 title = state.selectedEpisode?.name.toString(),
                 canNavigateBack = true,
+
                 navigateUp = navigateUp,
                 backgroundColor = colorResource(id = R.color.episodeDetail_background)
+
             )
         }
     }) {
@@ -116,7 +120,11 @@ fun EpisodeDetails(
                                             status = "",
                                             id = "",
                                             onClickable = {},
-                                            modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp))
+                                            modifier = Modifier.shimmerBackground(
+                                                RoundedCornerShape(
+                                                    40.dp
+                                                )
+                                            )
                                         )
                                     }
                                 }

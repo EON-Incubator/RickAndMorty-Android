@@ -80,7 +80,7 @@ class CharacterScreenTest() {
                     selectGender = {},
                     changeGender = {},
                     changeStatus = {}
-                )
+                ) { viewModel.selectFilter() }
             }
         }
         composeTestRule.onNodeWithText("Characters").assertIsDisplayed()
@@ -100,7 +100,7 @@ class CharacterScreenTest() {
                     selectGender = {},
                     changeGender = {},
                     changeStatus = {}
-                )
+                ) { viewModel.selectFilter() }
             }
         }
         composeTestRule.onNodeWithText("Rick").assertIsDisplayed()
@@ -122,7 +122,7 @@ class CharacterScreenTest() {
                     selectGender = {},
                     changeGender = {},
                     changeStatus = {}
-                )
+                ) { viewModel.selectFilter() }
             }
         }
         composeTestRule.onNodeWithContentDescription("Filter").performClick()

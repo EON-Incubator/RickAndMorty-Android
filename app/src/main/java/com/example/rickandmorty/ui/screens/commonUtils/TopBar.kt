@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -69,8 +70,10 @@ fun RickAndMortyTopAppBar(
         )
     } else {
         TopAppBar(
+
             modifier = Modifier.background(Color.Yellow),
             colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = backgroundColor),
+
             title = {
                 Row(
                     modifier = Modifier
@@ -78,6 +81,7 @@ fun RickAndMortyTopAppBar(
                         .padding(5.dp),
 
                     horizontalArrangement = Arrangement.Start
+
                 ) {
                     if (!invisible) {
                         Image(

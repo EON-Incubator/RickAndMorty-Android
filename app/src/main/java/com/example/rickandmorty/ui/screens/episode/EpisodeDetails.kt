@@ -137,7 +137,7 @@ fun EpisodeDetails(
                             Spacer(
                                 modifier = Modifier
                                     .height(15.dp)
-                                    .semantics { contentDescription = "detail ep"}
+                                    .semantics { contentDescription = "detail ep" }
                             )
                             Text(
                                 text = stringResource(R.string.info),

@@ -19,28 +19,24 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
-import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
+import com.example.rickandmorty.ui.screens.commonUtils.*
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.launch
 
-@SuppressLint("CoroutineCreationDuringComposition")
-// @ExperimentalMaterialApi
+@SuppressLint("CoroutineCreationDuringComposition", "UnusedMaterialScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
-// @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun Characters(
@@ -54,7 +50,6 @@ fun Characters(
     onRefresh: () -> Unit = {},
     isRefreshing: Boolean = false,
     applyFilter: () -> Unit,
-
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
     val scrollBehavior =
@@ -73,9 +68,6 @@ fun Characters(
         mutableStateOf(false)
     }
 
-//            var showFilter by remember {
-//                mutableStateOf(false)
-//            }
     ModalBottomSheetLayout(
         sheetContent = {
             FilterData(
@@ -88,7 +80,13 @@ fun Characters(
             )
         },
         sheetState = stateB,
-        sheetShape = RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp)
+        sheetShape = RoundedCornerShape(
+            GetThickness().xLarge,
+            GetThickness().xLarge,
+            GetThickness().xLarge,
+            GetThickness().xLarge
+        )
+
     ) {
         Scaffold(
             topBar = {
@@ -98,16 +96,16 @@ fun Characters(
                     navigateUp = {},
                     scrollBehavior = scrollBehavior,
                     invisible = false
+
                 )
-            },
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+            }
+
         ) {
             Surface(
                 modifier = Modifier
                     .fillMaxSize()
                     .semantics { contentDescription = "characters" }
-                    .padding(it),
-                color = MaterialTheme.colors.background
+                    .padding(it)
             ) {
                 Column(
                     modifier = Modifier
@@ -141,9 +139,9 @@ fun Characters(
                         } else {
                             LazyVerticalGrid(
                                 columns = GridCells.Fixed(2),
-                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
                                 horizontalArrangement = Arrangement.Center,
-                                modifier = Modifier.padding(8.dp),
+                                modifier = Modifier.padding(GetPadding().smallPadding),
                                 state = listState
                             ) {
                                 items(state.characters) { character ->
@@ -174,13 +172,13 @@ private fun characterItem(
 ) {
     Card(
         modifier = Modifier
-            .padding(12.dp)
+            .padding(GetPadding().xMediumPadding)
             .fillMaxSize()
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(GetThickness().xLarge))
             .clickable {
                 onClick(charstate.ID.toString())
             },
-        elevation = 12.dp
+        elevation = GetElevation().xLarge
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {
             AsyncImage(
@@ -188,9 +186,9 @@ private fun characterItem(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
-                    .size(150.dp)
+                    .size(dimensionResource(id = R.dimen.character_image_size))
                     .clip(
-                        RoundedCornerShape(8.dp)
+                        RoundedCornerShape(GetThickness().medium)
                     ),
                 contentScale = ContentScale.Crop
             )

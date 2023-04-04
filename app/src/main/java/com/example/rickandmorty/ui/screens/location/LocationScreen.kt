@@ -23,10 +23,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
@@ -63,7 +63,7 @@ fun LocationScreen(
     Scaffold(
 
         topBar = {
-            if (deviceType != ScreenType.LANDSCAPE_PHONE) {
+            if (deviceType == ScreenType.PORTRAIT_PHONE) {
                 RickAndMortyTopAppBar(
 
                     title = stringResource(id = R.string.rick_and_morty),
@@ -121,9 +121,9 @@ fun LocationScreen(
                                     else -> 2
                                 }
                             ),
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
                             horizontalArrangement = Arrangement.Center,
-                            modifier = Modifier.padding(8.dp),
+                            modifier = Modifier.padding(GetPadding().smallPadding),
                             state = listState
                         ) {
                             items(locationsUiState.locations) { location ->

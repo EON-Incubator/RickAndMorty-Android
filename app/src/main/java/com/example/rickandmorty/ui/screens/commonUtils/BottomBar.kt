@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.rickandmorty.R
@@ -25,7 +24,7 @@ fun BottomNavigationBar(
     BottomNavigation(
         modifier = modifier.testTag(stringResource(R.string.bottom_bar)),
         backgroundColor = MaterialTheme.colors.primary,
-        elevation = 5.dp
+        elevation = GetElevation().xMedium
     ) {
         items.forEach { item ->
             val selected = item.route == backStackEntry.value?.destination?.route

@@ -52,7 +52,7 @@ fun Characters(
     isRefreshing: Boolean = false,
     applyFilter: () -> Unit,
 
-    ) {
+) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())

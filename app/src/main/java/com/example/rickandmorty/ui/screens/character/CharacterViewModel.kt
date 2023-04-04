@@ -97,14 +97,14 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                 it.copy(
 
                     status = Optional.presentIfNotNull(
-                        if (status != R.string.all.toString()) {
+                        if (status != "All") {
                             status
                         } else {
                             null
                         }
                     ),
                     gender = Optional.presentIfNotNull(
-                        if (gender != R.string.all.toString()) {
+                        if (gender != "All") {
                             gender
                         } else {
                             null

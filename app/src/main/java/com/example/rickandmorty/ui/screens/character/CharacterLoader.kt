@@ -54,7 +54,7 @@ fun CharacterLoader(
                                 .clip(
                                     RoundedCornerShape(8.dp)
                                 )
-                                .shimmerBackground(RoundedCornerShape(40.dp))
+                                .shimmerBackground()
                                 .size(150.dp),
                             contentScale = ContentScale.Crop
                         )
@@ -103,7 +103,7 @@ fun DetailedCharacterLoader(
                     onEpisodeClick = {},
                     onOriginClick = {},
                     onLastSeenClick = {},
-                    modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp)),
+                    modifier = Modifier.shimmerBackground(),
                     deviceType = deviceType
 
                 )

@@ -76,37 +76,38 @@ fun Characters(
 //            var showFilter by remember {
 //                mutableStateOf(false)
 //            }
-
-    Scaffold(
-        topBar = {
-            RickAndMortyTopAppBar(
-                title = stringResource(id = R.string.rick_and_morty),
-                canNavigateBack = false,
-                navigateUp = {},
-                scrollBehavior = scrollBehavior,
-                invisible = false
+    ModalBottomSheetLayout(
+        sheetContent = {
+            FilterData(
+                genderVal = genderVal,
+                statusVal = statusVal,
+                applyFilter = applyFilter,
+                changeGender = changeGender,
+                changeStatus = changeStatus,
+                close = stateB
             )
         },
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+        sheetState = stateB,
+        sheetShape = RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp)
     ) {
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .semantics { contentDescription = "characters" }.padding(it)
+        Scaffold(
+            topBar = {
+                RickAndMortyTopAppBar(
+                    title = stringResource(id = R.string.rick_and_morty),
+                    canNavigateBack = false,
+                    navigateUp = {},
+                    scrollBehavior = scrollBehavior,
+                    invisible = false
+                )
+            },
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
         ) {
-            ModalBottomSheetLayout(
-                sheetContent = {
-                    FilterData(
-                        genderVal = genderVal,
-                        statusVal = statusVal,
-                        applyFilter = applyFilter,
-                        changeGender = changeGender,
-                        changeStatus = changeStatus,
-                        close = stateB
-                    )
-                },
-                sheetState = stateB,
-                sheetShape = RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp)
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics { contentDescription = "characters" }
+                    .padding(it),
+                color = MaterialTheme.colors.background
             ) {
                 Column(
                     modifier = Modifier

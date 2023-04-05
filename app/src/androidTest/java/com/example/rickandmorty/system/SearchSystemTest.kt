@@ -120,6 +120,5 @@ class SearchSystemTest {
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
         composeTestRule.waitForIdle()
-
     }
 }

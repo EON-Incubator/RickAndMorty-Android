@@ -20,7 +20,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
@@ -134,9 +133,8 @@ fun Search(
                                     Text(
                                         text =
                                         stringResource(R.string.load_more),
-                                        modifier = Modifier.semantics {
-                                            contentDescription = R.string.load_more_characters.toString()
-                                        }
+                                        modifier = Modifier
+                                            .testTag(stringResource(id = R.string.load_more_characters))
                                     )
                                 }
                             }
@@ -216,9 +214,9 @@ fun Search(
                                     Text(
                                         text =
                                         stringResource(id = R.string.load_more),
-                                        modifier = Modifier.semantics {
-                                            contentDescription = R.string.load_more_locations.toString()
-                                        }
+                                        modifier = Modifier
+                                            .testTag(stringResource(id = R.string.load_more_locations))
+
                                     )
                                 }
                             }
@@ -266,7 +264,7 @@ fun SearchBar(
             onValueChange = onValueChange,
             modifier = Modifier
                 .fillMaxWidth()
-                .semantics { contentDescription = R.string.search_bar.toString() },
+                .testTag(stringResource(id = R.string.search_bar)),
             textStyle = TextStyle(color = MaterialTheme.colors.onBackground, fontSize = 18.sp),
             leadingIcon = {
                 Icon(
@@ -318,7 +316,7 @@ fun SearchBar(
             onClick = onShowCharacters,
             Modifier
                 .weight(1.0f)
-                .semantics { contentDescription = R.string.characters_screen_title.toString() },
+                .testTag(stringResource(id = R.string.characters_screen_title)),
             colors = if (showCharacters) {
                 ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
             } else {
@@ -351,7 +349,7 @@ fun SearchBar(
             onClick = onShowLocations,
             Modifier
                 .weight(1.0f)
-                .semantics { contentDescription = R.string.locations_screen_title.toString() },
+                .testTag(stringResource(id = R.string.locations_screen_title)),
             colors = if (showLocations) {
                 ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
             } else {

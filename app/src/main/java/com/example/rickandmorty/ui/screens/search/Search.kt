@@ -20,6 +20,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
@@ -29,6 +30,7 @@ import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
+import com.example.rickandmorty.ui.screens.location.LocationLoaderCells
 
 @Composable
 fun Search(
@@ -133,8 +135,15 @@ fun Search(
                                         text =
                                         stringResource(R.string.load_more),
                                         modifier = Modifier
-                                            .testTag(stringResource(id = R.string.load_more_characters))
+                                            .semantics {
+                                                contentDescription = "Load More Characters"
+                                            }
                                     )
+                                }
+                            }
+                            item {
+                                if (searchResultState.isCharacterUpdateLoading) {
+                                    LocationLoaderCells(deviceType)
                                 }
                             }
                         }
@@ -192,6 +201,11 @@ fun Search(
                                 )
                             }
                         }
+                        item {
+                            if (searchResultState.isLocationUpdateLoading) {
+                                LocationLoaderCells(deviceType)
+                            }
+                        }
                         if (searchResultState.locationByName.pages?.next != null || searchResultState.locationByType?.pages?.next != null) {
                             item {
                                 Button(
@@ -204,7 +218,9 @@ fun Search(
                                         text =
                                         stringResource(id = R.string.load_more),
                                         modifier = Modifier
-                                            .testTag(stringResource(id = R.string.load_more_locations))
+                                            .semantics {
+                                                contentDescription = "Load More Locations"
+                                            }
 
                                     )
                                 }

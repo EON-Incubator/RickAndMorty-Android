@@ -7,10 +7,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import com.example.rickandmorty.R
 import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
@@ -24,11 +23,11 @@ fun SearchLoader() {
             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
             Text(
                 text = stringResource(R.string.characters_screen_title),
-                Modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(GetPadding().xxxSmallPadding)
                     .shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
-                    .semantics { contentDescription = R.string.fetching_records.toString() }
+                    .testTag(stringResource(id = R.string.fetching_records))
             )
         }
         repeat(2) {

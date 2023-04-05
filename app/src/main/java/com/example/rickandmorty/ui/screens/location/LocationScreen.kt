@@ -138,8 +138,8 @@ fun LocationScreen(
                                     id = location.id.toString(),
                                     onClickable = onClick,
                                     icons = listOf(
-                                        ImageVector.vectorResource(id = R.drawable.type),
-                                        ImageVector.vectorResource(id = R.drawable.dimension)
+                                        ImageVector.vectorResource(id = R.drawable.locationtype),
+                                        ImageVector.vectorResource(id = R.drawable.locationdimension)
                                     ),
                                     location = true
                                 )
@@ -152,7 +152,6 @@ fun LocationScreen(
                                     LocationLoaderCells(deviceType)
                                 }
                             }
-
                         }
                     }
                 }

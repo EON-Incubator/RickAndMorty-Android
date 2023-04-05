@@ -97,7 +97,7 @@ fun EpisodesScreen(
                         )
                     }
                 ) {
-                    if (state.isLoading) {
+                    if (state.isLoadingPage) {
                         LocationLoader(deviceType)
                     } else {
                         LazyVerticalGrid(
@@ -130,8 +130,8 @@ fun EpisodesScreen(
                                         id = episode.id.toString(),
                                         onClickable = onSelectEpisode,
                                         icons = listOf(
-                                            ImageVector.vectorResource(id = R.drawable.episode),
-                                            ImageVector.vectorResource(id = R.drawable.date)
+                                            ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
+                                            ImageVector.vectorResource(id = R.drawable.episodeairdate)
                                         )
                                     )
                                 } else {

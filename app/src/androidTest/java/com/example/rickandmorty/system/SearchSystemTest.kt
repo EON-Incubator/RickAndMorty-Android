@@ -32,6 +32,7 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
+
         composeTestRule.onAllNodesWithTag("Single Image Row").assertAny(
             hasTestTag("Item Name")
         )
@@ -73,6 +74,10 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Characters")
                 .fetchSemanticsNodes().isEmpty()
         }
+
+        Thread.sleep(1000)
+
+        composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
 
         composeTestRule.waitForIdle()
@@ -105,9 +110,10 @@ class SearchSystemTest {
         composeTestRule.onNodeWithContentDescription("Episodes").performClick()
         composeTestRule.waitUntil(2000) {
             composeTestRule
-                .onAllNodesWithContentDescription("Fetching Records")
+                .onAllNodesWithContentDescription("Fetching Episodes")
                 .fetchSemanticsNodes().isEmpty()
         }
+        Thread.sleep(1000)
 
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Pilot").performClick()
@@ -117,9 +123,26 @@ class SearchSystemTest {
                 .fetchSemanticsNodes().isNotEmpty()
         }
 
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("detail ep")
+                .fetchSemanticsNodes().isEmpty()
+        }
+
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("INFO").assertIsDisplayed()
+        composeTestRule.onNodeWithText("CHARACTERS").assertIsDisplayed()
+
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("Episode").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Air Date").assertIsDisplayed()
+
+        Thread.sleep(1000)
+
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
         composeTestRule.waitForIdle()
 
+        Thread.sleep(500)
     }
 }

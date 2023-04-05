@@ -7,6 +7,7 @@ import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.episode.EpisodeViewModel
 import com.example.rickandmorty.ui.screens.episode.EpisodesScreen
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -15,42 +16,8 @@ class EpisodesScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    @Test
-    fun episodesScreenTest() {
-        val viewModel = testDataSetup()
-        screen(viewModel, ScreenType.PORTRAIT_PHONE)
-
-        // Delays the screen for 5 seconds to show the data passed.
-        Thread.sleep(5000)
-
-        asserts()
-    }
-
-    @Test
-    fun episodesScreenTestLandscape() {
-        val viewModel = testDataSetup()
-        screen(viewModel, ScreenType.LANDSCAPE_PHONE)
-
-        // Delays the screen for 5 seconds to show the data passed.
-        Thread.sleep(5000)
-
-        asserts(isEpisodesDisplayed = false)
-    }
-
-    @Test
-    fun episodesScreenTestTablet() {
-        val viewModel = testDataSetup()
-        screen(viewModel, ScreenType.LANDSCAPE_TABLET)
-
-        // Delays the screen for 5 seconds to show the data passed.
-        Thread.sleep(5000)
-
-        // Verify that the list of items are displayed.
-        asserts(isEpisodesDisplayed = false)
-    }
-
     // Set up the viewmodel with some test data.
-    private fun testDataSetup(): EpisodeViewModel.EpisodesState {
+    fun testDataSetup(): EpisodeViewModel.EpisodesState {
         return EpisodeViewModel.EpisodesState(
             episodes = listOf(
                 Episodes(
@@ -74,7 +41,7 @@ class EpisodesScreenTest {
     }
 
     // Set up the composable with the viewmodel and indicate screen type.
-    private fun screen(
+    fun screen(
         viewModel: EpisodeViewModel.EpisodesState,
         screenType: ScreenType,
     ) {
@@ -88,7 +55,7 @@ class EpisodesScreenTest {
         }
     }
 
-    private fun asserts(isEpisodesDisplayed: Boolean = true) {
+    fun asserts(isEpisodesDisplayed: Boolean = true) {
         // Verify that the screen title is displayed.
         if (isEpisodesDisplayed) {
             composeTestRule.onNodeWithText("Episodes").assertIsDisplayed()
@@ -101,5 +68,39 @@ class EpisodesScreenTest {
         composeTestRule.onNodeWithText("Episode 2").assertIsDisplayed()
         composeTestRule.onNodeWithText("S01E02").assertIsDisplayed()
         composeTestRule.onNodeWithText("2021-01-02").assertIsDisplayed()
+    }
+
+    @Test
+    fun episodesScreenTest() {
+        val viewModel = testDataSetup()
+        screen(viewModel, ScreenType.PORTRAIT_PHONE)
+
+        // Delays the screen for 5 seconds to show the data passed.
+        Thread.sleep(3000)
+
+        asserts()
+    }
+
+    @Test
+    fun episodesScreenTestLandscape() {
+        val viewModel = testDataSetup()
+        screen(viewModel, ScreenType.LANDSCAPE_PHONE)
+
+        // Delays the screen for 5 seconds to show the data passed.
+        Thread.sleep(3000)
+
+        asserts(isEpisodesDisplayed = false)
+    }
+
+    @Test
+    fun episodesScreenTestTablet() {
+        val viewModel = testDataSetup()
+        screen(viewModel, ScreenType.LANDSCAPE_TABLET)
+
+        // Delays the screen for 5 seconds to show the data passed.
+        Thread.sleep(3000)
+
+        // Verify that the list of items are displayed.
+        asserts(isEpisodesDisplayed = false)
     }
 }

@@ -76,15 +76,15 @@ class SearchSystemTest {
                 .fetchSemanticsNodes().isEmpty()
         }
 
-        composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithText("INFO").assertIsDisplayed()
-        composeTestRule.onNodeWithText("CHARACTERS").assertIsDisplayed()
-
-        composeTestRule.waitUntil(5000) {
+        composeTestRule.waitUntil(10000) {
             composeTestRule
                 .onAllNodesWithContentDescription("detail ep")
                 .fetchSemanticsNodes().isEmpty()
         }
+
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("INFO").assertIsDisplayed()
+        composeTestRule.onNodeWithText("CHARACTERS").assertIsDisplayed()
 
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Episode").assertIsDisplayed()

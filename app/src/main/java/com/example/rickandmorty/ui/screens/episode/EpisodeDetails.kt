@@ -125,6 +125,7 @@ fun EpisodeDetails(
                                 fontSize = 12.sp,
                                 modifier = Modifier
                                     .padding(start = GetPadding().mediumPadding)
+                                    .semantics { contentDescription = R.string.detail_ep.toString() }
                             )
 
                             Spacer(modifier = Modifier.height(GetPadding().smallPadding))

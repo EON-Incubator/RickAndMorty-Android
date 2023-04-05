@@ -20,6 +20,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
@@ -134,7 +135,9 @@ fun Search(
                                         text =
                                         stringResource(R.string.load_more),
                                         modifier = Modifier
-                                            .testTag(stringResource(id = R.string.load_more_characters))
+                                            .semantics {
+                                                contentDescription = "Load More Characters"
+                                            }
                                     )
                                 }
                             }
@@ -215,7 +218,9 @@ fun Search(
                                         text =
                                         stringResource(id = R.string.load_more),
                                         modifier = Modifier
-                                            .testTag(stringResource(id = R.string.load_more_locations))
+                                            .semantics {
+                                                contentDescription = "Load More Locations"
+                                            }
 
                                     )
                                 }

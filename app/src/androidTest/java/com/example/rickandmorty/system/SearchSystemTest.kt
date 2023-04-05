@@ -29,15 +29,16 @@ class SearchSystemTest {
         composeTestRule.waitForIdle()
         composeTestRule.waitUntil(10000) {
             composeTestRule
-                .onAllNodesWithContentDescription("Fetching Records")
+                .onAllNodesWithTag("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
+        Thread.sleep(3000)
         composeTestRule.onAllNodesWithTag("Single Image Row").assertAny(
-            hasTestTag("Item Name")
+            hasContentDescription("Item Name")
         )
         composeTestRule.onNodeWithTag("search_lazy_column")
-            .performScrollToNode(hasTestTag("Load More Characters"))
-        composeTestRule.onNodeWithTag("Load More Characters").performScrollTo()
+            .performScrollToNode(hasContentDescription("Load More Characters"))
+        composeTestRule.onNodeWithContentDescription("Load More Characters").performScrollTo()
             .performClick()
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithTag("Search Bar").performTextInput("Planet")
@@ -45,20 +46,22 @@ class SearchSystemTest {
         composeTestRule.waitForIdle()
         composeTestRule.waitUntil(10000) {
             composeTestRule
-                .onAllNodesWithContentDescription("Fetching Records")
+                .onAllNodesWithTag("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
-        composeTestRule.onNodeWithContentDescription("search_lazy_column")
-            .performScrollToNode(hasTestTag("Load More Locations"))
-        composeTestRule.onNodeWithTag("Load More Locations").performScrollTo()
+        Thread.sleep(3000)
+        composeTestRule.onNodeWithTag("search_lazy_column")
+            .performScrollToNode(hasContentDescription("Load More Locations"))
+        composeTestRule.onNodeWithContentDescription("Load More Locations").performScrollTo()
             .performClick()
         composeTestRule.waitForIdle()
         composeTestRule.waitUntil(10000) {
             composeTestRule
-                .onAllNodesWithContentDescription("Fetching Character")
+                .onAllNodesWithContentDescription("Fetching Characters")
                 .fetchSemanticsNodes().isEmpty()
         }
-        composeTestRule.onNodeWithText("Alien").performClick()
+        Thread.sleep(3000)
+        composeTestRule.onNodeWithText("Dorian 5").performClick()
     }
 
     /**
@@ -120,6 +123,5 @@ class SearchSystemTest {
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
         composeTestRule.waitForIdle()
-
     }
 }

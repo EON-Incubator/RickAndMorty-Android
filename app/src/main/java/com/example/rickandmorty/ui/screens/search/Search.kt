@@ -30,6 +30,7 @@ import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
+import com.example.rickandmorty.ui.screens.location.LocationLoaderCells
 
 @Composable
 fun Search(
@@ -133,10 +134,16 @@ fun Search(
                                     Text(
                                         text =
                                         stringResource(R.string.load_more),
-                                        modifier = Modifier.semantics {
-                                            contentDescription = R.string.load_more_characters.toString()
-                                        }
+                                        modifier = Modifier
+                                            .semantics {
+                                                contentDescription = "Load More Characters"
+                                            }
                                     )
+                                }
+                            }
+                            item {
+                                if (searchResultState.isCharacterUpdateLoading) {
+                                    LocationLoaderCells(deviceType)
                                 }
                             }
                         }
@@ -194,6 +201,11 @@ fun Search(
                                 )
                             }
                         }
+                        item {
+                            if (searchResultState.isLocationUpdateLoading) {
+                                LocationLoaderCells(deviceType)
+                            }
+                        }
                         if (searchResultState.locationByName.pages?.next != null || searchResultState.locationByType?.pages?.next != null) {
                             item {
                                 Button(
@@ -205,9 +217,11 @@ fun Search(
                                     Text(
                                         text =
                                         stringResource(id = R.string.load_more),
-                                        modifier = Modifier.semantics {
-                                            contentDescription = R.string.load_more_locations.toString()
-                                        }
+                                        modifier = Modifier
+                                            .semantics {
+                                                contentDescription = "Load More Locations"
+                                            }
+
                                     )
                                 }
                             }
@@ -255,7 +269,7 @@ fun SearchBar(
             onValueChange = onValueChange,
             modifier = Modifier
                 .fillMaxWidth()
-                .semantics { contentDescription = R.string.search_bar.toString() },
+                .testTag(stringResource(id = R.string.search_bar)),
             textStyle = TextStyle(color = MaterialTheme.colors.onBackground, fontSize = 18.sp),
             leadingIcon = {
                 Icon(
@@ -307,7 +321,7 @@ fun SearchBar(
             onClick = onShowCharacters,
             Modifier
                 .weight(1.0f)
-                .semantics { contentDescription = R.string.characters_screen_title.toString() },
+                .testTag(stringResource(id = R.string.characters_screen_title)),
             colors = if (showCharacters) {
                 ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
             } else {
@@ -340,7 +354,7 @@ fun SearchBar(
             onClick = onShowLocations,
             Modifier
                 .weight(1.0f)
-                .semantics { contentDescription = R.string.locations_screen_title.toString() },
+                .testTag(stringResource(id = R.string.locations_screen_title)),
             colors = if (showLocations) {
                 ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
             } else {

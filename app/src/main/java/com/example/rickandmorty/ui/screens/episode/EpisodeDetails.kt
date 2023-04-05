@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.*
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -54,17 +55,19 @@ fun EpisodeDetails(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .semantics { contentDescription = R.string.ep_detail.toString() }
+                    .testTag(stringResource(id = R.string.ep_detail))
             ) {
                 if (state.isLoading) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .semantics { contentDescription = R.string.episode_detail_load.toString() },
+                            .semantics {
+                                contentDescription = R.string.episode_detail_load.toString()
+                            },
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Column() {
+                        Column {
                             Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
                             Text(
                                 text = stringResource(R.string.info),
@@ -81,7 +84,7 @@ fun EpisodeDetails(
                                 topicAnswer = stringResource(R.string.loading)
                             )
 
-                            Row() {
+                            Row {
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
@@ -98,7 +101,7 @@ fun EpisodeDetails(
                                     .padding(start = GetPadding().mediumPadding)
                             )
 
-                            LazyColumn() {
+                            LazyColumn {
                                 repeat(4) {
                                     item {
                                         GetRowWithOneImage(
@@ -118,13 +121,14 @@ fun EpisodeDetails(
                     }
                 } else if (state.selectedEpisode != null) {
                     if (deviceType == ScreenType.PORTRAIT_PHONE) {
-                        Column() {
+                        Column {
                             Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
                             Text(
                                 text = stringResource(R.string.info),
                                 fontSize = 12.sp,
                                 modifier = Modifier
                                     .padding(start = GetPadding().mediumPadding)
+                                    .semantics { contentDescription = R.string.detail_ep.toString() }
                             )
 
                             Spacer(modifier = Modifier.height(GetPadding().smallPadding))
@@ -135,7 +139,7 @@ fun EpisodeDetails(
                                 topicAnswer = state.selectedEpisode?.episode.toString()
                             )
 
-                            Row() {
+                            Row {
                                 GetInfoInLine(
                                     icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
@@ -154,7 +158,7 @@ fun EpisodeDetails(
 
                             if (state.selectedEpisode.characters.isNotEmpty()) {
                                 Log.v(R.string.character.toString(), state.characters.toString())
-                                LazyColumn() {
+                                LazyColumn {
                                     items(state.selectedEpisode.characters) { episode ->
                                         GetRowWithOneImage(
                                             imageUrlLink = episode.image.toString(),
@@ -195,7 +199,7 @@ fun EpisodeDetails(
                                     topicAnswer = state.selectedEpisode?.episode.toString()
                                 )
 
-                                Row() {
+                                Row {
                                     GetInfoInLine(
                                         icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                         topic = stringResource(id = R.string.air_date),
@@ -217,7 +221,7 @@ fun EpisodeDetails(
 
                                 if (state.selectedEpisode.characters.isNotEmpty()) {
                                     Log.v("character", state.characters.toString())
-                                    LazyColumn() {
+                                    LazyColumn {
                                         items(state.selectedEpisode.characters) { episode ->
                                             GetRowWithOneImage(
                                                 imageUrlLink = episode.image.toString(),

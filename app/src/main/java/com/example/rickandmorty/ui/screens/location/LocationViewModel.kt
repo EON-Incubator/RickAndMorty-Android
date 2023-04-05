@@ -6,6 +6,7 @@ import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.Location
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,7 +41,7 @@ class LocationViewModel @Inject constructor(
             it.copy(isLoadingPage = true)
         }
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val locationData = getAllLocationUseCase.execute()
             _locations.update {
                 it.copy(
@@ -57,7 +58,7 @@ class LocationViewModel @Inject constructor(
      * Coroutine function that gets All Location from GraphQL
      */
     fun updateList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (location.value.pages?.next != null) {
                 _locations.update {
                     it.copy(isLoading = true)

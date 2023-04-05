@@ -138,7 +138,7 @@ fun DetailedScreen(
                     }
                 }
             }
-        } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+        } else {
             Row() {
                 Column(Modifier.weight(1f)) {
                     topInfo(charInfo = charInfo, deviceType = deviceType)
@@ -207,67 +207,6 @@ fun DetailedScreen(
                     }
                 }
             }
-        } else {
-            Row() {
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(end = GetPadding().xxMediumPadding)
-                ) {
-                    topInfo(charInfo = charInfo, deviceType = deviceType)
-                    Column(modifier = Modifier.weight(3f)) {
-                        Text(
-                            text = stringResource(R.string.info),
-                            style = MaterialTheme.typography.body2,
-                            modifier = Modifier
-                                .padding(
-                                    start = GetPadding().xxxMediumPadding,
-                                    bottom = GetPadding().xMediumPadding
-                                ),
-                            textAlign = TextAlign.Start
-                        )
-                        Column {
-                            infoPart1(charInfo = charInfo)
-                            Divider(thickness = GetThickness().xSmall)
-                            infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
-                            Divider(thickness = GetThickness().xSmall)
-                        }
-                    }
-                }
-                Column(
-                    modifier = modifier.weight(2f)
-                ) {
-                    LazyColumn() {
-                        item {
-                            Text(
-                                text = stringResource(R.string.episodes_all_caps),
-                                style = MaterialTheme.typography.body1,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(
-                                        top = GetPadding().xxMediumPadding,
-                                        start = GetPadding().xxxMediumPadding
-                                    ),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                        charInfo?.let {
-                            items(it.episode) { eachEpisode ->
-                                GetRowWithFourImages(
-                                    imageUrlLink = eachEpisode.images,
-                                    titleName = eachEpisode.name.toString(),
-                                    property1 = eachEpisode.episode.toString(),
-                                    property2 = eachEpisode.air_date.toString(),
-                                    onClickable = {
-                                        onEpisodeClick(eachEpisode.id.toString())
-                                    },
-                                    id = eachEpisode.id.toString()
-                                )
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 }
@@ -297,13 +236,18 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
             shape = RoundedCornerShape(CornerSize(dimensionResource(id = R.dimen.character_card_corner))),
             modifier = Modifier.padding(start = GetPadding().xxxMediumPadding)
         ) {
-            AsyncImage(
-                model = charInfo?.image.toString(),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(dimensionResource(id = R.dimen.character_image_size)),
-                alignment = Alignment.Center
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                AsyncImage(
+                    model = charInfo?.image.toString(),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(dimensionResource(id = R.dimen.character_image_size)),
+                    alignment = Alignment.Center
+                )
+            }
         }
     }
 }

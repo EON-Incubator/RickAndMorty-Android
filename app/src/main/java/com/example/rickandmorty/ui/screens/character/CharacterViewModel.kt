@@ -15,6 +15,7 @@ import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.type.FilterCharacter
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -60,7 +61,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     }
 
     fun refresh() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _characters.update {
                 it.copy(
                     isLoading = true
@@ -87,7 +88,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     }
 
     open fun selectFilter() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _characters.update {
                 it.copy(
                     isLoading = true
@@ -131,7 +132,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     }
 
     fun updateList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (characters.value.pages?.next != null) {
                 _characters.update {
                     it.copy(

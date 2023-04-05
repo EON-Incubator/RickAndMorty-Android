@@ -19,6 +19,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -51,6 +52,7 @@ fun Characters(
     onRefresh: () -> Unit = {},
     isRefreshing: Boolean = false,
     applyFilter: () -> Unit,
+
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
     val scrollBehavior =
@@ -99,14 +101,19 @@ fun Characters(
                     invisible = false
 
                 )
-            }
+            },
+            modifier =
+            Modifier.nestedScroll(
+                scrollBehavior.nestedScrollConnection
+            )
 
         ) {
             Surface(
                 modifier = Modifier
                     .fillMaxSize()
                     .semantics { contentDescription = "characters" }
-                    .padding(it)
+                    .padding(it),
+                color = MaterialTheme.colors.background
             ) {
                 Column(
                     modifier = Modifier

@@ -7,7 +7,6 @@ import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.episode.EpisodeViewModel
 import com.example.rickandmorty.ui.screens.episode.EpisodesScreen
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 

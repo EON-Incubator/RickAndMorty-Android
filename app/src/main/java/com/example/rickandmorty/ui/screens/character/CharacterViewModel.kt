@@ -22,15 +22,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/*
+/**
 With the AndroidEntryPoint Annotation
 Hilt comes to we know we gonna use some kind of dependency
 injection in it
  */
-/*
+/**
 we are performing field injection with inject
 late init var is used to initialize it later
- */
+ **/
 
 @HiltViewModel
 class CharacterViewModel @Inject constructor(private val getCharacterUseCase: GetCharacterUseCase) :
@@ -100,14 +100,14 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                         if (status != "All") {
                             status
                         } else {
-                            null
+                            ""
                         }
                     ),
                     gender = Optional.presentIfNotNull(
                         if (gender != "All") {
                             gender
                         } else {
-                            null
+                            ""
                         }
                     )
                 )
@@ -116,7 +116,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             val characterData =
                 getCharacterUseCase.sortById(
                     filterCharacter.value,
-                    page = characters.value.pages?.next ?: 1
+                    page = 1 // characters.value.pages?.next ?: 1
                 )
             Log.v(R.string.values.toString(), filterCharacter.value.toString())
             Log.v(R.string.values.toString(), characters.value.toString())

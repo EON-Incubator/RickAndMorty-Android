@@ -55,7 +55,7 @@ fun CharacterLoader(modifier: Modifier = Modifier) {
                                 .clip(
                                     RoundedCornerShape(GetThickness().medium)
                                 )
-                                .shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
+                                .shimmerBackground()
                                 .size(dimensionResource(id = R.dimen.character_image_size)),
 
                             contentScale = ContentScale.Crop
@@ -106,7 +106,7 @@ fun DetailedCharacterLoader(
                     onOriginClick = {},
                     onLastSeenClick = {},
 
-                    modifier = Modifier.shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40))),
+                    modifier = Modifier.shimmerBackground(),
 
                     deviceType = deviceType
 

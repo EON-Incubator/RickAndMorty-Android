@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens.character
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,7 +13,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -297,7 +295,7 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
     } else {
         Card(
             shape = RoundedCornerShape(CornerSize(dimensionResource(id = R.dimen.character_card_corner))),
-            border = BorderStroke(GetThickness().xLarge, color = Color.Black)
+            modifier = Modifier.padding(start = GetPadding().xxxMediumPadding)
         ) {
             AsyncImage(
                 model = charInfo?.image.toString(),

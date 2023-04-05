@@ -83,8 +83,8 @@ fun Characters(
         sheetShape = RoundedCornerShape(
             GetThickness().xLarge,
             GetThickness().xLarge,
-            GetThickness().xLarge,
-            GetThickness().xLarge
+            GetThickness().no,
+            GetThickness().no
         )
 
     ) {

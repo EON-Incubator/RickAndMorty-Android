@@ -42,14 +42,14 @@ fun FilterData(
         ) {
             genderState = DropdownDemo(
                 options = genderList,
-                tag = "Gender",
+                tag = stringResource(R.string.gender),
                 selectedValue = genderVal,
                 setup = changeGender
             )
             Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
             aliveState = DropdownDemo(
                 options = statusList,
-                tag = "Status",
+                tag = stringResource(R.string.status),
                 selectedValue = statusVal,
                 setup = changeStatus
             )
@@ -62,7 +62,7 @@ fun FilterData(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .semantics { contentDescription = "applyFilter" },
+                    .semantics { contentDescription = R.string.apply_filter.toString() },
                 onClick = {
                     applyFilter()
                     scope.launch { close.hide() }

@@ -88,5 +88,6 @@
     <string name="values">values</string>
     <string name="x">Characters</string>
     <string name="detail_ep">detail ep</string>
+    <string name="apply_filter">applyFilter</string>
 
 </resources>

@@ -72,7 +72,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun updateCharacterList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (searchResult.value.characterData?.pages?.next != null) {
                 _searchResult.update {
                     it.copy(

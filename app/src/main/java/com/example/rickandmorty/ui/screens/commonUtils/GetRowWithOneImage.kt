@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -56,7 +57,7 @@ fun GetRowWithOneImage(
         elevation = GetElevation().medium,
         modifier = modifier
             .padding(GetPadding().xSmallPadding)
-            .semantics { contentDescription = R.string.single_image_row.toString() }
+            .testTag(stringResource(id = R.string.single_image_row))
             .clickable {
                 onClickable(id)
             },
@@ -121,7 +122,7 @@ fun GetRowWithOneImage(
                         .padding(top = GetPadding().mediumPadding)
                         .width(dimensionResource(id = R.dimen.row_one_image_width))
                         .rotate(-38f)
-                        .semantics { contentDescription = R.string.item_name.toString() }
+                        .testTag(stringResource(id = R.string.item_name))
                         .background(
                             when (status) {
                                 stringResource(R.string.dead_leading_caps) -> LessRed

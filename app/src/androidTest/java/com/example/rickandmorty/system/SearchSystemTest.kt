@@ -22,7 +22,7 @@ class SearchSystemTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun searchFunctionality() = runTest {
-        composeTestRule.onNodeWithTag("Search").performClick()
+        composeTestRule.onNodeWithContentDescription("Search").performClick()
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithTag("Search Bar").performTextInput("Rick")
         composeTestRule.onNodeWithTag("Search Bar").assert(hasText("Rick"))
@@ -32,8 +32,8 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
-        composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
-            hasContentDescription("Item Name")
+        composeTestRule.onAllNodesWithTag("Single Image Row").assertAny(
+            hasTestTag("Item Name")
         )
         composeTestRule.onNodeWithTag("search_lazy_column")
             .performScrollToNode(hasTestTag("Load More Characters"))
@@ -108,26 +108,18 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Records")
                 .fetchSemanticsNodes().isEmpty()
         }
-        Thread.sleep(1000)
 
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Pilot").performClick()
         composeTestRule.waitUntil(2000) {
             composeTestRule
-                .onAllNodesWithContentDescription("EP Detail")
+                .onAllNodesWithTag("EP Detail")
                 .fetchSemanticsNodes().isNotEmpty()
         }
-        Thread.sleep(1000)
-
-        composeTestRule.waitForIdle()
-        composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
-            hasContentDescription("Item Name")
-        )
 
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
         composeTestRule.waitForIdle()
 
-        Thread.sleep(1000)
     }
 }

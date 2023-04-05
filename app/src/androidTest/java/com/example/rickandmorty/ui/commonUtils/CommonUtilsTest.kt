@@ -68,7 +68,7 @@ class CommonUtilsTest {
                 )
             }
         }
-        composeTestRule.onNodeWithContentDescription("Icon of Location Characters")
+        composeTestRule.onNodeWithContentDescription("EPISODES")
             .assertIsDisplayed()
     }
 
@@ -120,7 +120,7 @@ class CommonUtilsTest {
                 )
             }
         }
-        composeTestRule.onNodeWithContentDescription("Icon of Location Characters").performClick()
+        composeTestRule.onNodeWithContentDescription("EPISODES").performClick()
         Assert.assertNotEquals(id, "id")
     }
 

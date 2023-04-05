@@ -144,11 +144,15 @@ fun LocationScreen(
                                     location = true
                                 )
                             }
-                            item {
-                                if (locationsUiState.isLoading) {
+                            if (locationsUiState.isLoading) {
+                                item {
+                                    LocationLoaderCells(deviceType)
+                                }
+                                item {
                                     LocationLoaderCells(deviceType)
                                 }
                             }
+
                         }
                     }
                 }

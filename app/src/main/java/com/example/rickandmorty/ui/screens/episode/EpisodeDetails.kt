@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.*
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -54,13 +55,15 @@ fun EpisodeDetails(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .semantics { contentDescription = R.string.ep_detail.toString() }
+                    .testTag(stringResource(id = R.string.ep_detail))
             ) {
                 if (state.isLoading) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .semantics { contentDescription = R.string.episode_detail_load.toString() },
+                            .semantics {
+                                contentDescription = R.string.episode_detail_load.toString()
+                            },
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {

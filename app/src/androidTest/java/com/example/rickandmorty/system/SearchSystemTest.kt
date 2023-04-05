@@ -19,6 +19,49 @@ class SearchSystemTest {
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun searchFunctionality() = runTest {
+        composeTestRule.onNodeWithContentDescription("Search").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("Search Bar").performTextInput("Rick")
+        composeTestRule.onNodeWithTag("Search Bar").assert(hasText("Rick"))
+        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+
+        composeTestRule.onAllNodesWithTag("Single Image Row").assertAny(
+            hasTestTag("Item Name")
+        )
+        composeTestRule.onNodeWithTag("search_lazy_column")
+            .performScrollToNode(hasTestTag("Load More Characters"))
+        composeTestRule.onNodeWithTag("Load More Characters").performScrollTo()
+            .performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("Search Bar").performTextInput("Planet")
+        composeTestRule.onNodeWithTag("Search Bar").assert(hasText("Planet"))
+        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Records")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithContentDescription("search_lazy_column")
+            .performScrollToNode(hasTestTag("Load More Locations"))
+        composeTestRule.onNodeWithTag("Load More Locations").performScrollTo()
+            .performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.waitUntil(10000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Fetching Character")
+                .fetchSemanticsNodes().isEmpty()
+        }
+        composeTestRule.onNodeWithText("Alien").performClick()
+    }
+
     /**
      * BDD testing for character screen
      */
@@ -31,6 +74,10 @@ class SearchSystemTest {
                 .onAllNodesWithContentDescription("Fetching Characters")
                 .fetchSemanticsNodes().isEmpty()
         }
+
+        Thread.sleep(1000)
+
+        composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
 
         composeTestRule.waitForIdle()
@@ -70,10 +117,10 @@ class SearchSystemTest {
 
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Pilot").performClick()
-        composeTestRule.waitUntil(10000) {
+        composeTestRule.waitUntil(2000) {
             composeTestRule
-                .onAllNodesWithContentDescription("EP Detail")
-                .fetchSemanticsNodes().isEmpty()
+                .onAllNodesWithTag("EP Detail")
+                .fetchSemanticsNodes().isNotEmpty()
         }
 
         composeTestRule.waitUntil(10000) {
@@ -90,54 +137,12 @@ class SearchSystemTest {
         composeTestRule.onNodeWithText("Episode").assertIsDisplayed()
         composeTestRule.onNodeWithText("Air Date").assertIsDisplayed()
 
+        Thread.sleep(1000)
+
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
         composeTestRule.waitForIdle()
 
-        Thread.sleep(1000)
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun searchFunctionality() = runTest {
-        composeTestRule.onNodeWithContentDescription("Search").performClick()
-        composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithTag("Search Bar").performTextInput("Rick")
-        composeTestRule.onNodeWithTag("Search Bar").assert(hasText("Rick"))
-//        composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Rick")
-//        composeTestRule.onNodeWithContentDescription("Search Bar").assert(hasText("Rick"))
-        composeTestRule.waitForIdle()
-        composeTestRule.waitUntil(10000) {
-            composeTestRule
-                .onAllNodesWithContentDescription("Fetching Records")
-                .fetchSemanticsNodes().isEmpty()
-        }
-        composeTestRule.onAllNodesWithContentDescription("Single Image Row").assertAny(
-            hasContentDescription("Item Name")
-        )
-        composeTestRule.onNodeWithTag("search_lazy_column")
-            .performScrollToNode(hasContentDescription("Load More Characters"))
-        composeTestRule.onNodeWithContentDescription("Load More Characters").performScrollTo()
-            .performClick()
-        composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Planet")
-        composeTestRule.onNodeWithContentDescription("Search Bar").assert(hasText("Planet"))
-        composeTestRule.waitForIdle()
-        composeTestRule.waitUntil(10000) {
-            composeTestRule
-                .onAllNodesWithContentDescription("Fetching Records")
-                .fetchSemanticsNodes().isEmpty()
-        }
-        composeTestRule.onNodeWithTag("search_lazy_column")
-            .performScrollToNode(hasContentDescription("Load More Locations"))
-        composeTestRule.onNodeWithContentDescription("Load More Locations").performScrollTo()
-            .performClick()
-        composeTestRule.waitForIdle()
-        composeTestRule.waitUntil(10000) {
-            composeTestRule
-                .onAllNodesWithContentDescription("Fetching Character")
-                .fetchSemanticsNodes().isEmpty()
-        }
-        composeTestRule.onNodeWithText("Alien").performClick()
+        Thread.sleep(500)
     }
 }

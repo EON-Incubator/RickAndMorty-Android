@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -62,7 +63,8 @@ fun FilterData(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .semantics { contentDescription = R.string.apply_filter.toString() },
+                    .semantics { contentDescription = R.string.apply_filter.toString() }
+                    .testTag(stringResource(id = R.string.apply_filter)),
                 onClick = {
                     applyFilter()
                     scope.launch { close.hide() }

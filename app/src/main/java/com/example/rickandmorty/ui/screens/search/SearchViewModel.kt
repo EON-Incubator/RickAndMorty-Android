@@ -66,7 +66,6 @@ class SearchViewModel @Inject constructor(
                             isLoading = false
                         )
                     }
-
                 }
             }
         }

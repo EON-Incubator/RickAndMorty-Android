@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import com.example.rickandmorty.R
 import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import kotlinx.coroutines.launch
 
@@ -31,8 +33,8 @@ fun FilterData(
     val scope = rememberCoroutineScope()
     val showDialog = remember { mutableStateOf(true) }
     if (showDialog.value) {
-        val statusList = listOf<String>("All", "Alive", "dead", "unknown")
-        val genderList = listOf<String>("All", "Male", "Female", "Genderless", "unknown")
+        val statusList = listOf<String>(stringResource(R.string.all), stringResource(R.string.alive), stringResource(id = R.string.dead), stringResource(id = R.string.unknown))
+        val genderList = listOf<String>(stringResource(id = R.string.all), stringResource(id = R.string.male), stringResource(id = R.string.female), stringResource(id = R.string.genderless), stringResource(id = R.string.unknown))
         Column(
             modifier = Modifier
                 .padding(top = GetPadding().xxMediumPadding)
@@ -66,7 +68,7 @@ fun FilterData(
                     scope.launch { close.hide() }
                 }
             ) {
-                Text("Click to Apply")
+                Text(stringResource(R.string.click_to_apply))
             }
         }
     }

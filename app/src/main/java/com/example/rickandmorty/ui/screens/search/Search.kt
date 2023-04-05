@@ -30,6 +30,7 @@ import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
+import com.example.rickandmorty.ui.screens.location.LocationLoaderCells
 
 @Composable
 fun Search(
@@ -139,6 +140,11 @@ fun Search(
                                     )
                                 }
                             }
+                            item {
+                                if (searchResultState.isCharacterUpdateLoading) {
+                                    LocationLoaderCells(deviceType)
+                                }
+                            }
                         }
                     } else {
                         item {
@@ -192,6 +198,11 @@ fun Search(
                                     id = item.id.toString(),
                                     onClickable = { onLocationClick(item.id.toString()) }
                                 )
+                            }
+                        }
+                        item {
+                            if (searchResultState.isLocationUpdateLoading) {
+                                LocationLoaderCells(deviceType)
                             }
                         }
                         if (searchResultState.locationByName.pages?.next != null || searchResultState.locationByType?.pages?.next != null) {

@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.character
 
+import ExcludeFromJacocoGeneratedReport
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -17,6 +18,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
+import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.Episodes
 import com.example.rickandmorty.ui.screens.ScreenType
@@ -191,5 +193,25 @@ fun DetailedCharacterLoader(
                 )
             }
         }
+    }
+}
+
+@ExcludeFromJacocoGeneratedReport
+@Composable
+fun CharacterLoaderCells(deviceType: ScreenType) {
+    Row() {
+        characterItem(
+            charstate = Character(
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ),
+            onClick = {},
+
+            modifier = Modifier.shimmerBackground()
+        )
     }
 }

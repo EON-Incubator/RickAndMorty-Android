@@ -29,6 +29,7 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.*
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -151,6 +152,14 @@ fun Characters(
 
                                     )
                                 }
+                                if (state.isLoadingPage) {
+                                    item {
+                                        CharacterLoaderCells(deviceType = ScreenType.PORTRAIT_PHONE)
+                                    }
+                                    item {
+                                        CharacterLoaderCells(deviceType = ScreenType.PORTRAIT_PHONE)
+                                    }
+                                }
                             }
                         }
                     }
@@ -166,9 +175,10 @@ object CharacterDestination : NavigationDestination {
 }
 
 @Composable
-private fun characterItem(
+internal fun characterItem(
     charstate: Character,
     onClick: (id: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = Modifier
@@ -184,7 +194,7 @@ private fun characterItem(
             AsyncImage(
                 model = charstate.image,
                 contentDescription = null,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .size(dimensionResource(id = R.dimen.character_image_size))
                     .clip(

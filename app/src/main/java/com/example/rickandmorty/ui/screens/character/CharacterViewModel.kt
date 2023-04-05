@@ -135,7 +135,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             if (characters.value.pages?.next != null) {
                 _characters.update {
                     it.copy(
-                        isLoading = true
+                        isLoadingPage = true
                     )
                 }
             }
@@ -149,7 +149,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                 it.copy(
                     characters = it.characters + (characterData.characters ?: emptyList()),
                     pages = characterData.pages,
-                    isLoading = false
+                    isLoadingPage = false
                 )
             }
         }
@@ -161,5 +161,6 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
         val isLoading: Boolean = false,
         var selectedCharacter: String? = null,
         var pages: Paginate? = null,
+        val isLoadingPage: Boolean = false,
     )
 }

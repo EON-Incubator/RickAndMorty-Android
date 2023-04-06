@@ -45,8 +45,6 @@ fun RickAndMortyNavHost(
             onDetailScreen(false)
             val viewModel = hiltViewModel<CharacterViewModel>()
             val characterState by viewModel.characters.collectAsState()
-//            val filterCharacter by viewModel.filterCharacter.collectAsState()
-//            var characterInfo = characterState.character?.ID.toString()
             val listState = rememberLazyGridState()
             val refreshState by viewModel.isRefreshing.collectAsState()
 
@@ -64,7 +62,6 @@ fun RickAndMortyNavHost(
                 onClick = {
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
                 },
-                // onCharacterClick = { },
                 listState = listState,
                 applyFilter = { viewModel.selectFilter() },
                 changeGender = { viewModel.changeGender(it) },

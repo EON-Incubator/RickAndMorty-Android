@@ -86,7 +86,6 @@ fun LocationScreen(
         Surface(
             modifier = Modifier
                 .fillMaxSize(),
-            //  .nestedScroll(scrollBehavior.nestedScrollConnection),
             color = colorResource(id = R.color.location_background)
         ) {
             Column(

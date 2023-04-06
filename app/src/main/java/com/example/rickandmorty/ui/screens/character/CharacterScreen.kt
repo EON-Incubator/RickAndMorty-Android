@@ -111,6 +111,7 @@ fun Characters(
             Surface(
                 modifier = Modifier
                     .fillMaxSize()
+                    /** Hardcoded string used to testing */
                     .semantics { contentDescription = "characters" }
                     .padding(it),
                 color = MaterialTheme.colors.background
@@ -118,11 +119,12 @@ fun Characters(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
+                        /** Hardcoded string used to testing */
                         .semantics { contentDescription = "characters" }
 
                 ) {
                     ScreenNameBar(
-                        name = "Characters",
+                        name = stringResource(id = R.string.characters),
 
                         onFilterClick = {
                             scope.launch { stateB.show() }

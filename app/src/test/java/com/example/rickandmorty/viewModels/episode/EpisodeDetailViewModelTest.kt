@@ -35,6 +35,7 @@ class EpisodeDetailViewModelTest {
 
     @Test
     fun `when getting an episode, confirming the data in state`() {
+        Thread.sleep(1000)
         assertEquals(viewModel.state.value.selectedEpisode?.air_date, "airDate1")
         assertNotEquals(viewModel.state.value.selectedEpisode?.episode, "episode2")
     }

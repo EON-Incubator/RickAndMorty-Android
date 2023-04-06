@@ -111,7 +111,6 @@ class SearchViewModel @Inject constructor(
                         isLocationUpdateLoading = true
                     )
                 }
-                Log.v("Debug ME 1", "Running")
                 val locationData =
                     getAllLocationUseCase.execute(
                         filterLocation = FilterLocation(
@@ -148,7 +147,6 @@ class SearchViewModel @Inject constructor(
                         ),
                         page = searchResult.value.locationByType?.pages?.next ?: 1
                     )
-                Log.v("Debug ME 2", locationData.toString())
                 _searchResult.update {
                     it.copy(
                         locationByType = LocationData(
@@ -161,8 +159,7 @@ class SearchViewModel @Inject constructor(
                     )
                 }
             }
-            Log.v("Debug ME", _searchResult.value.locationByName.toString())
-            _searchResult.update {
+             _searchResult.update {
                 it.copy(
                     locationByName = it.locationByName?.copy(
                         locations = it.locationByName.locations?.plus(

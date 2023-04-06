@@ -136,6 +136,7 @@ fun Search(
                                         stringResource(R.string.load_more),
                                         modifier = Modifier
                                             .semantics {
+                                                /** Hardcoded string used to testing */
                                                 contentDescription = "Load More Characters"
                                             }
                                     )
@@ -217,8 +218,10 @@ fun Search(
                                     Text(
                                         text =
                                         stringResource(id = R.string.load_more),
+                                        /** Hardcoded string used to testing */
                                         modifier = Modifier
                                             .semantics {
+                                                /** Hardcoded string used to testing */
                                                 contentDescription = "Load More Locations"
                                             }
 
@@ -309,7 +312,7 @@ fun SearchBar(
                 disabledIndicatorColor = MaterialTheme.colors.onBackground
             ),
             placeholder = {
-                Text(text = "Search")
+                Text(text = stringResource(id = R.string.search_screen_title))
             }
         )
     }

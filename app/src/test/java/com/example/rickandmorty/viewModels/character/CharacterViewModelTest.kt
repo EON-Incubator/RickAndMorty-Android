@@ -4,6 +4,7 @@ import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.fakeRepo.FakeRepo
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.character.CharacterViewModel
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
@@ -30,6 +31,9 @@ class CharacterViewModelTest {
 
     @Test
     fun `When getting all characters, checking correct data is getting here`() {
+        runTest {
+            viewModel.refresh()
+        }
         assertEquals("ID", viewModel.characters.value.characters.get(0).ID)
         assertEquals(3, viewModel.characters.value.pages?.next)
     }

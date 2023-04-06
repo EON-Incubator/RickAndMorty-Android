@@ -91,10 +91,6 @@ fun GetInfoInLine(
                     )
                 }
             }
-//        Divider(
-//            Modifier.height(1.dp),
-//            color = MaterialTheme.colors.onBackground
-//        )
         }
     }
 }

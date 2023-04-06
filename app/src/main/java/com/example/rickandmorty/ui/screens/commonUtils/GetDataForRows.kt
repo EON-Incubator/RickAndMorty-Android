@@ -33,7 +33,6 @@ fun GetData(
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
-//        verticalArrangement = Arrangement.Center
     ) {
         Row(verticalAlignment = Alignment.Top) {
             Text(
@@ -46,8 +45,6 @@ fun GetData(
                 color = MaterialTheme.colors.onBackground
             )
         }
-//        Spacer(modifier = Modifier.height(10.dp))
-        // var lineHeight = MaterialTheme.typography.body2.fontSize * 4 / 3
         Row(verticalAlignment = Alignment.Bottom) {
             if (property1.isNotEmpty()) {
                 Row(
@@ -82,11 +79,6 @@ fun GetData(
                                 top = GetPadding().xxxSmallPadding,
                                 bottom = GetPadding().xxxSmallPadding
                             ),
-//                        .sizeIn(
-//                            minHeight = with(LocalDensity.current) {
-//                                (lineHeight * 2).toDp()
-//                            }
-//                        ),
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.body2,
                         maxLines = 1,

@@ -220,7 +220,6 @@ fun EpisodeDetails(
                                 )
 
                                 if (state.selectedEpisode.characters.isNotEmpty()) {
-                                    Log.v("character", state.characters.toString())
                                     LazyColumn {
                                         items(state.selectedEpisode.characters) { episode ->
                                             GetRowWithOneImage(

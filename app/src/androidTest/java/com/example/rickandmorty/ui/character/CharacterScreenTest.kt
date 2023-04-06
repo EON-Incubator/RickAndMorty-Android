@@ -85,7 +85,7 @@ class CharacterScreenTest() {
                 )
             }
         }
-        composeTestRule.onNodeWithText("Characters").assertIsDisplayed()
+        composeTestRule.onNodeWithText("CHARACTERS").assertIsDisplayed()
     }
 
     @OptIn(ExperimentalMaterial3Api::class)

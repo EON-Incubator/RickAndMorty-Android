@@ -117,7 +117,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             val characterData =
                 getCharacterUseCase.sortById(
                     filterCharacter.value,
-                    page = 1 // characters.value.pages?.next ?: 1
+                    page = 1
                 )
             Log.v(R.string.values.toString(), filterCharacter.value.toString())
             Log.v(R.string.values.toString(), characters.value.toString())

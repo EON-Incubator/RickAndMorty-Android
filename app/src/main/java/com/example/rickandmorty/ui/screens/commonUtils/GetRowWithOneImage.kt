@@ -27,7 +27,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -123,6 +122,7 @@ fun GetRowWithOneImage(
                         .padding(top = GetPadding().mediumPadding)
                         .width(dimensionResource(id = R.dimen.row_one_image_width))
                         .rotate(-38f)
+                        /** Hardcoded string used to testing */
                         .semantics { contentDescription = "Item Name" }
                         .background(
                             when (status) {

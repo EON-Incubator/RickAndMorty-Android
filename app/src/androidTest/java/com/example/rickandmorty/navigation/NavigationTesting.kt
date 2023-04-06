@@ -37,7 +37,6 @@ class NavigationTesting {
         }
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithTag("applyFilter").performClick()
-//        composeTestRule.onNodeWithContentDescription("applyFilter").performClick()
 
         composeTestRule.onNodeWithContentDescription("Episodes").performClick()
         composeTestRule.waitForIdle()

@@ -10,10 +10,10 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.example.rickandmorty.R
-import com.example.rickandmorty.ui.screens.commonUtils.TopBar
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
+import com.example.rickandmorty.ui.screens.commonUtils.TopBar
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import org.junit.Assert
 import org.junit.Rule

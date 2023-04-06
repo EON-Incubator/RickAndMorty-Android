@@ -7,9 +7,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
-// import androidx.compose.material3.ExperimentalMaterial3Api
-// import androidx.compose.material3.TopAppBarDefaults
-// import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -34,7 +31,6 @@ fun RickAndMortyMainApp(
 ) {
     var invisible by remember { mutableStateOf(false) }
     var deviceType = ScreenType.PORTRAIT_PHONE
-//    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     when (windowSize.widthSizeClass) {
         WindowWidthSizeClass.Compact -> {
@@ -55,19 +51,7 @@ fun RickAndMortyMainApp(
     }
 
     Scaffold(
-
-//        topBar = {
-//            RickAndMortyTopAppBar(
-//                title = "Rick And Morty",
-//                canNavigateBack = false,
-//                navigateUp = { navController.popBackStack() },
-//                scrollBehavior = scrollBehavior,
-//                invisible = invisible
-//            )
-//        },
-
         backgroundColor = MaterialTheme.colors.background,
-//        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 
         bottomBar = {
             BottomNavigationBar(

@@ -30,6 +30,7 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.*
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -70,42 +71,49 @@ fun Characters(
         mutableStateOf(false)
     }
 
-    Scaffold(
-        topBar = {
-            RickAndMortyTopAppBar(
-                title = stringResource(id = R.string.rick_and_morty),
-                canNavigateBack = false,
-                navigateUp = {},
-                scrollBehavior = scrollBehavior,
-                invisible = false
+    ModalBottomSheetLayout(
+        sheetContent = {
+            FilterData(
+                genderVal = genderVal,
+                statusVal = statusVal,
+                applyFilter = applyFilter,
+                changeGender = changeGender,
+                changeStatus = changeStatus,
+                close = stateB
             )
         },
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+        sheetState = stateB,
+        sheetShape = RoundedCornerShape(
+            GetThickness().xLarge,
+            GetThickness().xLarge,
+            GetThickness().no,
+            GetThickness().no
+        )
+
     ) {
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .semantics { contentDescription = "characters" }
-                .padding(it)
-        ) {
-            ModalBottomSheetLayout(
-                sheetContent = {
-                    FilterData(
-                        genderVal = genderVal,
-                        statusVal = statusVal,
-                        applyFilter = applyFilter,
-                        changeGender = changeGender,
-                        changeStatus = changeStatus,
-                        close = stateB
-                    )
-                },
-                sheetState = stateB,
-                sheetShape = RoundedCornerShape(
-                    GetThickness().xLarge,
-                    GetThickness().xLarge,
-                    GetThickness().xLarge,
-                    GetThickness().xLarge
+        Scaffold(
+            topBar = {
+                RickAndMortyTopAppBar(
+                    title = stringResource(id = R.string.rick_and_morty),
+                    canNavigateBack = false,
+                    navigateUp = {},
+                    scrollBehavior = scrollBehavior,
+                    invisible = false
+
                 )
+            },
+            modifier =
+            Modifier.nestedScroll(
+                scrollBehavior.nestedScrollConnection
+            )
+
+        ) {
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics { contentDescription = "characters" }
+                    .padding(it),
+                color = MaterialTheme.colors.background
             ) {
                 Column(
                     modifier = Modifier
@@ -151,6 +159,14 @@ fun Characters(
 
                                     )
                                 }
+                                if (state.isLoadingPage) {
+                                    item {
+                                        CharacterLoaderCells(deviceType = ScreenType.PORTRAIT_PHONE)
+                                    }
+                                    item {
+                                        CharacterLoaderCells(deviceType = ScreenType.PORTRAIT_PHONE)
+                                    }
+                                }
                             }
                         }
                     }
@@ -166,9 +182,10 @@ object CharacterDestination : NavigationDestination {
 }
 
 @Composable
-private fun characterItem(
+internal fun characterItem(
     charstate: Character,
     onClick: (id: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = Modifier
@@ -184,7 +201,7 @@ private fun characterItem(
             AsyncImage(
                 model = charstate.image,
                 contentDescription = null,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .size(dimensionResource(id = R.dimen.character_image_size))
                     .clip(

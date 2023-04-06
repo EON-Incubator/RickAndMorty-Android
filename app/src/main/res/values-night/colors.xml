@@ -7,26 +7,26 @@
     <color name="character_property2">#ACA98B</color>
 
     //location dark
-    <color name="location_background">#FF291902</color>
+    <color name="location_background">#000000</color>
     <color name="location_card_background">#FF523203</color>
     <color name="location_property1">#FF976b45</color>
     <color name="location_property2">#FF8a8366</color>
 
     //locationDetail dark
-    <color name="locationDetail_background">#FF291902</color>
+    <color name="locationDetail_background">#000000</color>
     <color name="locationDetail_info_card">#FF1c1c1e</color>
     <color name="locationDetail_resident_card_background">#FF8a8366</color>
     <color name="locationDetail_resident_property1">#FFe5ece9</color>
     <color name="locationDetail_resident_property2">#FFf5edcf</color>
 
     //episode dark
-    <color name="episode_background">#FF121907</color>
+    <color name="episode_background">#000000</color>
     <color name="episode_card_background">#FF1e2b2b</color>
     <color name="episode_property1">#FF78675d</color>
     <color name="episode_property2">#FF787862</color>
 
     //locationDetail dark
-    <color name="episodeDetail_background">#FF121907</color>
+    <color name="episodeDetail_background">#000000</color>
     <color name="episodeDetail_info_card">#FF1C1C1E</color>
     <color name="episodeDetail_resident_card_background">#FF5E5C54</color>
     <color name="episodeDetail_resident_property1">#FFAAB7B2</color>

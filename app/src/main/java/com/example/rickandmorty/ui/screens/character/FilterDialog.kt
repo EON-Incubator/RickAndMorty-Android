@@ -25,10 +25,10 @@ fun FilterData(
 
 ) {
     var genderState by remember {
-        mutableStateOf("null")
+        mutableStateOf("")
     }
     var aliveState by remember {
-        mutableStateOf("null")
+        mutableStateOf("")
     }
 
     val scope = rememberCoroutineScope()

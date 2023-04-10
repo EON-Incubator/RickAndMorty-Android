@@ -226,7 +226,7 @@ private class ScrollSpeedFlingBehavior(
             if (initialVelocity > 0F) {
                 minOf(initialVelocity, 3_000F)
             } else {
-                maxOf(initialVelocity, 3_000F)
+                maxOf(initialVelocity, -6_000F)
             }
 
         return if (abs(newVelocity) > 1f) {

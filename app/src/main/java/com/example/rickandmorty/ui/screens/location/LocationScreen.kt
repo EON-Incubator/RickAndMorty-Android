@@ -4,6 +4,12 @@ import ExcludeFromJacocoGeneratedReport
 import android.annotation.SuppressLint
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.animation.core.AnimationState
+import androidx.compose.animation.core.DecayAnimationSpec
+import androidx.compose.animation.core.animateDecay
+import androidx.compose.animation.rememberSplineBasedDecay
+import androidx.compose.foundation.gestures.FlingBehavior
+import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
@@ -14,6 +20,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -33,6 +40,7 @@ import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import java.lang.Math.abs
 
 /**
  * Defining the route for the LocationScreen
@@ -123,7 +131,8 @@ fun LocationScreen(
                             verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
                             horizontalArrangement = Arrangement.Center,
                             modifier = Modifier.padding(GetPadding().smallPadding),
-                            state = listState
+                            state = listState,
+                            flingBehavior = maxScrollFlingBehavior()
                         ) {
                             items(locationsUiState.locations) { location ->
 
@@ -198,4 +207,47 @@ fun LocationScreenPreviewDarkMode() {
         {},
         stringResource(R.string.one)
     )
+}
+
+@Composable
+fun maxScrollFlingBehavior(): FlingBehavior {
+    val flingSpec = rememberSplineBasedDecay<Float>()
+    return remember(flingSpec) {
+        ScrollSpeedFlingBehavior(flingSpec)
+    }
+}
+
+private class ScrollSpeedFlingBehavior(
+    private val flingDecay: DecayAnimationSpec<Float>,
+) : FlingBehavior {
+    override suspend fun ScrollScope.performFling(initialVelocity: Float): Float {
+        // Prevent very fast scroll
+        val newVelocity =
+            if (initialVelocity > 0F) {
+                minOf(initialVelocity, 3_000F)
+            } else {
+                maxOf(initialVelocity, 3_000F)
+            }
+
+        return if (abs(newVelocity) > 1f) {
+            var velocityLeft = newVelocity
+            var lastValue = 0f
+            AnimationState(
+                initialValue = 0f,
+                initialVelocity = newVelocity
+            ).animateDecay(flingDecay) {
+                val delta = value - lastValue
+                val consumed = scrollBy(delta)
+                lastValue = value
+                velocityLeft = this.velocity
+                // avoid rounding errors and stop if anything is unconsumed
+                if (abs(delta - consumed) > 0.5f) {
+                    this.cancelAnimation()
+                }
+            }
+            velocityLeft
+        } else {
+            newVelocity
+        }
+    }
 }

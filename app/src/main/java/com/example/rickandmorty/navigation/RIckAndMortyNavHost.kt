@@ -28,6 +28,8 @@ fun RickAndMortyNavHost(
 ) {
     val viewModel = hiltViewModel<SearchViewModel>()
     val searchResultState by viewModel.searchResult.collectAsState()
+    val scope = rememberCoroutineScope()
+
     var showCharacters by remember {
         mutableStateOf(true)
     }
@@ -48,16 +50,14 @@ fun RickAndMortyNavHost(
             val listState = rememberLazyGridState()
             val refreshState by viewModel.isRefreshing.collectAsState()
 
-            if (listState.isScrollInProgress) {
-                DisposableEffect(Unit) {
-                    onDispose {
-                        if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                            listState.layoutInfo.totalItemsCount - 1
-                        ) {
-                            viewModel.updateList()
-                        }
-                    }
+            val endReached by remember {
+                derivedStateOf {
+                    listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                        listState.layoutInfo.totalItemsCount - 1
                 }
+            }
+            if (endReached) {
+                viewModel.updateList()
             }
 
             Characters(
@@ -108,17 +108,16 @@ fun RickAndMortyNavHost(
             val listState = rememberLazyGridState()
             val refreshState by viewModel.isRefreshing.collectAsState()
 
-            if (listState.isScrollInProgress) {
-                DisposableEffect(Unit) {
-                    onDispose {
-                        if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                            listState.layoutInfo.totalItemsCount - 1
-                        ) {
-                            viewModel.updateEpisodeList()
-                        }
-                    }
+            val endReached by remember {
+                derivedStateOf {
+                    listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                        listState.layoutInfo.totalItemsCount - 1
                 }
             }
+            if (endReached) {
+                viewModel.updateEpisodeList()
+            }
+
             EpisodesScreen(
                 state = state,
                 onSelectEpisode = {
@@ -151,18 +150,16 @@ fun RickAndMortyNavHost(
             val refreshState by viewModel.isRefreshing.collectAsState()
             val listState = rememberLazyGridState()
 
-
-            if (listState.isScrollInProgress) {
-                DisposableEffect(Unit) {
-                    onDispose {
-                        if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                            listState.layoutInfo.totalItemsCount - 1
-                        ) {
-                            viewModel.updateList()
-                        }
-                    }
+            val endReached by remember {
+                derivedStateOf {
+                    listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                        listState.layoutInfo.totalItemsCount - 1
                 }
             }
+            if (endReached) {
+                viewModel.updateList()
+            }
+
             LocationScreen(
                 locationsState,
                 onClick = {

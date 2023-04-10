@@ -53,11 +53,16 @@ class EpisodeViewModel @Inject constructor(
                         isLoading = true
                     )
                 }
-                val episodeDataById = getAllEpisodeUseCase.sortEpisodeById(page = state.value.pages?.next ?: 1)
+                val episodeDataById = getAllEpisodeUseCase.sortEpisodeById(
+                    page = state.value.pages?.next ?: 1
+                )
 
                 _episode.update {
                     it.copy(
-                        episodes = it.episodes + (episodeDataById.episodesData ?: emptyList()),
+                        episodes = it.episodes + (
+                            episodeDataById.episodesData
+                                ?: emptyList()
+                            ),
                         pages = episodeDataById.pages,
                         isLoading = false
                     )

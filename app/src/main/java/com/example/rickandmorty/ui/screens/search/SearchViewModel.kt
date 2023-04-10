@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens.search
 
-import android.util.Log
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -159,7 +158,7 @@ class SearchViewModel @Inject constructor(
                     )
                 }
             }
-             _searchResult.update {
+            _searchResult.update {
                 it.copy(
                     locationByName = it.locationByName?.copy(
                         locations = it.locationByName.locations?.plus(

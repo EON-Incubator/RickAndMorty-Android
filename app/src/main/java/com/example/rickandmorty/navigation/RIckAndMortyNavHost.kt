@@ -49,12 +49,17 @@ fun RickAndMortyNavHost(
             val refreshState by viewModel.isRefreshing.collectAsState()
 
             if (listState.isScrollInProgress) {
-                if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                    listState.layoutInfo.totalItemsCount - 1
-                ) {
-                    viewModel.updateList()
+                DisposableEffect(Unit) {
+                    onDispose {
+                        if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                            listState.layoutInfo.totalItemsCount - 1
+                        ) {
+                            viewModel.updateList()
+                        }
+                    }
                 }
             }
+
             Characters(
                 characterState,
                 genderVal = viewModel.gender,
@@ -104,10 +109,14 @@ fun RickAndMortyNavHost(
             val refreshState by viewModel.isRefreshing.collectAsState()
 
             if (listState.isScrollInProgress) {
-                if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                    listState.layoutInfo.totalItemsCount - 1
-                ) {
-                    viewModel.updateEpisodeList()
+                DisposableEffect(Unit) {
+                    onDispose {
+                        if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                            listState.layoutInfo.totalItemsCount - 1
+                        ) {
+                            viewModel.updateEpisodeList()
+                        }
+                    }
                 }
             }
             EpisodesScreen(
@@ -142,11 +151,16 @@ fun RickAndMortyNavHost(
             val refreshState by viewModel.isRefreshing.collectAsState()
             val listState = rememberLazyGridState()
 
+
             if (listState.isScrollInProgress) {
-                if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
-                    listState.layoutInfo.totalItemsCount - 1
-                ) {
-                    viewModel.updateList()
+                DisposableEffect(Unit) {
+                    onDispose {
+                        if (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ==
+                            listState.layoutInfo.totalItemsCount - 1
+                        ) {
+                            viewModel.updateList()
+                        }
+                    }
                 }
             }
             LocationScreen(

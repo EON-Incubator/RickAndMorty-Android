@@ -32,6 +32,7 @@ import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.*
+import com.example.rickandmorty.ui.screens.location.maxScrollFlingBehavior
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -152,7 +153,8 @@ fun Characters(
                                 verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
                                 horizontalArrangement = Arrangement.Center,
                                 modifier = Modifier.padding(GetPadding().smallPadding),
-                                state = listState
+                                state = listState,
+                                flingBehavior = maxScrollFlingBehavior()
                             ) {
                                 items(state.characters) { character ->
                                     characterItem(

@@ -1,23 +1,29 @@
 package com.example.rickandmorty.ui.screens.episode
 
 import android.annotation.SuppressLint
-import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.*
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
@@ -112,7 +118,11 @@ fun EpisodeDetails(
                                             status = "",
                                             id = "",
                                             onClickable = {},
-                                            modifier = Modifier.shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
+                                            modifier = Modifier.shimmerBackground(
+                                                RoundedCornerShape(
+                                                    dimensionResource(id = R.dimen.spacer_40)
+                                                )
+                                            )
                                         )
                                     }
                                 }
@@ -122,43 +132,276 @@ fun EpisodeDetails(
                 } else if (state.selectedEpisode != null) {
                     if (deviceType == ScreenType.PORTRAIT_PHONE) {
                         Column {
-                            Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
-                            Text(
-                                text = stringResource(R.string.info),
-                                fontSize = 12.sp,
-                                modifier = Modifier
-                                    .padding(start = GetPadding().mediumPadding)
-                                    .semantics { contentDescription = R.string.detail_ep.toString() }
-                            )
+                            // Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
 
-                            Spacer(modifier = Modifier.height(GetPadding().smallPadding))
+                            LazyColumn {
+                                item {
+                                    Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
 
-                            GetInfoInLine(
-                                icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
-                                topic = stringResource(id = R.string.episode),
-                                topicAnswer = state.selectedEpisode?.episode.toString()
-                            )
+                                    Text(
+                                        text = stringResource(R.string.description_caps),
+                                        fontSize = 12.sp,
+                                        modifier = Modifier
+                                            .padding(start = GetPadding().mediumPadding)
+                                    )
 
-                            Row {
-                                GetInfoInLine(
-                                    icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
-                                    topic = stringResource(id = R.string.air_date),
-                                    topicAnswer = state.selectedEpisode?.air_date.toString()
-                                )
-                            }
+                                    Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
-                            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
+                                    Text(
+                                        text = stringResource(R.string.full_desc),
+                                        fontSize = 11.sp,
+                                        modifier = Modifier
+                                            .padding(
+                                                start = GetPadding().xxMediumPadding,
+                                                end = GetPadding().xxMediumPadding
+                                            )
+                                    )
+                                }
+                                item {
+                                    Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
-                            Text(
-                                text = stringResource(R.string.characters),
-                                fontSize = 12.sp,
-                                modifier = Modifier
-                                    .padding(start = GetPadding().mediumPadding)
-                            )
+                                    Text(
+                                        text = stringResource(R.string.info),
+                                        fontSize = 12.sp,
+                                        modifier = Modifier
+                                            .padding(start = GetPadding().mediumPadding)
+                                            .semantics {
+                                                contentDescription =
+                                                    R.string.detail_ep.toString()
+                                            }
+                                    )
 
-                            if (state.selectedEpisode.characters.isNotEmpty()) {
-                                Log.v(R.string.character.toString(), state.characters.toString())
-                                LazyColumn {
+                                    Spacer(modifier = Modifier.height(GetPadding().smallPadding))
+
+                                    GetInfoInLine(
+                                        icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
+                                        topic = stringResource(id = R.string.episode),
+                                        topicAnswer = state.selectedEpisode?.episode.toString()
+                                    )
+
+                                    Row {
+                                        GetInfoInLine(
+                                            icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
+                                            topic = stringResource(id = R.string.air_date),
+                                            topicAnswer = state.selectedEpisode?.air_date.toString()
+                                        )
+                                    }
+
+                                    GetInfoInLine(
+                                        icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
+                                        topic = stringResource(R.string.rating),
+                                        topicAnswer = state.selectedEpisode?.episode.toString()
+                                    )
+
+                                    Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
+                                }
+                                item {
+                                    Text(
+                                        text = stringResource(R.string.crew),
+                                        fontSize = 12.sp,
+                                        modifier = Modifier
+                                            .padding(start = GetPadding().mediumPadding)
+                                    )
+
+                                    LazyRow(modifier = Modifier.height(100.dp)) {
+                                        item {
+                                            AsyncImage(
+                                                modifier = Modifier
+                                                    .padding(
+                                                        start = GetPadding().xxMediumPadding,
+                                                        end = GetPadding().smallPadding,
+                                                        bottom = GetPadding().xSmallPadding,
+                                                        top = GetPadding().xSmallPadding
+                                                    )
+                                                    .clip(CircleShape)
+                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
+                                                    .border(
+                                                        BorderStroke(
+                                                            GetThickness().xxSmall,
+                                                            color = MaterialTheme.colors.onBackground
+                                                        ),
+                                                        shape = CircleShape
+                                                    ),
+
+                                                alignment = Alignment.Center,
+                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
+                                                error = painterResource(id = getErrorImage()),
+                                                placeholder = painterResource(R.drawable.loading_img),
+                                                contentDescription = "Crew Members"
+                                            )
+                                        }
+                                        item {
+                                            AsyncImage(
+                                                modifier = Modifier
+                                                    .padding(
+                                                        start = GetPadding().xxMediumPadding,
+                                                        end = GetPadding().smallPadding,
+                                                        bottom = GetPadding().xSmallPadding,
+                                                        top = GetPadding().xSmallPadding
+                                                    )
+                                                    .clip(CircleShape)
+                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
+                                                    .border(
+                                                        BorderStroke(
+                                                            GetThickness().xxSmall,
+                                                            color = MaterialTheme.colors.onBackground
+                                                        ),
+                                                        shape = CircleShape
+                                                    ),
+
+                                                alignment = Alignment.Center,
+                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
+                                                error = painterResource(id = getErrorImage()),
+                                                placeholder = painterResource(R.drawable.loading_img),
+                                                contentDescription = "Crew Members"
+                                            )
+                                        }
+                                        item {
+                                            AsyncImage(
+                                                modifier = Modifier
+                                                    .padding(
+                                                        start = GetPadding().xxMediumPadding,
+                                                        end = GetPadding().smallPadding,
+                                                        bottom = GetPadding().xSmallPadding,
+                                                        top = GetPadding().xSmallPadding
+                                                    )
+                                                    .clip(CircleShape)
+                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
+                                                    .border(
+                                                        BorderStroke(
+                                                            GetThickness().xxSmall,
+                                                            color = MaterialTheme.colors.onBackground
+                                                        ),
+                                                        shape = CircleShape
+                                                    ),
+
+                                                alignment = Alignment.Center,
+                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
+                                                error = painterResource(id = getErrorImage()),
+                                                placeholder = painterResource(R.drawable.loading_img),
+                                                contentDescription = "Crew Members"
+                                            )
+                                        }
+
+                                        item {
+                                            AsyncImage(
+                                                modifier = Modifier
+                                                    .padding(
+                                                        start = GetPadding().xxMediumPadding,
+                                                        end = GetPadding().smallPadding,
+                                                        bottom = GetPadding().xSmallPadding,
+                                                        top = GetPadding().xSmallPadding
+                                                    )
+                                                    .clip(CircleShape)
+                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
+                                                    .border(
+                                                        BorderStroke(
+                                                            GetThickness().xxSmall,
+                                                            color = MaterialTheme.colors.onBackground
+                                                        ),
+                                                        shape = CircleShape
+                                                    ),
+
+                                                alignment = Alignment.Center,
+                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
+                                                error = painterResource(id = getErrorImage()),
+                                                placeholder = painterResource(R.drawable.loading_img),
+                                                contentDescription = "Crew Members"
+                                            )
+                                        }
+
+                                        item {
+                                            AsyncImage(
+                                                modifier = Modifier
+                                                    .padding(
+                                                        start = GetPadding().xxMediumPadding,
+                                                        end = GetPadding().smallPadding,
+                                                        bottom = GetPadding().xSmallPadding,
+                                                        top = GetPadding().xSmallPadding
+                                                    )
+                                                    .clip(CircleShape)
+                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
+                                                    .border(
+                                                        BorderStroke(
+                                                            GetThickness().xxSmall,
+                                                            color = MaterialTheme.colors.onBackground
+                                                        ),
+                                                        shape = CircleShape
+                                                    ),
+
+                                                alignment = Alignment.Center,
+                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
+                                                error = painterResource(id = getErrorImage()),
+                                                placeholder = painterResource(R.drawable.loading_img),
+                                                contentDescription = "Crew Members"
+                                            )
+                                        }
+
+                                        item {
+                                            AsyncImage(
+                                                modifier = Modifier
+                                                    .padding(
+                                                        start = GetPadding().xxMediumPadding,
+                                                        end = GetPadding().smallPadding,
+                                                        bottom = GetPadding().xSmallPadding,
+                                                        top = GetPadding().xSmallPadding
+                                                    )
+                                                    .clip(CircleShape)
+                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
+                                                    .border(
+                                                        BorderStroke(
+                                                            GetThickness().xxSmall,
+                                                            color = MaterialTheme.colors.onBackground
+                                                        ),
+                                                        shape = CircleShape
+                                                    ),
+
+                                                alignment = Alignment.Center,
+                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
+                                                error = painterResource(id = getErrorImage()),
+                                                placeholder = painterResource(R.drawable.loading_img),
+                                                contentDescription = "Crew Members"
+                                            )
+                                        }
+
+                                        item {
+                                            AsyncImage(
+                                                modifier = Modifier
+                                                    .padding(
+                                                        start = GetPadding().xxMediumPadding,
+                                                        end = GetPadding().smallPadding,
+                                                        bottom = GetPadding().xSmallPadding,
+                                                        top = GetPadding().xSmallPadding
+                                                    )
+                                                    .clip(CircleShape)
+                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
+                                                    .border(
+                                                        BorderStroke(
+                                                            GetThickness().xxSmall,
+                                                            color = MaterialTheme.colors.onBackground
+                                                        ),
+                                                        shape = CircleShape
+                                                    ),
+
+                                                alignment = Alignment.Center,
+                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
+                                                error = painterResource(id = getErrorImage()),
+                                                placeholder = painterResource(R.drawable.loading_img),
+                                                contentDescription = "Crew Members"
+                                            )
+                                        }
+                                    }
+                                }
+
+                                item {
+                                    Text(
+                                        text = stringResource(R.string.characters),
+                                        fontSize = 12.sp,
+                                        modifier = Modifier
+                                            .padding(start = GetPadding().mediumPadding)
+                                    )
+                                }
+                                if (state.selectedEpisode.characters.isNotEmpty()) {
                                     items(state.selectedEpisode.characters) { episode ->
                                         GetRowWithOneImage(
                                             imageUrlLink = episode.image.toString(),
@@ -173,8 +416,6 @@ fun EpisodeDetails(
                                         )
                                     }
                                 }
-                            } else {
-                                ImageVector.vectorResource(id = R.drawable.ic_broken_image)
                             }
                         }
                     } else {

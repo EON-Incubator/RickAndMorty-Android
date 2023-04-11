@@ -8,15 +8,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.*
 import androidx.compose.ui.semantics.contentDescription
@@ -133,8 +133,20 @@ fun EpisodeDetails(
                     if (deviceType == ScreenType.PORTRAIT_PHONE) {
                         Column {
                             // Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
-
                             LazyColumn {
+                                item {
+//                                    HorizontalPager(){
+//
+//                                    }
+                                    LazyRow() {
+                                        item {
+                                            repeat(10) {
+                                                GetCarouselImage()
+                                            }
+                                        }
+                                    }
+                                }
+
                                 item {
                                     Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
 
@@ -194,203 +206,6 @@ fun EpisodeDetails(
                                     )
 
                                     Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
-                                }
-                                item {
-                                    Text(
-                                        text = stringResource(R.string.crew),
-                                        fontSize = 12.sp,
-                                        modifier = Modifier
-                                            .padding(start = GetPadding().mediumPadding)
-                                    )
-
-                                    LazyRow(modifier = Modifier.height(100.dp)) {
-                                        item {
-                                            AsyncImage(
-                                                modifier = Modifier
-                                                    .padding(
-                                                        start = GetPadding().xxMediumPadding,
-                                                        end = GetPadding().smallPadding,
-                                                        bottom = GetPadding().xSmallPadding,
-                                                        top = GetPadding().xSmallPadding
-                                                    )
-                                                    .clip(CircleShape)
-                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
-                                                    .border(
-                                                        BorderStroke(
-                                                            GetThickness().xxSmall,
-                                                            color = MaterialTheme.colors.onBackground
-                                                        ),
-                                                        shape = CircleShape
-                                                    ),
-
-                                                alignment = Alignment.Center,
-                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
-                                                error = painterResource(id = getErrorImage()),
-                                                placeholder = painterResource(R.drawable.loading_img),
-                                                contentDescription = "Crew Members"
-                                            )
-                                        }
-                                        item {
-                                            AsyncImage(
-                                                modifier = Modifier
-                                                    .padding(
-                                                        start = GetPadding().xxMediumPadding,
-                                                        end = GetPadding().smallPadding,
-                                                        bottom = GetPadding().xSmallPadding,
-                                                        top = GetPadding().xSmallPadding
-                                                    )
-                                                    .clip(CircleShape)
-                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
-                                                    .border(
-                                                        BorderStroke(
-                                                            GetThickness().xxSmall,
-                                                            color = MaterialTheme.colors.onBackground
-                                                        ),
-                                                        shape = CircleShape
-                                                    ),
-
-                                                alignment = Alignment.Center,
-                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
-                                                error = painterResource(id = getErrorImage()),
-                                                placeholder = painterResource(R.drawable.loading_img),
-                                                contentDescription = "Crew Members"
-                                            )
-                                        }
-                                        item {
-                                            AsyncImage(
-                                                modifier = Modifier
-                                                    .padding(
-                                                        start = GetPadding().xxMediumPadding,
-                                                        end = GetPadding().smallPadding,
-                                                        bottom = GetPadding().xSmallPadding,
-                                                        top = GetPadding().xSmallPadding
-                                                    )
-                                                    .clip(CircleShape)
-                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
-                                                    .border(
-                                                        BorderStroke(
-                                                            GetThickness().xxSmall,
-                                                            color = MaterialTheme.colors.onBackground
-                                                        ),
-                                                        shape = CircleShape
-                                                    ),
-
-                                                alignment = Alignment.Center,
-                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
-                                                error = painterResource(id = getErrorImage()),
-                                                placeholder = painterResource(R.drawable.loading_img),
-                                                contentDescription = "Crew Members"
-                                            )
-                                        }
-
-                                        item {
-                                            AsyncImage(
-                                                modifier = Modifier
-                                                    .padding(
-                                                        start = GetPadding().xxMediumPadding,
-                                                        end = GetPadding().smallPadding,
-                                                        bottom = GetPadding().xSmallPadding,
-                                                        top = GetPadding().xSmallPadding
-                                                    )
-                                                    .clip(CircleShape)
-                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
-                                                    .border(
-                                                        BorderStroke(
-                                                            GetThickness().xxSmall,
-                                                            color = MaterialTheme.colors.onBackground
-                                                        ),
-                                                        shape = CircleShape
-                                                    ),
-
-                                                alignment = Alignment.Center,
-                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
-                                                error = painterResource(id = getErrorImage()),
-                                                placeholder = painterResource(R.drawable.loading_img),
-                                                contentDescription = "Crew Members"
-                                            )
-                                        }
-
-                                        item {
-                                            AsyncImage(
-                                                modifier = Modifier
-                                                    .padding(
-                                                        start = GetPadding().xxMediumPadding,
-                                                        end = GetPadding().smallPadding,
-                                                        bottom = GetPadding().xSmallPadding,
-                                                        top = GetPadding().xSmallPadding
-                                                    )
-                                                    .clip(CircleShape)
-                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
-                                                    .border(
-                                                        BorderStroke(
-                                                            GetThickness().xxSmall,
-                                                            color = MaterialTheme.colors.onBackground
-                                                        ),
-                                                        shape = CircleShape
-                                                    ),
-
-                                                alignment = Alignment.Center,
-                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
-                                                error = painterResource(id = getErrorImage()),
-                                                placeholder = painterResource(R.drawable.loading_img),
-                                                contentDescription = "Crew Members"
-                                            )
-                                        }
-
-                                        item {
-                                            AsyncImage(
-                                                modifier = Modifier
-                                                    .padding(
-                                                        start = GetPadding().xxMediumPadding,
-                                                        end = GetPadding().smallPadding,
-                                                        bottom = GetPadding().xSmallPadding,
-                                                        top = GetPadding().xSmallPadding
-                                                    )
-                                                    .clip(CircleShape)
-                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
-                                                    .border(
-                                                        BorderStroke(
-                                                            GetThickness().xxSmall,
-                                                            color = MaterialTheme.colors.onBackground
-                                                        ),
-                                                        shape = CircleShape
-                                                    ),
-
-                                                alignment = Alignment.Center,
-                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
-                                                error = painterResource(id = getErrorImage()),
-                                                placeholder = painterResource(R.drawable.loading_img),
-                                                contentDescription = "Crew Members"
-                                            )
-                                        }
-
-                                        item {
-                                            AsyncImage(
-                                                modifier = Modifier
-                                                    .padding(
-                                                        start = GetPadding().xxMediumPadding,
-                                                        end = GetPadding().smallPadding,
-                                                        bottom = GetPadding().xSmallPadding,
-                                                        top = GetPadding().xSmallPadding
-                                                    )
-                                                    .clip(CircleShape)
-                                                    .size(dimensionResource(id = R.dimen.row_one_image_size))
-                                                    .border(
-                                                        BorderStroke(
-                                                            GetThickness().xxSmall,
-                                                            color = MaterialTheme.colors.onBackground
-                                                        ),
-                                                        shape = CircleShape
-                                                    ),
-
-                                                alignment = Alignment.Center,
-                                                model = "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/9phhl0oubAKt8D50xLGAb81KPSb.jpg",
-                                                error = painterResource(id = getErrorImage()),
-                                                placeholder = painterResource(R.drawable.loading_img),
-                                                contentDescription = "Crew Members"
-                                            )
-                                        }
-                                    }
                                 }
 
                                 item {
@@ -496,4 +311,35 @@ fun EpisodeDetails(
 object EpisodeDetailsDestination : NavigationDestination {
     override val route = "episode_details"
     override val screenTitleRes = R.string.episode_detail_screen_title
+}
+
+@Composable
+fun GetCarouselImage() {
+    AsyncImage(
+        modifier = Modifier
+            .padding(
+                start = GetPadding().xxMediumPadding,
+                end = GetPadding().smallPadding,
+                bottom = GetPadding().xSmallPadding,
+                top = GetPadding().xSmallPadding
+            )
+            .size(
+                width = LocalConfiguration.current.screenWidthDp.dp - 50.dp,
+                height = LocalConfiguration.current.screenHeightDp.dp / 5
+            )
+            .border(
+                BorderStroke(
+                    GetThickness().xxSmall,
+                    color = MaterialTheme.colors.onBackground
+                ),
+                shape = RoundedCornerShape(10)
+            ),
+
+        alignment = Alignment.Center,
+        model = "https://www.themoviedb.org/t/p/original/uCZWm1DY6UiE35aPttox4hoRrdk.jpg",
+        error = painterResource(id = getErrorImage()),
+        placeholder = painterResource(R.drawable.loading_img),
+        contentDescription = "Crew Members",
+        contentScale = ContentScale.Crop
+    )
 }

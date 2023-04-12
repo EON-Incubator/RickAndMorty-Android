@@ -161,6 +161,13 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
+    //Pager
+    implementation "com.google.accompanist:accompanist-pager:0.23.1"
+
+    //Youtube Video
+    implementation "com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0"
+
+
 }
 apollo {
     service("service") {

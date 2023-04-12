@@ -17,6 +17,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import com.example.rickandmorty.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,6 +32,8 @@ fun RickAndMortyTopAppBar(
     ),
     invisible: Boolean = true,
     backgroundColor: Color = MaterialTheme.colors.background,
+    videoButton: Boolean = false,
+    onVideoClick: (Boolean) -> Unit = {},
 
 ) {
     if (canNavigateBack) {
@@ -44,7 +47,25 @@ fun RickAndMortyTopAppBar(
                         .padding(end = GetPadding().xLargePadding),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
-                ) { TopBar(title = title) }
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TopBar(title = title, modifier = Modifier.weight(1f))
+                        if (videoButton) {
+                            IconButton(onClick = {
+                                onVideoClick(true)
+                            }) {
+                                Icon(
+                                    imageVector = ImageVector.vectorResource(id = R.drawable.baseline_subscriptions_24),
+                                    contentDescription = stringResource(R.string.play_video)
+                                )
+                            }
+                        }
+                    }
+                }
             },
             navigationIcon = {
                 IconButton(onClick = navigateUp) {
@@ -106,9 +127,11 @@ fun RickAndMortyTopAppBar(
 }
 
 @Composable
-fun TopBar(title: String) {
+fun TopBar(title: String, modifier: Modifier = Modifier) {
     Text(
-        maxLines = 2,
+        textAlign = TextAlign.Center,
+        modifier = modifier,
+        maxLines = 1,
         text = title,
         style = if (title.equals(stringResource(R.string.rick_and_morty))) MaterialTheme.typography.h1 else MaterialTheme.typography.h2,
         color = MaterialTheme.colors.onPrimary

@@ -26,13 +26,13 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.hilt.navigation.compose.hiltViewModel
 import app.moviebase.tmdb.image.TmdbImageUrlBuilder
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
+import com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.*
@@ -55,6 +55,7 @@ fun EpisodeDetails(
     onCharacterClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
     episodeDetailViewModel: EpisodeDetailViewModel = hiltViewModel<EpisodeDetailViewModel>(),
+    episodeDetails: TmdbEpisodeDetail,
 ) {
     var videoClicked = rememberSaveable { mutableStateOf(false) }
     Scaffold(topBar = {
@@ -70,7 +71,10 @@ fun EpisodeDetails(
                 canNavigateBack = true,
                 navigateUp = navigateUp,
                 backgroundColor = colorResource(id = R.color.episodeDetail_background),
-                videoButton = true,
+                videoButton = when (episodeDetails.videos?.results?.firstOrNull()?.key ?: "") {
+                    "" -> false
+                    else -> true
+                },
                 onVideoClick = {
                     videoClicked.value = true
                 }
@@ -166,18 +170,17 @@ fun EpisodeDetails(
                                 item {
                                     val pagerState = rememberPagerState()
                                     HorizontalPager(
-                                        count = episodeDetailViewModel.getEpisodeImages().size,
+                                        count = episodeDetails.images?.stills?.size ?: 0,
                                         state = pagerState,
                                         itemSpacing = 10.dp,
-                                        contentPadding = PaddingValues(horizontal = 20.dp)
+                                        contentPadding = PaddingValues(horizontal = 20.dp),
+                                        modifier = Modifier
+                                            .height(
+                                                height = LocalConfiguration.current.screenHeightDp.dp / 5
+                                            )
                                     ) {
                                         Card(
-                                            modifier = Modifier
-                                                .padding(
 
-                                                    bottom = GetPadding().xSmallPadding,
-                                                    top = GetPadding().xSmallPadding
-                                                ),
                                             border = BorderStroke(
                                                 GetThickness().xxSmall,
                                                 color = MaterialTheme.colors.onBackground
@@ -187,7 +190,8 @@ fun EpisodeDetails(
                                         ) {
                                             GetCarouselImage(
                                                 imageUri = TmdbImageUrlBuilder.build(
-                                                    episodeDetailViewModel.getEpisodeImages()[it].filePath,
+                                                    episodeDetails.images?.stills?.get(it)?.filePath
+                                                        ?: "",
                                                     "w500"
                                                 )
                                             )
@@ -208,7 +212,7 @@ fun EpisodeDetails(
                                     Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
                                     Text(
-                                        text = episodeDetailViewModel.getEpisodeOverview(),
+                                        text = episodeDetails.overview,
                                         fontSize = 11.sp,
                                         modifier = Modifier
                                             .padding(
@@ -250,7 +254,7 @@ fun EpisodeDetails(
                                     GetInfoInLine(
                                         icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                         topic = stringResource(R.string.rating),
-                                        topicAnswer = episodeDetailViewModel.getEpisodeRating()
+                                        topicAnswer = episodeDetails.voteAverage.toString()
                                     )
 
                                     Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
@@ -280,15 +284,16 @@ fun EpisodeDetails(
                                     }
                                 }
                             }
-                        }
-                        if (videoClicked.value) {
-                            playVideo(
-                                modifier = Modifier.fillMaxWidth(),
-                                videoClicked = {
-                                    videoClicked.value = it
-                                },
-                                videoId = episodeDetailViewModel.getEpisodeVideo()
-                            )
+                            if (videoClicked.value) {
+                                playVideo(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    videoClicked = {
+                                        videoClicked.value = it
+                                    },
+                                    videoId = episodeDetailViewModel.getEpisodeVideo(),
+                                    playFullScreen = false
+                                )
+                            }
                         }
                     } else {
                         Row(
@@ -353,17 +358,18 @@ fun EpisodeDetails(
                                 }
                             }
                         }
-                    }
-                    if (videoClicked.value) {
-                        playVideo(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(150.dp),
-                            videoClicked = {
-                                videoClicked.value = it
-                            },
-                            videoId = episodeDetailViewModel.getEpisodeVideo()
-                        )
+                        if (videoClicked.value) {
+                            playVideo(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp),
+                                videoClicked = {
+                                    videoClicked.value = it
+                                },
+                                videoId = episodeDetails.videos?.results?.firstOrNull()?.key ?: "",
+                                playFullScreen = true
+                            )
+                        }
                     }
                 } else {
                     Image(
@@ -384,11 +390,11 @@ object EpisodeDetailsDestination : NavigationDestination {
 @Composable
 fun GetCarouselImage(imageUri: String) {
     AsyncImage(
-        modifier = Modifier
-            .size(
-                width = LocalConfiguration.current.screenWidthDp.dp - 50.dp,
-                height = LocalConfiguration.current.screenHeightDp.dp / 5
-            ),
+        modifier = Modifier.size(
+            height = LocalConfiguration.current.screenHeightDp.dp / 5,
+            width =
+            LocalConfiguration.current.screenWidthDp.dp - 50.dp
+        ),
         alignment = Alignment.Center,
         model = imageUri,
         error = painterResource(id = getErrorImage()),
@@ -402,52 +408,57 @@ fun GetCarouselImage(imageUri: String) {
 fun YoutubeScreen(
     videoId: String,
     modifier: Modifier = Modifier,
+    playFullScreen: Boolean = false,
 ) {
     val ctx = LocalContext.current
+    var view by remember {
+        mutableStateOf(YouTubePlayerView(ctx))
+    }
 
-    AndroidView(factory = {
-        var view = YouTubePlayerView(it)
-        val fragment = view.addYouTubePlayerListener(
-            object : AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    super.onReady(youTubePlayer)
-                    youTubePlayer.loadVideo(videoId, 0f)
-                }
+    view.addYouTubePlayerListener(
+        object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                super.onReady(youTubePlayer)
+                youTubePlayer.loadVideo(videoId, 0f)
             }
-        )
+        }
+    )
+    AndroidView(factory = {
         view
-    })
+    }, update = {
+        if (playFullScreen) {
+            view.enterFullScreen()
+        }
+    }, modifier = Modifier)
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun playVideo(modifier: Modifier = Modifier, videoClicked: (Boolean) -> Unit, videoId: String) {
-    Dialog(
+fun playVideo(
+    modifier: Modifier = Modifier,
+    videoClicked: (Boolean) -> Unit,
+    videoId: String,
+    playFullScreen: Boolean = false,
+) {
+    AlertDialog(
         onDismissRequest = { videoClicked(false) },
+
+        text = {
+            YoutubeScreen(videoId = videoId, playFullScreen = playFullScreen)
+        },
+        confirmButton = {},
+        dismissButton = {
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp),
+                onClick = { videoClicked(false) }
+            ) {
+                Text(textAlign = TextAlign.End, text = "Back")
+            }
+        },
         properties = DialogProperties(
             usePlatformDefaultWidth = false
         )
-    ) {
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    modifier = Modifier.padding(10.dp),
-                    text = "TRAILER",
-                    style = MaterialTheme.typography.body1
-                )
-                YoutubeScreen(videoId, modifier = modifier.padding(10.dp))
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    onClick = { videoClicked(false) }
-                ) {
-                    Text(textAlign = TextAlign.End, text = "Back")
-                }
-            }
-        }
-    }
+    )
 }

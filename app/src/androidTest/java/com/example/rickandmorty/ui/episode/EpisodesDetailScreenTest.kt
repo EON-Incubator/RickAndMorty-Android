@@ -42,7 +42,8 @@ class EpisodesDetailScreenTest {
                 navigateUp = { },
                 onCharacterClick = { },
                 deviceType = screenType,
-                episodeDetailViewModel = viewModel
+                episodeDetailViewModel = viewModel,
+                episodeDetails = episodeDetails
             )
         }
     }

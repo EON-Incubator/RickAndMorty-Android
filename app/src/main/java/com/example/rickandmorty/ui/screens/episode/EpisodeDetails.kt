@@ -26,9 +26,11 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import app.moviebase.tmdb.image.TmdbImageUrlBuilder
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
@@ -52,6 +54,7 @@ fun EpisodeDetails(
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+    episodeDetailViewModel: EpisodeDetailViewModel = hiltViewModel<EpisodeDetailViewModel>(),
 ) {
     var videoClicked = rememberSaveable { mutableStateOf(false) }
     Scaffold(topBar = {
@@ -163,12 +166,11 @@ fun EpisodeDetails(
                                 item {
                                     val pagerState = rememberPagerState()
                                     HorizontalPager(
-                                        count = 6,
+                                        count = episodeDetailViewModel.getEpisodeImages().size,
                                         state = pagerState,
                                         itemSpacing = 10.dp,
                                         contentPadding = PaddingValues(horizontal = 20.dp)
-                                    ) { page ->
-
+                                    ) {
                                         Card(
                                             modifier = Modifier
                                                 .padding(
@@ -183,7 +185,12 @@ fun EpisodeDetails(
                                             shape = RoundedCornerShape(10)
 
                                         ) {
-                                            GetCarouselImage()
+                                            GetCarouselImage(
+                                                imageUri = TmdbImageUrlBuilder.build(
+                                                    episodeDetailViewModel.getEpisodeImages()[it].filePath,
+                                                    "w500"
+                                                )
+                                            )
                                         }
                                     }
                                 }
@@ -201,7 +208,7 @@ fun EpisodeDetails(
                                     Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
                                     Text(
-                                        text = stringResource(R.string.full_desc),
+                                        text = episodeDetailViewModel.getEpisodeOverview(),
                                         fontSize = 11.sp,
                                         modifier = Modifier
                                             .padding(
@@ -243,7 +250,7 @@ fun EpisodeDetails(
                                     GetInfoInLine(
                                         icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                         topic = stringResource(R.string.rating),
-                                        topicAnswer = state.selectedEpisode?.episode.toString()
+                                        topicAnswer = episodeDetailViewModel.getEpisodeRating()
                                     )
 
                                     Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
@@ -279,7 +286,8 @@ fun EpisodeDetails(
                                 modifier = Modifier.fillMaxWidth(),
                                 videoClicked = {
                                     videoClicked.value = it
-                                }
+                                },
+                                videoId = episodeDetailViewModel.getEpisodeVideo()
                             )
                         }
                     } else {
@@ -353,7 +361,8 @@ fun EpisodeDetails(
                                 .height(150.dp),
                             videoClicked = {
                                 videoClicked.value = it
-                            }
+                            },
+                            videoId = episodeDetailViewModel.getEpisodeVideo()
                         )
                     }
                 } else {
@@ -373,7 +382,7 @@ object EpisodeDetailsDestination : NavigationDestination {
 }
 
 @Composable
-fun GetCarouselImage() {
+fun GetCarouselImage(imageUri: String) {
     AsyncImage(
         modifier = Modifier
             .size(
@@ -381,7 +390,7 @@ fun GetCarouselImage() {
                 height = LocalConfiguration.current.screenHeightDp.dp / 5
             ),
         alignment = Alignment.Center,
-        model = "https://www.themoviedb.org/t/p/original/uCZWm1DY6UiE35aPttox4hoRrdk.jpg",
+        model = imageUri,
         error = painterResource(id = getErrorImage()),
         placeholder = painterResource(R.drawable.loading_img),
         contentDescription = "Crew Members",
@@ -412,7 +421,7 @@ fun YoutubeScreen(
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun playVideo(modifier: Modifier = Modifier, videoClicked: (Boolean) -> Unit) {
+fun playVideo(modifier: Modifier = Modifier, videoClicked: (Boolean) -> Unit, videoId: String) {
     Dialog(
         onDismissRequest = { videoClicked(false) },
         properties = DialogProperties(
@@ -429,7 +438,7 @@ fun playVideo(modifier: Modifier = Modifier, videoClicked: (Boolean) -> Unit) {
                     text = "TRAILER",
                     style = MaterialTheme.typography.body1
                 )
-                YoutubeScreen("sywZWeI_8Cg", modifier = modifier.padding(10.dp))
+                YoutubeScreen(videoId, modifier = modifier.padding(10.dp))
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()

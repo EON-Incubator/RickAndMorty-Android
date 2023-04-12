@@ -8,6 +8,7 @@ data class TmdbEpisodeDetail(
     val overview: String = "",
     @SerializedName("vote_average") val voteAverage: Float? = null,
     val images: EpisodeImages? = null,
+    val videos: EpisodeVideos? = null,
 )
 
 data class EpisodeImages(

@@ -21,6 +21,8 @@ class EpisodeDetailViewModel @Inject constructor(
     val id = savedStateHandle.get<String>("id")
     private val _episode = MutableStateFlow(DetailEpisodesState())
     val state = _episode.asStateFlow()
+    private val _playVideo = MutableStateFlow(false)
+    val playVideo = _playVideo.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

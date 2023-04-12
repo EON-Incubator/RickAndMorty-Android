@@ -133,13 +133,16 @@ fun RickAndMortyNavHost(
             onDetailScreen(true)
             val viewModel = hiltViewModel<EpisodeDetailViewModel>()
             val state by viewModel.state.collectAsState()
+            val episodeDetails by viewModel.episodeDetail.collectAsState()
             EpisodeDetails(
                 state = state,
+                episodeDetails = episodeDetails,
                 navigateUp = { navController.popBackStack() },
                 onCharacterClick = {
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
                 },
-                deviceType = deviceType
+                deviceType = deviceType,
+                episodeDetailViewModel = viewModel
 
             )
         }

@@ -1,10 +1,15 @@
 package com.example.rickandmorty.ui.screens.episode
 
+import android.util.Log
+import androidx.compose.runtime.*
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail
+import com.example.rickandmorty.api.APIService
 import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.domain.episodes.GetEpisodeUseCase
+import com.example.rickandmorty.domain.episodes.ImageData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +29,10 @@ class EpisodeDetailViewModel @Inject constructor(
     private val _playVideo = MutableStateFlow(false)
     val playVideo = _playVideo.asStateFlow()
 
+    private val _episodeDetail = MutableStateFlow(TmdbEpisodeDetail())
+    var errorMessage: String by mutableStateOf("")
+    val episodeDetail = _episodeDetail.asStateFlow()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _episode.update {
@@ -32,6 +41,19 @@ class EpisodeDetailViewModel @Inject constructor(
                 )
             }
             getEpisode()
+            val apiService = APIService.getInstance()
+            try {
+                _episodeDetail.update {
+                    apiService.getEpisodeDetails(
+                        season = state.value.selectedEpisode?.episode?.substring(range = 1..2)
+                            ?.toInt() ?: 0,
+                        episode = state.value.selectedEpisode?.episode?.substring(4)?.toInt() ?: 0
+                    )
+                }
+            } catch (e: Exception) {
+                errorMessage = e.message.toString()
+            }
+            Log.v("DAta", episodeDetail.value.toString())
         }
     }
 
@@ -51,6 +73,22 @@ class EpisodeDetailViewModel @Inject constructor(
                 isLoading = false
             )
         }
+    }
+
+    fun getEpisodeOverview(): String {
+        return episodeDetail.value.overview
+    }
+
+    fun getEpisodeRating(): String {
+        return (episodeDetail.value.voteAverage ?: 0.0f).toString()
+    }
+
+    fun getEpisodeImages(): List<ImageData> {
+        return episodeDetail.value.images?.stills ?: emptyList()
+    }
+
+    fun getEpisodeVideo(): String {
+        return episodeDetail.value.videos?.results?.firstOrNull()?.key ?: ""
     }
 
     data class DetailEpisodesState(

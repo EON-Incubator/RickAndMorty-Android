@@ -23,6 +23,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
@@ -37,6 +38,7 @@ fun EpisodeDetails(
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+    episodeDetailViewModel: EpisodeDetailViewModel = hiltViewModel<EpisodeDetailViewModel>(),
 ) {
     Scaffold(topBar = {
         if (state.isLoading) {
@@ -160,7 +162,7 @@ fun EpisodeDetails(
                                     Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
                                     Text(
-                                        text = stringResource(R.string.full_desc),
+                                        text = episodeDetailViewModel.getEpisodeOverview(),
                                         fontSize = 11.sp,
                                         modifier = Modifier
                                             .padding(
@@ -202,7 +204,7 @@ fun EpisodeDetails(
                                     GetInfoInLine(
                                         icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                         topic = stringResource(R.string.rating),
-                                        topicAnswer = state.selectedEpisode?.episode.toString()
+                                        topicAnswer = episodeDetailViewModel.getEpisodeRating()
                                     )
 
                                     Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))

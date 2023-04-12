@@ -139,7 +139,8 @@ fun RickAndMortyNavHost(
                 onCharacterClick = {
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
                 },
-                deviceType = deviceType
+                deviceType = deviceType,
+                episodeDetailViewModel = viewModel
 
             )
         }

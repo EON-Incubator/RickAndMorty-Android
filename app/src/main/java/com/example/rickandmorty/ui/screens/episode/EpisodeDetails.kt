@@ -27,7 +27,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
@@ -273,14 +272,14 @@ fun EpisodeDetails(
                                     }
                                 }
                             }
-                        }
-                        if (videoClicked.value) {
-                            playVideo(
-                                modifier = Modifier.fillMaxWidth(),
-                                videoClicked = {
-                                    videoClicked.value = it
-                                }
-                            )
+                            if (videoClicked.value) {
+                                playVideo(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    videoClicked = {
+                                        videoClicked.value = it
+                                    }
+                                )
+                            }
                         }
                     } else {
                         Row(
@@ -350,7 +349,7 @@ fun EpisodeDetails(
                         playVideo(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(150.dp),
+                                .height(200.dp),
                             videoClicked = {
                                 videoClicked.value = it
                             }
@@ -413,32 +412,63 @@ fun YoutubeScreen(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun playVideo(modifier: Modifier = Modifier, videoClicked: (Boolean) -> Unit) {
-    Dialog(
+    AlertDialog(
         onDismissRequest = { videoClicked(false) },
+        title = {
+            Text(
+                modifier = Modifier.padding(10.dp),
+                text = "TRAILER",
+                style = MaterialTheme.typography.body1
+            )
+        },
+        text = {
+            Card(modifier = modifier) {
+                YoutubeScreen("sywZWeI_8Cg")
+            }
+        },
+        confirmButton = {},
+        dismissButton = {
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                onClick = { videoClicked(false) }
+            ) {
+                Text(textAlign = TextAlign.End, text = "Back")
+            }
+        },
         properties = DialogProperties(
             usePlatformDefaultWidth = false
         )
-    ) {
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    modifier = Modifier.padding(10.dp),
-                    text = "TRAILER",
-                    style = MaterialTheme.typography.body1
-                )
-                YoutubeScreen("sywZWeI_8Cg", modifier = modifier.padding(10.dp))
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    onClick = { videoClicked(false) }
-                ) {
-                    Text(textAlign = TextAlign.End, text = "Back")
-                }
-            }
-        }
-    }
+    )
+//    AlertDialog(
+//        onDismissRequest = { videoClicked(false) },
+//        properties = DialogProperties(
+//            usePlatformDefaultWidth = false
+//        ),
+//        title = {},
+//        confirmButton = {},
+//        dismissButton = {}
+//    ) {
+//        Card(
+//            modifier = modifier
+//        ) {
+//            Column() {
+//                Text(
+//                    modifier = Modifier.padding(10.dp),
+//                    text = "TRAILER",
+//                    style = MaterialTheme.typography.body1
+//                )
+//                YoutubeScreen("sywZWeI_8Cg")
+//                Button(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(10.dp),
+//                    onClick = { videoClicked(false) }
+//                ) {
+//                    Text(textAlign = TextAlign.End, text = "Back")
+//                }
+//            }
+//        }
+//    }
 }

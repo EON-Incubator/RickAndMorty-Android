@@ -3,16 +3,22 @@ package com.example.rickandmorty.ui
 import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.rickandmorty.RickAndMortyApp
+import com.example.rickandmorty.domain.character.GetCharacterUseCase
+import com.example.rickandmorty.domain.location.GetAllLocationUseCase
+import com.example.rickandmorty.domain.search.GetSearchResultUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-object AppViewModelProvider {
-    val Factory = viewModelFactory {
-        // Initializer for ItemEditViewModel
-        initializer {
-            TODO()
-        }
+@HiltViewModel
+class AppViewModelProvider @Inject constructor(
+    private val getSearchResultUseCase: GetSearchResultUseCase,
+    private val getAllLocationUseCase: GetAllLocationUseCase,
+    private val getCharacterUseCase: GetCharacterUseCase,
+) {
+    init {
+
+        refresh()
     }
 }
 

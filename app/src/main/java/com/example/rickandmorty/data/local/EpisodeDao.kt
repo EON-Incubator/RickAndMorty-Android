@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface EpisodeDao {
 
-    @Query("SELECT * from items ORDER BY name ASC")
+    @Query("SELECT * from episodes ORDER BY name ASC")
     fun getAllEpisodes(): Flow<List<Episode>>
 
-    @Query("SELECT * from items WHERE id = :id")
+    @Query("SELECT * from episodes WHERE id = :id")
     fun getEpisode(id: Int): Flow<Episode>
 
     // Specify the conflict strategy as IGNORE, when the user tries to add an

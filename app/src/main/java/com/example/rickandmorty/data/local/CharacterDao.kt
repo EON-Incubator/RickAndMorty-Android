@@ -7,10 +7,10 @@ import com.example.rickandmorty.data.local.schema.Character
 @Dao
 interface CharacterDao {
 
-    @Query("SELECT * from items ORDER BY name ASC")
+    @Query("SELECT * from characters ORDER BY name ASC")
     fun getAllCharacters(): Flow<List<Character>>
 
-    @Query("SELECT * from items WHERE id = :id")
+    @Query("SELECT * from characters WHERE id = :id")
     fun getCharacter(id: Int): Flow<Character>
 
     // Specify the conflict strategy as IGNORE, when the user tries to add an

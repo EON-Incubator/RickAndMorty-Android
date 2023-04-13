@@ -7,10 +7,10 @@ import com.example.rickandmorty.data.local.schema.Location
 @Dao
 interface LocationDao {
 
-    @Query("SELECT * from items ORDER BY name ASC")
+    @Query("SELECT * from locations ORDER BY name ASC")
     fun getAllLocations(): Flow<List<Location>>
 
-    @Query("SELECT * from items WHERE id = :id")
+    @Query("SELECT * from locations WHERE id = :id")
     fun getLocation(id: Int): Flow<Location>
 
     // Specify the conflict strategy as IGNORE, when the user tries to add an

@@ -5,14 +5,14 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "locations")
 data class Location(
-    @PrimaryKey(autoGenerate = true)
-    val id: String?,
+    @PrimaryKey
+    val id: String,
     val name: String?,
     val type: String?,
     val dimension: String?,
-    val images: List<String>?,
+    val images: String?,
     val created: String,
     val episode: String?,
     val air_date: String?,
-    val characters: List<Character>,
+    val characters: String?,
 )

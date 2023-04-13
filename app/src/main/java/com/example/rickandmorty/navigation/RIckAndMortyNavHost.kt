@@ -7,9 +7,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.rickandmorty.RickAndMortyApp
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.character.*
 import com.example.rickandmorty.ui.screens.episode.*
@@ -216,5 +219,8 @@ fun RickAndMortyNavHost(
             )
         }
     }
+
+    fun CreationExtras.rickApplication(): RickAndMortyApp =
+        (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as RickAndMortyApp)
     navController.graph.setStartDestination(CharacterDestination.route)
 }

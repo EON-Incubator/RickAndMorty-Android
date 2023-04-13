@@ -1,0 +1,26 @@
+package com.example.rickandmorty.data.local
+
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
+import com.example.rickandmorty.data.local.schema.Location
+
+@Dao
+interface LocationDao {
+
+    @Query("SELECT * from items ORDER BY name ASC")
+    fun getAllLocations(): Flow<List<Location>>
+
+    @Query("SELECT * from items WHERE id = :id")
+    fun getLocation(id: Int): Flow<Location>
+
+    // Specify the conflict strategy as IGNORE, when the user tries to add an
+    // existing Item into the database Room ignores the conflict.
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(item: Location)
+
+    @Update
+    suspend fun update(item: Location)
+
+    @Delete
+    suspend fun delete(item: Location)
+}

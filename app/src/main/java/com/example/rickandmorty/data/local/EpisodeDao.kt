@@ -1,0 +1,26 @@
+package com.example.rickandmorty.data.local
+
+import androidx.room.*
+import com.example.rickandmorty.data.local.schema.Episode
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface EpisodeDao {
+
+    @Query("SELECT * from items ORDER BY name ASC")
+    fun getAllEpisodes(): Flow<List<Episode>>
+
+    @Query("SELECT * from items WHERE id = :id")
+    fun getEpisode(id: Int): Flow<Episode>
+
+    // Specify the conflict strategy as IGNORE, when the user tries to add an
+    // existing Item into the database Room ignores the conflict.
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(item: Episode)
+
+    @Update
+    suspend fun update(item: Episode)
+
+    @Delete
+    suspend fun delete(item: Episode)
+}

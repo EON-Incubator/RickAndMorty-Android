@@ -41,7 +41,6 @@ class LocationViewModel @Inject constructor(
 
         refresh()
         var character: com.example.rickandmorty.data.realm.schema.Character = Character().apply {
-            id = "mo"
             name = "monty"
             type = "type"
         }

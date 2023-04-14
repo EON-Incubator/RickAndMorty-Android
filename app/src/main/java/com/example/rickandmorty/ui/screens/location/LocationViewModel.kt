@@ -1,7 +1,11 @@
 package com.example.rickandmorty.ui.screens.location
 
+import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickandmorty.data.realm.data.MongoRepository
+import com.example.rickandmorty.data.realm.schema.Character
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.Location
@@ -21,6 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LocationViewModel @Inject constructor(
     private val getAllLocationUseCase: GetAllLocationUseCase,
+    private val repository: MongoRepository,
 ) : ViewModel() {
 
     // Mutable Flow State variables
@@ -29,11 +34,27 @@ class LocationViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
+    var data = mutableStateOf(emptyList<com.example.rickandmorty.data.realm.schema.Character>())
 
     // Initialization of components after launching
     init {
 
         refresh()
+        var character: com.example.rickandmorty.data.realm.schema.Character = Character().apply {
+            id = "mo"
+            name = "monty"
+            type = "type"
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insertPerson(character)
+        }
+
+        viewModelScope.launch {
+            repository.getData().collect {
+                data.value = it
+                Log.v("Realm Data", it[0].name.toString())
+            }
+        }
     }
 
     fun refresh() {

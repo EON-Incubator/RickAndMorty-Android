@@ -11,6 +11,9 @@ plugins {
     id 'com.apollographql.apollo3'
 
     id 'com.google.devtools.ksp' version "1.8.0-1.0.9"
+
+    //Realm
+    id 'io.realm.kotlin'
 }
 
 android {
@@ -32,11 +35,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testCoverageEnabled true
         }
         debug{
+            minifyEnabled true
             testCoverageEnabled true
         }
     }
@@ -173,6 +177,10 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     ksp "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
+
+    //Realm
+    implementation 'io.realm.kotlin:library-base:1.7.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 
 
 }

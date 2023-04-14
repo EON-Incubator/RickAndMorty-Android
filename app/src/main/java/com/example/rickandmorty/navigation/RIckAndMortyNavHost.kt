@@ -7,12 +7,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.rickandmorty.RickAndMortyApp
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.character.*
 import com.example.rickandmorty.ui.screens.episode.*
@@ -83,9 +80,9 @@ fun RickAndMortyNavHost(
         }
         composable(CharacterDetailsDestination.route + "?id={id}") {
             onDetailScreen(true)
-            val viewModel = hiltViewModel<DetailedCharacterViewModel>()
+            val characterDetailViewModel = hiltViewModel<DetailedCharacterViewModel>()
 
-            val characterState by viewModel.character.collectAsState()
+            val characterState by characterDetailViewModel.character.collectAsState()
             CharacterDetails(
                 state = characterState,
                 navigateUp = { navController.popBackStack() },
@@ -106,10 +103,10 @@ fun RickAndMortyNavHost(
         }
         composable(EpisodeDestination.route) {
             onDetailScreen(true)
-            val viewModel = hiltViewModel<EpisodeViewModel>()
-            val state by viewModel.state.collectAsState()
+            val episodeViewModel = hiltViewModel<EpisodeViewModel>()
+            val state by episodeViewModel.state.collectAsState()
             val listState = rememberLazyGridState()
-            val refreshState by viewModel.isRefreshing.collectAsState()
+            val refreshState by episodeViewModel.isRefreshing.collectAsState()
 
             val endReached by remember {
                 derivedStateOf {
@@ -118,7 +115,7 @@ fun RickAndMortyNavHost(
                 }
             }
             if (endReached) {
-                viewModel.updateEpisodeList()
+                episodeViewModel.updateEpisodeList()
             }
 
             EpisodesScreen(
@@ -126,7 +123,7 @@ fun RickAndMortyNavHost(
                 onSelectEpisode = {
                     navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
                 },
-                onRefresh = { viewModel.refresh() },
+                onRefresh = { episodeViewModel.refresh() },
                 listState = listState,
                 deviceType = deviceType,
                 isRefreshing = refreshState
@@ -134,9 +131,9 @@ fun RickAndMortyNavHost(
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {
             onDetailScreen(true)
-            val viewModel = hiltViewModel<EpisodeDetailViewModel>()
-            val state by viewModel.state.collectAsState()
-            val episodeDetails by viewModel.episodeDetail.collectAsState()
+            val episodeDetailViewModel = hiltViewModel<EpisodeDetailViewModel>()
+            val state by episodeDetailViewModel.state.collectAsState()
+            val episodeDetails by episodeDetailViewModel.episodeDetail.collectAsState()
             EpisodeDetails(
                 state = state,
                 episodeDetails = episodeDetails,
@@ -145,15 +142,15 @@ fun RickAndMortyNavHost(
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
                 },
                 deviceType = deviceType,
-                episodeDetailViewModel = viewModel
+                episodeDetailViewModel = episodeDetailViewModel
 
             )
         }
         composable(LocationDestination.route) {
             onDetailScreen(true)
-            val viewModel = hiltViewModel<LocationViewModel>()
-            val locationsState by viewModel.location.collectAsState()
-            val refreshState by viewModel.isRefreshing.collectAsState()
+            val locationViewModel = hiltViewModel<LocationViewModel>()
+            val locationsState by locationViewModel.location.collectAsState()
+            val refreshState by locationViewModel.isRefreshing.collectAsState()
             val listState = rememberLazyGridState()
 
             val endReached by remember {
@@ -163,7 +160,7 @@ fun RickAndMortyNavHost(
                 }
             }
             if (endReached) {
-                viewModel.updateList()
+                locationViewModel.updateList()
             }
 
             LocationScreen(
@@ -172,7 +169,7 @@ fun RickAndMortyNavHost(
                     navController.navigate(LocationDetailsDestination.route + "?id=$it")
                 },
                 onRefresh = {
-                    viewModel.refresh()
+                    locationViewModel.refresh()
                 },
                 listState = listState,
                 deviceType = deviceType,
@@ -219,8 +216,5 @@ fun RickAndMortyNavHost(
             )
         }
     }
-
-    fun CreationExtras.rickApplication(): RickAndMortyApp =
-        (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as RickAndMortyApp)
     navController.graph.setStartDestination(CharacterDestination.route)
 }

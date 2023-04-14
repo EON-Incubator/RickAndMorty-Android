@@ -1,8 +1,10 @@
 package com.example.rickandmorty.ui.screens.episode
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -440,21 +443,88 @@ fun playVideo(
     videoId: String,
     playFullScreen: Boolean = false,
 ) {
+//    Dialog(
+//        onDismissRequest = { videoClicked(false) },
+//        properties = DialogProperties(usePlatformDefaultWidth = false)
+//    ) {
+//        Card(
+//            Modifier
+//                .fillMaxWidth(),
+//            backgroundColor = Color.Black
+//
+//
+//        ) {
+//            Column() {
+//
+//                YoutubeScreen(modifier = Modifier.weight(1f), videoId = videoId, playFullScreen = playFullScreen)
+//
+//                if(playFullScreen) {
+//                    Button(colors = ButtonDefaults.buttonColors(Color.DarkGray),
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+// //                    .padding(5.dp),
+//                        , onClick = { videoClicked(false) }
+//                    ) {
+//                        Text(color = Color.White, textAlign = TextAlign.End, text = "Exit")
+//                    }
+//                }
+// //                Text(
+// //                    modifier = Modifier
+// //                        .padding(horizontal = 10.dp)
+// //                        .fillMaxWidth()
+// //                        .clickable {
+// //                            videoClicked(false)
+// //                        },
+// //                    text = "X",
+// //                    color = Color.White,
+// //                    textAlign = TextAlign.End
+// //                )
+//
+//
+//            }
+//
+//        }
+//    }
+
     AlertDialog(
+        backgroundColor = Color.Black,
         onDismissRequest = { videoClicked(false) },
 
         text = {
-            YoutubeScreen(videoId = videoId, playFullScreen = playFullScreen)
+            Card(
+                Modifier
+                    .fillMaxWidth()
+                    .scrollable(
+                        orientation = Orientation.Vertical,
+                        state = rememberScrollableState { delta ->
+                            when {
+                                delta < 0 -> {
+                                    videoClicked(false)
+                                }
+                                delta > 0 -> {
+                                    videoClicked(false)
+                                }
+                                else -> {}
+                            }
+                            delta
+                        }
+                    )
+            ) {
+                YoutubeScreen(videoId = videoId, playFullScreen = playFullScreen)
+            }
         },
         confirmButton = {},
         dismissButton = {
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp),
-                onClick = { videoClicked(false) }
-            ) {
-                Text(textAlign = TextAlign.End, text = "Back")
+            if (playFullScreen) {
+                Button(
+                    colors = ButtonDefaults.buttonColors(Color.DarkGray),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+//                    .padding(5.dp),
+                    onClick = { videoClicked(false) }
+                ) {
+                    Text(color = Color.White, textAlign = TextAlign.End, text = "Exit")
+                }
             }
         },
         properties = DialogProperties(

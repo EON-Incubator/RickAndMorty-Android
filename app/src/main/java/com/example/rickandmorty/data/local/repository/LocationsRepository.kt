@@ -12,20 +12,20 @@ interface LocationsRepository {
     /**
      * Retrieve an item from the given data source that matches with the [id].
      */
-    fun getLocationStream(id: Int): Flow<Location?>
+    fun getLocationStream(id: Int): Location?
 
     /**
      * Insert item in the data source
      */
-    suspend fun insertLocation(item: Location)
+    suspend fun insertLocation(location: Location)
 
     /**
      * Delete item from the data source
      */
-    suspend fun deleteLocation(item: Location)
+    suspend fun deleteLocation(location: Location)
 
     /**
      * Update item in the data source
      */
-    suspend fun updateLocation(item: Location)
+    suspend fun updateLocation(location: Location)
 }

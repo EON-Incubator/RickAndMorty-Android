@@ -4,6 +4,7 @@ import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.domain.episodes.EpisodesData
+import com.example.rickandmorty.domain.localRealm.AllData
 import com.example.rickandmorty.domain.location.LocationData
 import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.domain.search.SearchResult
@@ -35,4 +36,6 @@ interface CharacterClient {
     suspend fun getEpisode(id: String): DetailedEpisode?
 
     suspend fun getSearchResult(queryString: String, page: Int = 1): SearchResult?
+
+    suspend fun getAllData(page: Int = 1): AllData?
 }

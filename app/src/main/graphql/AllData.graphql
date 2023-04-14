@@ -1,0 +1,70 @@
+query AllData($page:Int!) {
+    characters(page: $page) {
+        info {
+            ...pageInfo
+        }
+        results {
+            id
+            episode {
+                id
+                name
+                episode
+                characters {
+                    image
+                }
+                air_date
+            }
+            image
+            name
+            species
+            status
+            gender
+            location {
+                name
+                id
+            }
+            origin {
+                name
+                id
+            }
+        }
+    }
+   locations(page: $page) {
+        info {
+            ...pageInfo
+        }
+        results {
+            id
+            name
+            type
+            dimension
+            residents {
+                id
+                gender
+                image
+                name
+                status
+                species
+            }
+        }
+    }
+   episodes(page: $page) {
+        info {
+            ...pageInfo
+        }
+        results {
+            id
+            name
+            episode
+            air_date
+            characters {
+                id
+                name
+                image
+                gender
+                species
+                status
+            }
+        }
+    }
+}

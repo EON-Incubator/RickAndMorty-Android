@@ -7,6 +7,7 @@ import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.domain.episodes.EpisodesData
+import com.example.rickandmorty.domain.localRealm.AllData
 import com.example.rickandmorty.domain.location.LocationData
 import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.domain.search.SearchResult
@@ -73,5 +74,13 @@ class ApolloCharacterClient(private val apolloClient: ApolloClient) :
             .execute()
             .data
             ?.toSearchResult()
+    }
+
+    override suspend fun getAllData(page: Int): AllData? {
+        return apolloClient
+            .query(AllDataQuery(page))
+            .execute()
+            .data
+            ?.toAllData()
     }
 }

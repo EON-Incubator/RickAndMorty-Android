@@ -12,20 +12,20 @@ interface EpisodesRepository {
     /**
      * Retrieve an item from the given data source that matches with the [id].
      */
-    fun getEpisodeStream(id: Int): Flow<Episode?>
+    fun getEpisodeStream(id: Int): Episode?
 
     /**
      * Insert item in the data source
      */
-    suspend fun insertEpisode(item: Episode)
+    suspend fun insertEpisode(episode: Episode)
 
     /**
      * Delete item from the data source
      */
-    suspend fun deleteEpisode(item: Episode)
+    suspend fun deleteEpisode(episode: Episode)
 
     /**
      * Update item in the data source
      */
-    suspend fun updateEpisode(item: Episode)
+    suspend fun updateEpisode(episode: Episode)
 }

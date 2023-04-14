@@ -6,6 +6,7 @@ import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.domain.episodes.GetAllEpisodeUseCase
 import com.example.rickandmorty.domain.episodes.GetEpisodeUseCase
+import com.example.rickandmorty.domain.localRealm.GetAllDataUseCase
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
 import com.example.rickandmorty.domain.search.GetSearchResultUseCase
@@ -78,5 +79,11 @@ provideGetCharactersClient() method for abstraction
     @Singleton
     fun provideGetSearchResultUseCase(characterClient: CharacterClient): GetSearchResultUseCase {
         return GetSearchResultUseCase(characterClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAllDataUseCase(characterClient: CharacterClient): GetAllDataUseCase {
+        return GetAllDataUseCase(characterClient)
     }
 }

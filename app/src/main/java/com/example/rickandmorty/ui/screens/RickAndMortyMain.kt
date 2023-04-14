@@ -15,10 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.RickAndMortyNavHost
+import com.example.rickandmorty.ui.AppViewModelProvider
 import com.example.rickandmorty.ui.screens.character.CharacterDestination
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavItem
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavigationBar
@@ -29,6 +31,7 @@ fun RickAndMortyMainApp(
     navController: NavHostController = rememberNavController(),
     windowSize: WindowSizeClass,
 ) {
+    val viewModel = hiltViewModel<AppViewModelProvider>()
     var invisible by remember { mutableStateOf(false) }
     var deviceType = ScreenType.PORTRAIT_PHONE
 

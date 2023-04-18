@@ -91,8 +91,6 @@ provideGetCharactersClient() method for abstraction
         return GetAllDataUseCase(characterClient)
     }
 
-
-
     @Volatile
     private var Instance: RickAndMortyDatabase? = null
 

@@ -2,8 +2,7 @@ package com.example.rickandmorty.ui.screens.episode
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-//import com.example.rickandmorty.data.local.EpisodeDao
-import com.example.rickandmorty.data.local.schema.Episode
+// import com.example.rickandmorty.data.local.EpisodeDao
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.domain.episodes.Episodes

@@ -1,35 +1,60 @@
 package com.example.rickandmorty.data.local.schema
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import androidx.room.TypeConverters
-import com.example.rickandmorty.domain.episodes.Episodes
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.example.rickandmorty.domain.character.DetailedCharacter
+import io.realm.kotlin.ext.realmListOf
+import io.realm.kotlin.ext.toRealmList
+// import androidx.room.PrimaryKey
+import io.realm.kotlin.types.RealmList
+import io.realm.kotlin.types.RealmObject
+import io.realm.kotlin.types.annotations.PrimaryKey
 
-@TypeConverters(ListTypeConverter::class)
-@Entity(tableName = "episodes")
-data class Episode(
+// @Entity(tableName = "episodes")
+class Episode : RealmObject {
     @PrimaryKey
-    val id: String = "",
-    val name: String? = "",
-    val episode: String? = "",
-    val air_date: String? = "",
-    val characters: String? = "",
-    val episodesData: List<Episodes>? = emptyList(),
-)
+    var id: String = ""
+    var name: String = ""
+    var episode: String = ""
+    var air_date: String = ""
 
-class ListTypeConverter {
+    //    @Ignore
+//    var characters: RealmList<Character> = realmListOf()
+    var characters: RealmList<String> = realmListOf()
+    var images: RealmList<String> = realmListOf()
 
-    @TypeConverter
-    fun fromString(value: String?): List<Episodes>? {
-        val type = object : TypeToken<List<Episodes>>() {}.type
-        return Gson().fromJson<List<Episodes>>(value, type)
+    constructor(
+        id: String = "",
+        name: String = "",
+        episode: String = "",
+        air_date: String = "",
+        characters: List<com.example.rickandmorty.domain.character.DetailedCharacter>,
+    ) {
+        this.id = id ?: ""
+        this.name = name ?: ""
+        this.episode = episode ?: ""
+        this.air_date = air_date ?: ""
+//        this.characters = characters?.map {
+//            Character(
+//                    ID = it.ID ?: "",
+//                    name = it.name ?: "",
+//                    image = it.image ?: "",
+//                    species = it.species ?: "",
+//                    status = it.status ?: "",
+//                    gender = it.gender ?: "",
+//                    episode = realmListOf(),
+//                    lastseen = "",
+//                    lastseenId = "",
+//                    originId = "",
+//                    origin = "",
+//                )
+//
+//        }?.toRealmList() ?: realmListOf()
+        this.characters = characters?.map {
+            it?.ID.toString()
+        }?.toRealmList() ?: realmListOf()
+        this.images = characters?.map {
+            it?.image.toString()
+        }?.toRealmList() ?: realmListOf()
     }
 
-    @TypeConverter
-    fun toString(list: List<Episodes>?): String? {
-        return Gson().toJson(list)
-    }
+    constructor() {}
 }

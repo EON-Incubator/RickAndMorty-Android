@@ -2,7 +2,7 @@ package com.example.rickandmorty.ui.screens.episode
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmorty.data.local.EpisodeDao
+//import com.example.rickandmorty.data.local.EpisodeDao
 import com.example.rickandmorty.data.local.schema.Episode
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.episodes.DetailedEpisode
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EpisodeViewModel @Inject constructor(
     private val getAllEpisodeUseCase: GetAllEpisodeUseCase,
-    private val episodeDao: EpisodeDao,
+//    private val episodeDao: EpisodeDao,
 ) : ViewModel() {
     private val _episode = MutableStateFlow(EpisodesState())
     val state = _episode.asStateFlow()
@@ -45,11 +45,11 @@ class EpisodeViewModel @Inject constructor(
                 )
             }
 
-            episodeDao.insert(
-                Episode(
-                    episodesData = state.value.episodes
-                )
-            )
+//            episodeDao.insert(
+//                Episode(
+//                    episodesData = state.value.episodes
+//                )
+//            )
 
             _isRefreshing.emit(false)
         }

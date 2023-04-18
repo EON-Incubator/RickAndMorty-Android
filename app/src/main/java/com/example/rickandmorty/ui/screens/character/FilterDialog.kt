@@ -4,72 +4,75 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DialogBox(
+fun FilterData(
     genderVal: String,
     statusVal: String,
-    selectGender: () -> Unit,
+    applyFilter: () -> Unit,
     changeGender: (String) -> Unit,
     changeStatus: (String) -> Unit,
     modifier: Modifier = Modifier,
+    close: ModalBottomSheetState,
+
 ) {
     var genderState by remember {
-        mutableStateOf("null")
+        mutableStateOf("")
     }
     var aliveState by remember {
-        mutableStateOf("null")
+        mutableStateOf("")
     }
+
+    val scope = rememberCoroutineScope()
     val showDialog = remember { mutableStateOf(true) }
     if (showDialog.value) {
-        AlertDialog(
-            onDismissRequest = {
-                showDialog.value = false
-            },
-            title = {
-                Text(text = "Filter for Characters", Modifier.padding(bottom = 12.dp))
-            },
-            text = {
-                val statusList = listOf<String>("All", "Alive", "dead", "unknown")
-                val genderList = listOf<String>("All", "Male", "Female", "Genderless", "unknown")
-                Column(modifier = Modifier.padding(top = 14.dp)) {
-                    genderState = DropdownDemo(
-                        options = genderList,
-                        tag = "Gender",
-                        selectedValue = genderVal,
-                        setup = changeGender
+        val statusList = listOf<String>(stringResource(R.string.all), stringResource(R.string.alive), stringResource(id = R.string.dead), stringResource(id = R.string.unknown))
+        val genderList = listOf<String>(stringResource(id = R.string.all), stringResource(id = R.string.male), stringResource(id = R.string.female), stringResource(id = R.string.genderless), stringResource(id = R.string.unknown))
+        Column(
+            modifier = Modifier
+                .padding(top = GetPadding().xxMediumPadding)
+                .fillMaxWidth()
+        ) {
+            genderState = DropdownDemo(
+                options = genderList,
+                tag = stringResource(R.string.gender),
+                selectedValue = genderVal,
+                setup = changeGender
+            )
+            Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
+            aliveState = DropdownDemo(
+                options = statusList,
+                tag = stringResource(R.string.status),
+                selectedValue = statusVal,
+                setup = changeStatus
+            )
+        }
 
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    aliveState = DropdownDemo(
-                        options = statusList,
-                        tag = "Status",
-                        selectedValue = statusVal,
-                        setup = changeStatus
-                    )
+        Row(
+            modifier = Modifier.padding(all = GetPadding().smallPadding),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .semantics { contentDescription = R.string.apply_filter.toString() }
+                    .testTag(stringResource(id = R.string.apply_filter)),
+                onClick = {
+                    applyFilter()
+                    scope.launch { close.hide() }
                 }
-            },
-            buttons = {
-                Row(
-                    modifier = Modifier.padding(all = 8.dp),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Button(
-                        modifier = Modifier.fillMaxWidth().semantics { contentDescription = "applyFilter" },
-                        onClick = {
-                            selectGender()
-                            showDialog.value = false
-                        }
-                    ) {
-                        Text("Click to Apply")
-                    }
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
-        )
+            ) {
+                Text(stringResource(R.string.click_to_apply))
+            }
+        }
     }
 }
 
@@ -101,13 +104,20 @@ fun DropdownDemo(
 
                 )
             },
-            colors = ExposedDropdownMenuDefaults.textFieldColors()
+            colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            modifier = Modifier
+                .padding(GetPadding().xxxMediumPadding)
+                .fillMaxWidth()
         )
         ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = {
                 expanded = false
-            }
+            },
+            modifier = Modifier
+                .padding(GetPadding().xxxMediumPadding)
+                .fillMaxWidth()
+
         ) {
             options.forEach { selectionOption ->
                 DropdownMenuItem(
@@ -115,9 +125,16 @@ fun DropdownDemo(
                         selectedOptionText = selectionOption
                         setup(selectionOption)
                         expanded = false
-                    }
+                    },
+                    modifier = Modifier.fillMaxWidth()
+
                 ) {
-                    Text(text = selectionOption)
+                    Text(
+                        text = selectionOption,
+                        modifier = Modifier
+                            .padding(GetPadding().xxxMediumPadding)
+                            .fillMaxWidth()
+                    )
                 }
             }
         }

@@ -1,21 +1,46 @@
 package com.example.rickandmorty.ui.screens.location
 
 import ExcludeFromJacocoGeneratedReport
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
+import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.location.LocationDetail
 import com.example.rickandmorty.ui.screens.ScreenType
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
 import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
+
+@ExcludeFromJacocoGeneratedReport
+@Composable
+fun LocationLoaderCells(deviceType: ScreenType) {
+    GetEmptyRow()
+    GetEmptyRow()
+}
+
+@ExcludeFromJacocoGeneratedReport
+@Composable
+fun GetEmptyRow() {
+    GetRowWithFourImages(
+        imageUrlLink = emptyList(),
+        titleName = "",
+        property1 = "",
+        property2 = "",
+        onClickable = {},
+        id = "",
+        location = true,
+        modifier = Modifier
+            .shimmerBackground(RoundedCornerShape(dimensionResource(id = R.dimen.spacer_40)))
+    )
+}
 
 @ExcludeFromJacocoGeneratedReport
 @Composable
@@ -27,10 +52,11 @@ fun LocationLoader(deviceType: ScreenType) {
                 else -> 2
             }
         ),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.padding(8.dp)
-            .semantics { contentDescription = "Fetching Records" }
+        modifier = Modifier
+            .padding(GetPadding().smallPadding)
+            .semantics { contentDescription = R.string.fetching_records.toString() }
     ) {
         repeat(
             when (deviceType) {
@@ -40,30 +66,7 @@ fun LocationLoader(deviceType: ScreenType) {
             }
         ) {
             item {
-                if (deviceType == ScreenType.LANDSCAPE_PHONE) {
-                    GetRowWithOneImage(
-                        imageUrlLink = "",
-                        titleName = "",
-                        property1 = "",
-                        property2 = "",
-                        status = "",
-                        id = "",
-                        onClickable = {},
-                        modifier = Modifier
-                            .shimmerBackground(RoundedCornerShape(40.dp))
-                    )
-                } else {
-                    GetRowWithFourImages(
-                        imageUrlLink = emptyList(),
-                        titleName = "",
-                        property1 = "",
-                        property2 = "",
-                        onClickable = {},
-                        id = "",
-                        modifier = Modifier
-                            .shimmerBackground(RoundedCornerShape(40.dp))
-                    )
-                }
+                GetEmptyRow()
             }
         }
     }
@@ -91,12 +94,12 @@ fun LocationDetailLoader(deviceType: ScreenType) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .shimmerBackground()
         ) {
             GetInfo(
-                LocationDetailViewModel.LocationDetailUiState(),
-                modifier = Modifier.shimmerBackground()
+                LocationDetailViewModel.LocationDetailUiState()
             )
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
 
             GetResidents(
                 LocationDetailViewModel.LocationDetailUiState(

@@ -1,5 +1,3 @@
-package com.example.rickandmorty.ui.episode
-
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -17,10 +15,9 @@ class EpisodesScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    @Test
-    fun episodesScreenTest() {
-        // Set up the viewmodel with some test data.
-        val viewModel = EpisodeViewModel.EpisodesState(
+    // Set up the viewmodel with some test data.
+    fun testDataSetup(): EpisodeViewModel.EpisodesState {
+        return EpisodeViewModel.EpisodesState(
             episodes = listOf(
                 Episodes(
                     "1",
@@ -40,22 +37,28 @@ class EpisodesScreenTest {
             isLoading = false,
             pages = Paginate(1, 2, 0, 20)
         )
+    }
 
-        // Set up the composable with the viewmodel.
+    // Set up the composable with the viewmodel and indicate screen type.
+    fun screen(
+        viewModel: EpisodeViewModel.EpisodesState,
+        screenType: ScreenType,
+    ) {
         composeTestRule.setContent {
             EpisodesScreen(
                 state = viewModel,
                 onSelectEpisode = { },
                 listState = LazyGridState(),
-                deviceType = ScreenType.PORTRAIT_PHONE
+                deviceType = screenType
             )
         }
+    }
 
-        // Delays the screen for 5 seconds to show the data passed.
-        Thread.sleep(5000)
-
+    fun asserts(isEpisodesDisplayed: Boolean = true) {
         // Verify that the screen title is displayed.
-        composeTestRule.onNodeWithText("Episodes").assertIsDisplayed()
+        if (isEpisodesDisplayed) {
+            composeTestRule.onNodeWithText("Episodes").assertIsDisplayed()
+        }
 
         // Verify that the list of items are displayed.
         composeTestRule.onNodeWithText("Episode 1").assertIsDisplayed()
@@ -64,97 +67,39 @@ class EpisodesScreenTest {
         composeTestRule.onNodeWithText("Episode 2").assertIsDisplayed()
         composeTestRule.onNodeWithText("S01E02").assertIsDisplayed()
         composeTestRule.onNodeWithText("2021-01-02").assertIsDisplayed()
+    }
+
+    @Test
+    fun episodesScreenTest() {
+        val viewModel = testDataSetup()
+        screen(viewModel, ScreenType.PORTRAIT_PHONE)
+
+        // Delays the screen for 5 seconds to show the data passed.
+        Thread.sleep(3000)
+
+        asserts()
     }
 
     @Test
     fun episodesScreenTestLandscape() {
-        // Set up the viewmodel with some test data.
-        val viewModel = EpisodeViewModel.EpisodesState(
-            episodes = listOf(
-                Episodes(
-                    "1",
-                    "Episode 1",
-                    "S01E01",
-                    "2021-01-01",
-                    listOf("image_url_1", "image_url_2")
-                ),
-                Episodes(
-                    "2",
-                    "Episode 2",
-                    "S01E02",
-                    "2021-01-02",
-                    listOf("image_url_3", "image_url_4")
-                )
-            ),
-            isLoading = false,
-            pages = Paginate(1, 2, 0, 20)
-        )
-
-        // Set up the composable with the viewmodel.
-        composeTestRule.setContent {
-            EpisodesScreen(
-                state = viewModel,
-                onSelectEpisode = { },
-                listState = LazyGridState(),
-                deviceType = ScreenType.LANDSCAPE_PHONE
-            )
-        }
+        val viewModel = testDataSetup()
+        screen(viewModel, ScreenType.LANDSCAPE_PHONE)
 
         // Delays the screen for 5 seconds to show the data passed.
-        Thread.sleep(5000)
+        Thread.sleep(3000)
 
-        // Verify that the list of items are displayed.
-        composeTestRule.onNodeWithText("Episode 1").assertIsDisplayed()
-        composeTestRule.onNodeWithText("S01E01").assertIsDisplayed()
-        composeTestRule.onNodeWithText("2021-01-01").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Episode 2").assertIsDisplayed()
-        composeTestRule.onNodeWithText("S01E02").assertIsDisplayed()
-        composeTestRule.onNodeWithText("2021-01-02").assertIsDisplayed()
+        asserts(isEpisodesDisplayed = false)
     }
 
     @Test
     fun episodesScreenTestTablet() {
-        // Set up the viewmodel with some test data.
-        val viewModel = EpisodeViewModel.EpisodesState(
-            episodes = listOf(
-                Episodes(
-                    "1",
-                    "Episode 1",
-                    "S01E01",
-                    "2021-01-01",
-                    listOf("image_url_1", "image_url_2")
-                ),
-                Episodes(
-                    "2",
-                    "Episode 2",
-                    "S01E02",
-                    "2021-01-02",
-                    listOf("image_url_3", "image_url_4")
-                )
-            ),
-            isLoading = false,
-            pages = Paginate(1, 2, 0, 20)
-        )
-
-        // Set up the composable with the viewmodel.
-        composeTestRule.setContent {
-            EpisodesScreen(
-                state = viewModel,
-                onSelectEpisode = { },
-                listState = LazyGridState(),
-                deviceType = ScreenType.LANDSCAPE_TABLET
-            )
-        }
+        val viewModel = testDataSetup()
+        screen(viewModel, ScreenType.LANDSCAPE_TABLET)
 
         // Delays the screen for 5 seconds to show the data passed.
-        Thread.sleep(5000)
+        Thread.sleep(3000)
 
         // Verify that the list of items are displayed.
-        composeTestRule.onNodeWithText("Episode 1").assertIsDisplayed()
-        composeTestRule.onNodeWithText("S01E01").assertIsDisplayed()
-        composeTestRule.onNodeWithText("2021-01-01").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Episode 2").assertIsDisplayed()
-        composeTestRule.onNodeWithText("S01E02").assertIsDisplayed()
-        composeTestRule.onNodeWithText("2021-01-02").assertIsDisplayed()
+        asserts(isEpisodesDisplayed = false)
     }
 }

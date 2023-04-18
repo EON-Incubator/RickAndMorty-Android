@@ -136,7 +136,8 @@ class SearchScreenTest {
                     updateLocationList = {},
                     updateCharacterList = {},
                     searchListState = LazyListState(),
-                    deviceType = ScreenType.PORTRAIT_PHONE
+                    deviceType = ScreenType.PORTRAIT_PHONE,
+                    onResetQuery = {}
                 )
             }
         }
@@ -167,7 +168,8 @@ class SearchScreenTest {
                     updateLocationList = {},
                     updateCharacterList = {},
                     searchListState = LazyListState(),
-                    deviceType = ScreenType.PORTRAIT_PHONE
+                    deviceType = ScreenType.PORTRAIT_PHONE,
+                    onResetQuery = {}
                 )
             }
         }
@@ -175,11 +177,11 @@ class SearchScreenTest {
         Assert.assertEquals(onCharacterClick, "1")
         composeTestRule.onNodeWithText("Earth").performClick()
         Assert.assertEquals(onLocationClick, "1")
-        composeTestRule.onNodeWithContentDescription("Characters").performClick()
+        composeTestRule.onNodeWithTag("Characters").performClick()
         Assert.assertEquals(onShowCharacters, "true")
-        composeTestRule.onNodeWithContentDescription("Locations").performClick()
+        composeTestRule.onNodeWithTag("Locations").performClick()
         Assert.assertEquals(onShowLocations, "true")
-        composeTestRule.onNodeWithContentDescription("Search Bar").performTextInput("Rick")
+        composeTestRule.onNodeWithTag("Search Bar").performTextInput("Rick")
         Assert.assertEquals(onValueChange, "Rick")
     }
 }

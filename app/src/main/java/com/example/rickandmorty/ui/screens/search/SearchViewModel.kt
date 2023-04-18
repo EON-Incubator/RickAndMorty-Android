@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.search
 
+import android.util.Log
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,6 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,31 +50,33 @@ class SearchViewModel @Inject constructor(
             }
         } else if (query.value.text.length > 2) {
             viewModelScope.launch(Dispatchers.IO) {
-                _searchResult.update {
-                    it.copy(
-                        isLoading = true
-                    )
-                }
-                val characterData = getSearchResultUseCase.execute(name)
+                _query.debounce(500).collect() { queryTextView ->
+                    _searchResult.update {
+                        it.copy(
+                            isLoading = true
+                        )
+                    }
+                    val characterData = getSearchResultUseCase.execute(queryTextView.text)
 
-                _searchResult.update {
-                    it.copy(
-                        characterData = characterData?.characterData,
-                        locationByName = characterData?.locationByName,
-                        locationByType = characterData?.locationByType,
-                        isLoading = false
-                    )
+                    _searchResult.update {
+                        it.copy(
+                            characterData = characterData?.characterData,
+                            locationByName = characterData?.locationByName,
+                            locationByType = characterData?.locationByType,
+                            isLoading = false
+                        )
+                    }
                 }
             }
         }
     }
 
     fun updateCharacterList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (searchResult.value.characterData?.pages?.next != null) {
                 _searchResult.update {
                     it.copy(
-                        isLoading = true
+                        isCharacterUpdateLoading = true
                     )
                 }
                 val characterData =
@@ -92,7 +96,7 @@ class SearchViewModel @Inject constructor(
                             ),
                             pages = characterData.pages
                         ),
-                        isLoading = false
+                        isCharacterUpdateLoading = false
                     )
                 }
             }
@@ -100,11 +104,11 @@ class SearchViewModel @Inject constructor(
     }
 
     fun updateLocationList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (searchResult.value.locationByName?.pages?.next != null) {
                 _searchResult.update {
                     it.copy(
-                        isLoading = true
+                        isLocationUpdateLoading = true
                     )
                 }
                 val locationData =
@@ -124,16 +128,14 @@ class SearchViewModel @Inject constructor(
                             ),
                             pages = locationData.pages
                         ),
-                        isLoading = false
+                        isLocationUpdateLoading = false
                     )
                 }
             }
-        }
-        viewModelScope.launch {
             if (searchResult.value.locationByType?.pages?.next != null) {
                 _searchResult.update {
                     it.copy(
-                        isLoading = true
+                        isLocationUpdateLoading = true
                     )
                 }
                 val locationData =
@@ -153,20 +155,26 @@ class SearchViewModel @Inject constructor(
                             ),
                             pages = locationData.pages
                         ),
-                        isLoading = false
+                        isLocationUpdateLoading = false
                     )
                 }
             }
-        }
-        _searchResult.update {
-            it.copy(
-                locationByName = it.locationByName?.copy(
-                    locations = it.locationByName?.locations?.plus(
-                        it.locationByType?.locations
-                            ?: emptyList()
-                    )?.distinct()
+             _searchResult.update {
+                it.copy(
+                    locationByName = it.locationByName?.copy(
+                        locations = it.locationByName.locations?.plus(
+                            it.locationByType?.locations
+                                ?: emptyList()
+                        )?.distinct()
+                    )
                 )
-            )
+            }
+        }
+    }
+
+    fun onResetQuery() {
+        _query.update {
+            TextFieldValue("")
         }
     }
 
@@ -175,5 +183,7 @@ class SearchViewModel @Inject constructor(
         val locationByName: LocationData? = null,
         val locationByType: LocationData? = null,
         var isLoading: Boolean = false,
+        var isCharacterUpdateLoading: Boolean = false,
+        var isLocationUpdateLoading: Boolean = false,
     )
 }

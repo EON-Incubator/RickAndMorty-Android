@@ -7,6 +7,7 @@ import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.domain.episodes.Episodes
 import com.example.rickandmorty.domain.episodes.GetAllEpisodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,13 +31,13 @@ class EpisodeViewModel @Inject constructor(
     }
 
     fun refresh() {
-        _episode.update { it.copy(isLoading = true) }
-        viewModelScope.launch {
+        _episode.update { it.copy(isLoadingPage = true) }
+        viewModelScope.launch(Dispatchers.IO) {
             val episodeDataById = getAllEpisodeUseCase.sortEpisodeById()
             _episode.update {
                 it.copy(
                     episodes = episodeDataById.episodesData ?: emptyList(),
-                    isLoading = false,
+                    isLoadingPage = false,
                     pages = episodeDataById.pages
                 )
             }
@@ -45,7 +46,7 @@ class EpisodeViewModel @Inject constructor(
     }
 
     fun updateEpisodeList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (state.value.pages?.next != null) {
                 _episode.update {
                     it.copy(
@@ -70,5 +71,6 @@ class EpisodeViewModel @Inject constructor(
         val isLoading: Boolean = false,
         val selectedEpisode: DetailedEpisode? = null,
         var pages: Paginate? = null,
+        val isLoadingPage: Boolean = false,
     )
 }

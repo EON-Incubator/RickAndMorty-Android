@@ -4,36 +4,33 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
+import com.example.rickandmorty.ui.screens.commonUtils.*
 
 object CharacterDetailsDestination : NavigationDestination {
     override val route = "character_detail"
     override val screenTitleRes = R.string.character_detail_screen_title
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterDetails(
     modifier: Modifier = Modifier,
@@ -45,21 +42,14 @@ fun CharacterDetails(
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
     if (state.isLoading) {
-        Scaffold(topBar = {
-            RickAndMortyTopAppBar(
-                title = "loading",
-                canNavigateBack = true,
-                navigateUp = navigateUp
-            )
-        }) {
-            DetailedCharacterLoader(modifier = Modifier.padding(it))
-        }
+        DetailedCharacterLoader(deviceType = deviceType)
     } else {
         Scaffold(topBar = {
             RickAndMortyTopAppBar(
                 title = state.character?.name.toString(),
                 canNavigateBack = true,
                 navigateUp = navigateUp
+
             )
         }) {
             DetailedScreen(
@@ -87,12 +77,11 @@ fun DetailedScreen(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(top = GetPadding().smallPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.height(12.dp))
-
         if (deviceType == ScreenType.PORTRAIT_PHONE) {
             LazyColumn() {
                 item {
@@ -104,26 +93,30 @@ fun DetailedScreen(
                     ) {
                         topInfo(charInfo = charInfo, deviceType = deviceType)
                         Text(
-                            text = "INFO",
+                            text = stringResource(R.string.info),
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 12.dp, bottom = 12.dp),
+                                .padding(start = GetPadding().xxxMediumPadding),
                             textAlign = TextAlign.Start
                         )
-                        Divider(color = Color.Black, thickness = 2.dp)
+
                         Column {
                             infoPart1(charInfo = charInfo)
+                            Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
 
                             infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
-                            Divider(thickness = 2.dp)
+                            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.character_info_space_text)))
                             Text(
-                                text = "EPISODES",
+                                text = stringResource(R.string.episodes_all_caps),
                                 style = MaterialTheme.typography.body2,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(50.dp)
-                                    .padding(start = 12.dp, top = 12.dp),
+                                    .height(dimensionResource(id = R.dimen.character_text_height))
+                                    .padding(
+                                        start = GetPadding().xxxMediumPadding,
+                                        top = GetPadding().xMediumPadding
+                                    ),
                                 textAlign = TextAlign.Start
                             )
                         }
@@ -145,7 +138,7 @@ fun DetailedScreen(
                     }
                 }
             }
-        } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+        } else {
             Row() {
                 Column(Modifier.weight(1f)) {
                     topInfo(charInfo = charInfo, deviceType = deviceType)
@@ -162,32 +155,36 @@ fun DetailedScreen(
                             ) {
                                 Column(modifier = Modifier.weight(2f)) {
                                     Text(
-                                        text = "INFO",
+                                        text = stringResource(R.string.info),
                                         style = MaterialTheme.typography.body2,
                                         modifier = Modifier
-                                            .padding(start = 12.dp, bottom = 12.dp),
+                                            .padding(
+                                                start = GetPadding().xxxMediumPadding,
+                                                bottom = GetPadding().xMediumPadding
+                                            ),
                                         textAlign = TextAlign.Start
                                     )
                                     Column {
                                         infoPart1(charInfo = charInfo)
 
-                                        Divider(thickness = 2.dp)
                                         infoPart2(
                                             charInfo = charInfo,
                                             onOriginClick = onOriginClick
                                         )
-                                        Divider(thickness = 2.dp)
                                     }
                                 }
                             }
                         }
                         item {
                             Text(
-                                text = "EPISODES",
+                                text = stringResource(R.string.episodes_all_caps),
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 14.dp),
+                                    .padding(
+                                        top = GetPadding().xxxMediumPadding,
+                                        start = GetPadding().xxxLargePadding
+                                    ),
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -195,61 +192,6 @@ fun DetailedScreen(
                         charInfo?.let {
                             items(it.episode) { eachEpisode ->
 
-                                GetRowWithFourImages(
-                                    imageUrlLink = eachEpisode.images,
-                                    titleName = eachEpisode.name.toString(),
-                                    property1 = eachEpisode.episode.toString(),
-                                    property2 = eachEpisode.air_date.toString(),
-                                    onClickable = {
-                                        onEpisodeClick(eachEpisode.id.toString())
-                                    },
-                                    id = eachEpisode.id.toString()
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            Row() {
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(end = 13.dp)
-                ) {
-                    topInfo(charInfo = charInfo, deviceType = deviceType)
-                    Column(modifier = Modifier.weight(3f)) {
-                        Text(
-                            text = "INFO",
-                            style = MaterialTheme.typography.body2,
-                            modifier = Modifier
-                                .padding(start = 12.dp, bottom = 12.dp),
-                            textAlign = TextAlign.Start
-                        )
-                        Column {
-                            infoPart1(charInfo = charInfo)
-                            Divider(thickness = 2.dp)
-                            infoPart2(charInfo = charInfo, onOriginClick = onOriginClick)
-                            Divider(thickness = 2.dp)
-                        }
-                    }
-                }
-                Column(
-                    modifier = modifier.weight(2f)
-                ) {
-                    LazyColumn() {
-                        item {
-                            Text(
-                                text = "EPISODES",
-                                style = MaterialTheme.typography.body1,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = 14.dp),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                        charInfo?.let {
-                            items(it.episode) { eachEpisode ->
                                 GetRowWithFourImages(
                                     imageUrlLink = eachEpisode.images,
                                     titleName = eachEpisode.name.toString(),
@@ -273,36 +215,40 @@ fun DetailedScreen(
 fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
     if (deviceType == ScreenType.PORTRAIT_PHONE) {
         Text(
-            text = "APPEARANCE",
+            text = stringResource(R.string.appearance),
             style = MaterialTheme.typography.body2,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 12.dp),
+                .padding(start = GetPadding().xxxMediumPadding),
             textAlign = TextAlign.Start
         )
-        AsyncImage(
-            model = charInfo?.image.toString(),
-            contentDescription = null,
-            modifier = Modifier
-                .clip(
-                    RoundedCornerShape(140.dp)
-                )
-                .size(200.dp)
-                .padding(15.dp),
-            alignment = Alignment.Center
-        )
+        Card(shape = RoundedCornerShape(CornerSize(dimensionResource(id = R.dimen.character_card_corner)))) {
+            AsyncImage(
+                model = charInfo?.image.toString(),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(dimensionResource(id = R.dimen.character_card_image_size)),
+                alignment = Alignment.Center
+            )
+        }
     } else {
-        AsyncImage(
-            model = charInfo?.image.toString(),
-            contentDescription = null,
-            modifier = Modifier
-                .clip(
-                    RoundedCornerShape(140.dp)
+        Card(
+            shape = RoundedCornerShape(CornerSize(dimensionResource(id = R.dimen.character_card_corner))),
+            modifier = Modifier.padding(start = GetPadding().xxxMediumPadding)
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                AsyncImage(
+                    model = charInfo?.image.toString(),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(dimensionResource(id = R.dimen.character_image_size)),
+                    alignment = Alignment.Center
                 )
-                .size(200.dp)
-                .padding(15.dp),
-            alignment = Alignment.Center
-        )
+            }
+        }
     }
 }
 
@@ -310,20 +256,20 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
 fun infoPart1(charInfo: DetailedCharacter?) {
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.man_fill0_wght400_grad0_opsz48),
-        topic = "Gender",
+            .vectorResource(R.drawable.gender),
+        topic = stringResource(R.string.gender),
         topicAnswer = charInfo?.gender.toString()
     )
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.category_fill0_wght400_grad0_opsz48),
-        topic = "Species",
+            .vectorResource(R.drawable.species),
+        topic = stringResource(R.string.species),
         topicAnswer = charInfo?.species.toString()
     )
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.deceased_fill0_wght400_grad0_opsz48),
-        topic = "Status",
+            .vectorResource(R.drawable.status),
+        topic = stringResource(R.string.status),
         topicAnswer = charInfo?.status.toString()
     )
 }
@@ -335,20 +281,23 @@ fun infoPart2(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = "LOCATION",
+        text = stringResource(R.string.location_all_caps),
         style = MaterialTheme.typography.body2,
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp)
-            .padding(start = 12.dp, top = 12.dp),
+            .height(dimensionResource(id = R.dimen.character_text_height))
+            .padding(
+                start = GetPadding().xxxMediumPadding,
+                top = GetPadding().xxxLargePadding,
+                bottom = GetPadding().xxxSmallPadding
+            ),
         textAlign = TextAlign.Start
     )
-    Divider(thickness = 2.dp)
 
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.trip_origin_fill0_wght400_grad0_opsz48),
-        topic = "Origin",
+            .vectorResource(R.drawable.origin),
+        topic = stringResource(R.string.origin),
         topicAnswer = charInfo?.origin.toString(),
         showIt = charInfo?.originId,
         modifier = modifier.clickable {
@@ -364,8 +313,8 @@ fun infoPart2(
     )
     GetInfoInLine(
         icons = ImageVector
-            .vectorResource(R.drawable.explore_fill0_wght400_grad0_opsz48),
-        topic = "Last Seen",
+            .vectorResource(R.drawable.lastseen),
+        topic = stringResource(R.string.last_seen),
         topicAnswer = charInfo?.lastseen.toString(),
         showIt = charInfo?.lastseenId,
         modifier = modifier.clickable {

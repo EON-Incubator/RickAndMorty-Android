@@ -34,8 +34,8 @@ fun GetAllCharactersQuery.Characters.toCharacter(): CharacterData {
     )
 }
 
-fun AllLocationsQuery.Locations.toAllLocations(): com.example.rickandmorty.domain.location.LocationData {
-    return com.example.rickandmorty.domain.location.LocationData(
+fun AllLocationsQuery.Locations.toAllLocations(): LocationData {
+    return LocationData(
         pages = Paginate(
             next = info?.pageInfo?.next,
             prev = info?.pageInfo?.prev,

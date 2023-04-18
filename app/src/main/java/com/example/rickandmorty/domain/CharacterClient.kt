@@ -28,7 +28,7 @@ interface CharacterClient {
     suspend fun getSingleCharacter(code: String): DetailedCharacter?
 
     suspend fun getEpisodes(
-        filterEpisodes: FilterEpisode = FilterEpisode(),
+        filterEpisode: FilterEpisode = FilterEpisode(),
         page: Int = 1,
     ): EpisodesData?
 

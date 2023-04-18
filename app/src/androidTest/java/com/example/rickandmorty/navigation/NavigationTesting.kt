@@ -36,7 +36,7 @@ class NavigationTesting {
                 .fetchSemanticsNodes().isEmpty()
         }
         composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithContentDescription("applyFilter").performClick()
+        composeTestRule.onNodeWithTag("applyFilter").performClick()
 
         composeTestRule.onNodeWithContentDescription("Episodes").performClick()
         composeTestRule.waitForIdle()

@@ -54,7 +54,7 @@ class LocationScreenTest {
             }
         }
 
-        composeTestRule.onNodeWithText("Location").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Locations").assertIsDisplayed()
     }
 
     @Test
@@ -87,7 +87,7 @@ class LocationScreenTest {
             }
         }
 
-        composeTestRule.onNodeWithText("Location").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Locations").assertIsDisplayed()
     }
 
     @Test

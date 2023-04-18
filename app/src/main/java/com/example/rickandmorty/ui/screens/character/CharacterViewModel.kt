@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.Optional
+import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
 
@@ -14,6 +15,7 @@ import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.type.FilterCharacter
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,15 +23,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/*
+/**
 With the AndroidEntryPoint Annotation
 Hilt comes to we know we gonna use some kind of dependency
 injection in it
  */
-/*
+/**
 we are performing field injection with inject
 late init var is used to initialize it later
- */
+ **/
 
 @HiltViewModel
 class CharacterViewModel @Inject constructor(private val getCharacterUseCase: GetCharacterUseCase) :
@@ -59,7 +61,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     }
 
     fun refresh() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _characters.update {
                 it.copy(
                     isLoading = true
@@ -86,7 +88,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     }
 
     open fun selectFilter() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _characters.update {
                 it.copy(
                     isLoading = true
@@ -99,14 +101,14 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                         if (status != "All") {
                             status
                         } else {
-                            null
+                            ""
                         }
                     ),
                     gender = Optional.presentIfNotNull(
                         if (gender != "All") {
                             gender
                         } else {
-                            null
+                            ""
                         }
                     )
                 )
@@ -115,10 +117,10 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             val characterData =
                 getCharacterUseCase.sortById(
                     filterCharacter.value,
-                    page = characters.value.pages?.next ?: 1
+                    page = 1
                 )
-            Log.v("values", filterCharacter.value.toString())
-            Log.v("values", characters.value.toString())
+            Log.v(R.string.values.toString(), filterCharacter.value.toString())
+            Log.v(R.string.values.toString(), characters.value.toString())
             _characters.update {
                 it.copy(
                     characters = characterData.characters ?: emptyList(),
@@ -130,11 +132,11 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     }
 
     fun updateList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (characters.value.pages?.next != null) {
                 _characters.update {
                     it.copy(
-                        isLoading = true
+                        isLoadingPage = true
                     )
                 }
             }
@@ -148,7 +150,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                 it.copy(
                     characters = it.characters + (characterData.characters ?: emptyList()),
                     pages = characterData.pages,
-                    isLoading = false
+                    isLoadingPage = false
                 )
             }
         }
@@ -160,5 +162,6 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
         val isLoading: Boolean = false,
         var selectedCharacter: String? = null,
         var pages: Paginate? = null,
+        val isLoadingPage: Boolean = false,
     )
 }

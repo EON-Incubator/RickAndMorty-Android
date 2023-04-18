@@ -4,22 +4,25 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
+import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
+import com.example.rickandmorty.ui.screens.commonUtils.RickAndMortyTopAppBar
 
 /**
  * Defining the route for the LocationScreen
@@ -33,6 +36,7 @@ object LocationDetailsDestination : NavigationDestination {
  * Composable function that draws Location Detail Screen which
  * is generated after clicking 1 location on Location Screen
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationDetailScreen(
     locationsDetailUiState: LocationDetailViewModel.LocationDetailUiState,
@@ -41,13 +45,17 @@ fun LocationDetailScreen(
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
 ) {
     // Scaffold to have a seperate Top Bar for this screen
-    Scaffold(topBar = {
-        RickAndMortyTopAppBar(
-            title = locationsDetailUiState.locationDetail.name.toString(),
-            canNavigateBack = true,
-            navigateUp = navigateUp
-        )
-    }) {
+    Scaffold(
+        topBar = {
+            RickAndMortyTopAppBar(
+                title = locationsDetailUiState.locationDetail.name.toString(),
+                canNavigateBack = true,
+                navigateUp = navigateUp,
+                backgroundColor = colorResource(id = R.color.locationDetail_background)
+            )
+        },
+        backgroundColor = colorResource(id = R.color.locationDetail_background)
+    ) {
         if (locationsDetailUiState.isLoading) {
             LocationDetailLoader(deviceType = deviceType)
         } else {
@@ -58,10 +66,10 @@ fun LocationDetailScreen(
                         .padding(it)
                 ) {
                     GetInfo(locationsDetailUiState)
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
                     GetResidents(locationsDetailUiState, onCharacterClick)
                 }
-            } else if (deviceType == ScreenType.LANDSCAPE_PHONE) {
+            } else {
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
@@ -75,21 +83,6 @@ fun LocationDetailScreen(
                         locationsDetailUiState,
                         onCharacterClick,
                         modifier = Modifier.weight(5f)
-                    )
-                }
-            } else {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(it)
-                ) {
-                    GetInfo(
-                        locationsDetailUiState
-                    )
-                    GetResidents(
-                        locationsDetailUiState,
-                        onCharacterClick,
-                        fixedElement = 2
                     )
                 }
             }
@@ -106,8 +99,12 @@ fun GetResidents(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "RESIDENTS",
-            modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),
+            text = stringResource(R.string.residents_all_caps),
+            modifier = Modifier.padding(
+                start = dimensionResource(id = R.dimen.padding_xlarge),
+                top = GetPadding().xxxLargePadding,
+                bottom = GetPadding().largePadding
+            ),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,
             fontWeight = FontWeight.Normal
@@ -146,31 +143,32 @@ fun GetInfo(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "INFO",
-            modifier = Modifier.padding(start = 10.dp, top = 20.dp, bottom = 8.dp),
+            text = stringResource(R.string.info),
+            modifier = Modifier.padding(
+                start = GetPadding().xLargePadding,
+                top = GetPadding().xxxLargePadding,
+                bottom = GetPadding().largePadding
+            ),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground,
             fontWeight = FontWeight.Normal
         )
 
-        Divider(
-            Modifier.height(1.dp),
-            color = MaterialTheme.colors.onBackground
-        )
-
         locationsDetailUiState.locationDetail.type?.let {
             GetInfoInLine(
-                ImageVector.vectorResource(id = R.drawable.type),
-                "Type",
-                it
+                ImageVector.vectorResource(id = R.drawable.locationtype),
+                stringResource(R.string.type),
+                it,
+                location = true
             )
         }
 
         locationsDetailUiState.locationDetail.dimension?.let {
             GetInfoInLine(
-                ImageVector.vectorResource(id = R.drawable.dimension),
-                "Dimension",
-                it
+                ImageVector.vectorResource(id = R.drawable.locationdimension),
+                stringResource(R.string.dimension),
+                it,
+                location = true
             )
         }
     }

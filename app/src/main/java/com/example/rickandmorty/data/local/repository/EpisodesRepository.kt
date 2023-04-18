@@ -9,6 +9,8 @@ interface EpisodesRepository {
      */
     fun getAllEpisodesStream(): Flow<List<Episode>>
 
+    fun getAllEpisodeByPageNum(page: Int = 1): Flow<List<Episode>>
+
     /**
      * Retrieve an item from the given data source that matches with the [id].
      */

@@ -16,6 +16,10 @@ class OfflineEpisodesRepository(private val realm: Realm) : EpisodesRepository {
         return realm.query<Episode>().asFlow().map { it.list }
     }
 
+    override fun getAllEpisodeByPageNum(page: Int): Flow<List<Episode>> {
+        return realm.query<Episode>().asFlow().map { it.list }
+    }
+
     /**
      * Retrieve an item from the given data source that matches with the [id].
      */

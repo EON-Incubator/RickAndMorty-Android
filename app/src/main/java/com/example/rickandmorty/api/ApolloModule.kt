@@ -2,6 +2,9 @@ package com.example.rickandmorty.api
 
 import com.apollographql.apollo3.ApolloClient
 import com.example.rickandmorty.data.ApolloCharacterClient
+import com.example.rickandmorty.data.local.repository.CharactersRepository
+import com.example.rickandmorty.data.local.repository.EpisodesRepository
+import com.example.rickandmorty.data.local.repository.LocationsRepository
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.domain.episodes.GetAllEpisodeUseCase
@@ -44,21 +47,30 @@ provideGetCharactersClient() method for abstraction
 
     @Provides
     @Singleton
-    fun provideGetCharacterUseCase(characterClient: CharacterClient): GetCharacterUseCase {
-        return GetCharacterUseCase(characterClient)
+    fun provideGetCharacterUseCase(
+        characterClient: CharacterClient,
+        charactersRepository: CharactersRepository,
+    ): GetCharacterUseCase {
+        return GetCharacterUseCase(characterClient, charactersRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetAllEpisodeUseCase(characterClient: CharacterClient): GetAllEpisodeUseCase {
-        return GetAllEpisodeUseCase(characterClient)
+    fun provideGetAllEpisodeUseCase(
+        characterClient: CharacterClient,
+        episodesRepository: EpisodesRepository,
+    ): GetAllEpisodeUseCase {
+        return GetAllEpisodeUseCase(characterClient, episodesRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetAllLocationUseCase(characterClient: CharacterClient):
+    fun provideGetAllLocationUseCase(
+        characterClient: CharacterClient,
+        locationsRepository: LocationsRepository,
+    ):
         GetAllLocationUseCase {
-        return GetAllLocationUseCase(characterClient)
+        return GetAllLocationUseCase(characterClient, locationsRepository)
     }
 
     @Provides

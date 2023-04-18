@@ -5,7 +5,9 @@ import com.example.rickandmorty.data.local.repository.LocationsRepository
 import com.example.rickandmorty.data.local.schema.Location
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.query.find
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.map
 
 class OfflineLocationsRepository(private val realm: Realm) : LocationsRepository {
@@ -13,6 +15,19 @@ class OfflineLocationsRepository(private val realm: Realm) : LocationsRepository
      * Retrieve all the items from the the given data source.
      */
     override fun getAllLocationsStream(): Flow<List<Location>> {
+        return realm.query<Location>().asFlow().map { it.list }
+    }
+
+    override fun getAllLocationByPageNum(page: Int): Flow<List<Location>> {
+//        return realm.query<Location>()
+//        return realm.query<Location>().limit(20).find().asFlow().map { it.list }
+//        return realm.query<Location>().find().filter {  }
+//        var the_query: Document =  ["id": ["$in":"1,2"] ]
+//        return realm.query<Location>().find()
+//        var temp = realm.query<Location>(query = "id IN {1,2}")
+//            .find().asFlow().map { it.list }
+//        Log.v("repo",temp.toString())
+//        return temp
         return realm.query<Location>().asFlow().map { it.list }
     }
 

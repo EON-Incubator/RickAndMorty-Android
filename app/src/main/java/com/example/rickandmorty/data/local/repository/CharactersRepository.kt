@@ -9,6 +9,8 @@ interface CharactersRepository {
      */
     fun getAllCharactersStream(): Flow<List<Character>>
 
+    fun getAllCharacterByPageNum(page: Int = 1): Flow<List<Character>>
+
     /**
      * Retrieve an item from the given data source that matches with the [id].
      */

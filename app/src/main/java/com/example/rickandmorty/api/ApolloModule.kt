@@ -1,7 +1,10 @@
 package com.example.rickandmorty.api
 
+import android.content.Context
+import androidx.room.Room
 import com.apollographql.apollo3.ApolloClient
 import com.example.rickandmorty.data.ApolloCharacterClient
+import com.example.rickandmorty.data.local.database.RickAndMortyDatabase
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.domain.episodes.GetAllEpisodeUseCase
@@ -12,6 +15,7 @@ import com.example.rickandmorty.domain.search.GetSearchResultUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -79,4 +83,33 @@ provideGetCharactersClient() method for abstraction
     fun provideGetSearchResultUseCase(characterClient: CharacterClient): GetSearchResultUseCase {
         return GetSearchResultUseCase(characterClient)
     }
+
+    @Volatile
+    private var Instance: RickAndMortyDatabase? = null
+
+    @Provides
+    @Singleton
+    fun provide(@ApplicationContext context: Context) = Room.databaseBuilder(
+        context,
+        RickAndMortyDatabase::class.java,
+        "rick_database"
+    )
+        .fallbackToDestructiveMigration()
+        .build()
+        .also { Instance = it }
+
+    @Provides
+    @Singleton
+    fun provideDao(db: RickAndMortyDatabase) = db.episodeDao()
+
+    @Provides
+    @Singleton
+    fun provideDaoLocation(db: RickAndMortyDatabase) = db.locationDao()
+
+    @Provides
+    @Singleton
+    fun provideDaoCharacter(db: RickAndMortyDatabase) = db.characterDao()
+
+//    @Provides
+//    fun provideEntity() = Episode()
 }

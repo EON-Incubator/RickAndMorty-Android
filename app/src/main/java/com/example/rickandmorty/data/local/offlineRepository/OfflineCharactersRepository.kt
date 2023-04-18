@@ -18,6 +18,10 @@ class OfflineCharactersRepository(private val realm: Realm) : CharactersReposito
         return realm.query<Character>().asFlow().map { it.list }
     }
 
+    override fun getAllCharacterByPageNum(page: Int): Flow<List<Character>> {
+        return realm.query<Character>().asFlow().map { it.list }
+    }
+
     /**
      * Retrieve an item from the given data source that matches with the [id].
      */

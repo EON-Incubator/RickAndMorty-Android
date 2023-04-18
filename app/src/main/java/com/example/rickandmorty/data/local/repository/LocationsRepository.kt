@@ -9,6 +9,8 @@ interface LocationsRepository {
      */
     fun getAllLocationsStream(): Flow<List<Location>>
 
+    fun getAllLocationByPageNum(page: Int = 1): Flow<List<Location>>
+
     /**
      * Retrieve an item from the given data source that matches with the [id].
      */

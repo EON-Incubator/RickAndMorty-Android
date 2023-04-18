@@ -7,12 +7,17 @@ import androidx.compose.material.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -64,6 +69,7 @@ fun RickAndMortyTopAppBar(
                                 )
                             }
                         }
+                        Demo_DropDownMenu(LocalUriHandler.current)
                     }
                 }
             },
@@ -136,4 +142,43 @@ fun TopBar(title: String, modifier: Modifier = Modifier) {
         style = if (title.equals(stringResource(R.string.rick_and_morty))) MaterialTheme.typography.h1 else MaterialTheme.typography.h2,
         color = MaterialTheme.colors.onPrimary
     )
+}
+
+@Composable
+fun Demo_DropDownMenu(current: UriHandler) {
+    val context = LocalContext.current
+    var expanded by remember { mutableStateOf(false) }
+
+    Box(
+        modifier = Modifier.wrapContentSize(Alignment.TopEnd)
+    ) {
+        IconButton(onClick = { expanded = !expanded }) {
+            Icon(
+                imageVector = Icons.Default.List,
+                contentDescription = "More"
+            )
+        }
+
+        androidx.compose.material3.DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text("Amazon") },
+                onClick = { current.openUri("https://www.amazon.com/gp/video/detail/0JHRH3V853S6L8MJQA4Q04BREF/ref=atv_dl_rdr?autoplay=1") }
+            )
+            DropdownMenuItem(
+                text = { Text("Hulu") },
+                onClick = { current.openUri("https://www.hulu.com/series/rick-and-morty-d76d6361-3fbf-4842-8dd7-e05520557280") }
+            )
+            DropdownMenuItem(
+                text = { Text("Adult Swin") },
+                onClick = { current.openUri("https://www.adultswim.com/videos/rick-and-morty") }
+            )
+            DropdownMenuItem(
+                text = { Text("Apple") },
+                onClick = { current.openUri("https://tv.apple.com/ca/show/rick-and-morty/umc.cmc.12dp30hnvyq5fbm9716puu8zc") }
+            )
+        }
+    }
 }

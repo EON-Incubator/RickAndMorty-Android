@@ -1,4 +1,4 @@
-query SpecificCharacter($characterId: ID!) {
+query GetCharacterById($characterId: ID!) {
     character(id: $characterId) {
         id
         episode {
@@ -16,8 +16,13 @@ query SpecificCharacter($characterId: ID!) {
         status
         gender
         location {
-            dimension
-            created
+            name
+            id
+        }
+        origin {
+            name
+            id
         }
     }
+
 }

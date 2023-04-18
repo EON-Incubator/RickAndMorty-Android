@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
 <<<<<<< HEAD
+<<<<<<< HEAD
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+>>>>>>> 12b4c344f84c027c4c8cad40d93a05097463b5a4
+=======
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
 =======
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
->>>>>>> c68d36f3c9db2a2eb813b876e31d1d6e339b39ec
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+>>>>>>> parent of 627b0f0 (Revert "Setup: Jacoco coverage")
+>>>>>>> 19f05a7e49374f5bed09e92a1c422af6a761d10d
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

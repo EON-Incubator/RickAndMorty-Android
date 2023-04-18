@@ -1,5 +1,8 @@
-query CharactersQuery($name:String!){
-    characters(filter:{name:$name}) {
+query GetAllCharacters($filter:FilterCharacter!, $page:Int!) {
+    characters(filter:$filter,page: $page) {
+            info {
+                ...pageInfo
+            }
         results {
             id
             name

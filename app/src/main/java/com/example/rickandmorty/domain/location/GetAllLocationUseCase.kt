@@ -1,6 +1,7 @@
 package com.example.rickandmorty.domain.location
 
 import com.example.rickandmorty.domain.CharacterClient
+import com.example.type.FilterLocation
 
 /**
  * Class that gets the Data from CharacterClients
@@ -11,14 +12,12 @@ class GetAllLocationUseCase(
     private val characterClient: CharacterClient,
 ) {
 
-    suspend fun execute(name: String = ""): List<Location> {
-        return characterClient
-            .getAllLocations(name)
-    }
-
-    suspend fun sortByName(name: String = ""): List<Location> {
-        return characterClient
-            .getAllLocations(name)
-            .sortedBy { it.name }
+    suspend fun execute(filterLocation: FilterLocation = FilterLocation(), page: Int = 1): LocationData {
+        val locationData = characterClient
+            .getAllLocations(filterLocation, page)
+        return LocationData(
+            locations = locationData?.locations,
+            pages = locationData?.pages
+        )
     }
 }

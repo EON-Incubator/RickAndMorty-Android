@@ -26,9 +26,8 @@ class AppViewModelProvider @Inject constructor(
     private val episodesRepository: EpisodesRepository,
     private val getAllDataUseCase: GetAllDataUseCase,
 ) : ViewModel() {
-    init {
+    fun initDelete() {
         viewModelScope.launch(Dispatchers.IO) {
-
             var resultData = getAllDataUseCase.execute()
             resultData?.characterData?.characters?.forEach {
                 charactersRepository.insertCharacter(

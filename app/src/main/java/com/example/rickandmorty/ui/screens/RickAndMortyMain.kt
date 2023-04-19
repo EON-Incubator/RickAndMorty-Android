@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -20,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.RickAndMortyNavHost
+import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.ui.AppViewModelProvider
 import com.example.rickandmorty.ui.screens.character.CharacterDestination
 import com.example.rickandmorty.ui.screens.commonUtils.BottomNavItem
@@ -30,11 +32,13 @@ import com.example.rickandmorty.ui.screens.commonUtils.BottomNavigationBar
 fun RickAndMortyMainApp(
     navController: NavHostController = rememberNavController(),
     windowSize: WindowSizeClass,
+    internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
 ) {
     val viewModel = hiltViewModel<AppViewModelProvider>()
     var invisible by remember { mutableStateOf(false) }
     var deviceType = ScreenType.PORTRAIT_PHONE
 
+    Log.v("Rick And Morty Main", internetStatus.name.toString())
     when (windowSize.widthSizeClass) {
         WindowWidthSizeClass.Compact -> {
             if (windowSize.heightSizeClass == WindowHeightSizeClass.Medium) {
@@ -98,7 +102,8 @@ fun RickAndMortyMainApp(
             onDetailScreen = {
                 invisible = it
             },
-            deviceType = deviceType
+            deviceType = deviceType,
+            internetStatus = internetStatus
         )
     }
 }

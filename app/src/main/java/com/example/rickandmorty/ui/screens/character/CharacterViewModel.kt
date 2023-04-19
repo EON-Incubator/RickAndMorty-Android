@@ -12,6 +12,7 @@ import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
 
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
+import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.type.FilterCharacter
 
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,14 +35,23 @@ late init var is used to initialize it later
  **/
 
 @HiltViewModel
-class CharacterViewModel @Inject constructor(private val getCharacterUseCase: GetCharacterUseCase) :
+class CharacterViewModel @Inject constructor(
+    private val getCharacterUseCase: GetCharacterUseCase,
+//    private val savedStateHandle: SavedStateHandle
+) :
     ViewModel() {
 
+//    val internetStatus = savedStateHandle.get<ConnectivityObserver.Status>("status")
     private val _characters = MutableStateFlow(CharacterState())
     val characters = _characters.asStateFlow()
+
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
+
+//    private val _internetConnection = MutableStateFlow(ConnectivityObserver.Status.Lost)
+//    val internetConnection: StateFlow<ConnectivityObserver.Status>
+//        get() = _internetConnection.asStateFlow()
 
     private val _filterCharacter = MutableStateFlow(
         FilterCharacter(
@@ -56,7 +66,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     var status by mutableStateOf("")
 
     init {
-
+//        Log.v("CharacterViewModel", internetStatus?.name.toString())
         refresh()
     }
 
@@ -67,7 +77,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                     isLoading = true
                 )
             }
-            val characterData = getCharacterUseCase.sortById(filterCharacter.value)
+            val characterData = getCharacterUseCase.sortById(filterCharacter.value, internetStatus = _characters.value.internetStatus)
             _characters.update {
                 it.copy(
                     characters = characterData.characters ?: emptyList(),
@@ -144,7 +154,8 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             val characterData =
                 getCharacterUseCase.sortById(
                     filterCharacter.value,
-                    page = characters.value.pages?.next ?: 1
+                    page = characters.value.pages?.next ?: 1,
+                    internetStatus = _characters.value.internetStatus
                 )
             _characters.update {
                 it.copy(
@@ -156,6 +167,17 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
         }
     }
 
+    fun setStatus(internetStatus: ConnectivityObserver.Status) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _characters.update {
+                it.copy(
+                    internetStatus = internetStatus
+                )
+            }
+        }
+        Log.v("CharacterViewModel setStatus", internetStatus.name.toString())
+        refresh()
+    }
     data class CharacterState(
         val characters: List<Character> = emptyList(),
         val character: com.example.rickandmorty.domain.character.DetailedCharacter? = null,
@@ -163,5 +185,6 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
         var selectedCharacter: String? = null,
         var pages: Paginate? = null,
         val isLoadingPage: Boolean = false,
+        val internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
     )
 }

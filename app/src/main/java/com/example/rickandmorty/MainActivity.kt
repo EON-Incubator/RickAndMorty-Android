@@ -4,14 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.network.NetworkConnectivityObserver
@@ -47,13 +43,13 @@ class MainActivity : ComponentActivity() {
 //                {
 //                    Text(text = "Status $status")
 //                }
-                if (status != ConnectivityObserver.Status.Available) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        Text(text = "Unavailable")
-                    }
-                } else {
-                    RickAndMortyMainApp(windowSize = windowSize)
-                }
+//                if (status != ConnectivityObserver.Status.Available) {
+//                    Box(modifier = Modifier.fillMaxSize()) {
+//                        Text(text = "Unavailable")
+//                    }
+//                } else {
+                RickAndMortyMainApp(windowSize = windowSize, internetStatus = status)
+//                }
             }
         }
     }

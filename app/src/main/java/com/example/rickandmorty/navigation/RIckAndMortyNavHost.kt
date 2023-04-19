@@ -1,5 +1,6 @@
 package com.example.rickandmorty.navigation
 
+import android.util.Log
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
@@ -13,6 +14,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.rickandmorty.RickAndMortyApp
+import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.character.*
 import com.example.rickandmorty.ui.screens.episode.*
@@ -28,7 +30,9 @@ fun RickAndMortyNavHost(
     modifier: Modifier = Modifier,
     onDetailScreen: (Boolean) -> Unit,
     deviceType: ScreenType,
+    internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
 ) {
+    Log.v("Rick And Morty NavHost", internetStatus.name.toString())
     val viewModel = hiltViewModel<SearchViewModel>()
     val searchResultState by viewModel.searchResult.collectAsState()
     val scope = rememberCoroutineScope()
@@ -52,6 +56,8 @@ fun RickAndMortyNavHost(
             val characterState by viewModel.characters.collectAsState()
             val listState = rememberLazyGridState()
             val refreshState by viewModel.isRefreshing.collectAsState()
+
+            viewModel.setStatus(internetStatus = internetStatus)
 
             val endReached by remember {
                 derivedStateOf {

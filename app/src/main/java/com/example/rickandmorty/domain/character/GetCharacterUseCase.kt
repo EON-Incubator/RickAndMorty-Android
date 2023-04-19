@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import com.example.rickandmorty.data.local.repository.CharactersRepository
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.Paginate
+import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.type.FilterCharacter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +23,13 @@ class GetCharacterUseCase @Inject constructor(
             ?.sortedBy { it.name }
     }
 
-    suspend fun sortById(filterCharacter: FilterCharacter = FilterCharacter(), page: Int = 1): CharacterData {
+    suspend fun sortById(
+        filterCharacter: FilterCharacter = FilterCharacter(),
+        page: Int = 1,
+        internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
+    ): CharacterData {
+        Log.v("GetCharacterUseCase", internetStatus?.name.toString())
+
         val characterData = characterClient.getCharacters(filterCharacter, page)
 
         var data = mutableStateOf(emptyList<com.example.rickandmorty.data.local.schema.Character>())

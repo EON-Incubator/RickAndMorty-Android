@@ -1,12 +1,14 @@
 package com.example.rickandmorty.navigation
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
@@ -33,6 +35,7 @@ fun RickAndMortyNavHost(
     internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
 ) {
     Log.v("Rick And Morty NavHost", internetStatus.name.toString())
+
     val viewModel = hiltViewModel<SearchViewModel>()
     val searchResultState by viewModel.searchResult.collectAsState()
     val scope = rememberCoroutineScope()
@@ -44,7 +47,12 @@ fun RickAndMortyNavHost(
         mutableStateOf(true)
     }
     val searchListState = rememberLazyListState()
-
+    if (internetStatus == ConnectivityObserver.Status.Available) {
+        Toast.makeText(LocalContext.current, "Online", Toast.LENGTH_SHORT).show()
+//            Toast.makeText()
+    } else {
+        Toast.makeText(LocalContext.current, "Offline", Toast.LENGTH_SHORT).show()
+    }
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -84,12 +92,13 @@ fun RickAndMortyNavHost(
                 onRefresh = {
                     viewModel.refresh()
                 }
-
             )
         }
         composable(CharacterDetailsDestination.route + "?id={id}") {
             onDetailScreen(true)
             val viewModel = hiltViewModel<DetailedCharacterViewModel>()
+
+            viewModel.setStatus(internetStatus = internetStatus)
 
             val characterState by viewModel.character.collectAsState()
             CharacterDetails(
@@ -106,7 +115,9 @@ fun RickAndMortyNavHost(
                     navController
                         .navigate(LocationDetailsDestination.route + "?id=$it")
                 },
-                deviceType = deviceType
+                deviceType = deviceType,
+
+                viewModel = viewModel
 
             )
         }
@@ -116,6 +127,8 @@ fun RickAndMortyNavHost(
             val state by viewModel.state.collectAsState()
             val listState = rememberLazyGridState()
             val refreshState by viewModel.isRefreshing.collectAsState()
+
+            viewModel.setStatus(internetStatus = internetStatus)
 
             val endReached by remember {
                 derivedStateOf {
@@ -135,7 +148,8 @@ fun RickAndMortyNavHost(
                 onRefresh = { viewModel.refresh() },
                 listState = listState,
                 deviceType = deviceType,
-                isRefreshing = refreshState
+                isRefreshing = refreshState,
+                viewModel = viewModel
             )
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {
@@ -143,6 +157,8 @@ fun RickAndMortyNavHost(
             val viewModel = hiltViewModel<EpisodeDetailViewModel>()
             val state by viewModel.state.collectAsState()
             val episodeDetails by viewModel.episodeDetail.collectAsState()
+
+            viewModel.setStatus(internetStatus = internetStatus)
             EpisodeDetails(
                 state = state,
                 episodeDetails = episodeDetails,
@@ -161,6 +177,8 @@ fun RickAndMortyNavHost(
             val locationsState by viewModel.location.collectAsState()
             val refreshState by viewModel.isRefreshing.collectAsState()
             val listState = rememberLazyGridState()
+
+            viewModel.setStatus(internetStatus = internetStatus)
 
             val endReached by remember {
                 derivedStateOf {
@@ -182,7 +200,8 @@ fun RickAndMortyNavHost(
                 },
                 listState = listState,
                 deviceType = deviceType,
-                isRefreshing = refreshState
+                isRefreshing = refreshState,
+                locationViewModel = viewModel
             )
         }
         composable(LocationDetailsDestination.route + "?id={id}") {
@@ -190,14 +209,16 @@ fun RickAndMortyNavHost(
             val id = it.arguments?.getString("id")
             val viewModel = hiltViewModel<LocationDetailViewModel>()
             val locationsDetailState by viewModel.locationDetail.collectAsState()
+
+            viewModel.setStatus(internetStatus = internetStatus)
             LocationDetailScreen(
                 locationsDetailState,
                 navigateUp = { navController.popBackStack() },
                 onCharacterClick = {
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
                 },
-                deviceType = deviceType
-
+                deviceType = deviceType,
+                viewModel = viewModel
             )
         }
         composable("search") {

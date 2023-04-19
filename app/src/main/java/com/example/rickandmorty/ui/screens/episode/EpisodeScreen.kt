@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
 import com.example.rickandmorty.ui.screens.ScreenType
@@ -46,8 +47,10 @@ fun EpisodesScreen(
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
     isRefreshing: Boolean = false,
     onRefresh: () -> Unit = {},
+    viewModel: EpisodeViewModel = hiltViewModel<EpisodeViewModel>(),
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
+
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 

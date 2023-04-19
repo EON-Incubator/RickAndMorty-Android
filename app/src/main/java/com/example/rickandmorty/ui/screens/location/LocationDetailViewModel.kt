@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
 import com.example.rickandmorty.domain.location.LocationDetail
+import com.example.rickandmorty.network.ConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -44,7 +46,7 @@ class LocationDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _locationDetail.update {
                 it.copy(
-                    locationDetail = getLocationDetailUseCase.execute(id) ?: LocationDetail(
+                    locationDetail = getLocationDetailUseCase.execute(id, _locationDetail.value.internetStatus) ?: LocationDetail(
                         "",
                         "",
                         emptyList(),
@@ -55,7 +57,17 @@ class LocationDetailViewModel @Inject constructor(
             }
         }
     }
-
+    fun setStatus(internetStatus: ConnectivityObserver.Status) {
+        if (_locationDetail.value.internetStatus != internetStatus) {
+            viewModelScope.launch(Dispatchers.IO) {
+                _locationDetail.update {
+                    it.copy(
+                        internetStatus = internetStatus
+                    )
+                }
+            }
+        }
+    }
     data class LocationDetailUiState(
         val locationDetail: LocationDetail = LocationDetail(
             "",
@@ -64,5 +76,6 @@ class LocationDetailViewModel @Inject constructor(
             ""
         ),
         val isLoading: Boolean = false,
+        val internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
     )
 }

@@ -91,9 +91,9 @@ class SearchViewModel @Inject constructor(
                     it.copy(
                         characterData = CharacterData(
                             characters = it.characterData?.characters?.plus(
-                                characterData.characters ?: emptyList()
+                                characterData?.characters ?: emptyList()
                             ),
-                            pages = characterData.pages
+                            pages = characterData?.pages
                         ),
                         isCharacterUpdateLoading = false
                     )
@@ -123,9 +123,9 @@ class SearchViewModel @Inject constructor(
                     it.copy(
                         locationByName = LocationData(
                             locations = it.locationByName?.locations?.plus(
-                                locationData.locations ?: emptyList()
+                                locationData?.locations ?: emptyList()
                             ),
-                            pages = locationData.pages
+                            pages = locationData?.pages
                         ),
                         isLocationUpdateLoading = false
                     )
@@ -150,9 +150,9 @@ class SearchViewModel @Inject constructor(
                     it.copy(
                         locationByType = LocationData(
                             locations = it.locationByType?.locations?.plus(
-                                locationData.locations ?: emptyList()
+                                locationData?.locations ?: emptyList()
                             ),
-                            pages = locationData.pages
+                            pages = locationData?.pages
                         ),
                         isLocationUpdateLoading = false
                     )

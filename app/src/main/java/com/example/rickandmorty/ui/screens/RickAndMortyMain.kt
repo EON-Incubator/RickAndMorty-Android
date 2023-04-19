@@ -35,6 +35,7 @@ fun RickAndMortyMainApp(
     internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
 ) {
     val viewModel = hiltViewModel<AppViewModelProvider>()
+    viewModel.setStatus(internetStatus = internetStatus)
     var invisible by remember { mutableStateOf(false) }
     var deviceType = ScreenType.PORTRAIT_PHONE
 

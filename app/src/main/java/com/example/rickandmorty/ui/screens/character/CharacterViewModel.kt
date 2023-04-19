@@ -10,6 +10,7 @@ import com.apollographql.apollo3.api.Optional
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
+import com.example.rickandmorty.domain.character.DetailedCharacter
 
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.network.ConnectivityObserver
@@ -78,11 +79,12 @@ class CharacterViewModel @Inject constructor(
                 )
             }
             val characterData = getCharacterUseCase.sortById(filterCharacter.value, internetStatus = _characters.value.internetStatus)
+
             _characters.update {
                 it.copy(
-                    characters = characterData.characters ?: emptyList(),
+                    characters = characterData?.characters ?: emptyList(),
                     isLoading = false,
-                    pages = characterData.pages
+                    pages = characterData?.pages
                 )
             }
             _isRefreshing.emit(false)
@@ -127,14 +129,15 @@ class CharacterViewModel @Inject constructor(
             val characterData =
                 getCharacterUseCase.sortById(
                     filterCharacter.value,
-                    page = 1
+                    page = 1,
+                    internetStatus = _characters.value.internetStatus
                 )
             Log.v(R.string.values.toString(), filterCharacter.value.toString())
             Log.v(R.string.values.toString(), characters.value.toString())
             _characters.update {
                 it.copy(
-                    characters = characterData.characters ?: emptyList(),
-                    pages = characterData.pages,
+                    characters = characterData?.characters ?: emptyList(),
+                    pages = characterData?.pages,
                     isLoading = false
                 )
             }
@@ -159,8 +162,8 @@ class CharacterViewModel @Inject constructor(
                 )
             _characters.update {
                 it.copy(
-                    characters = it.characters + (characterData.characters ?: emptyList()),
-                    pages = characterData.pages,
+                    characters = it.characters + (characterData?.characters ?: emptyList()),
+                    pages = characterData?.pages,
                     isLoadingPage = false
                 )
             }
@@ -168,19 +171,21 @@ class CharacterViewModel @Inject constructor(
     }
 
     fun setStatus(internetStatus: ConnectivityObserver.Status) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _characters.update {
-                it.copy(
-                    internetStatus = internetStatus
-                )
+        if (_characters.value.internetStatus != internetStatus) {
+            viewModelScope.launch(Dispatchers.IO) {
+                _characters.update {
+                    it.copy(
+                        internetStatus = internetStatus
+                    )
+                }
             }
+//            Log.v("CharacterViewModel setStatus", internetStatus.name.toString())
+//            refresh()
         }
-        Log.v("CharacterViewModel setStatus", internetStatus.name.toString())
-        refresh()
     }
     data class CharacterState(
         val characters: List<Character> = emptyList(),
-        val character: com.example.rickandmorty.domain.character.DetailedCharacter? = null,
+        val character: DetailedCharacter? = null,
         val isLoading: Boolean = false,
         var selectedCharacter: String? = null,
         var pages: Paginate? = null,

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.rickandmorty.RickAndMortyApp
+import com.example.rickandmorty.api.APIService
 import com.example.rickandmorty.data.local.repository.CharactersRepository
 import com.example.rickandmorty.data.local.repository.EpisodesRepository
 import com.example.rickandmorty.data.local.repository.LocationsRepository
@@ -65,17 +66,32 @@ class AppViewModelProvider @Inject constructor(
             }
 
             resultData?.episodeData?.episodes?.forEach {
+                val apiService = APIService.getInstance()
+                var episodeDetail: com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail =
+                    com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail()
+                try {
+                    episodeDetail =
+                        apiService.getEpisodeDetails(
+                            season = it?.episode?.substring(range = 1..2)
+                                ?.toInt() ?: 0,
+                            episode = it?.episode?.substring(4)?.toInt() ?: 0
+                        )
+                } catch (e: Exception) {
+                    Log.v("Room Error", e.message.toString())
+                }
                 episodesRepository.insertEpisode(
                     Episode(
                         id = it.id ?: "",
                         name = it.name ?: "",
                         episode = it.episode ?: "",
                         air_date = it.air_date ?: "",
-                        characters = it?.characters ?: emptyList()
+                        characters = it?.characters ?: emptyList(),
+                        episodeDetail = episodeDetail
                     )
                 )
             }
             Log.v("Completed", "True")
+            DataState.isLocal = true
         }
     }
 
@@ -92,3 +108,7 @@ class AppViewModelProvider @Inject constructor(
  */
 fun CreationExtras.rickApplication(): RickAndMortyApp =
     (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as RickAndMortyApp)
+
+object DataState {
+    var isLocal: Boolean = false
+}

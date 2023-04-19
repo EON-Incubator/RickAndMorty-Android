@@ -1,5 +1,6 @@
 package com.example.rickandmorty.api
 
+import androidx.compose.runtime.getValue
 import com.example.rickandmorty.data.local.offlineRepository.OfflineCharactersRepository
 import com.example.rickandmorty.data.local.offlineRepository.OfflineEpisodesRepository
 import com.example.rickandmorty.data.local.offlineRepository.OfflineLocationsRepository

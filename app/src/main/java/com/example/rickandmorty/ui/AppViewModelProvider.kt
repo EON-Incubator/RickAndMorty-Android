@@ -14,6 +14,7 @@ import com.example.rickandmorty.data.local.schema.Character
 import com.example.rickandmorty.data.local.schema.Episode
 import com.example.rickandmorty.data.local.schema.Location
 import com.example.rickandmorty.domain.localRealm.GetAllDataUseCase
+import com.example.rickandmorty.network.ConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,9 +27,12 @@ class AppViewModelProvider @Inject constructor(
     private val episodesRepository: EpisodesRepository,
     private val getAllDataUseCase: GetAllDataUseCase,
 ) : ViewModel() {
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
 
+    init {
+    }
+
+    private fun LoadAllData() {
+        viewModelScope.launch(Dispatchers.IO) {
             var resultData = getAllDataUseCase.execute()
             resultData?.characterData?.characters?.forEach {
                 charactersRepository.insertCharacter(
@@ -72,55 +76,12 @@ class AppViewModelProvider @Inject constructor(
                 )
             }
             Log.v("Completed", "True")
-//            var characterData = characterClient.getSearchResult(queryString)
-//            var resultData = characterClient.getSearchResult(queryString)
-//            var resultData = characterClient.getSearchResult(queryString)
-//        var pageNum = page
-//        while (
-//            resultData?.characterData?.pages?.next != null ||
-//            resultData?.locationByName?.pages?.next != null ||
-//            resultData?.locationByType?.pages?.next != null
-//        ) {
-//            Log.v("Search test:Character", resultData?.characterData?.pages?.next.toString())
-//            Log.v("Search test: by name", resultData?.locationByName?.pages?.next.toString())
-//            Log.v("Search test: by type", resultData?.locationByType?.pages?.next.toString())
-//            Log.v("Search test: by pageNum", pageNum.toString())
-//            val temp = characterClient.getSearchResult(queryString, ++pageNum)
-//            resultData = resultData?.copy(
-//                characterData = CharacterData(
-//                    characters =
-//                    resultData.characterData?.characters?.plus(
-//                        temp?.characterData?.characters ?: emptyList()
-//                    ),
-//                    pages = temp?.characterData?.pages
-//                ),
-//                locationByName = LocationData(
-//                    locations =
-//                    resultData.locationByName?.locations?.plus(
-//                        temp?.locationByName?.locations ?: emptyList()
-//                    ),
-//                    pages = temp?.locationByName?.pages
-//                ),
-//                locationByType = LocationData(
-//                    locations = resultData.locationByType?.locations?.plus(
-//                        temp?.locationByType?.locations ?: emptyList()
-//                    ),
-//                    pages = temp?.locationByType?.pages
-//                )
-//            )
-//        }
-//        Log.v("Search test:Character", resultData?.characterData?.characters?.size.toString())
-//        Log.v("Search test: by name", resultData?.locationByName?.locations?.size.toString())
-//        Log.v("Search test: by type", resultData?.locationByType?.locations?.size.toString())
+        }
+    }
 
-//            resultData?.copy(
-//                locationByName = resultData?.locationByName?.copy(
-//                    locations = resultData.locationByName?.locations?.plus(
-//                        resultData?.locationByType?.locations
-//                            ?: emptyList()
-//                    )?.distinct()
-//                )
-//            )
+    fun setStatus(internetStatus: ConnectivityObserver.Status) {
+        if (internetStatus == ConnectivityObserver.Status.Available) {
+            LoadAllData()
         }
     }
 }

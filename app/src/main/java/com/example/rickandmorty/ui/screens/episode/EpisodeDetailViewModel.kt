@@ -10,6 +10,7 @@ import com.example.rickandmorty.api.APIService
 import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.domain.episodes.GetEpisodeUseCase
 import com.example.rickandmorty.domain.episodes.ImageData
+import com.example.rickandmorty.network.ConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -60,7 +61,7 @@ class EpisodeDetailViewModel @Inject constructor(
     suspend fun getEpisode() {
         _episode.update {
             it.copy(
-                selectedEpisode = getEpisodeUseCase.execute(id.toString()),
+                selectedEpisode = getEpisodeUseCase.execute(id.toString(), _episode.value.internetStatus),
                 isLoading = false
             )
         }
@@ -69,9 +70,24 @@ class EpisodeDetailViewModel @Inject constructor(
     private suspend fun getCharacters() {
         _episode.update {
             it.copy(
-                selectedEpisode = getEpisodeUseCase.execute(id.toString()),
+                selectedEpisode = getEpisodeUseCase.execute(
+                    id.toString(),
+                    _episode.value.internetStatus
+                ),
                 isLoading = false
             )
+        }
+    }
+
+    fun setStatus(internetStatus: ConnectivityObserver.Status) {
+        if (_episode.value.internetStatus != internetStatus) {
+            viewModelScope.launch(Dispatchers.IO) {
+                _episode.update {
+                    it.copy(
+                        internetStatus = internetStatus
+                    )
+                }
+            }
         }
     }
 
@@ -95,5 +111,6 @@ class EpisodeDetailViewModel @Inject constructor(
         val characters: List<com.example.rickandmorty.domain.character.Character> = emptyList(),
         val isLoading: Boolean = false,
         val selectedEpisode: DetailedEpisode? = null,
+        val internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
     )
 }

@@ -20,6 +20,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -30,8 +31,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
@@ -40,6 +43,7 @@ import com.example.rickandmorty.ui.screens.commonUtils.ScreenNameBar
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.lang.Math.abs
 
 /**
@@ -54,7 +58,11 @@ object LocationDestination : NavigationDestination {
  * Function that displays all the components on the LocationScreen Tab
  */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
+@OptIn(
+    ExperimentalMaterialApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalCoroutinesApi::class
+)
 @Composable
 fun LocationScreen(
     locationsUiState: LocationViewModel.LocationUiState,
@@ -63,6 +71,7 @@ fun LocationScreen(
     listState: LazyGridState,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
     isRefreshing: Boolean = false,
+    locationViewModel: LocationViewModel = hiltViewModel<LocationViewModel>(),
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
 
@@ -121,43 +130,48 @@ fun LocationScreen(
                     if (locationsUiState.isLoadingPage) {
                         LocationLoader(deviceType)
                     } else {
-                        LazyVerticalGrid(
-                            columns = GridCells.Fixed(
-                                when (deviceType) {
-                                    ScreenType.PORTRAIT_PHONE -> 1
-                                    else -> 2
-                                }
-                            ),
-                            verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
-                            horizontalArrangement = Arrangement.Center,
-                            modifier = Modifier.padding(GetPadding().smallPadding),
-                            state = listState,
-                            flingBehavior = maxScrollFlingBehavior()
-                        ) {
-                            items(locationsUiState.locations) { location ->
-
-                                // Method in CommonUtils that draws the Card with 4 Images
-
-                                GetRowWithFourImages(
-                                    imageUrlLink = location.images,
-                                    titleName = location.name.toString(),
-                                    property1 = location.type.toString(),
-                                    property2 = location.dimension.toString(),
-                                    id = location.id.toString(),
-                                    onClickable = onClick,
-                                    icons = listOf(
-                                        ImageVector.vectorResource(id = R.drawable.locationtype),
-                                        ImageVector.vectorResource(id = R.drawable.locationdimension)
-                                    ),
-                                    location = true
-                                )
+                        Column() {
+                            if (locationsUiState.internetStatus != ConnectivityObserver.Status.Available) {
+                                Text(modifier = Modifier.fillMaxWidth(), text = "No Internet")
                             }
-                            if (locationsUiState.isLoading) {
-                                item {
-                                    LocationLoaderCells(deviceType)
+                            LazyVerticalGrid(
+                                columns = GridCells.Fixed(
+                                    when (deviceType) {
+                                        ScreenType.PORTRAIT_PHONE -> 1
+                                        else -> 2
+                                    }
+                                ),
+                                verticalArrangement = Arrangement.spacedBy(GetPadding().smallPadding),
+                                horizontalArrangement = Arrangement.Center,
+                                modifier = Modifier.padding(GetPadding().smallPadding),
+                                state = listState,
+                                flingBehavior = maxScrollFlingBehavior()
+                            ) {
+                                items(locationsUiState.locations) { location ->
+
+                                    // Method in CommonUtils that draws the Card with 4 Images
+
+                                    GetRowWithFourImages(
+                                        imageUrlLink = location.images,
+                                        titleName = location.name.toString(),
+                                        property1 = location.type.toString(),
+                                        property2 = location.dimension.toString(),
+                                        id = location.id.toString(),
+                                        onClickable = onClick,
+                                        icons = listOf(
+                                            ImageVector.vectorResource(id = R.drawable.locationtype),
+                                            ImageVector.vectorResource(id = R.drawable.locationdimension)
+                                        ),
+                                        location = true
+                                    )
                                 }
-                                item {
-                                    LocationLoaderCells(deviceType)
+                                if (locationsUiState.isLoading) {
+                                    item {
+                                        LocationLoaderCells(deviceType)
+                                    }
+                                    item {
+                                        LocationLoaderCells(deviceType)
+                                    }
                                 }
                             }
                         }

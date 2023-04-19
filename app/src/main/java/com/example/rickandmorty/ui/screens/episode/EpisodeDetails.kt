@@ -61,6 +61,7 @@ fun EpisodeDetails(
     episodeDetails: TmdbEpisodeDetail,
 ) {
     var videoClicked = rememberSaveable { mutableStateOf(false) }
+
     Scaffold(topBar = {
         if (state.isLoading) {
             RickAndMortyTopAppBar(

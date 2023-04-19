@@ -1,6 +1,7 @@
 package com.example.rickandmorty.data.local.offlineRepository
 
 import android.util.Log
+import androidx.compose.runtime.getValue
 import com.example.rickandmorty.data.local.repository.CharactersRepository
 import kotlinx.coroutines.flow.Flow
 import com.example.rickandmorty.data.local.schema.Character

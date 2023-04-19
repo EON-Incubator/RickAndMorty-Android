@@ -1,5 +1,6 @@
 package com.example.rickandmorty.data.local.schema
 
+import app.moviebase.tmdb.model.TmdbEpisodeDetail
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.ext.toRealmList
@@ -15,6 +16,10 @@ class Episode : RealmObject {
     var name: String = ""
     var episode: String = ""
     var air_date: String = ""
+    var overview: String = ""
+    var voteAverage: String = ""
+    var sliderImages: RealmList<String> = realmListOf()
+    var videos: String = ""
 
     //    @Ignore
 //    var characters: RealmList<Character> = realmListOf()
@@ -27,6 +32,7 @@ class Episode : RealmObject {
         episode: String = "",
         air_date: String = "",
         characters: List<com.example.rickandmorty.domain.character.DetailedCharacter>,
+        episodeDetail: com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail,
     ) {
         this.id = id ?: ""
         this.name = name ?: ""
@@ -54,6 +60,13 @@ class Episode : RealmObject {
         this.images = characters?.map {
             it?.image.toString()
         }?.toRealmList() ?: realmListOf()
+
+        this.overview = episodeDetail.overview
+        this.voteAverage = episodeDetail.voteAverage.toString()
+        this.sliderImages = episodeDetail.images?.stills?.map {
+            it?.filePath.toString()
+        }?.toRealmList() ?: realmListOf()
+        this.videos = episodeDetail.videos.toString()
     }
 
     constructor() {}

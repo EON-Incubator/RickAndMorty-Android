@@ -185,6 +185,9 @@ dependencies {
 
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
 
+    // Data Store
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
 
 }
 apollo {

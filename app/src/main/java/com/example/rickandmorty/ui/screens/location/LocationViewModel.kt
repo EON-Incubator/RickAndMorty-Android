@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.screens.location
 
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.Paginate
@@ -21,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LocationViewModel @Inject constructor(
     private val getAllLocationUseCase: GetAllLocationUseCase,
+
 ) : ViewModel() {
 
     // Mutable Flow State variables
@@ -42,12 +44,12 @@ class LocationViewModel @Inject constructor(
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            val locationData = getAllLocationUseCase.execute()
+            val locationData = getAllLocationUseCase.execute(internetStatus = location.value.internetStatus)
             _locations.update {
                 it.copy(
-                    locations = locationData.locations ?: emptyList(),
+                    locations = locationData?.locations ?: emptyList(),
                     isLoadingPage = false,
-                    pages = locationData.pages
+                    pages = locationData?.pages
                 )
             }
             _isRefreshing.emit(false)
@@ -64,14 +66,24 @@ class LocationViewModel @Inject constructor(
                     it.copy(isLoading = true)
                 }
 
-                val locationData = getAllLocationUseCase.execute(page = location.value.pages?.next ?: 1)
+                val locationData = getAllLocationUseCase.execute(page = location.value.pages?.next ?: 1, internetStatus = location.value.internetStatus)
                 _locations.update {
                     it.copy(
-                        locations = it.locations + (locationData.locations ?: emptyList()),
-                        pages = locationData.pages,
+                        locations = it.locations + (locationData?.locations ?: emptyList()),
+                        pages = locationData?.pages,
                         isLoading = false
                     )
                 }
+            }
+        }
+    }
+
+    fun setStatus(isConnected: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _locations.update {
+                it.copy(
+                    internetStatus = isConnected
+                )
             }
         }
     }
@@ -81,5 +93,13 @@ class LocationViewModel @Inject constructor(
         val isLoading: Boolean = false,
         var pages: Paginate? = null,
         val isLoadingPage: Boolean = false,
+        val internetStatus: Boolean = false,
     )
 }
+
+// @OptIn(ExperimentalCoroutinesApi::class)
+// @Composable
+// fun getCurrentConnectionStatus(): Boolean {
+//    val connection by connectivityState()
+//    return connection === ConnectionState.Available
+// }

@@ -60,7 +60,7 @@ class EpisodeDetailViewModel @Inject constructor(
     suspend fun getEpisode() {
         _episode.update {
             it.copy(
-                selectedEpisode = getEpisodeUseCase.execute(id.toString()),
+                selectedEpisode = getEpisodeUseCase.execute(id.toString(), DetailEpisodesState().internetStatus),
                 isLoading = false
             )
         }
@@ -69,9 +69,22 @@ class EpisodeDetailViewModel @Inject constructor(
     private suspend fun getCharacters() {
         _episode.update {
             it.copy(
-                selectedEpisode = getEpisodeUseCase.execute(id.toString()),
+                selectedEpisode = getEpisodeUseCase.execute(
+                    id.toString(),
+                    DetailEpisodesState().internetStatus
+                ),
                 isLoading = false
             )
+        }
+    }
+
+    fun setStatus(isConnected: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _episode.update {
+                it.copy(
+                    internetStatus = isConnected
+                )
+            }
         }
     }
 
@@ -95,5 +108,6 @@ class EpisodeDetailViewModel @Inject constructor(
         val characters: List<com.example.rickandmorty.domain.character.Character> = emptyList(),
         val isLoading: Boolean = false,
         val selectedEpisode: DetailedEpisode? = null,
+        val internetStatus: Boolean = false,
     )
 }

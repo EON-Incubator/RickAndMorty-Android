@@ -37,6 +37,8 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.network.ConnectionState
+import com.example.rickandmorty.network.connectivityState
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.*
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -61,6 +63,9 @@ fun EpisodeDetails(
     episodeDetails: TmdbEpisodeDetail,
 ) {
     var videoClicked = rememberSaveable { mutableStateOf(false) }
+    val connection by connectivityState()
+    episodeDetailViewModel.setStatus(connection === ConnectionState.Available)
+
     Scaffold(topBar = {
         if (state.isLoading) {
             RickAndMortyTopAppBar(

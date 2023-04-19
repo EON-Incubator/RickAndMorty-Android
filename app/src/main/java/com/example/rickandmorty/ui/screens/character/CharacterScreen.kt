@@ -26,10 +26,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.Character
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.network.ConnectionState
+import com.example.rickandmorty.network.connectivityState
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.*
 import com.example.rickandmorty.ui.screens.location.maxScrollFlingBehavior
@@ -53,9 +56,16 @@ fun Characters(
     onRefresh: () -> Unit = {},
     isRefreshing: Boolean = false,
     applyFilter: () -> Unit,
+    viewModel: CharacterViewModel = hiltViewModel<CharacterViewModel>(),
 
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
+    val connection by connectivityState()
+    val connectionStatus by remember {
+        mutableStateOf(connection === ConnectionState.Available)
+    }
+    viewModel.setStatus(connectionStatus)
+
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 

@@ -13,6 +13,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.rickandmorty.RickAndMortyApp
+import com.example.rickandmorty.network.ConnectionState
+import com.example.rickandmorty.network.connectivityState
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.character.*
 import com.example.rickandmorty.ui.screens.episode.*
@@ -29,6 +31,10 @@ fun RickAndMortyNavHost(
     onDetailScreen: (Boolean) -> Unit,
     deviceType: ScreenType,
 ) {
+    // Connection
+    val connection by connectivityState()
+    val isConnected = connection === ConnectionState.Available
+
     val viewModel = hiltViewModel<SearchViewModel>()
     val searchResultState by viewModel.searchResult.collectAsState()
     val scope = rememberCoroutineScope()
@@ -77,7 +83,8 @@ fun RickAndMortyNavHost(
                 isRefreshing = refreshState,
                 onRefresh = {
                     viewModel.refresh()
-                }
+                },
+                viewModel = viewModel
 
             )
         }
@@ -100,7 +107,9 @@ fun RickAndMortyNavHost(
                     navController
                         .navigate(LocationDetailsDestination.route + "?id=$it")
                 },
-                deviceType = deviceType
+                deviceType = deviceType,
+
+                viewModel = viewModel
 
             )
         }
@@ -129,7 +138,8 @@ fun RickAndMortyNavHost(
                 onRefresh = { viewModel.refresh() },
                 listState = listState,
                 deviceType = deviceType,
-                isRefreshing = refreshState
+                isRefreshing = refreshState,
+                viewModel = viewModel
             )
         }
         composable(EpisodeDetailsDestination.route + "?id={id}") {
@@ -176,7 +186,8 @@ fun RickAndMortyNavHost(
                 },
                 listState = listState,
                 deviceType = deviceType,
-                isRefreshing = refreshState
+                isRefreshing = refreshState,
+                locationViewModel = viewModel
             )
         }
         composable(LocationDetailsDestination.route + "?id={id}") {
@@ -190,8 +201,8 @@ fun RickAndMortyNavHost(
                 onCharacterClick = {
                     navController.navigate(CharacterDetailsDestination.route + "?id=$it")
                 },
-                deviceType = deviceType
-
+                deviceType = deviceType,
+                viewModel = viewModel
             )
         }
         composable("search") {

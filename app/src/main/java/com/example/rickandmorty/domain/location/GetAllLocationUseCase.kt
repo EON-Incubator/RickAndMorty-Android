@@ -26,49 +26,58 @@ class GetAllLocationUseCase @Inject constructor(
     suspend fun execute(
         filterLocation: FilterLocation = FilterLocation(),
         page: Int = 1,
-    ): LocationData {
-        val locationData = characterClient
-            .getAllLocations(filterLocation, page)
+        internetStatus: Boolean = false,
+    ): LocationData? {
+        var locationData: LocationData? = null
+        if (internetStatus) {
+            Log.v("Internet On", internetStatus.toString())
+            locationData = characterClient
+                .getAllLocations(filterLocation, page)
+        } else {
+            Log.v("Internet Off", internetStatus.toString())
+            var data = mutableStateOf(emptyList<Location>())
 
-        var data = mutableStateOf(emptyList<Location>())
+            locationsRepository.getAllLocationByPageNum(page).map {
+                data.value = it
+            }.stateIn(
+                scope = CoroutineScope(Dispatchers.IO)
+            )
 
-        locationsRepository.getAllLocationByPageNum(page).map {
-            data.value = it
-        }.stateIn(
-            scope = CoroutineScope(Dispatchers.IO)
-        )
+            var locationList: List<com.example.rickandmorty.domain.location.Location> =
+                data.value.map { location ->
+                    Location(
+                        id = location.id,
+                        type = location.type,
+                        created = "",
+                        images = location.images,
+                        name = location.name,
+                        dimension = location.dimension
+                    )
+                }
 
-        var locationOffline: List<com.example.rickandmorty.domain.location.Location> =
-            data.value.map { location ->
-                Location(
-                    id = location.id,
-                    type = location.type,
-                    created = "",
-                    images = location.images,
-                    name = location.name,
-                    dimension = location.dimension
-                )
-            }
+            var pagesOffline = Paginate(
+                pages = 1,
+                count = 2,
+                prev = when (page - 1) {
+                    0 -> null
+                    else -> (page - 1)
+                },
+                next = when (page + 1) {
+                    0 -> null
+                    else -> (page - 1)
+                }
+            )
 
-        var pagesOffline = Paginate(
-            pages = 1,
-            count = 2,
-            prev = when (page - 1) {
-                0 -> null
-                else -> (page - 1)
-            },
-            next = when (page + 1) {
-                0 -> null
-                else -> (page - 1)
-            }
-        )
-        locationOffline.forEach {
-            Log.v("Page: $page", it.name.toString())
+            locationData = LocationData(
+                locations = locationList,
+                pages = Paginate(2, 42, 1, 826)
+            )
         }
-        return LocationData(
-            locations = locationOffline,
-            pages = Paginate(2, 42, 1, 826)
-        )
+
+//        locationOffline.forEach {
+//            Log.v("Page: $page", it.name.toString())
+//        }
+        return locationData ?: null
 
         // ** use when internet is on **//
 //        return LocationData(

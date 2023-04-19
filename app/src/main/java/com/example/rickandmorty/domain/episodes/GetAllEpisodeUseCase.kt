@@ -1,6 +1,5 @@
 package com.example.rickandmorty.domain.episodes
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import com.example.rickandmorty.data.local.repository.EpisodesRepository
 import com.example.rickandmorty.domain.CharacterClient
@@ -19,48 +18,54 @@ class GetAllEpisodeUseCase @Inject constructor(
     suspend fun sortEpisodeById(
         filterEpisode: FilterEpisode = FilterEpisode(),
         page: Int = 1,
-    ): EpisodesData {
-        val episodesData = characterClient.getEpisodes(filterEpisode, page)
+        internetStatus: Boolean = false,
+    ): EpisodesData? {
+        var episodeData: EpisodesData? = null
+        if (internetStatus) {
+            episodeData = characterClient.getEpisodes(filterEpisode, page)
+        } else {
+            var data = mutableStateOf(emptyList<com.example.rickandmorty.data.local.schema.Episode>())
 
-        var data = mutableStateOf(emptyList<com.example.rickandmorty.data.local.schema.Episode>())
+            episodesRepository.getAllEpisodeByPageNum(page).map {
+                data.value = it
+            }.stateIn(
+                scope = CoroutineScope(Dispatchers.IO)
+            )
 
-        episodesRepository.getAllEpisodeByPageNum(page).map {
-            data.value = it
-        }.stateIn(
-            scope = CoroutineScope(Dispatchers.IO)
-        )
+            var episodeOffline: List<Episodes> =
+                data.value.map { episode ->
+                    Episodes(
+                        name = episode.name,
+                        images = episode.images,
+                        air_date = episode.air_date,
+                        episode = episode.episode,
+                        id = episode.id
+                    )
+                }
 
-        var episodeOffline: List<Episodes> =
-            data.value.map { episode ->
-                Episodes(
-                    name = episode.name,
-                    images = episode.images,
-                    air_date = episode.air_date,
-                    episode = episode.episode,
-                    id = episode.id
-                )
-            }
+            var pagesOffline = Paginate(
+                pages = 1,
+                count = 2,
+                prev = when (page - 1) {
+                    0 -> null
+                    else -> (page - 1)
+                },
+                next = when (page + 1) {
+                    0 -> null
+                    else -> (page - 1)
+                }
+            )
 
-        var pagesOffline = Paginate(
-            pages = 1,
-            count = 2,
-            prev = when (page - 1) {
-                0 -> null
-                else -> (page - 1)
-            },
-            next = when (page + 1) {
-                0 -> null
-                else -> (page - 1)
-            }
-        )
-        episodeOffline.forEach {
-            Log.v("Page: $page", it.name.toString())
+            episodeData = EpisodesData(
+                pages = pagesOffline,
+                episodesData = episodeOffline
+            )
+//            episodeOffline.forEach {
+//                Log.v("Page: $page", it.name.toString())
+//            }
         }
 
-        return EpisodesData(
-            episodesData = episodeOffline,
-            pages = pagesOffline
-        )
+        return episodeData ?: null
 
 //        return EpisodesData(
 //            episodesData = episodesData?.episodesData

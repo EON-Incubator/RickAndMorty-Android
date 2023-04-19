@@ -47,7 +47,8 @@ class MainActivity : ComponentActivity() {
 //                {
 //                    Text(text = "Status $status")
 //                }
-                if (status != ConnectivityObserver.Status.Available) {
+                if (false) {
+//                if (status != ConnectivityObserver.Status.Available) {
                     Box(modifier = Modifier.fillMaxSize()) {
                         Text(text = "Unavailable")
                     }

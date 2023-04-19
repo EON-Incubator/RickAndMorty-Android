@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -18,10 +19,13 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.network.ConnectionState
+import com.example.rickandmorty.network.connectivityState
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.*
 
@@ -40,7 +44,11 @@ fun CharacterDetails(
     onOriginClick: (String) -> Unit,
     onLastSeenClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+    viewModel: DetailedCharacterViewModel = hiltViewModel<DetailedCharacterViewModel>(),
 ) {
+    val connection by connectivityState()
+    viewModel.setStatus(connection === ConnectionState.Available)
+
     if (state.isLoading) {
         DetailedCharacterLoader(deviceType = deviceType)
     } else {

@@ -1,14 +1,12 @@
 package com.example.rickandmorty.navigation
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
@@ -51,12 +49,6 @@ fun RickAndMortyNavHost(
         mutableStateOf(true)
     }
     val searchListState = rememberLazyListState()
-    if (internetStatus == ConnectivityObserver.Status.Available) {
-        Toast.makeText(LocalContext.current, "Online", Toast.LENGTH_SHORT).show()
-        Toast.makeText(LocalContext.current, "Sync in Progress", Toast.LENGTH_LONG).show()
-    } else {
-        Toast.makeText(LocalContext.current, "Offline", Toast.LENGTH_SHORT).show()
-    }
     NavHost(
         modifier = modifier,
         navController = navController,

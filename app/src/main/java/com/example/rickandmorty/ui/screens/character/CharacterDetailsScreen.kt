@@ -304,11 +304,11 @@ fun infoPart2(
         topicAnswer = charInfo?.origin.toString(),
         showIt = charInfo?.originId,
         modifier = modifier.clickable {
-            if (charInfo?.originId != "null") {
+            if (charInfo?.originId != "null" && charInfo?.originId != "") {
                 onOriginClick(charInfo?.originId.toString())
             }
         },
-        iconArrow = if (charInfo?.originId != "null") {
+        iconArrow = if (charInfo?.originId != "null" && charInfo?.originId != "") {
             Icons.Outlined.KeyboardArrowRight
         } else {
             null
@@ -321,11 +321,11 @@ fun infoPart2(
         topicAnswer = charInfo?.lastseen.toString(),
         showIt = charInfo?.lastseenId,
         modifier = modifier.clickable {
-            if (charInfo?.lastseenId != "null") {
+            if (charInfo?.lastseenId != "null" && charInfo?.lastseenId != "") {
                 onOriginClick(charInfo?.lastseenId.toString())
             }
         },
-        iconArrow = if (charInfo?.lastseenId != "null") {
+        iconArrow = if (charInfo?.lastseenId != "null" && charInfo?.lastseenId != "") {
             Icons.Outlined.KeyboardArrowRight
         } else {
             null

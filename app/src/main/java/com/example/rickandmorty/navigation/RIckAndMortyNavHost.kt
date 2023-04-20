@@ -49,7 +49,7 @@ fun RickAndMortyNavHost(
     val searchListState = rememberLazyListState()
     if (internetStatus == ConnectivityObserver.Status.Available) {
         Toast.makeText(LocalContext.current, "Online", Toast.LENGTH_SHORT).show()
-//            Toast.makeText()
+        Toast.makeText(LocalContext.current, "Sync in Progress", Toast.LENGTH_LONG).show()
     } else {
         Toast.makeText(LocalContext.current, "Offline", Toast.LENGTH_SHORT).show()
     }

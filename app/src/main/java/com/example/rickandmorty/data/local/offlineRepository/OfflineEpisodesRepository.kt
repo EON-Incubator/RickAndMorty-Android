@@ -12,7 +12,10 @@ class OfflineEpisodesRepository(private val realm: Realm) : EpisodesRepository {
     /**
      * Retrieve all the items from the the given data source.
      */
-    override fun getAllEpisodesStream(): Flow<List<Episode>> {
+    override fun getAllEpisodesStream(queryString: String): Flow<List<Episode>> {
+        if (queryString.isNotEmpty()) {
+            return realm.query<Episode>(query = "overview CONTAINS[c] $0 OR name CONTAINS[c] $0", queryString).asFlow().map { it.list }
+        }
         return realm.query<Episode>().asFlow().map { it.list }
     }
 

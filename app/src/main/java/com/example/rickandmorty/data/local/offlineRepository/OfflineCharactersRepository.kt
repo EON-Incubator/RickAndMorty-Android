@@ -15,7 +15,10 @@ class OfflineCharactersRepository(private val realm: Realm) : CharactersReposito
     /**
      * Retrieve all the items from the the given data source.
      */
-    override fun getAllCharactersStream(): Flow<List<Character>> {
+    override fun getAllCharactersStream(queryString: String): Flow<List<Character>> {
+        if (queryString.isNotEmpty()) {
+            return realm.query<Character>(query = "name CONTAINS[c] $0", queryString).asFlow().map { it.list }
+        }
         return realm.query<Character>().asFlow().map { it.list }
     }
 

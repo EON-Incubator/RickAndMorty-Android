@@ -14,7 +14,10 @@ class OfflineLocationsRepository(private val realm: Realm) : LocationsRepository
     /**
      * Retrieve all the items from the the given data source.
      */
-    override fun getAllLocationsStream(): Flow<List<Location>> {
+    override fun getAllLocationsStream(queryString: String): Flow<List<Location>> {
+        if (queryString.isNotEmpty()) {
+            return realm.query<Location>(query = "name CONTAINS[c] $0 OR type CONTAINS[c] $0", queryString).asFlow().map { it.list }
+        }
         return realm.query<Location>().asFlow().map { it.list }
     }
 

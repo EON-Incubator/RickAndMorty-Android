@@ -7,7 +7,7 @@ interface EpisodesRepository {
     /**
      * Retrieve all the items from the the given data source.
      */
-    fun getAllEpisodesStream(): Flow<List<Episode>>
+    fun getAllEpisodesStream(queryString: String = ""): Flow<List<Episode>>
 
     fun getAllEpisodeByPageNum(page: Int = 1): Flow<List<Episode>>
 

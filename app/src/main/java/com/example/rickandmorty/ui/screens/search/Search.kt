@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.ui.DataState
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
@@ -39,10 +40,13 @@ fun Search(
     query: State<TextFieldValue>,
     onLocationClick: (id: String) -> Unit,
     onCharacterClick: (id: String) -> Unit,
+    onEpisodeClick: (id: String) -> Unit,
     onShowCharacters: () -> Unit,
     showCharacters: Boolean,
     onShowLocations: () -> Unit,
     showLocations: Boolean,
+    onShowEpisodes: () -> Unit,
+    showEpisodes: Boolean,
     updateCharacterList: () -> Unit,
     updateLocationList: () -> Unit,
     searchListState: LazyListState,
@@ -58,6 +62,8 @@ fun Search(
                 onShowLocations = onShowLocations,
                 showCharacters = showCharacters,
                 onShowCharacters = onShowCharacters,
+                showEpisodes = showEpisodes,
+                onShowEpisodes = onShowEpisodes,
                 onResetQuery = onResetQuery
             )
         }
@@ -74,6 +80,8 @@ fun Search(
                         onShowLocations = onShowLocations,
                         showCharacters = showCharacters,
                         onShowCharacters = onShowCharacters,
+                        showEpisodes = showEpisodes,
+                        onShowEpisodes = onShowEpisodes,
                         onResetQuery = onResetQuery
 
                     )
@@ -123,7 +131,7 @@ fun Search(
                             }
                         }
 
-                        if (searchResultState.characterData.pages?.next != null) {
+                        if (searchResultState.characterData.pages?.next != null && !DataState.isLocal) {
                             item {
                                 Button(
                                     onClick = updateCharacterList,
@@ -207,7 +215,10 @@ fun Search(
                                 LocationLoaderCells(deviceType)
                             }
                         }
-                        if (searchResultState.locationByName.pages?.next != null || searchResultState.locationByType?.pages?.next != null) {
+                        if (
+                            (searchResultState.locationByName.pages?.next != null || searchResultState.locationByType?.pages?.next != null) &&
+                            !DataState.isLocal
+                        ) {
                             item {
                                 Button(
                                     onClick = updateLocationList,
@@ -251,6 +262,90 @@ fun Search(
                         }
                     }
                 }
+
+                if (showEpisodes && DataState.isLocal) {
+                    if (searchResultState.episodesData?.episodesData != null) {
+                        item {
+                            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
+                            Text(
+                                text = "Episodes",
+                                Modifier
+                                    .background(Color.LightGray)
+                                    .fillMaxWidth()
+                                    .padding(GetPadding().xxxSmallPadding)
+                            )
+                        }
+                        if (searchResultState.episodesData.episodesData.isEmpty()) {
+                            item {
+                                Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
+                                Text(
+                                    text = "No Episodes found matching: ${query.value.text}",
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(GetPadding().xxxSmallPadding)
+                                )
+                            }
+                        } else {
+                            items(
+                                searchResultState.episodesData.episodesData,
+                                key = { it.id.toString() }
+                            ) { item ->
+                                GetRowWithFourImages(
+                                    imageUrlLink = item.images,
+                                    titleName = item.name.toString(),
+                                    property1 = item.episode.toString(),
+                                    property2 = item.air_date.toString(),
+                                    id = item.id.toString(),
+                                    onClickable = onEpisodeClick
+                                )
+                            }
+                        }
+
+                        if (searchResultState.episodesData.pages?.next != null && !DataState.isLocal) {
+                            item {
+                                Button(
+                                    onClick = updateCharacterList,
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .padding(GetPadding().mediumPadding)
+                                ) {
+                                    Text(
+                                        text =
+                                        stringResource(R.string.load_more),
+                                        modifier = Modifier
+                                            .semantics {
+                                                /** Hardcoded string used to testing */
+                                                contentDescription = "Load More Characters"
+                                            }
+                                    )
+                                }
+                            }
+                            item {
+                                if (searchResultState.isCharacterUpdateLoading) {
+                                    LocationLoaderCells(deviceType)
+                                }
+                            }
+                        }
+                    } else {
+                        item {
+                            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
+                            Text(
+                                text = "Episodes",
+                                Modifier
+                                    .background(Color.LightGray)
+                                    .fillMaxWidth()
+                                    .padding(GetPadding().xxxSmallPadding)
+                            )
+                            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
+                            Text(
+                                text = "Type to search episode by overview",
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(GetPadding().xxxSmallPadding)
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -264,6 +359,8 @@ fun SearchBar(
     showCharacters: Boolean,
     showLocations: Boolean,
     onShowLocations: () -> Unit,
+    showEpisodes: Boolean,
+    onShowEpisodes: () -> Unit,
     onResetQuery: () -> Unit,
 ) {
     Row(modifier = Modifier.padding(GetPadding().xSmallPadding)) {
@@ -316,74 +413,115 @@ fun SearchBar(
             }
         )
     }
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(GetPadding().xSmallPadding),
-        modifier = Modifier.padding(GetPadding().xSmallPadding)
-    ) {
-        Button(
-            onClick = onShowCharacters,
-            Modifier
-                .weight(1.0f)
-                .testTag(stringResource(id = R.string.characters_screen_title)),
-            colors = if (showCharacters) {
-                ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
-            } else {
-                ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
-            }
+    Column() {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(GetPadding().xSmallPadding),
+            modifier = Modifier.padding(horizontal = GetPadding().xSmallPadding)
         ) {
-            if (showCharacters) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(
-                        id = R.drawable.outline_check_box_24
-                    ),
-                    contentDescription = stringResource(R.string.selected),
-                    Modifier.padding(horizontal = GetPadding().xSmallPadding)
-                )
-            } else {
-                Icon(
-                    imageVector = ImageVector.vectorResource(
-                        id = R.drawable.outline_check_box_outline_blank_24
-                    ),
-                    contentDescription = stringResource(R.string.selected),
-                    Modifier.padding(horizontal = GetPadding().xSmallPadding)
+            Button(
+                onClick = onShowCharacters,
+                Modifier
+                    .weight(1.0f)
+                    .testTag(stringResource(id = R.string.characters_screen_title)),
+                colors = if (showCharacters) {
+                    ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                } else {
+                    ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+                }
+            ) {
+                if (showCharacters) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(
+                            id = R.drawable.outline_check_box_24
+                        ),
+                        contentDescription = stringResource(R.string.selected),
+                        Modifier.padding(horizontal = GetPadding().xSmallPadding)
+                    )
+                } else {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(
+                            id = R.drawable.outline_check_box_outline_blank_24
+                        ),
+                        contentDescription = stringResource(R.string.selected),
+                        Modifier.padding(horizontal = GetPadding().xSmallPadding)
+                    )
+                }
+                Text(
+                    text =
+                    stringResource(id = R.string.characters_screen_title)
                 )
             }
-            Text(
-                text =
-                stringResource(id = R.string.characters_screen_title)
-            )
+            Button(
+                onClick = onShowLocations,
+                Modifier
+                    .weight(1.0f)
+                    .testTag(stringResource(id = R.string.locations_screen_title)),
+                colors = if (showLocations) {
+                    ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                } else {
+                    ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+                }
+            ) {
+                if (showLocations) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(
+                            id =
+                            R.drawable.outline_check_box_24
+                        ),
+                        contentDescription = stringResource(id = R.string.selected),
+                        Modifier.padding(horizontal = GetPadding().xSmallPadding)
+                    )
+                } else {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(
+                            id =
+                            R.drawable.outline_check_box_outline_blank_24
+                        ),
+                        contentDescription = stringResource(id = R.string.selected),
+                        Modifier.padding(horizontal = GetPadding().xSmallPadding)
+                    )
+                }
+                Text(text = stringResource(id = R.string.locations_screen_title))
+            }
         }
-        Button(
-            onClick = onShowLocations,
-            Modifier
-                .weight(1.0f)
-                .testTag(stringResource(id = R.string.locations_screen_title)),
-            colors = if (showLocations) {
-                ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
-            } else {
-                ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+        if (DataState.isLocal) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(GetPadding().xSmallPadding),
+                modifier = Modifier.padding(horizontal = GetPadding().xSmallPadding)
+            ) {
+                Button(
+                    onClick = onShowEpisodes,
+                    Modifier
+                        .weight(1.0f)
+                        .testTag(stringResource(id = R.string.characters_screen_title)),
+                    colors = if (showEpisodes) {
+                        ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                    } else {
+                        ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+                    }
+                ) {
+                    if (showEpisodes) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(
+                                id = R.drawable.outline_check_box_24
+                            ),
+                            contentDescription = stringResource(R.string.selected),
+                            Modifier.padding(horizontal = GetPadding().xSmallPadding)
+                        )
+                    } else {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(
+                                id = R.drawable.outline_check_box_outline_blank_24
+                            ),
+                            contentDescription = stringResource(R.string.selected),
+                            Modifier.padding(horizontal = GetPadding().xSmallPadding)
+                        )
+                    }
+                    Text(
+                        text = "Episodes"
+                    )
+                }
             }
-        ) {
-            if (showLocations) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(
-                        id =
-                        R.drawable.outline_check_box_24
-                    ),
-                    contentDescription = stringResource(id = R.string.selected),
-                    Modifier.padding(horizontal = GetPadding().xSmallPadding)
-                )
-            } else {
-                Icon(
-                    imageVector = ImageVector.vectorResource(
-                        id =
-                        R.drawable.outline_check_box_outline_blank_24
-                    ),
-                    contentDescription = stringResource(id = R.string.selected),
-                    Modifier.padding(horizontal = GetPadding().xSmallPadding)
-                )
-            }
-            Text(text = stringResource(id = R.string.locations_screen_title))
         }
     }
 }

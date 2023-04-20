@@ -98,8 +98,18 @@ object ApolloModule {
 
     @Provides
     @Singleton
-    fun provideGetSearchResultUseCase(characterClient: CharacterClient): GetSearchResultUseCase {
-        return GetSearchResultUseCase(characterClient)
+    fun provideGetSearchResultUseCase(
+        characterClient: CharacterClient,
+        locationsRepository: LocationsRepository,
+        episodesRepository: EpisodesRepository,
+        charactersRepository: CharactersRepository,
+    ): GetSearchResultUseCase {
+        return GetSearchResultUseCase(
+            characterClient,
+            charactersRepository,
+            locationsRepository,
+            episodesRepository
+        )
     }
 
     @Provides

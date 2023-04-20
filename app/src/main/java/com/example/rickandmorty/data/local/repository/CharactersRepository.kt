@@ -7,7 +7,7 @@ interface CharactersRepository {
     /**
      * Retrieve all the items from the the given data source.
      */
-    fun getAllCharactersStream(): Flow<List<Character>>
+    fun getAllCharactersStream(queryString: String = ""): Flow<List<Character>>
 
     fun getAllCharacterByPageNum(page: Int = 1): Flow<List<Character>>
 

@@ -50,8 +50,9 @@ object ApolloModule {
     fun provideGetCharacterUseCase(
         characterClient: CharacterClient,
         charactersRepository: CharactersRepository,
+        episodesRepository: EpisodesRepository,
     ): GetCharacterUseCase {
-        return GetCharacterUseCase(characterClient, charactersRepository)
+        return GetCharacterUseCase(characterClient, charactersRepository, episodesRepository)
     }
 
     @Provides
@@ -75,16 +76,24 @@ object ApolloModule {
 
     @Provides
     @Singleton
-    fun provideGetLocationDetailUseCase(characterClient: CharacterClient):
+    fun provideGetLocationDetailUseCase(
+        characterClient: CharacterClient,
+        locationsRepository: LocationsRepository,
+        charactersRepository: CharactersRepository,
+    ):
         GetLocationDetailUseCase {
-        return GetLocationDetailUseCase(characterClient)
+        return GetLocationDetailUseCase(characterClient, locationsRepository, charactersRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetEpisodeUseCase(characterClient: CharacterClient):
+    fun provideGetEpisodeUseCase(
+        characterClient: CharacterClient,
+        charactersRepository: CharactersRepository,
+        episodesRepository: EpisodesRepository,
+    ):
         GetEpisodeUseCase {
-        return GetEpisodeUseCase(characterClient)
+        return GetEpisodeUseCase(characterClient, episodesRepository, charactersRepository)
     }
 
     @Provides

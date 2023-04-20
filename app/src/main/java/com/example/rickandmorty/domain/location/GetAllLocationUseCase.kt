@@ -35,7 +35,6 @@ class GetAllLocationUseCase @Inject constructor(
             locationData = characterClient
                 .getAllLocations(filterLocation, page)
         } else {
-            Log.v("Internet Off", internetStatus.toString())
             var data = mutableStateOf(emptyList<Location>())
 
             locationsRepository.getAllLocationByPageNum(page).map {
@@ -47,11 +46,11 @@ class GetAllLocationUseCase @Inject constructor(
             var locationList: List<com.example.rickandmorty.domain.location.Location> =
                 data.value.map { location ->
                     Location(
-                        id = location.id,
                         type = location.type,
                         created = "",
                         images = location.images,
                         name = location.name,
+                        id = location.id,
                         dimension = location.dimension
                     )
                 }

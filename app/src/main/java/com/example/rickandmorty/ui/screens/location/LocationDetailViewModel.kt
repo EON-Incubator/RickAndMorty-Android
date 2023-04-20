@@ -66,6 +66,7 @@ class LocationDetailViewModel @Inject constructor(
                     )
                 }
             }
+            getLocationDetail(id.toString())
         }
     }
     data class LocationDetailUiState(

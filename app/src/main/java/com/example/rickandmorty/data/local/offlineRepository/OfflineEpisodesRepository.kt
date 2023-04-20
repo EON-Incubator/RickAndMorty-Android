@@ -27,7 +27,7 @@ class OfflineEpisodesRepository(private val realm: Realm) : EpisodesRepository {
      * Retrieve an item from the given data source that matches with the [id].
      */
     override fun getEpisodeStream(id: Int): Episode? {
-        return realm.query<Episode>(query = "id == $0", id).first().find()
+        return realm.query<Episode>(query = "id == $0", id.toString()).first().find()
     }
 
     /**

@@ -34,7 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.rickandmorty.R
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.GetPadding
 import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithFourImages
@@ -131,9 +130,9 @@ fun LocationScreen(
                         LocationLoader(deviceType)
                     } else {
                         Column() {
-                            if (locationsUiState.internetStatus != ConnectivityObserver.Status.Available) {
-                                Text(modifier = Modifier.fillMaxWidth(), text = "No Internet")
-                            }
+//                            if (locationsUiState.internetStatus != ConnectivityObserver.Status.Available) {
+//                                Text(modifier = Modifier.fillMaxWidth(), text = "No Internet")
+//                            }
                             LazyVerticalGrid(
                                 columns = GridCells.Fixed(
                                     when (deviceType) {

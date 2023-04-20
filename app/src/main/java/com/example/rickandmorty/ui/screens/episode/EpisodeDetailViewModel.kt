@@ -87,6 +87,7 @@ class EpisodeDetailViewModel @Inject constructor(
                         internetStatus = internetStatus
                     )
                 }
+                getEpisode()
             }
         }
     }

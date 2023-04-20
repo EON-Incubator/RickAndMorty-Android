@@ -27,7 +27,7 @@ class OfflineCharactersRepository(private val realm: Realm) : CharactersReposito
      * Retrieve an item from the given data source that matches with the [id].
      */
     override fun getCharacterStream(id: Int): Character? {
-        return realm.query<Character>(query = "ID == $0", id).first().find()
+        return realm.query<Character>(query = "ID == $0", id.toString()).first().find()
     }
 
     /**

@@ -2,8 +2,10 @@ package com.example.rickandmorty.domain.character
 
 import androidx.compose.runtime.mutableStateOf
 import com.example.rickandmorty.data.local.repository.CharactersRepository
+import com.example.rickandmorty.data.local.repository.EpisodesRepository
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.Paginate
+import com.example.rickandmorty.domain.episodes.Episodes
 import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.type.FilterCharacter
 import kotlinx.coroutines.CoroutineScope
@@ -15,6 +17,7 @@ import javax.inject.Inject
 class GetCharacterUseCase @Inject constructor(
     private val characterClient: CharacterClient,
     private val charactersRepository: CharactersRepository,
+    private val episodesRepository: EpisodesRepository,
 ) {
     suspend fun sortByName(filterCharacter: FilterCharacter = FilterCharacter()): List<Character>? {
         return characterClient
@@ -85,6 +88,40 @@ class GetCharacterUseCase @Inject constructor(
         code: String,
         internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
     ): DetailedCharacter? {
-        return characterClient.getSingleCharacter(code)
+        if (internetStatus == ConnectivityObserver.Status.Available) {
+            return characterClient.getSingleCharacter(code)
+        } else {
+            val characterRealm = charactersRepository.getCharacterStream(code.toInt())
+            var id: List<Int> = characterRealm?.episodes?.map {
+                it.toInt()
+            } ?: emptyList()
+
+            var episodes = id.map {
+                episodesRepository.getEpisodeStream(it)
+            }.map {
+                Episodes(
+                    id = it?.id,
+                    name = it?.name,
+                    episode = it?.episode,
+                    images = it?.images,
+                    air_date = it?.air_date
+                )
+            }
+
+            val detailedCharacter = DetailedCharacter(
+                ID = characterRealm?.ID,
+                image = characterRealm?.image,
+                status = characterRealm?.status,
+                species = characterRealm?.species,
+                gender = characterRealm?.gender,
+                name = characterRealm?.name,
+                episode = episodes,
+                originId = characterRealm?.originId,
+                origin = characterRealm?.origin,
+                lastseenId = characterRealm?.lastseenId,
+                lastseen = characterRealm?.lastseen
+            )
+            return detailedCharacter
+        }
     }
 }

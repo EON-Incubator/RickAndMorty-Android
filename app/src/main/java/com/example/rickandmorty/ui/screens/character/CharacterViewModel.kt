@@ -180,7 +180,7 @@ class CharacterViewModel @Inject constructor(
                 }
             }
 //            Log.v("CharacterViewModel setStatus", internetStatus.name.toString())
-//            refresh()
+            refresh()
         }
     }
     data class CharacterState(

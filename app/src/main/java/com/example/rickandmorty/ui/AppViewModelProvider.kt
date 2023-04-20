@@ -91,7 +91,9 @@ class AppViewModelProvider @Inject constructor(
                 )
             }
             Log.v("Completed", "True")
+
             DataState.isLocal = true
+            // Toast.makeText(LocalContext.current, "Online", Toast.LENGTH_SHORT).show()
         }
     }
 

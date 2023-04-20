@@ -35,10 +35,10 @@ object ApolloModule {
         return ApolloClient.Builder().serverUrl("https://rickandmortyapi.com/graphql").build()
     }
 
-/**
-passed apollo client directly in the implementation of
-provideGetCharactersClient() method for abstraction
-*/
+    /**
+     passed apollo client directly in the implementation of
+     provideGetCharactersClient() method for abstraction
+     */
     @Provides
     @Singleton
     fun provideGetCharactersClient(apolloClient: ApolloClient): CharacterClient {
@@ -50,8 +50,9 @@ provideGetCharactersClient() method for abstraction
     fun provideGetCharacterUseCase(
         characterClient: CharacterClient,
         charactersRepository: CharactersRepository,
+        episodesRepository: EpisodesRepository,
     ): GetCharacterUseCase {
-        return GetCharacterUseCase(characterClient, charactersRepository)
+        return GetCharacterUseCase(characterClient, charactersRepository, episodesRepository)
     }
 
     @Provides
@@ -75,16 +76,24 @@ provideGetCharactersClient() method for abstraction
 
     @Provides
     @Singleton
-    fun provideGetLocationDetailUseCase(characterClient: CharacterClient):
+    fun provideGetLocationDetailUseCase(
+        characterClient: CharacterClient,
+        locationsRepository: LocationsRepository,
+        charactersRepository: CharactersRepository,
+    ):
         GetLocationDetailUseCase {
-        return GetLocationDetailUseCase(characterClient)
+        return GetLocationDetailUseCase(characterClient, locationsRepository, charactersRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetEpisodeUseCase(characterClient: CharacterClient):
+    fun provideGetEpisodeUseCase(
+        characterClient: CharacterClient,
+        charactersRepository: CharactersRepository,
+        episodesRepository: EpisodesRepository,
+    ):
         GetEpisodeUseCase {
-        return GetEpisodeUseCase(characterClient)
+        return GetEpisodeUseCase(characterClient, episodesRepository, charactersRepository)
     }
 
     @Provides

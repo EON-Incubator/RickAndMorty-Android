@@ -2,9 +2,6 @@ package com.example.rickandmorty.ui.screens.episode
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.rememberScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -37,6 +34,7 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.*
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -171,59 +169,61 @@ fun EpisodeDetails(
                     if (deviceType == ScreenType.PORTRAIT_PHONE) {
                         Column() {
                             LazyColumn {
-                                item {
-                                    val pagerState = rememberPagerState()
-                                    HorizontalPager(
-                                        count = episodeDetails.images?.stills?.size ?: 0,
-                                        state = pagerState,
-                                        itemSpacing = 10.dp,
-                                        contentPadding = PaddingValues(horizontal = 20.dp),
-                                        modifier = Modifier
-                                            .height(
-                                                height = LocalConfiguration.current.screenHeightDp.dp / 5
-                                            )
-                                    ) {
-                                        Card(
-
-                                            border = BorderStroke(
-                                                GetThickness().xxSmall,
-                                                color = MaterialTheme.colors.onBackground
-                                            ),
-                                            shape = RoundedCornerShape(10)
-
-                                        ) {
-                                            GetCarouselImage(
-                                                imageUri = TmdbImageUrlBuilder.build(
-                                                    episodeDetails.images?.stills?.get(it)?.filePath
-                                                        ?: "",
-                                                    "w500"
+                                if (state.internetStatus == ConnectivityObserver.Status.Available) {
+                                    item {
+                                        val pagerState = rememberPagerState()
+                                        HorizontalPager(
+                                            count = episodeDetails.images?.stills?.size ?: 0,
+                                            state = pagerState,
+                                            itemSpacing = 10.dp,
+                                            contentPadding = PaddingValues(horizontal = 20.dp),
+                                            modifier = Modifier
+                                                .height(
+                                                    height = LocalConfiguration.current.screenHeightDp.dp / 5
                                                 )
-                                            )
+                                        ) {
+                                            Card(
+
+                                                border = BorderStroke(
+                                                    GetThickness().xxSmall,
+                                                    color = MaterialTheme.colors.onBackground
+                                                ),
+                                                shape = RoundedCornerShape(10)
+
+                                            ) {
+                                                GetCarouselImage(
+                                                    imageUri = TmdbImageUrlBuilder.build(
+                                                        episodeDetails.images?.stills?.get(it)?.filePath
+                                                            ?: "",
+                                                        "w500"
+                                                    )
+                                                )
+                                            }
                                         }
                                     }
-                                }
 
-                                item {
-                                    Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
+                                    item {
+                                        Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
 
-                                    Text(
-                                        text = stringResource(R.string.description_caps),
-                                        fontSize = 12.sp,
-                                        modifier = Modifier
-                                            .padding(start = GetPadding().mediumPadding)
-                                    )
+                                        Text(
+                                            text = stringResource(R.string.description_caps),
+                                            fontSize = 12.sp,
+                                            modifier = Modifier
+                                                .padding(start = GetPadding().mediumPadding)
+                                        )
 
-                                    Spacer(modifier = Modifier.height(GetPadding().smallPadding))
+                                        Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
-                                    Text(
-                                        text = episodeDetails.overview,
-                                        fontSize = 11.sp,
-                                        modifier = Modifier
-                                            .padding(
-                                                start = GetPadding().xxMediumPadding,
-                                                end = GetPadding().xxMediumPadding
-                                            )
-                                    )
+                                        Text(
+                                            text = episodeDetails.overview,
+                                            fontSize = 11.sp,
+                                            modifier = Modifier
+                                                .padding(
+                                                    start = GetPadding().xxMediumPadding,
+                                                    end = GetPadding().xxMediumPadding
+                                                )
+                                        )
+                                    }
                                 }
                                 item {
                                     Spacer(modifier = Modifier.height(GetPadding().smallPadding))
@@ -255,12 +255,13 @@ fun EpisodeDetails(
                                         )
                                     }
 
-                                    GetInfoInLine(
-                                        icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
-                                        topic = stringResource(R.string.rating),
-                                        topicAnswer = episodeDetails.voteAverage.toString()
-                                    )
-
+                                    if (state.internetStatus == ConnectivityObserver.Status.Available) {
+                                        GetInfoInLine(
+                                            icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
+                                            topic = stringResource(R.string.rating),
+                                            topicAnswer = episodeDetails.voteAverage.toString()
+                                        )
+                                    }
                                     Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
                                 }
 
@@ -444,49 +445,6 @@ fun playVideo(
     videoId: String,
     playFullScreen: Boolean = false,
 ) {
-//    Dialog(
-//        onDismissRequest = { videoClicked(false) },
-//        properties = DialogProperties(usePlatformDefaultWidth = false)
-//    ) {
-//        Card(
-//            Modifier
-//                .fillMaxWidth(),
-//            backgroundColor = Color.Black
-//
-//
-//        ) {
-//            Column() {
-//
-//                YoutubeScreen(modifier = Modifier.weight(1f), videoId = videoId, playFullScreen = playFullScreen)
-//
-//                if(playFullScreen) {
-//                    Button(colors = ButtonDefaults.buttonColors(Color.DarkGray),
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-// //                    .padding(5.dp),
-//                        , onClick = { videoClicked(false) }
-//                    ) {
-//                        Text(color = Color.White, textAlign = TextAlign.End, text = "Exit")
-//                    }
-//                }
-// //                Text(
-// //                    modifier = Modifier
-// //                        .padding(horizontal = 10.dp)
-// //                        .fillMaxWidth()
-// //                        .clickable {
-// //                            videoClicked(false)
-// //                        },
-// //                    text = "X",
-// //                    color = Color.White,
-// //                    textAlign = TextAlign.End
-// //                )
-//
-//
-//            }
-//
-//        }
-//    }
-
     AlertDialog(
         backgroundColor = Color.Black,
         onDismissRequest = { videoClicked(false) },
@@ -495,21 +453,21 @@ fun playVideo(
             Card(
                 Modifier
                     .fillMaxWidth()
-                    .scrollable(
-                        orientation = Orientation.Vertical,
-                        state = rememberScrollableState { delta ->
-                            when {
-                                delta < 0 -> {
-                                    videoClicked(false)
-                                }
-                                delta > 0 -> {
-                                    videoClicked(false)
-                                }
-                                else -> {}
-                            }
-                            delta
-                        }
-                    )
+//                    .scrollable(
+//                        orientation = Orientation.Vertical,
+//                        state = rememberScrollableState { delta ->
+//                            when {
+//                                delta < 0 -> {
+//                                    videoClicked(false)
+//                                }
+//                                delta > 0 -> {
+//                                    videoClicked(false)
+//                                }
+//                                else -> {}
+//                            }
+//                            delta
+//                        }
+//                    )
             ) {
                 YoutubeScreen(videoId = videoId, playFullScreen = playFullScreen)
             }

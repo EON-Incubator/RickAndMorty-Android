@@ -82,7 +82,7 @@ class EpisodeViewModel @Inject constructor(
                     )
                 }
             }
-//            refresh()
+            refresh()
         }
     }
 

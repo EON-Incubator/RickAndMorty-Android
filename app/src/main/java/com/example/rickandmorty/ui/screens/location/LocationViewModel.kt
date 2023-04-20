@@ -87,7 +87,7 @@ class LocationViewModel @Inject constructor(
                         internetStatus = internetStatus
                     )
                 }
-//                refresh()
+                refresh()
             }
         }
     }

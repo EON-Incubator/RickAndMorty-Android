@@ -35,7 +35,7 @@ class OfflineLocationsRepository(private val realm: Realm) : LocationsRepository
      * Retrieve an item from the given data source that matches with the [id].
      */
     override fun getLocationStream(id: Int): Location? {
-        return realm.query<Location>(query = "id == $0", id).first().find()
+        return realm.query<Location>(query = "id == $0", id.toString()).first().find()
     }
 
     /**

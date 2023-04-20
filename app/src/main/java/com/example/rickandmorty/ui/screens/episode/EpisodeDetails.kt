@@ -37,6 +37,7 @@ import coil.compose.AsyncImage
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail
 import com.example.rickandmorty.navigation.NavigationDestination
+import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.commonUtils.*
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -171,59 +172,61 @@ fun EpisodeDetails(
                     if (deviceType == ScreenType.PORTRAIT_PHONE) {
                         Column() {
                             LazyColumn {
-                                item {
-                                    val pagerState = rememberPagerState()
-                                    HorizontalPager(
-                                        count = episodeDetails.images?.stills?.size ?: 0,
-                                        state = pagerState,
-                                        itemSpacing = 10.dp,
-                                        contentPadding = PaddingValues(horizontal = 20.dp),
-                                        modifier = Modifier
-                                            .height(
-                                                height = LocalConfiguration.current.screenHeightDp.dp / 5
-                                            )
-                                    ) {
-                                        Card(
-
-                                            border = BorderStroke(
-                                                GetThickness().xxSmall,
-                                                color = MaterialTheme.colors.onBackground
-                                            ),
-                                            shape = RoundedCornerShape(10)
-
-                                        ) {
-                                            GetCarouselImage(
-                                                imageUri = TmdbImageUrlBuilder.build(
-                                                    episodeDetails.images?.stills?.get(it)?.filePath
-                                                        ?: "",
-                                                    "w500"
+                                if (state.internetStatus == ConnectivityObserver.Status.Available) {
+                                    item {
+                                        val pagerState = rememberPagerState()
+                                        HorizontalPager(
+                                            count = episodeDetails.images?.stills?.size ?: 0,
+                                            state = pagerState,
+                                            itemSpacing = 10.dp,
+                                            contentPadding = PaddingValues(horizontal = 20.dp),
+                                            modifier = Modifier
+                                                .height(
+                                                    height = LocalConfiguration.current.screenHeightDp.dp / 5
                                                 )
-                                            )
+                                        ) {
+                                            Card(
+
+                                                border = BorderStroke(
+                                                    GetThickness().xxSmall,
+                                                    color = MaterialTheme.colors.onBackground
+                                                ),
+                                                shape = RoundedCornerShape(10)
+
+                                            ) {
+                                                GetCarouselImage(
+                                                    imageUri = TmdbImageUrlBuilder.build(
+                                                        episodeDetails.images?.stills?.get(it)?.filePath
+                                                            ?: "",
+                                                        "w500"
+                                                    )
+                                                )
+                                            }
                                         }
                                     }
-                                }
 
-                                item {
-                                    Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
+                                    item {
+                                        Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
 
-                                    Text(
-                                        text = stringResource(R.string.description_caps),
-                                        fontSize = 12.sp,
-                                        modifier = Modifier
-                                            .padding(start = GetPadding().mediumPadding)
-                                    )
+                                        Text(
+                                            text = stringResource(R.string.description_caps),
+                                            fontSize = 12.sp,
+                                            modifier = Modifier
+                                                .padding(start = GetPadding().mediumPadding)
+                                        )
 
-                                    Spacer(modifier = Modifier.height(GetPadding().smallPadding))
+                                        Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
-                                    Text(
-                                        text = episodeDetails.overview,
-                                        fontSize = 11.sp,
-                                        modifier = Modifier
-                                            .padding(
-                                                start = GetPadding().xxMediumPadding,
-                                                end = GetPadding().xxMediumPadding
-                                            )
-                                    )
+                                        Text(
+                                            text = episodeDetails.overview,
+                                            fontSize = 11.sp,
+                                            modifier = Modifier
+                                                .padding(
+                                                    start = GetPadding().xxMediumPadding,
+                                                    end = GetPadding().xxMediumPadding
+                                                )
+                                        )
+                                    }
                                 }
                                 item {
                                     Spacer(modifier = Modifier.height(GetPadding().smallPadding))
@@ -255,12 +258,13 @@ fun EpisodeDetails(
                                         )
                                     }
 
-                                    GetInfoInLine(
-                                        icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
-                                        topic = stringResource(R.string.rating),
-                                        topicAnswer = episodeDetails.voteAverage.toString()
-                                    )
-
+                                    if (state.internetStatus == ConnectivityObserver.Status.Available) {
+                                        GetInfoInLine(
+                                            icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
+                                            topic = stringResource(R.string.rating),
+                                            topicAnswer = episodeDetails.voteAverage.toString()
+                                        )
+                                    }
                                     Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
                                 }
 

@@ -1,6 +1,7 @@
 package com.example.rickandmorty
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -8,6 +9,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.lifecycleScope
 import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.network.NetworkConnectivityObserver
@@ -50,6 +52,12 @@ class MainActivity : ComponentActivity() {
 //                } else {
                 RickAndMortyMainApp(windowSize = windowSize, internetStatus = status)
 //                }
+                if (status == ConnectivityObserver.Status.Available) {
+                    Toast.makeText(LocalContext.current, "Online", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(LocalContext.current, "Sync in Progress", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(LocalContext.current, "Offline", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

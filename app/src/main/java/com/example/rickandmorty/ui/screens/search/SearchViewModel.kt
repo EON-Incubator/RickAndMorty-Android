@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.Optional
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
+import com.example.rickandmorty.domain.episodes.EpisodesData
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.LocationData
 import com.example.rickandmorty.domain.search.GetSearchResultUseCase
@@ -62,6 +63,7 @@ class SearchViewModel @Inject constructor(
                             characterData = characterData?.characterData,
                             locationByName = characterData?.locationByName,
                             locationByType = characterData?.locationByType,
+                            episodesData = characterData?.episodesData ?: null,
                             isLoading = false
                         )
                     }
@@ -181,6 +183,7 @@ class SearchViewModel @Inject constructor(
         val characterData: CharacterData? = null,
         val locationByName: LocationData? = null,
         val locationByType: LocationData? = null,
+        val episodesData: EpisodesData? = null,
         var isLoading: Boolean = false,
         var isCharacterUpdateLoading: Boolean = false,
         var isLocationUpdateLoading: Boolean = false,

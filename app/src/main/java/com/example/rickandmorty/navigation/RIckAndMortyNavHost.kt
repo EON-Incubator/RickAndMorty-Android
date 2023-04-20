@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.rickandmorty.RickAndMortyApp
 import com.example.rickandmorty.network.ConnectivityObserver
+import com.example.rickandmorty.ui.DataState
 import com.example.rickandmorty.ui.screens.ScreenType
 import com.example.rickandmorty.ui.screens.character.*
 import com.example.rickandmorty.ui.screens.episode.*
@@ -44,6 +45,9 @@ fun RickAndMortyNavHost(
         mutableStateOf(true)
     }
     var showLocations by remember {
+        mutableStateOf(true)
+    }
+    var showEpisodes by remember {
         mutableStateOf(true)
     }
     val searchListState = rememberLazyListState()
@@ -234,12 +238,17 @@ fun RickAndMortyNavHost(
                     navController
                         .navigate(CharacterDetailsDestination.route + "?id=$it")
                 },
+                onEpisodeClick = {
+                    navController.navigate(EpisodeDetailsDestination.route + "?id=$it")
+                },
                 onShowCharacters = { showCharacters = !showCharacters },
                 onShowLocations = { showLocations = !showLocations },
+                onShowEpisodes = { showEpisodes = !showEpisodes },
                 showCharacters = showCharacters,
                 showLocations = showLocations,
+                showEpisodes = showEpisodes,
                 updateCharacterList = { viewModel.updateCharacterList() },
-                updateLocationList = { viewModel.updateLocationList() },
+                updateLocationList = { if (!DataState.isLocal)viewModel.updateLocationList() },
                 searchListState = searchListState,
                 deviceType = deviceType,
                 onResetQuery = { viewModel.onResetQuery() }

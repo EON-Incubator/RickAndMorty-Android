@@ -7,7 +7,7 @@ interface LocationsRepository {
     /**
      * Retrieve all the items from the the given data source.
      */
-    fun getAllLocationsStream(): Flow<List<Location>>
+    fun getAllLocationsStream(queryString: String = ""): Flow<List<Location>>
 
     fun getAllLocationByPageNum(page: Int = 1): Flow<List<Location>>
 

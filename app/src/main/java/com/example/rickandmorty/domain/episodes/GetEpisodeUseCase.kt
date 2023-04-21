@@ -1,6 +1,7 @@
 package com.example.rickandmorty.domain.episodes
 
 import android.util.Log
+import com.example.rickandmorty.R
 import com.example.rickandmorty.data.local.repository.CharactersRepository
 import com.example.rickandmorty.data.local.repository.EpisodesRepository
 import com.example.rickandmorty.domain.CharacterClient
@@ -19,7 +20,7 @@ class GetEpisodeUseCase(
             return characterClient.getEpisode(id)
         } else {
             val episodeRealm = episodesRepository.getEpisodeStream(id.toInt())
-            Log.v("Episode Realm", episodeRealm?.id.toString())
+            Log.v(R.string.episode_realm_leading_caps.toString(), episodeRealm?.id.toString())
             var id: List<Int> = episodeRealm?.characters?.map {
                 it.toInt()
             } ?: emptyList()

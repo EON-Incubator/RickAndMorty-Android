@@ -1,6 +1,7 @@
 package com.example.rickandmorty.domain.location
 
 import android.util.Log
+import com.example.rickandmorty.R
 import com.example.rickandmorty.data.local.repository.CharactersRepository
 import com.example.rickandmorty.data.local.repository.LocationsRepository
 import com.example.rickandmorty.domain.CharacterClient
@@ -22,13 +23,13 @@ class GetLocationDetailUseCase(
         id: String,
         internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
     ): LocationDetail? {
-        Log.v("CC Status", internetStatus.name.toString())
+        Log.v(R.string.cc_status.toString(), internetStatus.name.toString())
         if (internetStatus == ConnectivityObserver.Status.Available) {
             return characterClient
                 .getLocationDetail(id)
         } else {
             val locationRealm = locationsRepository.getLocationStream(id.toInt())
-            Log.v("Location Realm", locationRealm?.id.toString())
+            Log.v(R.string.location_realm_leading_caps.toString(), locationRealm?.id.toString())
             var id: List<Int> = locationRealm?.residents?.map {
                 it.toInt()
             } ?: emptyList()

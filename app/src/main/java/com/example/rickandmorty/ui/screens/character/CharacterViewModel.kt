@@ -110,14 +110,14 @@ class CharacterViewModel @Inject constructor(
                 it.copy(
 
                     status = Optional.presentIfNotNull(
-                        if (status != "All") {
+                        if (status != R.string.All_leading_caps.toString()) {
                             status
                         } else {
                             ""
                         }
                     ),
                     gender = Optional.presentIfNotNull(
-                        if (gender != "All") {
+                        if (gender != R.string.All_leading_caps.toString()) {
                             gender
                         } else {
                             ""

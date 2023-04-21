@@ -2,11 +2,12 @@ package com.example.rickandmorty.domain.episodes
 
 import app.moviebase.tmdb.model.TmdbVideoSite
 import app.moviebase.tmdb.model.TmdbVideoType
+import com.example.rickandmorty.R
 import com.google.gson.annotations.SerializedName
 
 data class TmdbEpisodeDetail(
     val overview: String = "",
-    @SerializedName("vote_average") val voteAverage: Float? = null,
+    @SerializedName(R.string.vote_average.toString()) val voteAverage: Float? = null,
     val images: EpisodeImages? = null,
     val videos: EpisodeVideos? = null,
 )
@@ -20,24 +21,24 @@ data class EpisodeVideos(
 )
 
 data class ImageData(
-    @SerializedName("file_path") val filePath: String,
-    @SerializedName("aspect_ratio") val aspectRation: Float,
-    @SerializedName("height") val height: Int,
-    @SerializedName("width") val width: Int,
-    @SerializedName("iso_639_1") val iso639: String? = null,
-    @SerializedName("vote_average") val voteAverage: Float? = null,
-    @SerializedName("vote_count") val voteCount: Int? = null,
+    @SerializedName(R.string.file_path.toString()) val filePath: String,
+    @SerializedName(R.string.aspect_ratio.toString()) val aspectRation: Float,
+    @SerializedName(R.string.height.toString()) val height: Int,
+    @SerializedName(R.string.width.toString()) val width: Int,
+    @SerializedName(R.string.iso_639_1.toString()) val iso639: String? = null,
+    @SerializedName(R.string.vote_average.toString()) val voteAverage: Float? = null,
+    @SerializedName(R.string.vote_count.toString()) val voteCount: Int? = null,
 )
 
 data class VideoData(
-    @SerializedName("id") val id: String,
-    @SerializedName("iso_639_1") val iso639: String? = null,
-    @SerializedName("iso_3166_1") val iso3166: String? = null,
-    @SerializedName("key") val key: String? = null,
-    @SerializedName("site") val site: TmdbVideoSite? = null,
-    @SerializedName("name") val name: String? = null,
-    @SerializedName("size") val size: Int? = null, // 360, 480, 720, 1080
-    @SerializedName("type") val type: TmdbVideoType? = null,
+    @SerializedName(R.string.id.toString()) val id: String,
+    @SerializedName(R.string.iso_639_1.toString()) val iso639: String? = null,
+    @SerializedName(R.string.iso_3166_1.toString()) val iso3166: String? = null,
+    @SerializedName(R.string.key.toString()) val key: String? = null,
+    @SerializedName(R.string.site.toString()) val site: TmdbVideoSite? = null,
+    @SerializedName(R.string.name.toString()) val name: String? = null,
+    @SerializedName(R.string.size.toString()) val size: Int? = null, // 360, 480, 720, 1080
+    @SerializedName(R.string.type_all_small_case.toString()) val type: TmdbVideoType? = null,
 )
 
 // @Serializable

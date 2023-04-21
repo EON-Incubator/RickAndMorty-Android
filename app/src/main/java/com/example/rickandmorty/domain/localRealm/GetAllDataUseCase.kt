@@ -1,6 +1,7 @@
 package com.example.rickandmorty.domain.localRealm
 
 import android.util.Log
+import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.character.CharacterData
 import com.example.rickandmorty.domain.episodes.EpisodesData
@@ -11,7 +12,7 @@ class GetAllDataUseCase(
 ) {
 
     suspend fun execute(page: Int = 1): AllData? {
-        Log.v("Search test: I am Rumning", "")
+        Log.v(R.string.search_test_iamrunning.toString(), "")
         var resultData = characterClient.getAllData()
         var pageNum = page
         while (
@@ -22,7 +23,7 @@ class GetAllDataUseCase(
 //            Log.v("Search test:Character", resultData?.characterData?.pages?.next.toString())
 //            Log.v("Search test: by name", resultData?.locationByName?.pages?.next.toString())
 //            Log.v("Search test: by type", resultData?.locationByType?.pages?.next.toString())
-            Log.v("Search test: by pageNum", pageNum.toString())
+            Log.v(R.string.search_test_bypagenum.toString(), pageNum.toString())
             val temp = characterClient.getAllData(++pageNum)
             resultData = resultData?.copy(
                 characterData = CharacterData(
@@ -47,9 +48,9 @@ class GetAllDataUseCase(
                 )
             )
         }
-        Log.v("Search test:Character", resultData?.characterData?.characters?.size.toString())
-        Log.v("Search test: by name", resultData?.locationData?.locations?.size.toString())
-        Log.v("Search test: by type", resultData?.episodeData?.episodes?.size.toString())
+        Log.v(R.string.search_test_character.toString(), resultData?.characterData?.characters?.size.toString())
+        Log.v(R.string.search_test_byname.toString(), resultData?.locationData?.locations?.size.toString())
+        Log.v(R.string.search_test_bytype.toString(), resultData?.episodeData?.episodes?.size.toString())
 
 //            resultData?.copy(
 //                locationByName = resultData?.locationByName?.copy(

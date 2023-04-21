@@ -2,6 +2,7 @@ package com.example.rickandmorty.domain.location
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import com.example.rickandmorty.R
 import com.example.rickandmorty.data.local.repository.LocationsRepository
 import com.example.rickandmorty.data.local.schema.Location
 import com.example.rickandmorty.domain.CharacterClient
@@ -31,7 +32,7 @@ class GetAllLocationUseCase @Inject constructor(
     ): LocationData? {
         var locationData: LocationData? = null
         if (internetStatus == ConnectivityObserver.Status.Available) {
-            Log.v("Internet On", internetStatus.toString())
+            Log.v(R.string.internet_on.toString(), internetStatus.toString())
             locationData = characterClient
                 .getAllLocations(filterLocation, page)
         } else {

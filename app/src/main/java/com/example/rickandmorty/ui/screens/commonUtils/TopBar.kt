@@ -155,7 +155,7 @@ fun Demo_DropDownMenu(current: UriHandler) {
         IconButton(onClick = { expanded = !expanded }) {
             Icon(
                 imageVector = Icons.Default.List,
-                contentDescription = "More"
+                contentDescription = stringResource(R.string.more)
             )
         }
 
@@ -164,19 +164,19 @@ fun Demo_DropDownMenu(current: UriHandler) {
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text("Amazon") },
+                text = { Text(stringResource(R.string.amazon)) },
                 onClick = { current.openUri("https://www.amazon.com/gp/video/detail/0JHRH3V853S6L8MJQA4Q04BREF/ref=atv_dl_rdr?autoplay=1") }
             )
             DropdownMenuItem(
-                text = { Text("Hulu") },
+                text = { Text(stringResource(R.string.hulu)) },
                 onClick = { current.openUri("https://www.hulu.com/series/rick-and-morty-d76d6361-3fbf-4842-8dd7-e05520557280") }
             )
             DropdownMenuItem(
-                text = { Text("Adult Swin") },
+                text = { Text(stringResource(R.string.adult_swin)) },
                 onClick = { current.openUri("https://www.adultswim.com/videos/rick-and-morty") }
             )
             DropdownMenuItem(
-                text = { Text("Apple") },
+                text = { Text(stringResource(R.string.apple)) },
                 onClick = { current.openUri("https://tv.apple.com/ca/show/rick-and-morty/umc.cmc.12dp30hnvyq5fbm9716puu8zc") }
             )
         }

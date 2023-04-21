@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.example.rickandmorty.R
 import com.example.rickandmorty.RickAndMortyApp
 import com.example.rickandmorty.api.APIService
 import com.example.rickandmorty.data.local.repository.CharactersRepository
@@ -91,7 +92,7 @@ class AppViewModelProvider @Inject constructor(
                                 episode = it?.episode?.substring(4)?.toInt() ?: 0
                             )
                     } catch (e: Exception) {
-                        Log.v("Room Error", e.message.toString())
+                        Log.v(R.string.room_error.toString(), e.message.toString())
                     }
                     episodesRepository.insertEpisode(
                         Episode(
@@ -104,7 +105,7 @@ class AppViewModelProvider @Inject constructor(
                         )
                     )
                 }
-                Log.v("Completed", "True")
+                Log.v(R.string.Completed_leading_case.toString(), R.string.true_leading_caps.toString())
 
                 DataState.isLocal = true
                 // Toast.makeText(LocalContext.current, "Online", Toast.LENGTH_SHORT).show()

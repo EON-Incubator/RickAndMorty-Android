@@ -195,7 +195,7 @@ fun EpisodeDetails(
                                                     imageUri = TmdbImageUrlBuilder.build(
                                                         episodeDetails.images?.stills?.get(it)?.filePath
                                                             ?: "",
-                                                        "w500"
+                                                        stringResource(R.string.w500)
                                                     )
                                                 )
                                             }
@@ -404,7 +404,7 @@ fun GetCarouselImage(imageUri: String) {
         model = imageUri,
         error = painterResource(id = getErrorImage()),
         placeholder = painterResource(R.drawable.loading_img),
-        contentDescription = "Crew Members",
+        contentDescription = stringResource(R.string.crew_members_leading_caps),
         contentScale = ContentScale.Crop
     )
 }
@@ -482,7 +482,7 @@ fun playVideo(
 //                    .padding(5.dp),
                     onClick = { videoClicked(false) }
                 ) {
-                    Text(color = Color.White, textAlign = TextAlign.End, text = "Exit")
+                    Text(color = Color.White, textAlign = TextAlign.End, text = stringResource(R.string.exit_leading_caps))
                 }
             }
         },

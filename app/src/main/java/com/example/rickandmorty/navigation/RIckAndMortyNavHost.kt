@@ -7,12 +7,14 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.rickandmorty.R
 import com.example.rickandmorty.RickAndMortyApp
 import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.ui.DataState
@@ -33,7 +35,7 @@ fun RickAndMortyNavHost(
     deviceType: ScreenType,
     internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
 ) {
-    Log.v("Rick And Morty NavHost", internetStatus.name.toString())
+    Log.v(stringResource(R.string.rickmorty_navhost), internetStatus.name.toString())
 
     val viewModel = hiltViewModel<SearchViewModel>()
     val searchResultState by viewModel.searchResult.collectAsState()

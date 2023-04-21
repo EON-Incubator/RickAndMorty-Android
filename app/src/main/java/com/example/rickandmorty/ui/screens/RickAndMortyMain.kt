@@ -39,7 +39,7 @@ fun RickAndMortyMainApp(
     var invisible by remember { mutableStateOf(false) }
     var deviceType = ScreenType.PORTRAIT_PHONE
 
-    Log.v("Rick And Morty Main", internetStatus.name.toString())
+    Log.v(stringResource(R.string.rickmorty_main), internetStatus.name.toString())
     when (windowSize.widthSizeClass) {
         WindowWidthSizeClass.Compact -> {
             if (windowSize.heightSizeClass == WindowHeightSizeClass.Medium) {

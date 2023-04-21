@@ -1,5 +1,6 @@
 package com.example.rickandmorty.api
 
+import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,8 +18,8 @@ interface APIService {
     )
     @GET("season/{season}/episode/{episode}?api_key=d4bec6682b7448844a2bcbe5cd70512f&append_to_response=images,videos")
     suspend fun getEpisodeDetails(
-        @Path("season") season: Int,
-        @Path("episode") episode: Int,
+        @Path(R.string.season_all_small_case.toString()) season: Int,
+        @Path(R.string.episode_all_small_case.toString()) episode: Int,
     ): TmdbEpisodeDetail
 
     companion object {

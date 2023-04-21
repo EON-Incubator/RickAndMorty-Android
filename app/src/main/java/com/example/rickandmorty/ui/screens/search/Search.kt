@@ -268,7 +268,7 @@ fun Search(
                         item {
                             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
-                                text = "Episodes",
+                                text = R.string.episodes_screen_title.toString(),
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
@@ -330,7 +330,7 @@ fun Search(
                         item {
                             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
-                                text = "Episodes",
+                                text = R.string.episodes_screen_title.toString(),
                                 Modifier
                                     .background(Color.LightGray)
                                     .fillMaxWidth()
@@ -338,7 +338,7 @@ fun Search(
                             )
                             Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                             Text(
-                                text = "Type to search episode by overview",
+                                text = stringResource(R.string.type_to_search_episode_by_overview),
                                 Modifier
                                     .fillMaxWidth()
                                     .padding(GetPadding().xxxSmallPadding)
@@ -518,7 +518,7 @@ fun SearchBar(
                         )
                     }
                     Text(
-                        text = "Episodes"
+                        text = R.string.episodes_screen_title.toString()
                     )
                 }
             }

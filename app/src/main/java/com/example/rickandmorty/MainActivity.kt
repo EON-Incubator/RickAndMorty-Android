@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.lifecycleScope
 import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.network.NetworkConnectivityObserver
+import com.example.rickandmorty.ui.DataState
 import com.example.rickandmorty.ui.screens.RickAndMortyMainApp
 import com.example.rickandmorty.ui.theme.RickAndMortyTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,10 +53,14 @@ class MainActivity : ComponentActivity() {
 //                } else {
                 RickAndMortyMainApp(windowSize = windowSize, internetStatus = status)
 //                }
+
                 if (status == ConnectivityObserver.Status.Available) {
                     Toast.makeText(LocalContext.current, "Online", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(LocalContext.current, "Sync in Progress", Toast.LENGTH_LONG).show()
-                } else {
+                    if (!DataState.isLocal) {
+                        Toast.makeText(LocalContext.current, "Sync in Progress", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                } else if (status == ConnectivityObserver.Status.Lost) {
                     Toast.makeText(LocalContext.current, "Offline", Toast.LENGTH_SHORT).show()
                 }
             }

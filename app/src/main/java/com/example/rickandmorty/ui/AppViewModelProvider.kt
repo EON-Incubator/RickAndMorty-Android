@@ -32,6 +32,7 @@ class AppViewModelProvider @Inject constructor(
     private val getAllDataUseCase: GetAllDataUseCase,
     @ApplicationContext appContext: Context,
 ) : ViewModel() {
+    val currentContext = appContext
     var appDataState: SharedPreferences = appContext.getSharedPreferences("RickDataState", Context.MODE_PRIVATE)
 
     init {
@@ -49,6 +50,9 @@ class AppViewModelProvider @Inject constructor(
         if (!appDataState.getBoolean("RickLocalData", false)) {
             viewModelScope.launch(Dispatchers.IO) {
                 var resultData = getAllDataUseCase.execute()
+                if (resultData == null) {
+                    return@launch
+                }
                 resultData?.characterData?.characters?.forEach {
                     charactersRepository.insertCharacter(
                         Character(
@@ -107,7 +111,7 @@ class AppViewModelProvider @Inject constructor(
                 Log.v("Completed", "True")
 
                 DataState.isLocal = true
-                // Toast.makeText(LocalContext.current, "Online", Toast.LENGTH_SHORT).show()
+//                     Toast.makeText(currentContext, "Sync Completed", Toast.LENGTH_SHORT).show()
                 val edit: SharedPreferences.Editor = appDataState.edit()
                 edit.putBoolean("RickLocalData", true)
                 edit.apply()

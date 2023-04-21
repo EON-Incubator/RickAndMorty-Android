@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.screens.location
 
-import androidx.compose.runtime.getValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.Paginate

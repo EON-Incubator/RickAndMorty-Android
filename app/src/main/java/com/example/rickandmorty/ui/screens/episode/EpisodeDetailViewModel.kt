@@ -1,15 +1,17 @@
 package com.example.rickandmorty.ui.screens.episode
 
 import android.util.Log
-import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail
 import com.example.rickandmorty.api.APIService
 import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.domain.episodes.GetEpisodeUseCase
 import com.example.rickandmorty.domain.episodes.ImageData
+import com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail
 import com.example.rickandmorty.network.ConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +37,10 @@ class EpisodeDetailViewModel @Inject constructor(
     val episodeDetail = _episodeDetail.asStateFlow()
 
     init {
+        getData()
+    }
+
+    fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
             _episode.update {
                 it.copy(
@@ -57,7 +63,6 @@ class EpisodeDetailViewModel @Inject constructor(
             Log.v("DAta", episodeDetail.value.toString())
         }
     }
-
     suspend fun getEpisode() {
         _episode.update {
             it.copy(
@@ -87,7 +92,7 @@ class EpisodeDetailViewModel @Inject constructor(
                         internetStatus = internetStatus
                     )
                 }
-                getEpisode()
+                getData()
             }
         }
     }

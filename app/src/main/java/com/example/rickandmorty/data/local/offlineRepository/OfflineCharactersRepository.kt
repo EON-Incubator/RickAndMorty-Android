@@ -1,13 +1,11 @@
 package com.example.rickandmorty.data.local.offlineRepository
 
 import android.util.Log
-import androidx.compose.runtime.getValue
 import com.example.rickandmorty.data.local.repository.CharactersRepository
-import kotlinx.coroutines.flow.Flow
 import com.example.rickandmorty.data.local.schema.Character
 import io.realm.kotlin.Realm
-import io.realm.kotlin.ext.asFlow
 import io.realm.kotlin.ext.query
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 // class OfflineCharactersRepository(private val characterDao: CharacterDao) : CharactersRepository {
@@ -22,7 +20,15 @@ class OfflineCharactersRepository(private val realm: Realm) : CharactersReposito
         return realm.query<Character>().asFlow().map { it.list }
     }
 
-    override fun getAllCharacterByPageNum(page: Int): Flow<List<Character>> {
+    override fun getAllCharacterByPageNum(filterCharacter: Map<String, String>, page: Int): Flow<List<Character>> {
+        Log.v("Fil Char", filterCharacter.toString())
+        if (filterCharacter.isNotEmpty()) {
+            return realm.query<Character>(
+                query = "gender CONTAINS[c] $0 AND status CONTAINS[c] $1",
+                filterCharacter["gender"],
+                filterCharacter["status"]
+            ).asFlow().map { it.list }
+        }
         return realm.query<Character>().asFlow().map { it.list }
     }
 

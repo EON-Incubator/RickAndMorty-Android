@@ -31,7 +31,7 @@ fun RickAndMortyNavHost(
     modifier: Modifier = Modifier,
     onDetailScreen: (Boolean) -> Unit,
     deviceType: ScreenType,
-    internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
+    internetStatus: ConnectivityObserver.Status,
 ) {
     Log.v("Rick And Morty NavHost", internetStatus.name.toString())
 

@@ -1,15 +1,14 @@
 package com.example.rickandmorty.api
 
-import androidx.compose.runtime.getValue
 import com.example.rickandmorty.data.local.offlineRepository.OfflineCharactersRepository
 import com.example.rickandmorty.data.local.offlineRepository.OfflineEpisodesRepository
 import com.example.rickandmorty.data.local.offlineRepository.OfflineLocationsRepository
 import com.example.rickandmorty.data.local.repository.CharactersRepository
 import com.example.rickandmorty.data.local.repository.EpisodesRepository
 import com.example.rickandmorty.data.local.repository.LocationsRepository
+import com.example.rickandmorty.data.local.schema.Character
 import com.example.rickandmorty.data.local.schema.Episode
 import com.example.rickandmorty.data.local.schema.Location
-import com.example.rickandmorty.data.local.schema.Character
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

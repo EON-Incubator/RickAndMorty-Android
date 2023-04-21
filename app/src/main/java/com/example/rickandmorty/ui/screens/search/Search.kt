@@ -274,6 +274,7 @@ fun Search(
                                     .fillMaxWidth()
                                     .padding(GetPadding().xxxSmallPadding)
                             )
+                            Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
                         }
                         if (searchResultState.episodesData.episodesData.isEmpty()) {
                             item {

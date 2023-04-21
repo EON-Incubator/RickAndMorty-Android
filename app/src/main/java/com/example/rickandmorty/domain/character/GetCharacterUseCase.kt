@@ -36,12 +36,24 @@ class GetCharacterUseCase @Inject constructor(
 
 //        Log.v("Internet Connection", internetStatus.toString())
         if (internetStatus == ConnectivityObserver.Status.Available) {
-            characterData = characterClient.getCharacters(filterCharacter, page)
+            try {
+                characterData = characterClient.getCharacters(filterCharacter, page)
+            } catch (e: Exception) {
+            }
         } else {
             var data =
                 mutableStateOf(emptyList<com.example.rickandmorty.data.local.schema.Character>())
 
-            charactersRepository.getAllCharacterByPageNum(page).map {
+            var filter = mapOf<String, String>(
+                "status" to filterCharacter.status.getOrNull().toString(),
+                "gender" to if (filterCharacter.gender.getOrNull().toString() == "null") {
+                    ""
+                } else {
+                    filterCharacter.gender.getOrNull().toString()
+                }
+            )
+
+            charactersRepository.getAllCharacterByPageNum(filter, page).map {
                 data.value = it
             }.stateIn(
                 scope = CoroutineScope(Dispatchers.IO)
@@ -89,7 +101,11 @@ class GetCharacterUseCase @Inject constructor(
         internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
     ): DetailedCharacter? {
         if (internetStatus == ConnectivityObserver.Status.Available) {
-            return characterClient.getSingleCharacter(code)
+            try {
+                return characterClient.getSingleCharacter(code)
+            } catch (e: Exception) {
+                return null
+            }
         } else {
             val characterRealm = charactersRepository.getCharacterStream(code.toInt())
             var id: List<Int> = characterRealm?.episodes?.map {

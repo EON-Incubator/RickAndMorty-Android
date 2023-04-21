@@ -7,13 +7,17 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.Optional
+import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.character.Character
+import com.example.rickandmorty.domain.character.DetailedCharacter
 
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
+import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.type.FilterCharacter
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,25 +25,34 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/*
+/**
 With the AndroidEntryPoint Annotation
 Hilt comes to we know we gonna use some kind of dependency
 injection in it
  */
-/*
+/**
 we are performing field injection with inject
 late init var is used to initialize it later
- */
+ **/
 
 @HiltViewModel
-class CharacterViewModel @Inject constructor(private val getCharacterUseCase: GetCharacterUseCase) :
+class CharacterViewModel @Inject constructor(
+    private val getCharacterUseCase: GetCharacterUseCase,
+//    private val savedStateHandle: SavedStateHandle
+) :
     ViewModel() {
 
+    //    val internetStatus = savedStateHandle.get<ConnectivityObserver.Status>("status")
     private val _characters = MutableStateFlow(CharacterState())
     val characters = _characters.asStateFlow()
+
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
+
+//    private val _internetConnection = MutableStateFlow(ConnectivityObserver.Status.Lost)
+//    val internetConnection: StateFlow<ConnectivityObserver.Status>
+//        get() = _internetConnection.asStateFlow()
 
     private val _filterCharacter = MutableStateFlow(
         FilterCharacter(
@@ -54,23 +67,27 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     var status by mutableStateOf("")
 
     init {
-
+//        Log.v("CharacterViewModel", internetStatus?.name.toString())
         refresh()
     }
 
     fun refresh() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _characters.update {
                 it.copy(
                     isLoading = true
                 )
             }
-            val characterData = getCharacterUseCase.sortById(filterCharacter.value)
+            val characterData = getCharacterUseCase.sortById(
+                filterCharacter.value,
+                internetStatus = _characters.value.internetStatus
+            )
+
             _characters.update {
                 it.copy(
-                    characters = characterData.characters ?: emptyList(),
+                    characters = characterData?.characters ?: emptyList(),
                     isLoading = false,
-                    pages = characterData.pages
+                    pages = characterData?.pages
                 )
             }
             _isRefreshing.emit(false)
@@ -86,7 +103,7 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     }
 
     open fun selectFilter() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _characters.update {
                 it.copy(
                     isLoading = true
@@ -96,17 +113,17 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
                 it.copy(
 
                     status = Optional.presentIfNotNull(
-                        if (status != "All") {
+                        if (status != R.string.All_leading_caps.toString()) {
                             status
                         } else {
-                            null
+                            ""
                         }
                     ),
                     gender = Optional.presentIfNotNull(
-                        if (gender != "All") {
+                        if (gender != R.string.All_leading_caps.toString()) {
                             gender
                         } else {
-                            null
+                            ""
                         }
                     )
                 )
@@ -115,14 +132,15 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
             val characterData =
                 getCharacterUseCase.sortById(
                     filterCharacter.value,
-                    page = characters.value.pages?.next ?: 1
+                    page = 1,
+                    internetStatus = _characters.value.internetStatus
                 )
-            Log.v("values", filterCharacter.value.toString())
-            Log.v("values", characters.value.toString())
+            Log.v(R.string.values.toString(), filterCharacter.value.toString())
+            Log.v(R.string.values.toString(), characterData?.pages.toString())
             _characters.update {
                 it.copy(
-                    characters = characterData.characters ?: emptyList(),
-                    pages = characterData.pages,
+                    characters = characterData?.characters ?: emptyList(),
+                    pages = characterData?.pages,
                     isLoading = false
                 )
             }
@@ -130,35 +148,52 @@ class CharacterViewModel @Inject constructor(private val getCharacterUseCase: Ge
     }
 
     fun updateList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (characters.value.pages?.next != null) {
                 _characters.update {
                     it.copy(
-                        isLoading = true
+                        isLoadingPage = true
+                    )
+                }
+
+                val characterData =
+                    getCharacterUseCase.sortById(
+                        filterCharacter.value,
+                        page = characters.value.pages?.next ?: 1,
+                        internetStatus = _characters.value.internetStatus
+                    )
+                _characters.update {
+                    it.copy(
+                        characters = it.characters + (characterData?.characters ?: emptyList()),
+                        pages = characterData?.pages,
+                        isLoadingPage = false
                     )
                 }
             }
+        }
+    }
 
-            val characterData =
-                getCharacterUseCase.sortById(
-                    filterCharacter.value,
-                    page = characters.value.pages?.next ?: 1
-                )
-            _characters.update {
-                it.copy(
-                    characters = it.characters + (characterData.characters ?: emptyList()),
-                    pages = characterData.pages,
-                    isLoading = false
-                )
+    fun setStatus(internetStatus: ConnectivityObserver.Status) {
+        if (_characters.value.internetStatus != internetStatus) {
+            viewModelScope.launch(Dispatchers.IO) {
+                _characters.update {
+                    it.copy(
+                        internetStatus = internetStatus
+                    )
+                }
             }
+//            Log.v("CharacterViewModel setStatus", internetStatus.name.toString())
+            refresh()
         }
     }
 
     data class CharacterState(
         val characters: List<Character> = emptyList(),
-        val character: com.example.rickandmorty.domain.character.DetailedCharacter? = null,
+        val character: DetailedCharacter? = null,
         val isLoading: Boolean = false,
         var selectedCharacter: String? = null,
         var pages: Paginate? = null,
+        val isLoadingPage: Boolean = false,
+        val internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
     )
 }

@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.Location
+import com.example.rickandmorty.network.ConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LocationViewModel @Inject constructor(
     private val getAllLocationUseCase: GetAllLocationUseCase,
+
 ) : ViewModel() {
 
     // Mutable Flow State variables
@@ -37,16 +40,16 @@ class LocationViewModel @Inject constructor(
 
     fun refresh() {
         _locations.update {
-            it.copy(isLoading = true)
+            it.copy(isLoadingPage = true)
         }
 
-        viewModelScope.launch {
-            val locationData = getAllLocationUseCase.execute()
+        viewModelScope.launch(Dispatchers.IO) {
+            val locationData = getAllLocationUseCase.execute(internetStatus = _locations.value.internetStatus)
             _locations.update {
                 it.copy(
-                    locations = locationData.locations ?: emptyList(),
-                    isLoading = false,
-                    pages = locationData.pages
+                    locations = locationData?.locations ?: emptyList(),
+                    isLoadingPage = false,
+                    pages = locationData?.pages
                 )
             }
             _isRefreshing.emit(false)
@@ -57,20 +60,33 @@ class LocationViewModel @Inject constructor(
      * Coroutine function that gets All Location from GraphQL
      */
     fun updateList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (location.value.pages?.next != null) {
                 _locations.update {
                     it.copy(isLoading = true)
                 }
 
-                val locationData = getAllLocationUseCase.execute(page = location.value.pages?.next ?: 1)
+                val locationData = getAllLocationUseCase.execute(page = location.value.pages?.next ?: 1, internetStatus = _locations.value.internetStatus)
                 _locations.update {
                     it.copy(
-                        locations = it.locations + (locationData.locations ?: emptyList()),
-                        pages = locationData.pages,
+                        locations = it.locations + (locationData?.locations ?: emptyList()),
+                        pages = locationData?.pages,
                         isLoading = false
                     )
                 }
+            }
+        }
+    }
+
+    fun setStatus(internetStatus: ConnectivityObserver.Status) {
+        if (_locations.value.internetStatus != internetStatus) {
+            viewModelScope.launch(Dispatchers.IO) {
+                _locations.update {
+                    it.copy(
+                        internetStatus = internetStatus
+                    )
+                }
+                refresh()
             }
         }
     }
@@ -79,5 +95,14 @@ class LocationViewModel @Inject constructor(
         val locations: List<Location> = emptyList(),
         val isLoading: Boolean = false,
         var pages: Paginate? = null,
+        val isLoadingPage: Boolean = false,
+        val internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
     )
 }
+
+// @OptIn(ExperimentalCoroutinesApi::class)
+// @Composable
+// fun getCurrentConnectionStatus(): Boolean {
+//    val connection by connectivityState()
+//    return connection === ConnectionState.Available
+// }

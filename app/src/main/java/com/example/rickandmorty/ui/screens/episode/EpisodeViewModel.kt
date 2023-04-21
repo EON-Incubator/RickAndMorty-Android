@@ -6,7 +6,9 @@ import com.example.rickandmorty.domain.Paginate
 import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.domain.episodes.Episodes
 import com.example.rickandmorty.domain.episodes.GetAllEpisodeUseCase
+import com.example.rickandmorty.network.ConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,14 +32,14 @@ class EpisodeViewModel @Inject constructor(
     }
 
     fun refresh() {
-        _episode.update { it.copy(isLoading = true) }
-        viewModelScope.launch {
-            val episodeDataById = getAllEpisodeUseCase.sortEpisodeById()
+        _episode.update { it.copy(isLoadingPage = true) }
+        viewModelScope.launch(Dispatchers.IO) {
+            val episodeDataById = getAllEpisodeUseCase.sortEpisodeById(internetStatus = _episode.value.internetStatus)
             _episode.update {
                 it.copy(
-                    episodes = episodeDataById.episodesData ?: emptyList(),
-                    isLoading = false,
-                    pages = episodeDataById.pages
+                    episodes = episodeDataById?.episodesData ?: emptyList(),
+                    isLoadingPage = false,
+                    pages = episodeDataById?.pages
                 )
             }
             _isRefreshing.emit(false)
@@ -45,23 +47,42 @@ class EpisodeViewModel @Inject constructor(
     }
 
     fun updateEpisodeList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (state.value.pages?.next != null) {
                 _episode.update {
                     it.copy(
                         isLoading = true
                     )
                 }
-                val episodeDataById = getAllEpisodeUseCase.sortEpisodeById(page = state.value.pages?.next ?: 1)
+                val episodeDataById = getAllEpisodeUseCase.sortEpisodeById(
+                    page = state.value.pages?.next ?: 1,
+                    internetStatus = _episode.value.internetStatus
+                )
 
                 _episode.update {
                     it.copy(
-                        episodes = it.episodes + (episodeDataById.episodesData ?: emptyList()),
-                        pages = episodeDataById.pages,
+                        episodes = it.episodes + (
+                            episodeDataById?.episodesData
+                                ?: emptyList()
+                            ),
+                        pages = episodeDataById?.pages,
                         isLoading = false
                     )
                 }
             }
+        }
+    }
+
+    fun setStatus(internetStatus: ConnectivityObserver.Status) {
+        if (_episode.value.internetStatus != internetStatus) {
+            viewModelScope.launch(Dispatchers.IO) {
+                _episode.update {
+                    it.copy(
+                        internetStatus = internetStatus
+                    )
+                }
+            }
+            refresh()
         }
     }
 
@@ -70,5 +91,7 @@ class EpisodeViewModel @Inject constructor(
         val isLoading: Boolean = false,
         val selectedEpisode: DetailedEpisode? = null,
         var pages: Paginate? = null,
+        val isLoadingPage: Boolean = false,
+        val internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
     )
 }

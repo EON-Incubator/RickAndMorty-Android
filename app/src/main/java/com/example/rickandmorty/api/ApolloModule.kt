@@ -2,10 +2,14 @@ package com.example.rickandmorty.api
 
 import com.apollographql.apollo3.ApolloClient
 import com.example.rickandmorty.data.ApolloCharacterClient
+import com.example.rickandmorty.data.local.repository.CharactersRepository
+import com.example.rickandmorty.data.local.repository.EpisodesRepository
+import com.example.rickandmorty.data.local.repository.LocationsRepository
 import com.example.rickandmorty.domain.CharacterClient
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
 import com.example.rickandmorty.domain.episodes.GetAllEpisodeUseCase
 import com.example.rickandmorty.domain.episodes.GetEpisodeUseCase
+import com.example.rickandmorty.domain.localRealm.GetAllDataUseCase
 import com.example.rickandmorty.domain.location.GetAllLocationUseCase
 import com.example.rickandmorty.domain.location.GetLocationDetailUseCase
 import com.example.rickandmorty.domain.search.GetSearchResultUseCase
@@ -31,10 +35,10 @@ object ApolloModule {
         return ApolloClient.Builder().serverUrl("https://rickandmortyapi.com/graphql").build()
     }
 
-/**
-passed apollo client directly in the implementation of
-provideGetCharactersClient() method for abstraction
-*/
+    /**
+     passed apollo client directly in the implementation of
+     provideGetCharactersClient() method for abstraction
+     */
     @Provides
     @Singleton
     fun provideGetCharactersClient(apolloClient: ApolloClient): CharacterClient {
@@ -43,40 +47,74 @@ provideGetCharactersClient() method for abstraction
 
     @Provides
     @Singleton
-    fun provideGetCharacterUseCase(characterClient: CharacterClient): GetCharacterUseCase {
-        return GetCharacterUseCase(characterClient)
+    fun provideGetCharacterUseCase(
+        characterClient: CharacterClient,
+        charactersRepository: CharactersRepository,
+        episodesRepository: EpisodesRepository,
+    ): GetCharacterUseCase {
+        return GetCharacterUseCase(characterClient, charactersRepository, episodesRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetAllEpisodeUseCase(characterClient: CharacterClient): GetAllEpisodeUseCase {
-        return GetAllEpisodeUseCase(characterClient)
+    fun provideGetAllEpisodeUseCase(
+        characterClient: CharacterClient,
+        episodesRepository: EpisodesRepository,
+    ): GetAllEpisodeUseCase {
+        return GetAllEpisodeUseCase(characterClient, episodesRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetAllLocationUseCase(characterClient: CharacterClient):
+    fun provideGetAllLocationUseCase(
+        characterClient: CharacterClient,
+        locationsRepository: LocationsRepository,
+    ):
         GetAllLocationUseCase {
-        return GetAllLocationUseCase(characterClient)
+        return GetAllLocationUseCase(characterClient, locationsRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetLocationDetailUseCase(characterClient: CharacterClient):
+    fun provideGetLocationDetailUseCase(
+        characterClient: CharacterClient,
+        locationsRepository: LocationsRepository,
+        charactersRepository: CharactersRepository,
+    ):
         GetLocationDetailUseCase {
-        return GetLocationDetailUseCase(characterClient)
+        return GetLocationDetailUseCase(characterClient, locationsRepository, charactersRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetEpisodeUseCase(characterClient: CharacterClient):
+    fun provideGetEpisodeUseCase(
+        characterClient: CharacterClient,
+        charactersRepository: CharactersRepository,
+        episodesRepository: EpisodesRepository,
+    ):
         GetEpisodeUseCase {
-        return GetEpisodeUseCase(characterClient)
+        return GetEpisodeUseCase(characterClient, episodesRepository, charactersRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetSearchResultUseCase(characterClient: CharacterClient): GetSearchResultUseCase {
-        return GetSearchResultUseCase(characterClient)
+    fun provideGetSearchResultUseCase(
+        characterClient: CharacterClient,
+        locationsRepository: LocationsRepository,
+        episodesRepository: EpisodesRepository,
+        charactersRepository: CharactersRepository,
+    ): GetSearchResultUseCase {
+        return GetSearchResultUseCase(
+            characterClient,
+            charactersRepository,
+            locationsRepository,
+            episodesRepository
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAllDataUseCase(characterClient: CharacterClient): GetAllDataUseCase {
+        return GetAllDataUseCase(characterClient)
     }
 }

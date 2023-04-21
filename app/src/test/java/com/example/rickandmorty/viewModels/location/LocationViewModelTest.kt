@@ -5,6 +5,7 @@ import com.example.rickandmorty.fakeRepo.FakeRepo
 import com.example.rickandmorty.rules.TestDispatcherRule
 import com.example.rickandmorty.ui.screens.location.LocationViewModel
 import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
@@ -32,6 +33,9 @@ class LocationViewModelTest {
 
     @Test
     fun `when getting all location, confirmaing the data in state`() {
+        runTest {
+            viewModel.refresh()
+        }
         assert(!viewModel.location.value.isLoading)
         assertEquals(viewModel.location.value.locations.get(0).id, "id")
         assertNotEquals(viewModel.location.value.locations.get(0).name, "name2")

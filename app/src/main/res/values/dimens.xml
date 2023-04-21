@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //padding
+    //small
+    <dimen name="padding_xxxsmall">2.dp</dimen>
+    <dimen name="padding_xxsmall">4.dp</dimen>
+    <dimen name="padding_xsmall">6.dp</dimen>
+    <dimen name="padding_small">8.dp</dimen>
+
+    //medium
+    <dimen name="padding_medium">10.dp</dimen>
+    <dimen name="padding_xmedium">12.dp</dimen>
+    <dimen name="padding_xxmedium">14.dp</dimen>
+    <dimen name="padding_xxxmedium">16.dp</dimen>
+
+    //large
+    <dimen name="padding_large">18.dp</dimen>
+    <dimen name="padding_xlarge">20.dp</dimen>
+    <dimen name="padding_xxlarge">22.dp</dimen>
+    <dimen name="padding_xxxlarge">24.dp</dimen>
+
+    //elevation
+    <dimen name="elevation_no">0.dp</dimen>
+    <dimen name="elevation_xxsmall">1.dp</dimen>
+    <dimen name="elevation_xsmall">2.dp</dimen>
+    <dimen name="elevation_small">4.dp</dimen>
+    <dimen name="elevation_xmedium">6.dp</dimen>
+    <dimen name="elevation_medium">8.dp</dimen>
+    <dimen name="elevation_large">10.dp</dimen>
+    <dimen name="elevation_xlarge">12.dp</dimen>
+
+    //thickness
+    <dimen name="thickness_no">0.dp</dimen>
+    <dimen name="thickness_xxsmall">1.dp</dimen>
+    <dimen name="thickness_xsmall">2.dp</dimen>
+    <dimen name="thickness_small">4.dp</dimen>
+    <dimen name="thickness_xmedium">6.dp</dimen>
+    <dimen name="thickness_medium">8.dp</dimen>
+    <dimen name="thickness_large">10.dp</dimen>
+    <dimen name="thickness_xlarge">12.dp</dimen>
+
+    //Others classes specific
+
+    //character
+    <dimen name="character_text_height">50.dp</dimen>
+    <dimen name="character_image_size">150.dp</dimen>
+    <dimen name="character_info_space_text">22.dp</dimen>
+    <dimen name="character_card_corner">100.dp</dimen>
+    <dimen name="character_card_image_size">200.dp</dimen>
+
+    //spacer
+    <dimen name="spacer_40">40.dp</dimen>
+
+    //app title image
+    <dimen name="app_title_image_size">120.dp</dimen>
+
+    //single image row
+    <dimen name="row_one_image_size">70.dp</dimen>
+    <dimen name="row_one_image_width">100.dp</dimen>
+
+    //four images row
+    <dimen name="forward_icon_size">20.dp</dimen>
+    <dimen name="four_image_size">35.dp</dimen>
+
+    //info card
+    <dimen name="icon_size">23.dp</dimen>
+
+    //ribbon tilt
+    <dimen name="ribbon_offset">-30.dp</dimen>
+
+    //search box loader
+    <dimen name="search_box_loader_size">64.dp</dimen>
+
+    //screen name
+    <dimen name="screen_name_bar_height">45.dp</dimen>
+    <dimen name="screen_name_bar_width">100.dp</dimen>
+    <dimen name="screen_name_bar_icon_size">27.dp</dimen>
+
+</resources>

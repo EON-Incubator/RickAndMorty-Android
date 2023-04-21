@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.character.GetCharacterUseCase
+import com.example.rickandmorty.network.ConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -36,16 +38,29 @@ class DetailedCharacterViewModel @Inject constructor(
             }
             _character.update {
                 it.copy(
-                    character = getCharacterUseCase.specificCharacter(id.toString()),
+                    character = getCharacterUseCase.specificCharacter(id.toString(), _character.value.internetStatus),
                     isLoading = false
                 )
             }
+        }
+    }
+    fun setStatus(internetStatus: ConnectivityObserver.Status) {
+        if (_character.value.internetStatus != internetStatus) {
+            viewModelScope.launch(Dispatchers.IO) {
+                _character.update {
+                    it.copy(
+                        internetStatus = internetStatus
+                    )
+                }
+            }
+            refresh()
         }
     }
 
     data class detailedcharacterState(
         val character: DetailedCharacter? = null,
         val isLoading: Boolean = false,
+        val internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
 
     )
 }

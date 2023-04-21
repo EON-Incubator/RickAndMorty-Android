@@ -32,6 +32,7 @@ class EpisodeViewModelTest {
 
     @Test
     fun `when getting all episodes, confirming the data in state`() {
+        Thread.sleep(1000)
         assert(!viewModel.state.value.isLoading)
         assertEquals(viewModel.state.value.episodes.get(0).id, "id")
         assertNotEquals(viewModel.state.value.episodes.get(0).name, "name2")

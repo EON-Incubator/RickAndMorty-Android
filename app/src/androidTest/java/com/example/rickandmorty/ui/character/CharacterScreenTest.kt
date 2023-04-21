@@ -2,6 +2,7 @@ package com.example.rickandmorty.ui.character
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -66,6 +67,7 @@ class CharacterScreenTest() {
         )
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Test
     fun character_screen_name_top_bar_is_characters() {
         composeTestRule.setContent {
@@ -75,17 +77,18 @@ class CharacterScreenTest() {
                     genderVal = "",
                     statusVal = "",
                     onClick = {},
-                    onCharacterClick = {},
+
                     listState = LazyGridState(),
-                    selectGender = {},
+                    applyFilter = {},
                     changeGender = {},
                     changeStatus = {}
                 )
             }
         }
-        composeTestRule.onNodeWithText("Characters").assertIsDisplayed()
+        composeTestRule.onNodeWithText("CHARACTERS").assertIsDisplayed()
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Test
     fun character_screen_data_getting_displayed() {
         composeTestRule.setContent {
@@ -95,9 +98,9 @@ class CharacterScreenTest() {
                     genderVal = "",
                     statusVal = "",
                     onClick = {},
-                    onCharacterClick = {},
+
                     listState = LazyGridState(),
-                    selectGender = {},
+                    applyFilter = {},
                     changeGender = {},
                     changeStatus = {}
                 )
@@ -108,6 +111,7 @@ class CharacterScreenTest() {
         composeTestRule.onNodeWithText("Morty").assertIsDisplayed()
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Test
     fun character_screen_filter_displayed_after_click() {
         composeTestRule.setContent {
@@ -117,16 +121,16 @@ class CharacterScreenTest() {
                     genderVal = "",
                     statusVal = "",
                     onClick = {},
-                    onCharacterClick = {},
+
                     listState = LazyGridState(),
-                    selectGender = {},
+                    applyFilter = {},
                     changeGender = {},
                     changeStatus = {}
                 )
             }
         }
         composeTestRule.onNodeWithContentDescription("Filter").performClick()
-        composeTestRule.onNodeWithText("Filter for Characters").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Gender").assertIsDisplayed()
         composeTestRule.onNodeWithText("Click to Apply").assertIsDisplayed()
     }
 }

@@ -10,6 +10,9 @@ import com.example.rickandmorty.R
 
 val get_schwifty = FontFamily(Font(R.font.get_schwifty))
 val creepster_regular = FontFamily(Font(R.font.creepster_regular))
+val chalkboard_bold = FontFamily(Font(R.font.chalkboard_bold))
+val chalkboard_light = FontFamily(Font(R.font.chalkboard_light))
+val chalkboard_regular = FontFamily(Font(R.font.chalkboard_regular))
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -26,14 +29,12 @@ val Typography = Typography(
     ),
 
     body1 = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 19.sp
+        fontFamily = chalkboard_bold,
+        fontSize = 15.sp
     ),
 
     body2 = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
+        fontFamily = chalkboard_regular,
         fontSize = 13.sp
     )
 

@@ -8,6 +8,7 @@ import com.example.rickandmorty.domain.character.DetailedCharacter
 import com.example.rickandmorty.domain.episodes.DetailedEpisode
 import com.example.rickandmorty.domain.episodes.Episodes
 import com.example.rickandmorty.domain.episodes.EpisodesData
+import com.example.rickandmorty.domain.localRealm.AllData
 import com.example.rickandmorty.domain.location.Location
 import com.example.rickandmorty.domain.location.LocationData
 import com.example.rickandmorty.domain.location.LocationDetail
@@ -34,8 +35,8 @@ fun GetAllCharactersQuery.Characters.toCharacter(): CharacterData {
     )
 }
 
-fun AllLocationsQuery.Locations.toAllLocations(): com.example.rickandmorty.domain.location.LocationData {
-    return com.example.rickandmorty.domain.location.LocationData(
+fun AllLocationsQuery.Locations.toAllLocations(): LocationData {
+    return LocationData(
         pages = Paginate(
             next = info?.pageInfo?.next,
             prev = info?.pageInfo?.prev,
@@ -197,6 +198,104 @@ fun SearchQuery.Data.toSearchResult(): SearchResult? {
                     dimension = it?.dimension,
                     images = it?.residents?.mapNotNull { it?.image },
                     created = ""
+                )
+            }
+        )
+    )
+}
+
+fun AllDataQuery.Data.toAllData(): AllData? {
+    return AllData(
+        com.example.rickandmorty.domain.localRealm.CharacterData(
+            pages = Paginate(
+                next = characters?.info?.pageInfo?.next,
+                prev = characters?.info?.pageInfo?.prev,
+                pages = characters?.info?.pageInfo?.pages,
+                count = characters?.info?.pageInfo?.count
+            ),
+            characters = characters?.results?.mapNotNull {
+                DetailedCharacter(
+                    ID = it?.id,
+                    name = it?.name,
+                    image = it?.image,
+                    status = it?.status,
+                    species = it?.species,
+                    gender = it?.gender,
+                    lastseen = it?.location?.name,
+                    lastseenId = it?.location?.id,
+                    origin = it?.origin?.name,
+                    originId = it?.origin?.id,
+                    episode = it?.episode?.mapNotNull {
+                        Episodes(
+                            it?.id,
+                            it?.name,
+                            it?.episode,
+                            it?.air_date,
+                            it?.characters?.mapNotNull { it?.image } ?: emptyList()
+                        )
+                    } ?: emptyList()
+                )
+            }
+        ),
+        com.example.rickandmorty.domain.localRealm.LocationData(
+            pages = Paginate(
+                next = locations?.info?.pageInfo?.next,
+                prev = locations?.info?.pageInfo?.prev,
+                pages = locations?.info?.pageInfo?.pages,
+                count = locations?.info?.pageInfo?.count
+            ),
+            locations = locations?.results?.mapNotNull {
+                com.example.rickandmorty.domain.localRealm.LocationDetail(
+                    id = it?.id,
+                    dimension = it?.dimension,
+                    name = it?.name,
+                    type = it?.type,
+                    residents = it?.residents?.mapNotNull {
+                        DetailedCharacter(
+                            it?.id,
+                            it?.name,
+                            it?.image,
+                            it?.species,
+                            it?.status,
+                            it?.gender,
+                            episode = emptyList(),
+                            lastseen = "",
+                            origin = "",
+                            lastseenId = "",
+                            originId = ""
+                        )
+                    }
+                )
+            }
+        ),
+        com.example.rickandmorty.domain.localRealm.EpisodesData(
+            pages = Paginate(
+                next = episodes?.info?.pageInfo?.next,
+                prev = episodes?.info?.pageInfo?.prev,
+                pages = episodes?.info?.pageInfo?.pages,
+                count = episodes?.info?.pageInfo?.count
+            ),
+            episodes = episodes?.results?.mapNotNull {
+                com.example.rickandmorty.domain.localRealm.DetailedEpisode(
+                    id = it?.id,
+                    name = it?.name,
+                    episode = it?.episode,
+                    air_date = it?.air_date,
+                    characters = it?.characters?.mapNotNull {
+                        DetailedCharacter(
+                            it?.id,
+                            it?.name,
+                            it?.image,
+                            it?.species,
+                            it?.status,
+                            it?.gender,
+                            episode = emptyList(),
+                            lastseen = "",
+                            origin = "",
+                            lastseenId = "",
+                            originId = ""
+                        )
+                    } ?: emptyList()
                 )
             }
         )

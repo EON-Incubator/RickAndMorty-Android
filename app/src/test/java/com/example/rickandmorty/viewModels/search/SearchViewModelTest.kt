@@ -39,6 +39,7 @@ class SearchViewModelTest {
             viewModel.onSearch("Rick")
         }
 
+        Thread.sleep(3000)
         Assert.assertEquals(viewModel.searchResult.value.characterData?.characters?.get(0)?.ID, "1")
         Assert.assertEquals(
             viewModel.searchResult.value.characterData?.characters?.get(0)?.name,

@@ -1,32 +1,53 @@
 package com.example.rickandmorty.ui.screens.episode
 
 import android.annotation.SuppressLint
-import android.util.Log
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.*
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.window.DialogProperties
+import androidx.hilt.navigation.compose.hiltViewModel
+import app.moviebase.tmdb.image.TmdbImageUrlBuilder
+import coil.compose.AsyncImage
 import com.example.rickandmorty.R
+import com.example.rickandmorty.domain.episodes.TmdbEpisodeDetail
 import com.example.rickandmorty.navigation.NavigationDestination
-import com.example.rickandmorty.ui.screens.RickAndMortyTopAppBar
+import com.example.rickandmorty.network.ConnectivityObserver
 import com.example.rickandmorty.ui.screens.ScreenType
-import com.example.rickandmorty.ui.screens.commonUtils.GetInfoInLine
-import com.example.rickandmorty.ui.screens.commonUtils.GetRowWithOneImage
-import com.example.rickandmorty.ui.screens.commonUtils.shimmerBackground
+import com.example.rickandmorty.ui.screens.commonUtils.*
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
+@OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalPagerApi::class
+)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EpisodeDetails(
@@ -34,7 +55,11 @@ fun EpisodeDetails(
     navigateUp: () -> Unit,
     onCharacterClick: (String) -> Unit,
     deviceType: ScreenType = ScreenType.PORTRAIT_PHONE,
+    episodeDetailViewModel: EpisodeDetailViewModel = hiltViewModel<EpisodeDetailViewModel>(),
+    episodeDetails: TmdbEpisodeDetail,
 ) {
+    var videoClicked = rememberSaveable { mutableStateOf(false) }
+
     Scaffold(topBar = {
         if (state.isLoading) {
             RickAndMortyTopAppBar(
@@ -46,70 +71,79 @@ fun EpisodeDetails(
             RickAndMortyTopAppBar(
                 title = state.selectedEpisode?.name.toString(),
                 canNavigateBack = true,
-                navigateUp = navigateUp
+                navigateUp = navigateUp,
+                backgroundColor = colorResource(id = R.color.episodeDetail_background),
+                videoButton = when (episodeDetails.videos?.results?.firstOrNull()?.key ?: "") {
+                    "" -> false
+                    else -> true
+                },
+                onVideoClick = {
+                    videoClicked.value = true
+                }
             )
         }
     }) {
         Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
+            modifier = Modifier
+                .fillMaxSize()
+                .blur(
+                    when (videoClicked.value) {
+                        true -> 5.dp
+                        else -> 0.dp
+                    }
+                ),
+            color = colorResource(id = R.color.episodeDetail_background)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .semantics { contentDescription = "EP Detail" }
+                    .testTag(stringResource(id = R.string.ep_detail))
             ) {
                 if (state.isLoading) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .semantics { contentDescription = "Episode Detail Load" },
+                            .semantics {
+                                contentDescription = R.string.episode_detail_load.toString()
+                            },
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Column() {
-                            Spacer(modifier = Modifier.height(15.dp))
+                        Column {
+                            Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
                             Text(
                                 text = stringResource(R.string.info),
                                 fontSize = 12.sp,
                                 modifier = Modifier
-                                    .padding(start = 10.dp)
+                                    .padding(start = GetPadding().mediumPadding)
                             )
 
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
+                            Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
                             GetInfoInLine(
-                                icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                 topic = stringResource(id = R.string.episode),
                                 topicAnswer = stringResource(R.string.loading)
                             )
 
-                            Row() {
+                            Row {
                                 GetInfoInLine(
-                                    icons = ImageVector.vectorResource(id = R.drawable.date),
+                                    icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                     topic = stringResource(id = R.string.air_date),
                                     topicAnswer = stringResource(R.string.loading)
                                 )
                             }
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
 
-                            Spacer(modifier = Modifier.height(40.dp))
+                            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
 
                             Text(
                                 text = stringResource(R.string.characters),
                                 fontSize = 12.sp,
                                 modifier = Modifier
-                                    .padding(start = 10.dp)
+                                    .padding(start = GetPadding().mediumPadding)
                             )
 
-                            LazyColumn() {
+                            LazyColumn {
                                 repeat(4) {
                                     item {
                                         GetRowWithOneImage(
@@ -120,7 +154,11 @@ fun EpisodeDetails(
                                             status = "",
                                             id = "",
                                             onClickable = {},
-                                            modifier = Modifier.shimmerBackground(RoundedCornerShape(40.dp))
+                                            modifier = Modifier.shimmerBackground(
+                                                RoundedCornerShape(
+                                                    dimensionResource(id = R.dimen.spacer_40)
+                                                )
+                                            )
                                         )
                                     }
                                 }
@@ -130,50 +168,112 @@ fun EpisodeDetails(
                 } else if (state.selectedEpisode != null) {
                     if (deviceType == ScreenType.PORTRAIT_PHONE) {
                         Column() {
-                            Spacer(modifier = Modifier.height(15.dp))
-                            Text(
-                                text = stringResource(R.string.info),
-                                fontSize = 12.sp,
-                                modifier = Modifier
-                                    .padding(start = 10.dp)
-                            )
+                            LazyColumn {
+                                if (state.internetStatus == ConnectivityObserver.Status.Available) {
+                                    item {
+                                        val pagerState = rememberPagerState()
+                                        HorizontalPager(
+                                            count = episodeDetails.images?.stills?.size ?: 0,
+                                            state = pagerState,
+                                            itemSpacing = 10.dp,
+                                            contentPadding = PaddingValues(horizontal = 20.dp),
+                                            modifier = Modifier
+                                                .height(
+                                                    height = LocalConfiguration.current.screenHeightDp.dp / 5
+                                                )
+                                        ) {
+                                            Card(
 
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
+                                                border = BorderStroke(
+                                                    GetThickness().xxSmall,
+                                                    color = MaterialTheme.colors.onBackground
+                                                ),
+                                                shape = RoundedCornerShape(10)
 
-                            GetInfoInLine(
-                                icons = ImageVector.vectorResource(id = R.drawable.episode),
-                                topic = stringResource(id = R.string.episode),
-                                topicAnswer = state.selectedEpisode?.episode.toString()
-                            )
+                                            ) {
+                                                GetCarouselImage(
+                                                    imageUri = TmdbImageUrlBuilder.build(
+                                                        episodeDetails.images?.stills?.get(it)?.filePath
+                                                            ?: "",
+                                                        stringResource(R.string.w500)
+                                                    )
+                                                )
+                                            }
+                                        }
+                                    }
 
-                            Row() {
-                                GetInfoInLine(
-                                    icons = ImageVector.vectorResource(id = R.drawable.date),
-                                    topic = stringResource(id = R.string.air_date),
-                                    topicAnswer = state.selectedEpisode?.air_date.toString()
-                                )
-                            }
-                            Divider(
-                                Modifier.height(1.dp),
-                                color = MaterialTheme.colors.onBackground
-                            )
+                                    item {
+                                        Spacer(modifier = Modifier.height(GetPadding().xxxMediumPadding))
 
-                            Spacer(modifier = Modifier.height(40.dp))
+                                        Text(
+                                            text = stringResource(R.string.description_caps),
+                                            fontSize = 12.sp,
+                                            modifier = Modifier
+                                                .padding(start = GetPadding().mediumPadding)
+                                        )
 
-                            Text(
-                                text = stringResource(R.string.characters),
-                                fontSize = 12.sp,
-                                modifier = Modifier
-                                    .padding(start = 10.dp)
-                            )
+                                        Spacer(modifier = Modifier.height(GetPadding().smallPadding))
 
-                            if (state.selectedEpisode.characters.isNotEmpty()) {
-                                Log.v("character", state.characters.toString())
-                                LazyColumn() {
+                                        Text(
+                                            text = episodeDetails.overview,
+                                            fontSize = 11.sp,
+                                            modifier = Modifier
+                                                .padding(
+                                                    start = GetPadding().xxMediumPadding,
+                                                    end = GetPadding().xxMediumPadding
+                                                )
+                                        )
+                                    }
+                                }
+                                item {
+                                    Spacer(modifier = Modifier.height(GetPadding().smallPadding))
+
+                                    Text(
+                                        text = stringResource(R.string.info),
+                                        fontSize = 12.sp,
+                                        modifier = Modifier
+                                            .padding(start = GetPadding().mediumPadding)
+                                            .semantics {
+                                                contentDescription =
+                                                    R.string.detail_ep.toString()
+                                            }
+                                    )
+
+                                    Spacer(modifier = Modifier.height(GetPadding().smallPadding))
+
+                                    GetInfoInLine(
+                                        icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
+                                        topic = stringResource(id = R.string.episode),
+                                        topicAnswer = state.selectedEpisode?.episode.toString()
+                                    )
+
+                                    Row {
+                                        GetInfoInLine(
+                                            icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
+                                            topic = stringResource(id = R.string.air_date),
+                                            topicAnswer = state.selectedEpisode?.air_date.toString()
+                                        )
+                                    }
+
+                                    if (state.internetStatus == ConnectivityObserver.Status.Available) {
+                                        GetInfoInLine(
+                                            icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
+                                            topic = stringResource(R.string.rating),
+                                            topicAnswer = episodeDetails.voteAverage.toString()
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.height(GetPadding().xMediumPadding))
+                                }
+
+                                item {
+                                    Text(
+                                        text = stringResource(R.string.characters),
+                                        fontSize = 12.sp,
+                                        modifier = Modifier
+                                            .padding(start = GetPadding().mediumPadding)
+                                    )
+                                }
+                                if (state.selectedEpisode.characters.isNotEmpty()) {
                                     items(state.selectedEpisode.characters) { episode ->
                                         GetRowWithOneImage(
                                             imageUrlLink = episode.image.toString(),
@@ -188,8 +288,16 @@ fun EpisodeDetails(
                                         )
                                     }
                                 }
-                            } else {
-                                ImageVector.vectorResource(id = R.drawable.ic_broken_image)
+                            }
+                            if (videoClicked.value) {
+                                playVideo(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    videoClicked = {
+                                        videoClicked.value = it
+                                    },
+                                    videoId = episodeDetailViewModel.getEpisodeVideo(),
+                                    playFullScreen = false
+                                )
                             }
                         }
                     } else {
@@ -203,35 +311,27 @@ fun EpisodeDetails(
                                     text = stringResource(R.string.info),
                                     fontSize = 12.sp,
                                     modifier = Modifier
-                                        .padding(start = 10.dp)
+                                        .padding(start = GetPadding().mediumPadding)
                                 )
 
-                                Spacer(modifier = Modifier.height(6.dp))
-                                Divider(
-                                    Modifier.height(1.dp),
-                                    color = MaterialTheme.colors.onBackground
-                                )
+                                Spacer(modifier = Modifier.height(GetPadding().xSmallPadding))
 
                                 GetInfoInLine(
-                                    icons = ImageVector.vectorResource(id = R.drawable.episode),
+                                    icons = ImageVector.vectorResource(id = R.drawable.tvepisodedetail),
                                     topic = stringResource(id = R.string.episode),
                                     topicAnswer = state.selectedEpisode?.episode.toString()
                                 )
 
-                                Row() {
+                                Row {
                                     GetInfoInLine(
-                                        icons = ImageVector.vectorResource(id = R.drawable.date),
+                                        icons = ImageVector.vectorResource(id = R.drawable.episodeairdate),
                                         topic = stringResource(id = R.string.air_date),
                                         topicAnswer = state.selectedEpisode?.air_date.toString()
 
                                     )
                                 }
-                                Divider(
-                                    Modifier.height(1.dp),
-                                    color = MaterialTheme.colors.onBackground
-                                )
 
-                                Spacer(modifier = Modifier.height(40.dp))
+                                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_40)))
                             }
 
                             Column(modifier = Modifier.weight(5F)) {
@@ -239,12 +339,11 @@ fun EpisodeDetails(
                                     text = stringResource(R.string.characters),
                                     fontSize = 12.sp,
                                     modifier = Modifier
-                                        .padding(start = 10.dp)
+                                        .padding(start = GetPadding().mediumPadding)
                                 )
 
                                 if (state.selectedEpisode.characters.isNotEmpty()) {
-                                    Log.v("character", state.characters.toString())
-                                    LazyColumn() {
+                                    LazyColumn {
                                         items(state.selectedEpisode.characters) { episode ->
                                             GetRowWithOneImage(
                                                 imageUrlLink = episode.image.toString(),
@@ -264,11 +363,23 @@ fun EpisodeDetails(
                                 }
                             }
                         }
+                        if (videoClicked.value) {
+                            playVideo(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp),
+                                videoClicked = {
+                                    videoClicked.value = it
+                                },
+                                videoId = episodeDetails.videos?.results?.firstOrNull()?.key ?: "",
+                                playFullScreen = true
+                            )
+                        }
                     }
                 } else {
                     Image(
                         painter = painterResource(id = R.drawable.ic_broken_image),
-                        contentDescription = "Broken"
+                        contentDescription = stringResource(R.string.broken)
                     )
                 }
             }
@@ -277,6 +388,106 @@ fun EpisodeDetails(
 }
 
 object EpisodeDetailsDestination : NavigationDestination {
-    override val route = "episode_detail"
+    override val route = "episode_details"
     override val screenTitleRes = R.string.episode_detail_screen_title
+}
+
+@Composable
+fun GetCarouselImage(imageUri: String) {
+    AsyncImage(
+        modifier = Modifier.size(
+            height = LocalConfiguration.current.screenHeightDp.dp / 5,
+            width =
+            LocalConfiguration.current.screenWidthDp.dp - 50.dp
+        ),
+        alignment = Alignment.Center,
+        model = imageUri,
+        error = painterResource(id = getErrorImage()),
+        placeholder = painterResource(R.drawable.loading_img),
+        contentDescription = stringResource(R.string.crew_members_leading_caps),
+        contentScale = ContentScale.Crop
+    )
+}
+
+@Composable
+fun YoutubeScreen(
+    videoId: String,
+    modifier: Modifier = Modifier,
+    playFullScreen: Boolean = false,
+) {
+    val ctx = LocalContext.current
+    var view by remember {
+        mutableStateOf(YouTubePlayerView(ctx))
+    }
+
+    view.addYouTubePlayerListener(
+        object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                super.onReady(youTubePlayer)
+                youTubePlayer.loadVideo(videoId, 0f)
+            }
+        }
+    )
+    AndroidView(factory = {
+        view
+    }, update = {
+        if (playFullScreen) {
+            view.enterFullScreen()
+        }
+    }, modifier = Modifier)
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun playVideo(
+    modifier: Modifier = Modifier,
+    videoClicked: (Boolean) -> Unit,
+    videoId: String,
+    playFullScreen: Boolean = false,
+) {
+    AlertDialog(
+        backgroundColor = Color.Black,
+        onDismissRequest = { videoClicked(false) },
+
+        text = {
+            Card(
+                Modifier
+                    .fillMaxWidth()
+//                    .scrollable(
+//                        orientation = Orientation.Vertical,
+//                        state = rememberScrollableState { delta ->
+//                            when {
+//                                delta < 0 -> {
+//                                    videoClicked(false)
+//                                }
+//                                delta > 0 -> {
+//                                    videoClicked(false)
+//                                }
+//                                else -> {}
+//                            }
+//                            delta
+//                        }
+//                    )
+            ) {
+                YoutubeScreen(videoId = videoId, playFullScreen = playFullScreen)
+            }
+        },
+        confirmButton = {},
+        dismissButton = {
+            if (playFullScreen) {
+                Button(
+                    colors = ButtonDefaults.buttonColors(Color.DarkGray),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+//                    .padding(5.dp),
+                    onClick = { videoClicked(false) }
+                ) {
+                    Text(color = Color.White, textAlign = TextAlign.End, text = stringResource(R.string.exit_leading_caps))
+                }
+            }
+        },
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false
+        )
+    )
 }

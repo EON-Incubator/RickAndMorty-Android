@@ -296,7 +296,8 @@ fun EpisodeDetails(
                                         videoClicked.value = it
                                     },
                                     videoId = episodeDetailViewModel.getEpisodeVideo(),
-                                    playFullScreen = false
+                                    playFullScreen = false,
+                                    videoClickedState = videoClicked
                                 )
                             }
                         }
@@ -372,7 +373,8 @@ fun EpisodeDetails(
                                     videoClicked.value = it
                                 },
                                 videoId = episodeDetails.videos?.results?.firstOrNull()?.key ?: "",
-                                playFullScreen = true
+                                playFullScreen = true,
+                                videoClickedState = videoClicked
                             )
                         }
                     }
@@ -414,6 +416,7 @@ fun YoutubeScreen(
     videoId: String,
     modifier: Modifier = Modifier,
     playFullScreen: Boolean = false,
+    videoClickedState: MutableState<Boolean>,
 ) {
     val ctx = LocalContext.current
     var view by remember {
@@ -425,6 +428,10 @@ fun YoutubeScreen(
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 super.onReady(youTubePlayer)
                 youTubePlayer.loadVideo(videoId, 0f)
+                if (!videoClickedState.value) {
+                    youTubePlayer.pause()
+                    view.release()
+                }
             }
         }
     )
@@ -444,6 +451,7 @@ fun playVideo(
     videoClicked: (Boolean) -> Unit,
     videoId: String,
     playFullScreen: Boolean = false,
+    videoClickedState: MutableState<Boolean>,
 ) {
     AlertDialog(
         backgroundColor = Color.Black,
@@ -469,7 +477,7 @@ fun playVideo(
 //                        }
 //                    )
             ) {
-                YoutubeScreen(videoId = videoId, playFullScreen = playFullScreen)
+                YoutubeScreen(videoId = videoId, playFullScreen = playFullScreen, videoClickedState = videoClickedState)
             }
         },
         confirmButton = {},

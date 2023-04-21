@@ -32,7 +32,7 @@ import com.example.rickandmorty.ui.screens.commonUtils.BottomNavigationBar
 fun RickAndMortyMainApp(
     navController: NavHostController = rememberNavController(),
     windowSize: WindowSizeClass,
-    internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
+    internetStatus: ConnectivityObserver.Status,
 ) {
     val viewModel = hiltViewModel<AppViewModelProvider>()
     viewModel.setStatus(internetStatus = internetStatus)

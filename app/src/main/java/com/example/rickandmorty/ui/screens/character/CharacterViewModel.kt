@@ -42,7 +42,7 @@ class CharacterViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-//    val internetStatus = savedStateHandle.get<ConnectivityObserver.Status>("status")
+    //    val internetStatus = savedStateHandle.get<ConnectivityObserver.Status>("status")
     private val _characters = MutableStateFlow(CharacterState())
     val characters = _characters.asStateFlow()
 
@@ -78,7 +78,10 @@ class CharacterViewModel @Inject constructor(
                     isLoading = true
                 )
             }
-            val characterData = getCharacterUseCase.sortById(filterCharacter.value, internetStatus = _characters.value.internetStatus)
+            val characterData = getCharacterUseCase.sortById(
+                filterCharacter.value,
+                internetStatus = _characters.value.internetStatus
+            )
 
             _characters.update {
                 it.copy(
@@ -133,7 +136,7 @@ class CharacterViewModel @Inject constructor(
                     internetStatus = _characters.value.internetStatus
                 )
             Log.v(R.string.values.toString(), filterCharacter.value.toString())
-            Log.v(R.string.values.toString(), characters.value.toString())
+            Log.v(R.string.values.toString(), characterData?.pages.toString())
             _characters.update {
                 it.copy(
                     characters = characterData?.characters ?: emptyList(),
@@ -152,20 +155,20 @@ class CharacterViewModel @Inject constructor(
                         isLoadingPage = true
                     )
                 }
-            }
 
-            val characterData =
-                getCharacterUseCase.sortById(
-                    filterCharacter.value,
-                    page = characters.value.pages?.next ?: 1,
-                    internetStatus = _characters.value.internetStatus
-                )
-            _characters.update {
-                it.copy(
-                    characters = it.characters + (characterData?.characters ?: emptyList()),
-                    pages = characterData?.pages,
-                    isLoadingPage = false
-                )
+                val characterData =
+                    getCharacterUseCase.sortById(
+                        filterCharacter.value,
+                        page = characters.value.pages?.next ?: 1,
+                        internetStatus = _characters.value.internetStatus
+                    )
+                _characters.update {
+                    it.copy(
+                        characters = it.characters + (characterData?.characters ?: emptyList()),
+                        pages = characterData?.pages,
+                        isLoadingPage = false
+                    )
+                }
             }
         }
     }
@@ -183,6 +186,7 @@ class CharacterViewModel @Inject constructor(
             refresh()
         }
     }
+
     data class CharacterState(
         val characters: List<Character> = emptyList(),
         val character: DetailedCharacter? = null,

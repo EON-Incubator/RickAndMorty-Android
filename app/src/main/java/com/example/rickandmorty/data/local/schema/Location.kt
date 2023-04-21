@@ -1,6 +1,5 @@
 package com.example.rickandmorty.data.local.schema
 
-import com.example.rickandmorty.domain.character.DetailedCharacter
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.types.RealmList

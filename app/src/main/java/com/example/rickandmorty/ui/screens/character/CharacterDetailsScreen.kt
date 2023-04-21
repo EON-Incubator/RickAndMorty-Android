@@ -11,11 +11,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
@@ -231,7 +231,8 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
                 contentDescription = null,
                 modifier = Modifier
                     .size(dimensionResource(id = R.dimen.character_card_image_size)),
-                alignment = Alignment.Center
+                alignment = Alignment.Center,
+                error = painterResource(id = getErrorImage())
             )
         }
     } else {
@@ -248,7 +249,8 @@ fun topInfo(charInfo: DetailedCharacter?, deviceType: ScreenType) {
                     contentDescription = null,
                     modifier = Modifier
                         .size(dimensionResource(id = R.dimen.character_image_size)),
-                    alignment = Alignment.Center
+                    alignment = Alignment.Center,
+                    error = painterResource(id = getErrorImage())
                 )
             }
         }

@@ -29,6 +29,13 @@ class GetSearchResultUseCase(
 ) {
 
     suspend fun execute(queryString: String, page: Int = 1): SearchResult? {
+        if (queryString == "") {
+            return SearchResult(
+                characterData = null,
+                locationByName = null,
+                locationByType = null
+            )
+        }
         if (DataState.isLocal) {
             var characters = charactersRepository.getAllCharactersStream(queryString)
             var locations = locationsRepository.getAllLocationsStream(queryString)

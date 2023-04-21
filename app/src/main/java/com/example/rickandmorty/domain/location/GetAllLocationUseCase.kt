@@ -32,9 +32,18 @@ class GetAllLocationUseCase @Inject constructor(
     ): LocationData? {
         var locationData: LocationData? = null
         if (internetStatus == ConnectivityObserver.Status.Available) {
+<<<<<<< HEAD
             Log.v(R.string.internet_on.toString(), internetStatus.toString())
             locationData = characterClient
                 .getAllLocations(filterLocation, page)
+=======
+            Log.v("Internet On", internetStatus.toString())
+            try {
+                locationData = characterClient
+                    .getAllLocations(filterLocation, page)
+            } catch (e: Exception) {
+            }
+>>>>>>> 0e26d9cd0d62b050e84e9b67339826830d083882
         } else {
             var data = mutableStateOf(emptyList<Location>())
 
@@ -65,7 +74,7 @@ class GetAllLocationUseCase @Inject constructor(
 
             locationData = LocationData(
                 locations = locationList,
-                pages = Paginate(2, 42, 1, 826)
+                pages = pagesOffline
             )
         }
 

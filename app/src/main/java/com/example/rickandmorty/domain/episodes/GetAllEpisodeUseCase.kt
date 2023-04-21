@@ -23,7 +23,10 @@ class GetAllEpisodeUseCase @Inject constructor(
     ): EpisodesData? {
         var episodeData: EpisodesData? = null
         if (internetStatus == ConnectivityObserver.Status.Available) {
-            episodeData = characterClient.getEpisodes(filterEpisode, page)
+            try {
+                episodeData = characterClient.getEpisodes(filterEpisode, page)
+            } catch (e: Exception) {
+            }
         } else {
             var data = mutableStateOf(emptyList<com.example.rickandmorty.data.local.schema.Episode>())
 

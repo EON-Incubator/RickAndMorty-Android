@@ -1,10 +1,8 @@
 package com.example.rickandmorty.data.local.schema
 
-import app.moviebase.tmdb.model.TmdbEpisodeDetail
-import com.example.rickandmorty.domain.character.DetailedCharacter
+// import androidx.room.PrimaryKey
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.ext.toRealmList
-// import androidx.room.PrimaryKey
 import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey

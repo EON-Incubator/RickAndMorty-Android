@@ -25,8 +25,12 @@ class GetLocationDetailUseCase(
     ): LocationDetail? {
         Log.v(R.string.cc_status.toString(), internetStatus.name.toString())
         if (internetStatus == ConnectivityObserver.Status.Available) {
-            return characterClient
-                .getLocationDetail(id)
+            try {
+                return characterClient
+                    .getLocationDetail(id)
+            } catch (e: Exception) {
+                return null
+            }
         } else {
             val locationRealm = locationsRepository.getLocationStream(id.toInt())
             Log.v(R.string.location_realm_leading_caps.toString(), locationRealm?.id.toString())

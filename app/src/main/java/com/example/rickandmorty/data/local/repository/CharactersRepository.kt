@@ -1,7 +1,7 @@
 package com.example.rickandmorty.data.local.repository
 
-import kotlinx.coroutines.flow.Flow
 import com.example.rickandmorty.data.local.schema.Character
+import kotlinx.coroutines.flow.Flow
 
 interface CharactersRepository {
     /**
@@ -9,7 +9,7 @@ interface CharactersRepository {
      */
     fun getAllCharactersStream(queryString: String = ""): Flow<List<Character>>
 
-    fun getAllCharacterByPageNum(page: Int = 1): Flow<List<Character>>
+    fun getAllCharacterByPageNum(filterCharacter: Map<String, String> = emptyMap(), page: Int = 1): Flow<List<Character>>
 
     /**
      * Retrieve an item from the given data source that matches with the [id].

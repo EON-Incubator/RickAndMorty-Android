@@ -17,7 +17,11 @@ class GetEpisodeUseCase(
         internetStatus: ConnectivityObserver.Status = ConnectivityObserver.Status.Lost,
     ): DetailedEpisode? {
         if (internetStatus == ConnectivityObserver.Status.Available) {
-            return characterClient.getEpisode(id)
+            try {
+                return characterClient.getEpisode(id)
+            } catch (e: Exception) {
+                return null
+            }
         } else {
             val episodeRealm = episodesRepository.getEpisodeStream(id.toInt())
             Log.v(R.string.episode_realm_leading_caps.toString(), episodeRealm?.id.toString())
